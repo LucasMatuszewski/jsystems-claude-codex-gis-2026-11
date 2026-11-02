@@ -1,0 +1,4 @@
+image_id,filename,source_url,download_url,creator,license,license_url,longitude,latitude,captured_at,category_speed_hint,observed_speed,label_status,sha256,view_azimuth,annotations_json
+synthetic_000,synthetic_000.png,,,Edukey course fixture generator,CC0-1.0,https://creativecommons.org/publicdomain/zero/1.0/,19.44,51.77,,,30,synthetic_ground_truth,75d49553da4abde8edd2353ea830abc0187174b5cfd80be6d0f4cbec225eb45e,,
+synthetic_001,synthetic_001.png,,,Edukey course fixture generator,CC0-1.0,https://creativecommons.org/publicdomain/zero/1.0/,19.443,51.77,,,50,synthetic_ground_truth,410c51fde02a57e5880c05cd8c1ed7444efc189999784edc0a14084237d40da3,,
+synthetic_004,synthetic_004.png,,,Edukey course fixture generator,CC0-1.0,https://creativecommons.org/publicdomain/zero/1.0/,19.452,51.77,,,none,synthetic_ground_truth,39b2212746cc435c617a7d2d189531864685979ae72c0828fe6011d31794b44b,,

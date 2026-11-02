@@ -1,0 +1,77 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "synthetic/0",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            19.439500000000002,
+            51.77
+          ],
+          [
+            19.4405,
+            51.77
+          ]
+        ]
+      },
+      "properties": {
+        "osm_id": 1,
+        "maxspeed": "30",
+        "highway": "residential",
+        "oneway": "no",
+        "source": "synthetic_fixture_not_OSM"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "synthetic/1",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            19.442500000000003,
+            51.77
+          ],
+          [
+            19.4435,
+            51.77
+          ]
+        ]
+      },
+      "properties": {
+        "osm_id": 2,
+        "maxspeed": "30",
+        "highway": "residential",
+        "oneway": "no",
+        "source": "synthetic_fixture_not_OSM"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "synthetic/4",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            19.451500000000003,
+            51.77
+          ],
+          [
+            19.4525,
+            51.77
+          ]
+        ]
+      },
+      "properties": {
+        "osm_id": 5,
+        "maxspeed": "50",
+        "highway": "residential",
+        "oneway": "no",
+        "source": "synthetic_fixture_not_OSM"
+      }
+    }
+  ]
+}

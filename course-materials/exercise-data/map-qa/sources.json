@@ -1,0 +1,141 @@
+{
+  "created_at": "2026-11-02T23:43:25.883133+00:00",
+  "area": "Kraków i najbliższe okolice",
+  "bbox_wgs84": [
+    19.8,
+    49.95,
+    20.15,
+    50.15
+  ],
+  "coordinate_order": "longitude, latitude",
+  "osm": {
+    "source": "Geofabrik małopolskie",
+    "url": "https://download.geofabrik.de/europe/poland/malopolskie-latest.osm.pbf",
+    "extract_date": "2026-11-01T21:21:36Z",
+    "rows": 99768,
+    "license": "ODbL-1.0",
+    "highway_included": [
+      "motorway",
+      "motorway_link",
+      "trunk",
+      "trunk_link",
+      "primary",
+      "primary_link",
+      "secondary",
+      "secondary_link",
+      "tertiary",
+      "tertiary_link",
+      "residential",
+      "living_street",
+      "unclassified",
+      "service",
+      "track",
+      "road",
+      "busway"
+    ],
+    "geometry_selection": "Whole source ways intersecting bbox, without artificial end nodes. boundary_crossing marks overhang.",
+    "tags": "Complete source tags preserved as UTF-8 JSON string; node_ids correspond to geometry vertices.",
+    "crs": "EPSG:4326"
+  },
+  "overture": {
+    "release": "2026-10-21.0",
+    "rows": 85405,
+    "license": "ODbL-1.0",
+    "crs": "OGC:CRS84",
+    "source_urls": [
+      "https://overturemaps-us-west-2.s3.us-west-2.amazonaws.com/release/2026-10-21.0/theme=transportation/type=segment/part-00083-4816c7fe-db3a-5220-a458-bc399235eff9-c000.zstd.parquet",
+      "https://overturemaps-us-west-2.s3.us-west-2.amazonaws.com/release/2026-10-21.0/theme=transportation/type=segment/part-00085-af937faa-3d2d-52bb-aa39-d1e6be9fb3d7-c000.zstd.parquet"
+    ],
+    "classes_excluded": [
+      "footway",
+      "path",
+      "steps",
+      "cycleway",
+      "pedestrian",
+      "bridleway"
+    ],
+    "columns": "id, geometry, class, subclass, name, sources, connectors, speed_limits, road_surface, road_flags, access_restrictions, level_rules, bbox, version",
+    "selection": "road subtype, bbox intersection; source segment geometry retained"
+  },
+  "photos": {
+    "rows": 561,
+    "panoramax": 461,
+    "mapillary": 100,
+    "offline": 40,
+    "license": "CC-BY-SA-4.0",
+    "image_credits": "photos.csv; offline/ATTRIBUTION.csv",
+    "panoramax_discovery_images": 1792,
+    "panoramax_discovery_sequences": 72,
+    "panoramax_discovery_url": "https://api.panoramax.xyz/api/search",
+    "sampling": "Spatial tiles, interleaved sequences and spaced frames; reviewed non-road images and identical SHA-256 duplicates removed. Mapillary photographs are associated with selected speed-limit map features, not a random city sample.",
+    "width_height": "Manifest records final thumbnail dimensions; is_panorama is an aspect-ratio heuristic (>2.5), not an authoritative projection type."
+  },
+  "mapillary": {
+    "signs": 1730,
+    "sign_scope": "Selected regulatory maximum-speed-limit classes g1, spatially tiled bounded API sample, not a complete city inventory. Saturated tiles can omit features.",
+    "sign_license": "ODbL-1.0 (public derived metadata under Mapillary OSM compatibility permission)",
+    "detection_images": 20,
+    "detections": 3481,
+    "image_api": "Graph API v4 per-image metadata; /images search returned HTTP 500. Image IDs obtained from map_features.images.",
+    "sign_endpoint": "https://graph.mapillary.com/map_features"
+  },
+  "links": {
+    "rows": 561,
+    "crs_for_distance": "EPSG:2180",
+    "radius_m": 25,
+    "bearing": "Local tangent within +/-5 m of projected camera position, converted back to true-north geodesic bearing. bearing_diff is minimum forward/reverse angular difference (0-90 degrees).",
+    "ranking": "distance_m + bearing_diff/9; missing heading contributes 5 m to rank. Ties broken by distance then OSM id. Alternative score within 2 m marks ambiguous_candidates.",
+    "overture": "Prefer a source-record reference to the chosen OSM way within 25 m of the camera, otherwise a spatial fallback within 25 m.",
+    "direction": "camera heading is not travel direction; camera_against_way_direction is a review flag, not an access violation.",
+    "status": "Input candidates, not ground-truth assignment or conflict verdicts."
+  },
+  "reference": {
+    "images": 100,
+    "questions": [
+      "surface",
+      "junction_visible",
+      "street_lighting_visible",
+      "speed_limit_value"
+    ],
+    "method": "Visual inspection of each reference photograph; uncertainty stored per label. Three questions on 80 Panoramax photographs and four on 20 Mapillary photographs.",
+    "scope": "Labels for measuring image interpretation quality; no map-error verdicts."
+  },
+  "databricks": {
+    "required": false,
+    "snapshot_access": "local files"
+  },
+  "files": {
+    "osm_roads.parquet": {
+      "bytes": 10304229,
+      "sha256": "b429a97aef4e9e9f6c9cf760081a215eeb14cdc97b678812730a318b0e61d32b"
+    },
+    "osm_roads_sample.geojson": {
+      "bytes": 78277,
+      "sha256": "c3240557b9d22c0ad707f6a6c04ff976eadac87591fac50a6b66e4ae0c6775d4"
+    },
+    "overture_segments.parquet": {
+      "bytes": 13439701,
+      "sha256": "cf4ee780992cfab94eeda799ef6aa6ee67c86539d14aef572e937b35b8259760"
+    },
+    "photos.csv": {
+      "bytes": 419578,
+      "sha256": "3eb43bb087d35515ac61bbb879fcfb20b980344285a83d0c93d0eab4de8e3f28"
+    },
+    "photo_road_links.csv": {
+      "bytes": 86302,
+      "sha256": "2667114337b1ee8ac6003051162144f170430867a16bd8ce7692b82898064e53"
+    },
+    "reference_labels.csv": {
+      "bytes": 93923,
+      "sha256": "0c93c304f372b5baf450a2c63749018d7c2f683ca3bb3b0a67581e26e051a167"
+    },
+    "traffic_signs.geojson": {
+      "bytes": 1033122,
+      "sha256": "37d015ebb7a6ed91f185da6e0e771bd8298fb94dd5b2e7d4d22bb5a1a36c1514"
+    },
+    "mapillary_detections.json.gz": {
+      "bytes": 228804,
+      "sha256": "4546a49d9fcc7540dc2919283435034081f41c052c4e2d41f38ca00fcc77b96f"
+    }
+  }
+}

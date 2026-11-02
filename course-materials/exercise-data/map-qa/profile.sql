@@ -1,0 +1,11 @@
+INSTALL spatial;
+LOAD spatial;
+SELECT 'osm_roads' AS source, count(*) AS rows FROM read_parquet('osm_roads.parquet') UNION ALL SELECT 'overture_segments', count(*) FROM read_parquet('overture_segments.parquet') UNION ALL SELECT 'photos', count(*) FROM read_csv('photos.csv') UNION ALL SELECT 'photo_road_links', count(*) FROM read_csv('photo_road_links.csv');
+SELECT highway, count(*) AS rows, count(maxspeed) AS with_maxspeed, count(surface) AS with_surface, count(lanes) AS with_lanes, count(lit) AS with_lit FROM read_parquet('osm_roads.parquet') GROUP BY highway ORDER BY rows DESC;
+SELECT count(*) AS rows, count(DISTINCT osm_id) AS unique_ids, count(*) FILTER (WHERE NOT ST_IsValid(geometry)) AS invalid, typeof(first(geometry)) AS geometry_type FROM read_parquet('osm_roads.parquet');
+SELECT class, count(*) AS rows, count(*) FILTER (WHERE len(speed_limits) > 0) AS with_speed_rules, count(*) FILTER (WHERE len(road_surface) > 0) AS with_surface_rules FROM read_parquet('overture_segments.parquet') GROUP BY class ORDER BY rows DESC;
+SELECT count(*) AS rows, count(DISTINCT id) AS unique_ids, count(*) FILTER (WHERE NOT ST_IsValid(geometry)) AS invalid, typeof(first(geometry)) AS geometry_type FROM read_parquet('overture_segments.parquet');
+SELECT source, count(*) AS rows, count(DISTINCT sequence) AS sequences, count(heading) AS with_heading, count(author) AS with_author, count(license) AS with_license FROM read_csv('photos.csv') GROUP BY source;
+SELECT count(*) AS photos, count(osm_way_id) AS osm_candidates, count(overture_id) AS overture_candidates, min(distance_m) AS minimum_m, median(distance_m) AS median_m, quantile_cont(distance_m, 0.95) AS p95_m, max(distance_m) AS maximum_m FROM read_csv('photo_road_links.csv');
+SELECT match_method, count(*) AS rows FROM read_csv('photo_road_links.csv') GROUP BY match_method;
+SELECT count(*) FILTER (WHERE json_extract_string(tags, '$."maxspeed:conditional"') IS NOT NULL) AS conditional_speed, count(*) FILTER (WHERE json_extract_string(tags, '$."maxspeed:forward"') IS NOT NULL) AS forward_speed, count(*) FILTER (WHERE json_extract_string(tags, '$."maxspeed:backward"') IS NOT NULL) AS backward_speed, count(*) FILTER (WHERE boundary_crossing) AS boundary_ways FROM read_parquet('osm_roads.parquet');

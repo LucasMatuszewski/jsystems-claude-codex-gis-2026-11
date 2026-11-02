@@ -28,6 +28,7 @@ W bibliotece znajdują się również **archiwalne materiały z wcześniejszego 
 
 Wybierz materiał do zadania:
 
+- **Główne ćwiczenie:** [kontrola atrybutów mapy ze zdjęć: Luna Decisions + pipeline](course-materials/exercises/map-qa-decisions/). PRD, dane, zasady agentów, TDD i raport kandydatów na konflikt.
 - **Rekomendowane ćwiczenie na danych publicznych:** [ładowarki EV + decyzje Jev + opcjonalny trening Modal](course-materials/exercises/ev-chargers-jev/). Prowadzisz agentów od pobrania danych do ewaluacji i dashboardu.
 - **Projekty na danych publicznych:** [cztery pomysły i pełne prompty PRD](course-materials/Prompt%20examples/PRD-ideas-overview.md), [skrypty pobierania realnych danych GIS](course-materials/exercise-data/real/).
 - **Syntetyczne dane GIS z celowo wprowadzonymi błędami:** [POI, drogi i dzielnice](course-materials/exercise-data/gis/).
