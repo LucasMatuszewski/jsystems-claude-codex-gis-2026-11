@@ -2,7 +2,7 @@
 
 ## Project
 
-This is a **course project** for the "AI dla programistów: agenci AI w pracy z danymi GIS (Claude Code i Codex)" training organized by JSystems, 4 dni w dwóch blokach po 2 dni (2-3.11 i 12-13.11.2026), remote on cloud VMs. The primary taught agent is OpenAI Codex CLI, with Claude Code and GitHub Copilot as covered alternatives. The group selects the actual application and change. Greenfield work starts from the empty scaffold and defines the product live; legacy work uses a separate clone of the original application. Its domain, stack and architecture come from the real task and inspected sources, not historical course examples: research → application or feature PRD → ADR → implementation with agents.
+This is a **course project** for the "AI dla programistów: agenci AI w pracy z danymi GIS (Claude Code i Codex)" training organized by JSystems, 4 dni w dwóch blokach po 2 dni (2-3.11 i 12-13.11.2026), remote on cloud VMs. The taught agents are Claude Code and OpenAI Codex CLI, used from the terminal; GitHub Copilot and Cursor are covered only as comparisons. The participants are GIS / data engineers. The course project is a Python data-quality pipeline for synthetic map data (points of interest, road segments, districts) built in `app/` from the inputs in `course-materials/exercise-data/gis/` (the only folder in `course-materials/` an agent may read without being asked). Stack: Python 3.12 managed with uv, pandas, GeoPandas, Shapely, pyproj, DuckDB with the spatial extension, pytest. Raw input files are read-only. Work flows: data discovery → spec / PRD → plan → implementation with tests → review.
 
 This is only the **base starting repository** for the course; concrete decisions are made live with the group.
 
@@ -24,7 +24,7 @@ docs/                PRD, ADR, design system
 course-materials/    Notes, scripts, examples, research
 ```
 
-**Do not read `course-materials/` on your own.** It holds teaching examples from this and earlier courses: sample PRDs, ADRs, prompts and agent instructions. They are not requirements or conventions for this app. Do not browse, search or index it during normal work; open a file there only when the user names it or asks for course material.
+**Do not read `course-materials/` on your own** (exception: `course-materials/exercise-data/gis/`, the project's input data). It holds teaching examples from this and earlier courses: sample PRDs, ADRs, prompts and agent instructions. They are not requirements or conventions for this app. Do not browse, search or index it during normal work; open a file there only when the user names it or asks for course material.
 
 ---
 

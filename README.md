@@ -8,11 +8,11 @@
 - [Wyniki ankiety przed szkoleniem](https://devpowers.com/szkolenia/jsystems/claude-codex-gis-2026-11/raport-przed.html) · [Odpowiedzi na pytania z kursu](https://devpowers.com/szkolenia/jsystems/claude-codex-gis-2026-11/pytania.html) (uzupełniamy po każdym dniu)
 
 
-Repozytorium uczestnika szkolenia JSystems (2-3.11 i 12-13.11.2026, online, 09:00-16:00). W czasie szkolenia (4 dni w dwóch blokach po 2 dni) przechodzimy pełny cykl wytwarzania oprogramowania z agentami AI: od pomysłu i wymagań (PRD), przez decyzje architektoniczne (ADR), plan, implementację i testy, po code review, bezpieczeństwo i CI/CD.
+Repozytorium uczestnika szkolenia JSystems (2-3.11 i 12-13.11.2026, online, 09:00-16:00). W czasie szkolenia (4 dni w dwóch blokach po 2 dni) uczymy się pracy z agentami AI na zadaniach z danymi przestrzennymi: od rozpoznania danych, przez trwałe zasady pracy agenta, plan i powtarzalny pipeline z testami, po podział pracy między modele i agentów, code review w GitHub, łączenie agentów z usługami przez API i MCP.
 
-Głównym agentem warsztatu jest **OpenAI Codex CLI**, a te same koncepcje pokazujemy także w **Claude Code** i **GitHub Copilot**. Możesz pracować w swoim stosie (np. C# / .NET, Java, Python); przykład prowadzącego powstaje w TypeScript.
+Pracujemy w terminalu z dwoma agentami: **Claude Code** i **OpenAI Codex CLI**, na kontach szkoleniowych i maszynach wirtualnych. Claude Code pełni rolę agenta prowadzącego i recenzenta, Codex wykonuje zlecone zadania; porównujemy też, kiedy wystarczy tańszy model. Ćwiczenia piszemy w **Pythonie** (uv, pandas, GeoPandas, Shapely, DuckDB z rozszerzeniem spatial, pytest). Kod generują agenci, a Ty prowadzisz proces i sprawdzasz wyniki.
 
-Głównym projektem grupy jest aplikacja do obsługi zwrotów i reklamacji elektroniki, rozwijana według PRD uzgodnionego podczas zajęć. Możesz też pracować nad własnym pomysłem, stosując ten sam proces. Po PRD omów architekturę i biblioteki, zapisz decyzje w ADR, ułóż plan i zależności zadań, a potem implementuj, testuj i przeglądaj zmiany przed utworzeniem PR. Przykładowy prompt PRD w `course-materials/` nie zastępuje dokumentu poprawionego z grupą.
+Głównym projektem jest **pipeline kontroli jakości danych mapowych**: syntetyczne punkty POI, odcinki dróg i dzielnice z typowymi błędami. Dane wejściowe i opis ćwiczeń są w [`course-materials/exercise-data/gis/`](course-materials/exercise-data/gis/); kod pipeline'u powstaje w `app/` podczas zajęć. Wszystkie dane są syntetyczne: nie używamy danych ani środowisk firmowych.
 
 ## Biblioteka dodatkowa
 
