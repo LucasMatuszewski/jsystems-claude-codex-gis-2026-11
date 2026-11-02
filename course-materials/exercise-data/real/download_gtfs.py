@@ -20,10 +20,17 @@ def extract_feed(archive, destination):
             raise ValueError('GTFS archive exceeds 1 GiB uncompressed')
         if 'stops.txt' not in source.namelist():
             raise ValueError('GTFS archive is missing stops.txt')
-        destination.mkdir(parents=True, exist_ok=True)
+        # Extract into a fresh sibling folder, then swap it in, so files from an
+        # older feed never mix with the new one.
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        staging = destination.with_name(destination.name + '.new')
+        shutil.rmtree(staging, ignore_errors=True)
+        staging.mkdir()
         for entry in source.infolist():
-            with source.open(entry) as src, (destination / entry.filename).open('wb') as dst:
+            with source.open(entry) as src, (staging / entry.filename).open('wb') as dst:
                 shutil.copyfileobj(src, dst)
+    shutil.rmtree(destination, ignore_errors=True)
+    staging.rename(destination)
 
 
 def main():
