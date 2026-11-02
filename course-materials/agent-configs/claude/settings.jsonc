@@ -1,0 +1,160 @@
+{
+  // EXAMPLE FILE WITH COMMENTS (jsonc) - use file with .json extension
+  "permissions": {
+    "allow": [
+      // ── Filesystem (read-only, Claude already allows reads by default but explicit is fine)
+      "Bash(cat:*)",
+      "Bash(ls:*)",
+      "Bash(find:*)",
+      "Bash(grep:*)",
+      "Bash(echo:*)",
+      "Bash(pwd)",
+      "Bash(wc:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(diff:*)",
+
+      // ── Git (read-only + safe writes)
+      "Bash(git status:*)",
+      "Bash(git log:*)",
+      "Bash(git diff:*)",
+      "Bash(git show:*)",
+      "Bash(git branch:*)",
+      "Bash(git stash list:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git checkout:*)",
+      "Bash(git switch:*)",
+      "Bash(git restore:*)",
+      "Bash(git fetch:*)",
+      "Bash(git merge:*)",
+      "Bash(git rebase:*)",
+
+      // ── Node / npm / pnpm / yarn (non-destructive)
+      "Bash(npm install:*)",
+      "Bash(npm run:*)",
+      "Bash(npm test:*)",
+      "Bash(npm audit:*)",
+      "Bash(npx:*)",
+      "Bash(pnpm install:*)",
+      "Bash(pnpm run:*)",
+      "Bash(pnpm test:*)",
+      "Bash(yarn install:*)",
+      "Bash(yarn run:*)",
+
+      // ── Build / tooling
+      "Bash(tsc:*)",
+      "Bash(eslint:*)",
+      "Bash(prettier:*)",
+      "Bash(jest:*)",
+      "Bash(vitest:*)",
+      "Bash(next:*)",
+      "Bash(turbo:*)",
+      "Bash(tsx:*)",
+      "Bash(node:*)",
+
+      // ── Python (for your AI/data work)
+      "Bash(python:*)",
+      "Bash(python3:*)",
+      "Bash(pip install:*)",
+      "Bash(uv:*)",
+      "Bash(pytest:*)",
+
+      // ── Docker (read-only inspection)
+      "Bash(docker ps:*)",
+      "Bash(docker logs:*)",
+      "Bash(docker inspect:*)",
+      "Bash(docker images:*)",
+
+      // ── System info (safe read-only)
+      // NOTE: `env` and `printenv` are intentionally NOT here — both dump ALL env
+      // vars (secrets included) when called with no args, bypassing the .env Read deny.
+      // They are listed in `deny` below.
+      "Bash(which:*)",
+      "Bash(date)",
+      "Bash(whoami)",
+
+      // ── Set env vars for the current shell (export VAR=value).
+      // Read-access to env vars is denied above; this only permits SETTING.
+      // Caveat: `export -p` still dumps vars — see notes in deny block.
+      "Bash(export:*)",
+
+      // Claude's tools:
+      // ── File edit (approve all writes — remove if you want diff review per file)
+      "Edit",
+      "Write",
+      "MultiEdit",
+
+      // ── Web search (all websites), fetch from specific domains
+      "WebSearch",
+      "WebFetch(domain:blog.jetbrains.com)",
+      "WebFetch(domain:www.jetbrains.com)"
+    ],
+    "deny": [
+      // ── Always block — irreversible or dangerous
+      // rm/rmdir intentionally NOT denied: hard-denying deletes just makes agents route around it (scripts, moves); use permission modes + git/backups as the safety net. Deny only what is truly irreversible for you.
+      // Allow feature branches; * matches text including spaces, and :* is a trailing prefix wildcard.
+      // Explicit branch/refspec destinations are denied; bare git push has no branch to match.
+      // GitHub/Bitbucket branch protection is the real guard. Force pushes are denied.
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
+      "Bash(git push * main)",
+      "Bash(git push * main *)",
+      "Bash(git push *:main)",
+      "Bash(git push *:main *)",
+      "Bash(git push * master)",
+      "Bash(git push * master *)",
+      "Bash(git push *:master)",
+      "Bash(git push *:master *)",
+      "Bash(git push * prod)",
+      "Bash(git push * prod *)",
+      "Bash(git push *:prod)",
+      "Bash(git push *:prod *)",
+      "Bash(git push --force-with-lease:*)",
+      "Bash(git push * --force*)",
+      "Bash(git push * -f)",
+      "Bash(git push * -f *)",
+      // These rules block direct gh deletion and any command mentioning delete_repo.
+      // They do not prevent deletion via every API, wrapper or other credential.
+      "Bash(gh repo delete:*)",
+      "Bash(gh auth refresh *delete_repo*)",
+      "Bash(gh auth login *delete_repo*)",
+      "Bash(*delete_repo*)",
+      "Bash(git reset --hard:*)",
+      "Bash(chmod:*)",
+      "Bash(chown:*)",
+      "Bash(sudo:*)",
+      "Bash(curl:*)",
+      "Bash(wget:*)",
+      "Bash(ssh:*)",
+      "Bash(scp:*)",
+      "Bash(docker run:*)",
+      "Bash(docker rm:*)",
+      "Bash(docker rmi:*)",
+      "Bash(docker-compose down:*)",
+
+      // ── Protect secrets — also block commands that dump env vars,
+      // otherwise the Read(.env) deny is trivially bypassed via `env` / `printenv`.
+      // For airtight protection, add a PreToolUse hook to also catch `export -p`,
+      // `set`, and `declare -p` (which Claude Code patterns cannot distinguish from
+      // safe forms like `export VAR=value`).
+      "Bash(env:*)",
+      "Bash(printenv:*)",
+      "Read(.env)",
+      "Read(.env.local)",
+      "Read(.env.dev)",
+      "Read(.env.prod)",
+      "Read(.env.test)",
+      "Read(**/.env)",
+      "Read(**/secrets/**)"
+    ]
+  },
+  // Override the plans directory (default is "~/.claude/plans")
+  "plansDirectory": "./docs/plans",
+
+  "statusLine": {
+    "type": "command",
+    "command": "bash ~/.claude/statusline.sh",
+    "refreshInterval": 30
+  }
+}

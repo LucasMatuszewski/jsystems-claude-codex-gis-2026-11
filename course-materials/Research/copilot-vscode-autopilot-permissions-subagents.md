@@ -1,0 +1,32 @@
+# Copilot in VS Code - Autopilot, Assisted Permissions, Subagents
+
+> Moved from [Course INDEX - AI in Programming](../Course%20INDEX%20-%20AI%20in%20Programming.md) on 2026-10-02 to keep the notes short. Facts verified 2026-10-01; dates and sources are on each item.
+
+Group questions from the course, answered and verified 2026-10-01.
+
+- **Auto Approve / Autopilot in VS Code Copilot**:
+  - **"Allow all"** (auto approve) = permission level in the **permissions dropdown next to the chat input**; globally: `chat.tools.global.autoApprove` (default `false`). **Renamed in v1.104** from `chat.tools.autoApprove` with **no automatic migration**: [Global auto approve](https://code.visualstudio.com/updates/v1_104)
+  - **Autopilot (Preview)** = agent **mode** picked from the mode picker (on Agent Host; on the Local/Extension Host it is a permission level). Auto-approves all tools, retries on errors, auto-answers questions, keeps working until done. On by default since v1.124; shipped v1.111 as `chat.autopilot.enabled` (now retired from docs): [Approvals & permissions](https://code.visualstudio.com/docs/agents/run/approvals)
+  - **Advanced Autopilot** - a small, fast model judges after each turn whether the task is complete and guides the next turn: `chat.autopilot.advanced.enabled` (experimental, default `false`): [v1.124](https://code.visualstudio.com/updates/v1_124)
+  - Default level for **new sessions**: `chat.permissions.default` (experimental): `default` (Manual) | `autoApprove` (Allow all) | `autopilot` ([AI settings reference](https://code.visualstudio.com/docs/agents/reference/ai-settings))
+  - Session-only bypass in supported local/Copilot CLI sessions: `/yolo` or `/autoApprove` (aliases), restore with `/disableYolo` / `/disableAutoApprove`
+  - Warning: both **skip confirmation for destructive actions** (edits, terminal, external tools) and **Autopilot consumes AI credits**; enterprise policy can force Manual permissions. Claude harness bypass: `github.copilot.chat.claudeAgent.allowDangerouslySkipPermissions` (default `false`, sandboxed envs only)
+- **Assisted permissions (experimental)**:
+  - Enable: `chat.assistedPermissions.enabled` - shows **Assisted permissions** in the permissions picker for **Agent Host sessions only** (off by default in Stable, on in Insiders): [AI settings reference](https://code.visualstudio.com/docs/agents/reference/ai-settings)
+  - How it works: an **LLM judge evaluates the risk of each tool call**; calls it does not approve ask for confirmation. First use shows a warning dialog - "the model-based risk assessment can make mistakes": [Approvals & permissions](https://code.visualstudio.com/docs/agents/run/approvals)
+  - Requirements: session must run on the **Agent Host**; for the Copilot harness pick **Folder isolation** (worktree sessions always use Allow all). Organizations can hide the option by disabling global auto-approval ([Manage AI settings in enterprise](https://code.visualstudio.com/docs/enterprise/manage-ai-settings))
+  - In **Copilot CLI**: `/permissions assisted` switches the session; `/permissions show` displays it ([CLI command reference](https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-command-reference))
+  - No documented model name or separate pricing for the judge - assume it uses AI credits: [Copilot Q&A page](https://devpowers.com/szkolenia/COURSE-SITE/pytania.html)
+- **Copilot CLI: subagents view** (CLI v1.0.91):
+  - **`/tasks`** - tasks dialog: subagents and shell commands as an **indented tree** (nested subagents shown indented). **Enter** = task details or **teleport into the subagent's own session view** (you can send it a steering message from the prompt box); `a` = all nested levels vs current level; `f` = also show finished; `X` = kill active; `R` = remove finished; `B` = promote sync task to background: [CLI command reference](https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-command-reference)
+  - **`/subagents`** (alias `/agents`) - picker to configure **default and per-agent subagent models** (stored under `subagents.agents` in `~/.copilot/settings.json`; `modelPolicy: "preferred"` can be overridden, `"required"` is locked)
+  - **`/agent`** - browse and select custom agents; **`/fleet [PROMPT]`** or `--fleet` flag - parallel subagent execution of parts of a task
+  - Built-in agents: `explore`, `task`, `code-review`, `general-purpose`, `research`, `security-review`, `rubber-duck` (only one that cannot be disabled)
+  - Limits: `COPILOT_SUBAGENT_MAX_CONCURRENT` (default 32), `COPILOT_SUBAGENT_MAX_DEPTH` (default 4); usage-based billing users can override via `subagents.maxConcurrency` / `subagents.maxDepth` in settings.json
+- **"Czy wszystko z kursu da się robić w VS Code?"**:
+  - **Tak, prawie wszystko - bo Claude Code w VS Code to ten sam CLI** w panelu edytora: `CLAUDE.md`/`AGENTS.md`, sub-agenci, skills, hooks, `.mcp.json`, `/permissions` działają identycznie: [Claude Code for VS Code](https://open-vsx.org/extension/Anthropic/claude-code#review-details)
+  - **Copilot natywnie w VS Code**: tryby agentowe, Autopilot i Assisted permissions (patrz wyżej), sub-agenci przez narzędzie `runSubagent` (delegacja automatyczna, po nazwie lub `#runSubagent` w prompcie; wynik wraca do głównego czatu): [Use subagents in your IDE](https://docs.github.com/en/copilot/how-tos/copilot-in-your-ide/use-copilot-agents/use-subagents)
+  - **Codex** ma oficjalne rozszerzenie IDE: [Codex IDE](https://developers.openai.com/codex/ide/); **MCP** w VS Code: `.vscode/mcp.json` (workspace) lub profil użytkownika, plus przenośny `~/.copilot/mcp-config.json` (Agent Host czyta go niezależnie): [MCP configuration](https://code.visualstudio.com/docs/agents/reference/mcp-configuration)
+  - **AGENTS.md działa natywnie**: plik główny `chat.useAgentsMdFile` (default on), zagnieżdżone `chat.useNestedAgentsMdFiles` (experimental, default off): [AI settings reference](https://code.visualstudio.com/docs/agents/reference/ai-settings)
+  - **Co nadal wymaga terminala / CI**: tryby headless w pipeline (`claude -p`, `codex exec`, `copilot -p` - moduł CI/CD), floty agentów w **git worktrees** z multiplekserem (tmux/Herdr), UX tylko z Copilot CLI (`/tasks`, `/fleet`, `/goal`), współdzielona baza zadań (Beads CLI). Zespoły równoległe da się prowadzić w VS Code przez kilka okien/terminali, ale multiplekser i skrypty orkiestrujące pozostają po stronie terminala
+  - Pełne odpowiedzi na pytania o Copilota: [Copilot Q&A page](https://devpowers.com/szkolenia/COURSE-SITE/pytania.html)

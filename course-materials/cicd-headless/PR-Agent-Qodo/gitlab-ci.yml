@@ -1,0 +1,61 @@
+# Merge into .gitlab-ci.yml. GitLab 15.7+; see README.md for credentials/trust.
+# Tested 2026-10-30 on self-managed GitLab 19.5.3 (Docker runner) in a Java course project.
+# CI/CD variables: masked REVIEW_API_KEY and GITLAB__PERSONAL_ACCESS_TOKEN.
+# Optional: REVIEW_API_BASE, REVIEW_MODEL, REVIEW_MAX_TOKENS (defaults: OpenRouter, gpt-6-luna).
+stages: [review]
+
+pr_agent_review:
+  stage: review
+  image:
+    name: pragent/pr-agent:0.47.0@sha256:7d98954c29289846a08faf00aaea0f1f1375b1676cd8a2ed303e0af07010af7a
+    entrypoint: [""]
+  before_script: []   # do not inherit the project's default before_script/cache (e.g. a JDK image setup)
+  cache: []
+  variables:
+    GIT_STRATEGY: none
+    CONFIG__GIT_PROVIDER: gitlab
+    CONFIG__FALLBACK_MODELS: '[]'
+    CONFIG__RESTRICTED_MODE: 'true'
+    CONFIG__PROPAGATE_TOOL_ERRORS: 'true'
+    CONFIG__USE_REPO_SETTINGS_FILE: 'false'    # the MR branch cannot change the reviewer's settings
+    CONFIG__USE_GLOBAL_SETTINGS_FILE: 'false'
+    CONFIG__REPO_CONTEXT_FILES: '[]'
+    CONFIG__PUBLISH_OUTPUT: 'true'
+    CONFIG__OUTPUT_RUN_DETAILS: 'true'
+    CONFIG__REASONING_EFFORT: low
+    PR_REVIEWER__PERSISTENT_COMMENT: 'true'
+    PR_REVIEWER__FINAL_UPDATE_MESSAGE: 'false'
+    PR_REVIEWER__INLINE_KEY_ISSUES: 'false'
+    PR_REVIEWER__ENABLE_REVIEW_LABELS_EFFORT: 'false'
+    PR_REVIEWER__ENABLE_REVIEW_LABELS_SECURITY: 'false'
+    PR_REVIEWER__NUM_MAX_FINDINGS: '5'
+    PR_REVIEWER__ENABLE_LARGE_PR_CHUNKING: 'true'
+    PR_REVIEWER__MAX_NUMBER_OF_CALLS: '4'
+    # Adapt to your project: what to look for and what not to claim.
+    PR_REVIEWER__EXTRA_INSTRUCTIONS: |
+      Review new correctness, security and error-handling defects.
+      Give the failing scenario, source evidence and an actionable fix in concise English.
+      Never claim that checks you did not run have passed.
+  script:
+    - |
+      set -eu
+      : "${REVIEW_API_KEY:?Set masked variable REVIEW_API_KEY (model endpoint API key)}"
+      : "${GITLAB__PERSONAL_ACCESS_TOKEN:?Set masked variable GITLAB__PERSONAL_ACCESS_TOKEN (GitLab bot token)}"
+      # Any OpenAI-compatible endpoint; "openai/" selects PR-Agent's OpenAI-compatible client.
+      export OPENAI__KEY="$REVIEW_API_KEY"
+      export OPENAI__API_BASE="${REVIEW_API_BASE:-https://openrouter.ai/api/v1}"
+      MODEL="openai/${REVIEW_MODEL:-openai/gpt-6-luna}"
+      export CONFIG__MODEL="$MODEL"
+      export CONFIG__CUSTOM_MODEL_MAX_TOKENS="${REVIEW_MAX_TOKENS:-250000}"
+      export CONFIG__MAX_MODEL_TOKENS="${REVIEW_MAX_TOKENS:-250000}"
+      export CONFIG__NO_TEMPERATURE_MODELS="[\"$MODEL\"]"
+      export CONFIG__ADDITIONAL_REASONING_EFFORT_MODELS="[\"$MODEL\"]"
+      export GITLAB__URL="$CI_SERVER_URL"
+      PR_URL="$CI_MERGE_REQUEST_PROJECT_URL/-/merge_requests/$CI_MERGE_REQUEST_IID"
+      cd /app
+      python -m pr_agent.cli --pr_url "$PR_URL" review
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_SOURCE_PROJECT_ID == $CI_PROJECT_ID'
+      when: manual
+    - when: never
+  allow_failure: true # Advisory; errors remain visible in this job's log.

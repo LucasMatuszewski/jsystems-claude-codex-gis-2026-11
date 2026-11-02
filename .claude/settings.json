@@ -1,0 +1,153 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cat:*)",
+      "Bash(ls:*)",
+      "Bash(find:*)",
+      "Bash(grep:*)",
+      "Bash(echo:*)",
+      "Bash(pwd)",
+      "Bash(wc:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(diff:*)",
+
+      "Bash(git status:*)",
+      "Bash(git log:*)",
+      "Bash(git diff:*)",
+      "Bash(git show:*)",
+      "Bash(git branch:*)",
+      "Bash(git stash list:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git checkout:*)",
+      "Bash(git switch:*)",
+      "Bash(git restore:*)",
+      "Bash(git fetch:*)",
+      "Bash(git merge:*)",
+      "Bash(git rebase:*)",
+
+      "Bash(npm install:*)",
+      "Bash(npm run:*)",
+      "Bash(npm test:*)",
+      "Bash(npm audit:*)",
+      "Bash(npx:*)",
+      "Bash(pnpm install:*)",
+      "Bash(pnpm run:*)",
+      "Bash(pnpm test:*)",
+      "Bash(yarn install:*)",
+      "Bash(yarn run:*)",
+
+      "Bash(tsc:*)",
+      "Bash(eslint:*)",
+      "Bash(prettier:*)",
+      "Bash(jest:*)",
+      "Bash(vitest:*)",
+      "Bash(next:*)",
+      "Bash(turbo:*)",
+      "Bash(tsx:*)",
+      "Bash(node:*)",
+
+      "Bash(python:*)",
+      "Bash(python3:*)",
+      "Bash(pip install:*)",
+      "Bash(uv:*)",
+      "Bash(pytest:*)",
+
+      "Bash(docker ps:*)",
+      "Bash(docker logs:*)",
+      "Bash(docker inspect:*)",
+      "Bash(docker images:*)",
+
+      "Bash(which:*)",
+      "Bash(date)",
+      "Bash(whoami)",
+      "Bash(export:*)",
+
+      "Edit",
+      "Write",
+      "MultiEdit",
+      "Read(.env.example)",
+
+      "WebSearch",
+      "WebFetch(domain:blog.jetbrains.com)",
+      "WebFetch(domain:www.jetbrains.com)"
+    ],
+    "ask": [
+      "Bash(git worktree add *)",
+      "Bash(git -C * worktree add *)",
+      "EnterWorktree",
+      "Agent(isolation:worktree)"
+    ],
+    "deny": [
+      "Bash(env:*)",
+      "Bash(printenv:*)",
+      "Bash(rm:*)",
+      "Bash(rmdir:*)",
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
+      "Bash(git push --force-with-lease:*)",
+      "Bash(git push * --force*)",
+      "Bash(git push * -f)",
+      "Bash(git push * -f *)",
+      "Bash(git push * main)",
+      "Bash(git push * main *)",
+      "Bash(git push *:main)",
+      "Bash(git push *:main *)",
+      "Bash(git push * master)",
+      "Bash(git push * master *)",
+      "Bash(git push *:master)",
+      "Bash(git push *:master *)",
+      "Bash(git push * prod)",
+      "Bash(git push * prod *)",
+      "Bash(git push *:prod)",
+      "Bash(git push *:prod *)",
+      "Bash(gh repo delete:*)",
+      "Bash(gh auth refresh *delete_repo*)",
+      "Bash(gh auth login *delete_repo*)",
+      "Bash(*delete_repo*)",
+      "Bash(git reset --hard:*)",
+      "Bash(chmod:*)",
+      "Bash(chown:*)",
+      "Bash(sudo:*)",
+      "Bash(curl:*)",
+      "Bash(wget:*)",
+      "Bash(ssh:*)",
+      "Bash(scp:*)",
+      "Bash(docker run:*)",
+      "Bash(docker rm:*)",
+      "Bash(docker rmi:*)",
+      "Bash(docker-compose down:*)",
+
+      "Read(.env)",
+      "Read(.env.local)",
+      "Read(.env.dev)",
+      "Read(.env.prod)",
+      "Read(.env.test)",
+      "Read(**/.env)",
+      "Read(**/secrets/**)"
+    ]
+  },
+  "plansDirectory": "./docs/plans",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "agent",
+            "if": "Edit(pom.xml)",
+            "prompt": "You are a security researcher reviewing a Maven dependency change. The agent is about to edit pom.xml. Examine `tool_input.new_string` for any new `<dependency>` blocks that are not present in `tool_input.old_string`. For each newly added dependency (groupId + artifactId + version): (1) search for known CVEs or security advisories, (2) check if the library is actively maintained and from a reputable source, (3) check for known supply-chain attacks or typosquatting risks. If you find serious security concerns, return {\"ok\": false, \"reason\": \"<concise description of the risk and the affected dependency>\"}. If all dependencies appear safe or no new dependencies are being added, return {\"ok\": true}.",
+            "timeout": 120
+          },
+          {
+            "type": "agent",
+            "if": "Write(pom.xml)",
+            "prompt": "You are a security researcher reviewing a Maven dependency change. The agent is about to write pom.xml. Examine `tool_input.content` and extract all `<dependency>` entries. For each dependency (groupId + artifactId + version): (1) search for known CVEs or security advisories, (2) check if the library is actively maintained and from a reputable source, (3) check for known supply-chain attacks or typosquatting risks. If you find serious security concerns, return {\"ok\": false, \"reason\": \"<concise description of the risk and the affected dependency>\"}. If all dependencies appear safe, return {\"ok\": true}.",
+            "timeout": 120
+          }
+        ]
+      }
+    ]
+  }
+}

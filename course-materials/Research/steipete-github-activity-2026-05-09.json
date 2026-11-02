@@ -1,0 +1,37 @@
+{
+  "source": "https://api.github.com/graphql",
+  "profile": "https://github.com/steipete",
+  "fetchedAt": "2026-10-06T16:52:57.579915+00:00",
+  "periodUTC": {
+    "from": "2026-05-09T00:00:00Z",
+    "to": "2026-05-09T23:59:59Z"
+  },
+  "query": "query { user(login:\"steipete\") { contributionsCollection(from:\"2026-05-09T00:00:00Z\",to:\"2026-05-09T23:59:59Z\") { totalCommitContributions contributionCalendar { totalContributions weeks { contributionDays { date contributionCount } } } } } }",
+  "result": {
+    "data": {
+      "user": {
+        "contributionsCollection": {
+          "totalCommitContributions": 1089,
+          "contributionCalendar": {
+            "totalContributions": 6747,
+            "weeks": [
+              {
+                "contributionDays": [
+                  {
+                    "date": "2026-05-09",
+                    "contributionCount": 6747
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "units": {
+    "totalContributions": "GitHub contributions, including commits, pull requests and other contribution types",
+    "totalCommitContributions": "Commit contributions reported for this interval"
+  },
+  "reference": "https://docs.github.com/en/graphql/reference/objects#contributionscollection"
+}

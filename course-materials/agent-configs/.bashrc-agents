@@ -1,0 +1,202 @@
+# ============================================================================
+# .bashrc-agents: example aliases and functions for agent CLIs (Bash)
+# ============================================================================
+# Shortcuts for Claude Code and Codex: permission modes, backend switchers
+# (OpenRouter, Z.ai, Ollama) and Codex profiles. This is NOT a full .bashrc:
+# do not replace your ~/.bashrc with it. Copy it to ~/.bashrc-agents and
+# source it from your normal ~/.bashrc:
+#   [ -f ~/.bashrc-agents ] && . ~/.bashrc-agents
+# Keep API keys in a separate file (e.g. ~/.config/secrets.sh, chmod 600),
+# never in this file.
+#
+# Delegate the installation to your AI agent instead of editing files by hand,
+# for example:
+#   "Install course-materials/agent-configs/.bashrc-agents as ~/.bashrc-agents,
+#    source it from ~/.bashrc, put the env vars it needs as empty placeholders
+#    in ~/.config/secrets.sh (chmod 600), adjust EDITOR to an installed editor
+#    and verify the aliases load in a new shell."
+# PowerShell equivalents: claude-backends.ps1 and codex-aliases.ps1 (same folder).
+# ============================================================================
+
+# Set default editor for CLI tools
+export EDITOR=zed # or micro, nano, nvim, fresh, etc. (fast and lightweight TUI recommended)
+
+# ============================================================================
+# Claude Code: skipping permission prompts (updated 2026-06)
+# ============================================================================
+# --dangerously-skip-permissions is STILL valid — it is exactly equivalent to
+# --permission-mode bypassPermissions: it disables ALL prompts AND safety checks
+# and runs every tool call immediately. Use it ONLY inside an isolated container/
+# VM/devcontainer. On Linux/macOS it refuses to start as root/sudo unless it
+# detects a recognized sandbox. It is NO LONGER the recommended way to reduce
+# prompts for normal work — see the safer modes below.
+# Docs: https://code.claude.com/docs/en/permission-modes
+alias clauded="claude --dangerously-skip-permissions"
+
+# Safer, newer alternatives (set with --permission-mode <mode>):
+#   auto          NEW (since 2026-03; needs Opus 4.6+/Sonnet 4.6+ on Anthropic API).
+#                 Runs without routine prompts, but a background classifier blocks
+#                 risky actions (curl|bash, force-push / push to main, prod deploys
+#                 & migrations, mass cloud deletes, IAM grants, destroying files
+#                 that predate the session). Best middle ground for long tasks.
+#   acceptEdits   Auto-approves file edits + common fs cmds (mkdir/touch/mv/cp/rm)
+#                 inside the working dir; other shell/network cmds still prompt.
+#   dontAsk       Fully non-interactive: only your permissions.allow rules (and
+#                 read-only commands) run, everything else is DENIED. Best for CI.
+#   bypassPermissions  == --dangerously-skip-permissions (no checks at all).
+# Convenience aliases:
+alias claude-auto="claude --permission-mode auto"          # safer than clauded
+alias claude-edits="claude --permission-mode acceptEdits"
+
+# ============================================================================
+# Claude Code headless / non-interactive (CI, scripts, cron, /loop, /schedule)
+# ============================================================================
+#   claude -p "Fix the failing test"                       # one-shot, prints & exits
+#   claude --bare -p "Summarize this file" --allowedTools "Read"
+#       --bare skips auto-discovery of hooks/skills/plugins/MCP/auto-memory/CLAUDE.md
+#       -> fast & reproducible across machines; RECOMMENDED for CI/SDK (slated to
+#          become the default for -p in a future release).
+#   claude -p "..." --output-format json | jq -r '.result' # structured output
+#   claude -p "Apply lint fixes" --permission-mode acceptEdits
+#   claude -p "..." --permission-mode dontAsk \
+#          --allowedTools "Bash(git diff *),Bash(git commit *)"   # locked-down CI
+# Note: in -p mode, 'auto' aborts the run after repeated classifier blocks (no human
+# to prompt), so for unattended pipelines prefer dontAsk + explicit --allowedTools.
+# Docs: https://code.claude.com/docs/en/headless
+
+# A PowerShell equivalent of the switchers below lives next to this file:
+#   course-materials/agent-configs/claude-backends.ps1   (dot-source it from your $PROFILE)
+
+# ============================================================================
+# Claude Code backend switchers (run Claude Code against non-Anthropic models)
+# ============================================================================
+# Usage:
+#   claude-or [claude args...]        -> OpenRouter, default model: deepseek/deepseek-v4-pro
+#   claude-zai [claude args...]       -> Z.ai Coding Plan, default model mapping to GLM-5.2
+#   claude-ollama [claude args...]    -> local/cloud Ollama, default model: glm-5.2:cloud
+# Optional model overrides:
+#   CLAUDE_CODE_MODEL="z-ai/glm-5.2" claude-or
+#   CLAUDE_CODE_MODEL="GLM-5.2" claude-zai
+#   CLAUDE_CODE_MODEL="glm-5.2:cloud" claude-ollama
+# Check active model inside Claude Code with:
+#   /status
+
+# Alternative methods with npm modules:
+# npm install -g ccconfig
+#   ccc add openrouter
+#   ccc use openrouter
+#
+# npm install -g claude-provider
+#   # Inside Claude Code:
+#   /provider:add deepseek
+#   /provider:switch deepseek
+
+# Alternatives to Ollama for private inference on premises:
+# - vLLM (better concurrency for scaling) - https://docs.vllm.ai/en/latest/serving/integrations/claude_code/
+# - LocalAI - https://localai.io/integrations/index.html#claude-code
+
+_claude_clear_backend_env() {
+  unset ANTHROPIC_BASE_URL
+  unset ANTHROPIC_API_KEY
+  unset ANTHROPIC_AUTH_TOKEN
+  unset ANTHROPIC_CUSTOM_HEADERS
+  unset ANTHROPIC_MODEL
+  unset ANTHROPIC_DEFAULT_HAIKU_MODEL
+  unset ANTHROPIC_DEFAULT_SONNET_MODEL
+  unset ANTHROPIC_DEFAULT_OPUS_MODEL
+}
+
+claude-native() {
+  _claude_clear_backend_env
+  export ANTHROPIC_API_KEY="${ANTHROPIC_API_KEY:-$ANTHROPIC_KEY}"
+  claude "$@"
+}
+
+claude-or() {
+  _claude_clear_backend_env
+  export ANTHROPIC_BASE_URL="https://openrouter.ai/api"
+  export ANTHROPIC_API_KEY=""
+  export ANTHROPIC_AUTH_TOKEN="${OPENROUTER_API_KEY}"
+  export ANTHROPIC_CUSTOM_HEADERS="HTTP-Referer: https://openrouter.ai, X-Title: Claude Code via Git Bash"
+  export ANTHROPIC_DEFAULT_SONNET_MODEL="${CLAUDE_CODE_MODEL:-deepseek/deepseek-v4-pro}"
+  export ANTHROPIC_DEFAULT_OPUS_MODEL="${CLAUDE_CODE_MODEL:-z-ai/glm-5.2}"
+  export ANTHROPIC_DEFAULT_HAIKU_MODEL="${CLAUDE_CODE_MODEL:-deepseek/deepseek-v4-flash}"
+  export CLAUDE_CODE_SUBAGENT_MODEL="${CLAUDE_CODE_MODEL:-deepseek/deepseek-v4-pro}"
+  claude "$@"
+}
+
+claude-zai() {
+  _claude_clear_backend_env
+  export ANTHROPIC_BASE_URL="https://api.z.ai/api/anthropic"
+  export ANTHROPIC_API_KEY=""
+  export ANTHROPIC_AUTH_TOKEN="${ZAI_API_KEY}"
+  export ANTHROPIC_DEFAULT_SONNET_MODEL="${CLAUDE_CODE_MODEL:-GLM-5.2}"
+  export ANTHROPIC_DEFAULT_OPUS_MODEL="${CLAUDE_CODE_MODEL:-GLM-5.2}"
+  export ANTHROPIC_DEFAULT_HAIKU_MODEL="${CLAUDE_CODE_HAIKU_MODEL:-GLM-4.7}"
+  export API_TIMEOUT_MS="3000000"
+  claude "$@"
+}
+
+claude-mimo() {
+  _claude_clear_backend_env
+  export ANTHROPIC_BASE_URL="https://token-plan-ams.xiaomimimo.com/anthropic"
+  export ANTHROPIC_API_KEY=""
+  export ANTHROPIC_AUTH_TOKEN="${MIMO_API_KEY}"
+  export ANTHROPIC_MODEL="mimo-v2.6-pro"
+  export ANTHROPIC_DEFAULT_SONNET_MODEL="${CLAUDE_CODE_MODEL:-mimo-v2.6-pro}"
+  export ANTHROPIC_DEFAULT_OPUS_MODEL="${CLAUDE_CODE_MODEL:-mimo-v2.6-pro[1m]}"
+  export ANTHROPIC_DEFAULT_HAIKU_MODEL="${CLAUDE_CODE_HAIKU_MODEL:-mimo-v2.6-flash}"
+  export CLAUDE_CODE_SUBAGENT_MODEL="${CLAUDE_CODE_MODEL:-mimo-v2.6-flash}"
+  claude "$@"
+}
+
+claude-ollama() {
+  _claude_clear_backend_env
+  export ANTHROPIC_BASE_URL="${OLLAMA_ANTHROPIC_BASE_URL:-http://localhost:11434}"
+  export ANTHROPIC_API_KEY=""
+  export ANTHROPIC_AUTH_TOKEN="${OLLAMA_ANTHROPIC_AUTH_TOKEN:-ollama}"
+  export ANTHROPIC_DEFAULT_SONNET_MODEL="${CLAUDE_CODE_MODEL:-glm-5.2:cloud}"
+  export ANTHROPIC_DEFAULT_OPUS_MODEL="${CLAUDE_CODE_MODEL:-glm-5.2:cloud}"
+  export ANTHROPIC_DEFAULT_HAIKU_MODEL="${CLAUDE_CODE_HAIKU_MODEL:-glm-5.2:cloud}"
+  claude "$@"
+}
+
+alias ccn='claude-native'
+alias cco='claude-or'
+alias ccz='claude-zai'
+alias ccm='claude-mimo'
+alias ccol='claude-ollama'
+
+# ============================================================
+# Codex CLI profiles and modes (verified: codex-cli 0.162.1)
+# ============================================================
+# Copy the chosen <name>.config.toml files from agent-configs/codex/
+# to ~/.codex/ first (or $CODEX_HOME/ when explicitly configured).
+# Z.ai also needs models.zai.json beside zai.config.toml.
+# Provider keys are environment variables; never put real keys here.
+# Confirm the model/provider at startup. These shortcuts forward extra args.
+
+# Providers: cloud routes send prompts to the selected external provider.
+alias codexz='codex --profile zai'
+alias cdxz='codex --profile zai'
+alias cdxor='codex --profile openrouter'
+alias cdxoc='codex --profile ollama-cloud'
+alias cdxlfm='codex --profile ollama-lfm'
+alias cdxsql='codex --profile ollama-sql'
+alias cdxgemma='codex --profile ollama-gemma'
+
+# Modes: automatic review retains workspace-write; it can still deny a request.
+alias cdxauto='codex --approve-for-me'
+alias cdxro='codex -s read-only'
+# A private foreground server instead of the shared background daemon.
+alias cdxnd='codex --no-daemon'
+# Creates a NEW managed Git worktree. Use only when explicitly authorized;
+# plan dependency storage and remove the worktree when finished.
+alias cdxwt='codex --worktree'
+# Resume the most recent session (cwd filtering applies; inspect before use).
+alias cdxlast='codex resume --last'
+# DANGER: disables BOTH approvals and sandbox. Only use in an externally
+# isolated disposable VM/container without secrets or access to host files.
+# This flag does not create isolation. Never use it to fix permission errors.
+alias cdxyolo='codex --dangerously-bypass-approvals-and-sandbox'
+# Examples: cdxro --profile zai; cdxauto --profile ollama-lfm

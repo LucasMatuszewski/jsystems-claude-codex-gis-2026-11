@@ -1,0 +1,19 @@
+# Z.ai GLM Coding Plan - official guide: https://docs.z.ai/devpack/tool/codex
+# Copy this file AND models.zai.json to ~/.codex/, set the ZAI_API_KEY environment variable, run with:
+#   codex --profile zai
+
+model_provider = "zai"
+model = "glm-5.3" # see models.zai.json for the other models in the catalog
+model_reasoning_effort = "max"
+# Codex has no built-in metadata for GLM models, so the catalog file supplies it (context window,
+# reasoning levels, tool format). A relative path is resolved next to this file. If the file is
+# missing, Codex refuses to start with "No such file or directory".
+model_catalog_json = "models.zai.json"
+
+# Provider definition lives here because Codex ignores [model_providers.*] in a project config.
+# Keep it below every top-level key: a key written after a [table] header would land inside the table.
+[model_providers.zai]
+name = "Z.ai Coding Plan"
+base_url = "https://api.z.ai/api/v1"
+env_key = "ZAI_API_KEY" # name of the environment variable that holds your Z.ai API key
+wire_api = "responses"

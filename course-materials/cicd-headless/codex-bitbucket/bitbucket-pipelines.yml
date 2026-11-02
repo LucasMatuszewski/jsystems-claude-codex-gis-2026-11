@@ -1,0 +1,36 @@
+# Bitbucket Cloud + Jira Cloud, using only Codex and our trusted REST adapter.
+# Build Dockerfile, replace image below with your registry URL + digest, then merge
+# into bitbucket-pipelines.yml. Configure three deployment environments (README.md).
+image: registry.example.com/course-codex-review:0.160.0
+
+# Provide a trusted JIRA_PR_ISSUE_MAP in review-context and review-publish.
+# Before Jira use, configure JIRA_SHARED_AUDIENCE_PROJECT_KEYS only for admin-verified
+# projects readable by every reader of this Bitbucket repository; see README.md.
+clone:
+  enabled: false
+
+pipelines:
+  pull-requests:
+    '**':
+      - step:
+          name: Read PR and Jira context
+          deployment: review-context
+          max-time: 5
+          script:
+            - python3 /opt/reviewer/review.py collect
+          artifacts:
+            - review-artifacts/context.json
+      - step:
+          name: Codex headless code review
+          deployment: review-analysis
+          max-time: 15
+          script:
+            - python3 /opt/reviewer/review.py analyze
+          artifacts:
+            - review-artifacts/review.json
+      - step:
+          name: Publish Bitbucket and Jira comments
+          deployment: review-publish
+          max-time: 5
+          script:
+            - python3 /opt/reviewer/review.py publish

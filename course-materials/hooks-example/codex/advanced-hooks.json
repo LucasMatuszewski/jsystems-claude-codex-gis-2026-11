@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "^Bash$",
+        "hooks": [{"type": "command", "command": "bash \"$(git rev-parse --show-toplevel)/.codex/hooks/guard.sh\" shell", "timeout": 10}]
+      },
+      {
+        "matcher": "^apply_patch$|^Edit$|^Write$",
+        "hooks": [{"type": "command", "command": "bash \"$(git rev-parse --show-toplevel)/.codex/hooks/guard.sh\" writes", "timeout": 10}]
+      }
+    ],
+    "Stop": [{"hooks": [{"type": "command", "command": "bash \"$(git rev-parse --show-toplevel)/.codex/hooks/guard.sh\" java", "timeout": 20}]}],
+    "SessionStart": [{"hooks": [{"type": "command", "command": "bash \"$(git rev-parse --show-toplevel)/.codex/hooks/guard.sh\" context", "timeout": 10}]}]
+  }
+}

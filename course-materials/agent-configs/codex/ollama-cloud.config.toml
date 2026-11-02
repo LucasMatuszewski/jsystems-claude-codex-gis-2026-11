@@ -1,0 +1,7 @@
+# Ollama cloud model for coding (needs an Ollama account; free accounts may not get API access)
+# Copy to ~/.codex/ and run with:
+#   codex --profile ollama-cloud
+
+model_provider = "ollama" # built-in local provider; do not add --oss (it would force gpt-oss:20b)
+model = "glm-5.3:cloud" # or "glm-5.2:cloud", "minimax-m3:cloud", "nemotron-3-ultra:cloud" (check https://ollama.com/search?c=cloud, tags get retired)
+model_context_window = 64000 # Set a larger context window for cloud models

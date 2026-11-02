@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checklisty agentowe - harness, greenfield, brownfield | DevPowers</title>
+<meta name="description" content="Praktyczne checklisty &quot;co gdzie umieszczać&quot; w konfiguracji agentów - Claude Code i OpenCode - oraz start w projektach nowych i legacy. Postęp zapisywany lokalnie w przeglądarce.">
+<style>
+:root {
+  --bg:#1a1b26;
+  --bg2:#24283b;
+  --bg3:#2f3549;
+  --text:#c0caf5;
+  --heading:#e6ecff;
+  --accent:#e0af68;
+  --accent2:#7aa2f7;
+  --accent3:#9ece6a;
+  --muted:#7d84a8;
+  --danger:#f7768e;
+  --code-bg:#16161e;
+  --code-text:#a9b1d6;
+  --line:rgba(125,132,168,.18);
+  --soft2:rgba(122,162,247,.12);
+  --soft3:rgba(158,206,106,.12);
+  --softA:rgba(224,175,104,.12);
+  --shadow:0 10px 34px rgba(0,0,0,.40);
+}
+body.light {
+  --bg:#ffffff;
+  --bg2:#f1f5f9;
+  --bg3:#e2e8f0;
+  --text:#1e293b;
+  --heading:#0f172a;
+  --accent:#d97706;
+  --accent2:#2563eb;
+  --accent3:#059669;
+  --muted:#64748b;
+  --danger:#dc2626;
+  --code-bg:#1e293b;
+  --code-text:#e2e8f0;
+  --line:rgba(100,116,139,.25);
+  --shadow:0 10px 34px rgba(0,0,0,.10);
+}
+* { box-sizing: border-box; }
+html, body { margin:0; padding:0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background:
+    radial-gradient(1200px 600px at 80% -10%, rgba(122,162,247,.10), transparent 60%),
+    linear-gradient(180deg, #131320, #1a1b26 40%);
+  background-attachment: fixed;
+  color: var(--text);
+  line-height: 1.55;
+  font-size: 15px;
+}
+body.light {
+  background: #ffffff;
+  background-attachment: fixed;
+}
+a { color: var(--accent2); text-decoration: none; }
+a:hover { text-decoration: underline; }
+code {
+  font-family: Consolas, Monaco, "Courier New", monospace;
+  background: var(--code-bg);
+  color: var(--code-text);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+h1, h2, h3 { color: var(--heading); line-height: 1.25; }
+h1 { font-size: 2rem; margin: 0 0 12px; }
+h2 { font-size: 1.35rem; margin: 0 0 10px; }
+h3 { font-size: 1.1rem; margin: 16px 0 6px; }
+p { margin: 0 0 12px; }
+hr { border: none; border-top: 1px solid var(--line); margin: 22px 0; }
+.wrap { max-width: 1000px; margin: 0 auto; padding: 0 16px; }
+.hero {
+  position: relative;
+  padding: 52px 0 36px;
+  background: linear-gradient(120deg, #16161e 0%, #1a1b26 45%, #24283b 100%);
+  overflow: hidden;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  right: -8%;
+  top: -18%;
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, rgba(187,154,247,.16) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+body.light .hero {
+  background: linear-gradient(120deg, #e2e8f0, #f8fafc);
+}
+.eyebrow {
+  display: inline-block;
+  font-size: 0.72rem;
+  letter-spacing: 0.5px;
+  padding: 4px 11px;
+  border-radius: 999px;
+  background: var(--softA);
+  color: var(--accent);
+  margin-bottom: 12px;
+  border: 1px solid var(--line);
+}
+.hero h1 { font-size: 1.95rem; font-weight: 700; }
+.glow {
+  background: linear-gradient(90deg, var(--accent2), var(--accent3));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+}
+.hero .intro {
+  max-width: 780px;
+  font-size: 1.02rem;
+  margin: 6px 0 14px;
+  color: var(--text);
+}
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+.chip {
+  font-size: 0.78rem;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--bg2);
+  border: 1px solid var(--line);
+  color: var(--muted);
+  white-space: nowrap;
+}
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+  padding: 9px 0;
+}
+body.light .topbar { background: #fff; }
+.topbar .inner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.topbar .title {
+  font-weight: 700;
+  font-size: 0.98rem;
+  white-space: nowrap;
+  color: var(--heading);
+  margin-right: 4px;
+}
+.tabs {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  flex: 1;
+  min-width: 0;
+}
+.tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 13px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--bg2);
+  color: var(--text);
+  font-size: 0.92rem;
+  cursor: pointer;
+  transition: background .12s ease, border-color .12s ease;
+  white-space: nowrap;
+}
+.tab-btn:hover { border-color: var(--accent2); }
+.tab-btn.active {
+  background: var(--accent2);
+  color: #fff;
+  border-color: var(--accent2);
+}
+.progress-badge {
+  font-size: 0.72rem;
+  line-height: 1;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: var(--bg3);
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+.tab-btn.active .progress-badge {
+  background: rgba(255,255,255,.28);
+  color: #fff;
+}
+.theme-btn {
+  padding: 6px 11px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--bg2);
+  color: var(--text);
+  font-size: 1rem;
+  cursor: pointer;
+  line-height: 1;
+  min-width: 34px;
+  text-align: center;
+}
+.theme-btn:hover { border-color: var(--accent); }
+.tab-pane { display: none; }
+.tab-pane.active { display: block; }
+.toc {
+  background: var(--bg2);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 9px 12px;
+  margin: 0 0 18px;
+  font-size: 0.87rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px 14px;
+}
+.toc a {
+  color: var(--muted);
+  padding: 2px 0;
+}
+.toc a:hover { color: var(--text); text-decoration: none; }
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 20px 22px;
+  margin-bottom: 20px;
+}
+.card h2 { margin-top: 2px; }
+.card > p:last-child, .card > ul:last-child { margin-bottom: 0; }
+ul.task-list {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 6px;
+}
+li.task {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 5px 0;
+}
+li.task label {
+  display: flex;
+  gap: 9px;
+  cursor: pointer;
+  width: 100%;
+  align-items: flex-start;
+}
+li.task input[type="checkbox"] {
+  accent-color: var(--accent2);
+  width: 17px;
+  height: 17px;
+  margin: 2px 0 0;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+li.task span { flex: 1; }
+li.task.done span {
+  text-decoration: line-through;
+  opacity: 0.62;
+}
+ul.plain-list {
+  padding-left: 19px;
+  margin: 8px 0;
+}
+ul.plain-list li { margin: 3px 0; }
+.antipatterns { padding-left: 4px; }
+.antipattern {
+  border-left: 3px solid var(--danger);
+  padding-left: 12px;
+  margin: 7px 0 7px -3px;
+  list-style: decimal;
+}
+.table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  margin: 12px 0;
+}
+table {
+  width: 100%;
+  min-width: 620px;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+th, td {
+  border: 1px solid var(--line);
+  padding: 7px 9px;
+  text-align: left;
+  vertical-align: top;
+}
+th {
+  background: var(--bg3);
+  color: var(--heading);
+  font-weight: 600;
+  white-space: nowrap;
+}
+td code { font-size: 0.82em; padding: 1px 4px; }
+.reset-btn {
+  font-size: 0.78rem;
+  padding: 4px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--bg2);
+  color: var(--text);
+  cursor: pointer;
+}
+.reset-btn:hover { border-color: var(--danger); color: var(--danger); }
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.section-head h2 { flex: 1; min-width: 0; }
+.footer {
+  text-align: center;
+  padding: 34px 16px 48px;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+.footer a { color: var(--muted); }
+.footer a:hover { color: var(--text); }
+@media (max-width: 620px) {
+  .hero { padding: 36px 0 26px; }
+  .hero h1 { font-size: 1.6rem; }
+  .topbar .inner { gap: 8px; }
+  .tab-btn { padding: 5px 10px; font-size: 0.86rem; }
+  .card { padding: 16px 15px; border-radius: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tab-btn, .reset-btn, li.task span { transition: none !important; }
+}
+@media print {
+  .topbar, .theme-btn, .reset-btn { display: none !important; }
+  .tab-pane { display: block !important; page-break-inside: avoid; }
+  .hero { background: #fff !important; color: #111; padding-top: 10px; padding-bottom: 16px; }
+  .hero::after { display: none; }
+  .card {
+    box-shadow: none;
+    border: 1px solid #bbb;
+    background: #fff;
+    padding: 14px 16px;
+    margin-bottom: 18px;
+    break-inside: avoid;
+  }
+  body, .hero h1, h2, h3 { color: #111; }
+  li.task input[type="checkbox"] { display: none; }
+  li.task::before {
+    content: "☐ ";
+    font-family: Consolas, Monaco, "Courier New", monospace;
+    font-size: 1.05em;
+    margin-right: 2px;
+    display: inline-block;
+    width: 1.1em;
+  }
+  li.task.done::before { content: "☑ "; }
+  li.task.done span { text-decoration: line-through; opacity: .55; }
+  .toc { display: none; }
+  .table-wrap { border-color: #aaa; }
+  a { color: #111; }
+  .chip { border-color: #aaa; background: #f8f8f8; color: #333; }
+  .progress-badge { display: none; }
+}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Materiały szkoleniowe - AI dla programistów</div>
+    <h1>Checklisty agentowe: <span class="glow">harness, greenfield, brownfield</span></h1>
+    <p class="intro">Praktyczne checklisty "co gdzie umieszczać" w konfiguracji agentów - Claude Code i OpenCode - oraz start w projektach nowych i legacy.</p>
+    <div class="meta">
+      <span class="chip">Claude Code + OpenCode</span>
+      <span class="chip">wersja MD w repo kursu</span>
+      <span class="chip">postęp zapisywany lokalnie w przeglądarce</span>
+    </div>
+  </div>
+</header>
+
+<nav class="topbar">
+  <div class="wrap">
+    <div class="inner">
+      <div class="title">Checklisty agentowe</div>
+      <div class="tabs">
+        <button class="tab-btn" data-tab="harness" aria-controls="pane-harness">
+          Harness <span class="progress-badge" data-for="harness">0/0</span>
+        </button>
+        <button class="tab-btn" data-tab="greenfield" aria-controls="pane-greenfield">
+          Greenfield <span class="progress-badge" data-for="greenfield">0/0</span>
+        </button>
+        <button class="tab-btn" data-tab="brownfield" aria-controls="pane-brownfield">
+          Brownfield <span class="progress-badge" data-for="brownfield">0/0</span>
+        </button>
+      </div>
+      <button id="theme-toggle" class="theme-btn" aria-label="Przełącz motyw" title="Przełącz ciemny/jasny (klawisz d)">🌙</button>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- HARNESS -->
+<section id="pane-harness" class="tab-pane" data-tab="harness">
+  <div class="section-head">
+    <h2 style="margin-bottom:4px;">Harness Checklist - co gdzie umieszczać w konfiguracji agenta</h2>
+    <button class="reset-btn" data-reset="harness" title="Wyczyść zaznaczenia tej checklisty">Reset</button>
+  </div>
+  <nav class="toc" aria-label="Spis treści Harness">
+    <a href="#harness-model">Model myślowy: dwie osie</a>
+    <a href="#harness-1">1) AGENTS.md / CLAUDE.md</a>
+    <a href="#harness-2">2) Rules / Settings / Permissions</a>
+    <a href="#harness-3">3) Skills (SKILL.md)</a>
+    <a href="#harness-4">4) Sub-Agents</a>
+    <a href="#harness-5">5) Hooks</a>
+    <a href="#harness-6">6) Memory</a>
+    <a href="#harness-7">7) PRD + ADR + Design Guidelines</a>
+    <a href="#harness-8">8) Plan</a>
+    <a href="#harness-9">9) MCP</a>
+    <a href="#harness-10">10) OpenCode - mapa odpowiedników</a>
+    <a href="#harness-decyzje">Tabela decyzyjna (ściąga)</a>
+    <a href="#harness-antywzorce">Top 8 antywzorców</a>
+    <a href="#harness-minimal">Minimalny zestaw startowy</a>
+  </nav>
+
+  <div class="card">
+    <p>Praktyczny przewodnik: AGENTS.md vs Skills vs Sub-Agents vs Rules vs Memory vs MCP vs PRD/ADR vs Plan. Dla zespołów pracujących z Claude Code, OpenCode, Codex, Gemini CLI i innymi agentami zgodnymi z konwencjami AGENTS.md / SKILL.md. Odpowiedniki OpenCode (w tym self-hosted modele): sekcje 9 i 10.</p>
+    <hr>
+    <h2 id="harness-model">Model myślowy: dwie osie</h2>
+    <p>Każda informacja dla agenta ma swoje miejsce wyznaczone przez dwie osie:</p>
+    <ol>
+      <li><strong>Trwałość</strong> - jak długo informacja pozostaje prawdziwa? (jedna sesja -> jeden PR -> jeden feature -> całe repo -> cała organizacja)</li>
+      <li><strong>Zasięg</strong> - kogo i czego dotyczy? (jeden plik -> jeden moduł -> jedno repo -> wiele repo -> preferencje osoby)</li>
+    </ol>
+    <p><strong>Zasada nadrzędna:</strong> <strong>kontekst agenta jest drogi i ulotny</strong>. Wszystko, co wkładasz "na stałe" do kontekstu (AGENTS.md, rules), agent czyta w KAŻDEJ sesji - płacisz za to uwagą modelu. Wszystko, co ładuje się na żądanie (skills, PRD, ADR, plan), kosztuje tylko wtedy, gdy jest potrzebne.</p>
+    <p>Szybki test: <em>"Czy ta informacja będzie prawdziwa za miesiąc i potrzebna w większości sesji?"</em></p>
+    <ul class="plain-list">
+      <li>TAK -> AGENTS.md / rules.</li>
+      <li>Prawdziwa za miesiąc, ale potrzebna rzadko -> skill, PRD/ADR lub docs.</li>
+      <li>Nieprawdziwa za miesiąc (dotyczy jednego zadania) -> plan, opis PR, task.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2 id="harness-1">1) AGENTS.md / CLAUDE.md - stała konstytucja repo</h2>
+    <p><strong>Co to jest:</strong> plik w katalogu głównym repo (i opcjonalnie w podkatalogach), ładowany automatycznie do kontekstu na starcie każdej sesji. AGENTS.md to konwencja między-agentowa (Claude Code, Codex, Gemini, Cursor i inne); CLAUDE.md może po prostu wskazywać na AGENTS.md jednym importem <code>@AGENTS.md</code>.</p>
+    <p><strong>Co tu umieszczać (checklist):</strong></p>
+    <ul class="task-list">
+      <li class="task"><label><input type="checkbox" data-id="harness-agents-0"><span>Komendy: build, test, lint, typecheck (dokładne, z package managerem)</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="harness-agents-1"><span>Konwencje kodu: język, styl, struktura katalogów, nazewnictwo</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="harness-agents-2"><span>Ograniczenia środowiska: OS, wersje, czego nie uruchamiać (np. dev server)</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="harness-agents-3"><span>Granice bezpieczeństwa: czego nie czytać (sekrety), czego nie dotykać (prod)</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="harness-agents-4"><span>Definicja "done": co musi przejść zanim agent uzna pracę za skończoną</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="harness-agents-5"><span>Wskazniki do głębszej dokumentacji ("architektura: docs/ARCHITECTURE.md")</span></label></li>
+    </ul>
+    <p><strong>Czego NIE umieszczać:</strong></p>
+    <ul class="plain-list">
+      <li>Sekretów i tokenów (nigdy; agent może je wkleić do odpowiedzi lub logów)</li>
+      <li>Planów jednorazowych zadań (to idzie do planu / opisu PR)</li>
+      <li>Długich opisów architektury (link do docs/, nie treść)</li>
+      <li>Instrukcji specyficznych dla jednego narzędzia w pliku wspólnym (delegacja między modelami, preferencje osobiste -> do ~/.claude/CLAUDE.md)</li>
+    </ul>
+    <p><strong>Zagnieżdżanie:</strong> trzymaj główny AGENTS.md KRÓTKI i uniwersalny; szczegóły modułów umieszczaj w zagnieżdżonych AGENTS.md w podkatalogach (np. <code>frontend/AGENTS.md</code> z konwencjami komponentów). Agent czyta zagnieżdżony plik dopiero gdy pracuje w tym katalogu - to naturalne "lazy loading".</p>
+    <p><strong>Antywzorzec:</strong> AGENTS.md liczący 500+ linii. Model gubi środek długiego pliku, a Ty płacisz kontekstem w każdej sesji. Ponad ~150 linii = sygnał, że część treści powinna być skillem, zagnieżdżonym plikiem albo docs.</p>
+  </div>
+
+  <div class="card">
+    <h2 id="harness-2">2) Rules / Settings / Permissions - twarde granice</h2>
+    <p><strong>Co to jest:</strong> deterministyczna konfiguracja narzędzia (w Claude Code: <code>settings.json</code> + permissions; w Cursor: <code>.cursor/rules</code>). Różnica vs AGENTS.md: instrukcje w markdown model może zignorować lub źle zrozumieć; permissions egzekwuje sam harness - zawsze.</p>
+    <p><strong>Co tu umieszczać (checklist):</strong></p>
+    <ul class="task-list">
+      <li class="task"><label><input type="checkbox" data-id="harness-rules-0"><span>Allowlist bezpiecznych komend (mniej pytań o zgodę = szybsza praca)</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="harness-rules-1"><span>Denylist: produkcyjne CLI, destrukcyjne komendy, katalogi z sekretami</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="harness-rules-2"><span>Hooks (patrz punkt 5) i zmienne środowiskowe sesji</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="harness-rules-3"><span>Wybór modelu / trybu domyślnego dla zespołu (<code>settings.json</code> w repo)</span></label></li>
+    </ul>
+    <p><strong>Reguła:</strong> jeśli złamanie zasady jest kosztowne (usunięcie danych, wyciek sekretu, deploy na prod), NIE ufaj instrukcji w markdown - wymuś to permissions/hooks. Markdown to prośba, settings to prawo.</p>
+  </div>
+
+  <div class="card">
+    <h2 id="harness-3">3) Skills (SKILL.md) - powtarzalne procedury na żądanie</h2>
+    <p><strong>Co to jest:</strong> katalog z plikiem SKILL.md (+ opcjonalne skrypty i zasoby), opisujący procedurę. Ładowany do kontekstu TYLKO gdy pasuje do zadania lub gdy użytkownik wywoła go jawnie (<code>/nazwa</code>). Konwencja działa w wielu narzędziach (Claude Code, OpenCode, Codex, Gemini). Dawne "commands" w Claude Code zostały scalone ze skills; w OpenCode custom commands to nadal osobny, prostszy byt (szablony promptów) - patrz sekcja 10.</p>
+    <p><strong>Co tu umieszczać (checklist):</strong></p>
+    <ul class="task-list">
+      <li class="task"><label><input type="checkbox" data-id="harness-skills-0"><span>Procedury powtarzane w wielu sesjach/repo ("jak robimy security review")</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="harness-skills-1"><span>Workflow wielokrokowy z narzędziami ("release: wersja, changelog, tag")</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="harness-skills-2"><span>Wiedzę domenową potrzebną rzadko, ale wtedy w całości (np. format dokumentów firmowych, checklisty compliance)</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="harness-skills-3"><span>Skrypty pomocnicze obok SKILL.md, żeby agent nie pisał ich od zera</span></label></li>
+    </ul>
+    <p><strong>Czego NIE umieszczać:</strong> wiedzy potrzebnej w każdej sesji (to AGENTS.md), szczegółów jednego feature'a (to plan/PRD).</p>
+    <p><strong>Sygnał, że czas na skill:</strong> trzeci raz tłumaczysz agentowi to samo w prompcie, albo kończysz sesję, którą chciałbyś umieć powtórzyć. "Zrób z tej sesji skill" to legalne zakończenie dobrej sesji.</p>
+  </div>
+
+  <div class="card">
+    <h2 id="harness-4">4) Sub-Agents - role z własnym kontekstem</h2>
+    <p><strong>Co to jest:</strong> definicje agentów-pomocników (np. <code>.claude/agents/*.md</code>) z własnym promptem systemowym, narzędziami i limitem uprawnień. Główny agent deleguje im zadania; wracają z raportem, a ich "brudny" kontekst (przeczytane pliki, logi) NIE zaśmieca kontekstu głównego.</p>
+    <p><strong>Co tu umieszczać (checklist):</strong></p>
+    <ul class="task-list">
+      <li class="task"><label><input type="checkbox" data-id="harness-sub-0"><span>Role z jasnym kontraktem wejście/wyjście: reviewer, QA, researcher</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="harness-sub-1"><span>Zadania czytające dużo plików, z których potrzebujesz tylko wniosków</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="harness-sub-2"><span>Prace równoległe i niezależne (każdy agent inny obszar!)</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="harness-sub-3"><span>Ograniczenia roli: reviewer bez prawa edycji, researcher bez Bash</span></label></li>
+    </ul>
+    <p><strong>Czego NIE robić:</strong></p>
+    <ul class="plain-list">
+      <li>Worktree twórz tylko wtedy, gdy agenci muszą równolegle zmieniać te same pliki, np. przy różnych zadaniach w tym samym kodzie. W pozostałych przypadkach rozdziel zadania według plików lub folderów, poinformuj agentów o równoległej pracy i zapisz plan zależności; wspólne zmiany scalaj kolejno.</li>
+      <li>W <code>AGENTS.md</code> zapisz regułę: agent nie tworzy worktree domyślnie. Osobne instalacje zależności zużywają dysk i CPU, a agenci często zapominają je posprzątać.</li>
+      <li>Stan Git (gałąź, indeks i commity) zmienia tylko jeden koordynator; pozostali agenci edytują przydzielone pliki. Worktree nie usuwa konfliktów zmian tych samych plików - rozwiąż je przy scalaniu.</li>
+      <li>Nie deleguj zadań wymagających pełnego kontekstu rozmowy (sub-agent go nie ma - dostaje tylko to, co napiszesz w zleceniu)</li>
+    </ul>
+    <p><strong>Reguła:</strong> sub-agent = "wynajmij konsultanta, przeczytaj raport". Jeśli potrzebujesz dialogu i wspólnej pamięci - zostań w jednej sesji.</p>
+  </div>
+
+  <div class="card">
+    <h2 id="harness-5">5) Hooks - deterministyczne bramki jakości</h2>
+    <p><strong>Co to jest:</strong> komendy uruchamiane automatycznie przez harness na zdarzenia cyklu życia (przed/po edycji, przed commitem, na stop). W odróżnieniu od instrukcji "pamiętaj o lintach" - hook wykona się ZAWSZE.</p>
+    <p><strong>Co tu umieszczać (checklist):</strong></p>
+    <ul class="task-list">
+      <li class="task"><label><input type="checkbox" data-id="harness-hooks-0"><span>Format + lint po każdej edycji pliku</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="harness-hooks-1"><span>Szybkie testy pakietu przed commitem</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="harness-hooks-2"><span>Blokady: edycja plików wrażliwych, katalogi generowane</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="harness-hooks-3"><span>Automatyczne "czy na pewno skończone?" na zdarzenie stop</span></label></li>
+    </ul>
+    <p><strong>Czego NIE umieszczać:</strong> ciężkich analiz spowalniających każdą akcję (pełny build w hooku po edycji = ból). Hook ma być szybki albo asynchroniczny.</p>
+  </div>
+
+  <div class="card">
+    <h2 id="harness-6">6) Memory - fakty o osobie i sposobie pracy</h2>
+    <p><strong>Co to jest:</strong> trwała pamięć agenta między sesjami (w Claude Code: katalog memory + MEMORY.md), zapisywana przez samego agenta lub skrótem <code>#</code>.</p>
+    <p><strong>Co tu umieszczać (checklist):</strong></p>
+    <ul class="task-list">
+      <li class="task"><label><input type="checkbox" data-id="harness-memory-0"><span>Preferencje osoby: package manager, styl odpowiedzi, godziny pracy</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="harness-memory-1"><span>Stabilne fakty o środowisku niewidoczne w repo</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="harness-memory-2"><span>Feedback "rób tak / nie rób tak" z uzasadnieniem</span></label></li>
+    </ul>
+    <p><strong>Czego NIE umieszczać:</strong> decyzji projektowych (te należą do repo - ADR!), rzeczy, które widać w kodzie lub git history, sekretów. Test: <em>"czy nowy członek zespołu też powinien to wiedzieć?"</em> Jeśli tak - to nie memory, to AGENTS.md albo docs w repo.</p>
+  </div>
+
+  <div class="card">
+    <h2 id="harness-7">7) PRD + ADR + Design Guidelines - pamięć produktu i architektury</h2>
+    <p><strong>Co to jest:</strong> dokumenty w repo (<code>docs/</code>), czytane przez agenta na żądanie. Pisane <strong>dla ludzi I dla agentów</strong> - ten sam dokument służy zespołowi jako źródło prawdy i agentowi jako kontekst. PRD: co budujemy i po co (problem, użytkownik, zakres, kryteria akceptacji). ADR: krótki zapis decyzji architektonicznej z alternatywami, które odrzucono. Design Guidelines: system projektowy - tokeny (kolory, typografia, spacing), komponenty, ton komunikacji - żeby agent generował spójne UI, a nie "wariację na temat" przy każdej sesji.</p>
+    <p><strong>Co tu umieszczać (checklist):</strong></p>
+    <ul class="task-list">
+      <li class="task"><label><input type="checkbox" data-id="harness-prd-0"><span>PRD: problem, persona, zakres MVP, kryteria akceptacji, co POZA zakresem</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="harness-prd-1"><span>ADR: kontekst -> decyzja -> konsekwencje -> odrzucone alternatywy</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="harness-prd-2"><span>Jeden ADR = jedna decyzja (krótki; 1 strona max)</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="harness-prd-3"><span>Design Guidelines: tokeny + zasady użycia komponentów (np. <code>docs/design-guidelines.md</code>); wskaż go agentowi przy każdej pracy nad UI</span></label></li>
+    </ul>
+    <p><strong>Dlaczego to element harnessu:</strong> agent w nowej sesji nie pamięta, DLACZEGO kod wygląda tak, a nie inaczej. Bez ADR "naprawi" Wam świadomą decyzję. PRD zatrzymuje scope creep: agent sam sprawdza, czy feature jest w zakresie.</p>
+    <p><strong>Czego NIE umieszczać:</strong> tasków i TODO (to plan/issues), szczegółów implementacji zmiennych w czasie (to kod i testy).</p>
+  </div>
+
+  <div class="card">
+    <h2 id="harness-8">8) Plan - mapa jednego zadania</h2>
+    <p><strong>Co to jest:</strong> plan konkretnego zadania: kolejność kroków, pliki do zmiany, testy, checkpointy. W Claude Code: plan mode (agent najpierw bada i proponuje plan, dopiero po akceptacji edytuje). Może być też plikiem <code>plan.md</code> / todo. W odróżnieniu od PRD/ADR (dla ludzi i agentów, trwałe) plan jest <strong>tylko dla agentów i jednorazowy</strong> - dokładne rozpisanie zadań na jedno wykonanie.</p>
+    <p><strong>Co tu umieszczać (checklist):</strong></p>
+    <ul class="task-list">
+      <li class="task"><label><input type="checkbox" data-id="harness-plan-0"><span>Kroki w kolejności, z plikami i testami per krok</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="harness-plan-1"><span>Checkpointy weryfikacji ("po kroku 2: testy pakietu X zielone")</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="harness-plan-2"><span>Ryzyka i decyzje do potwierdzenia z człowiekiem</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="harness-plan-3"><span>Kryterium końca ("done = testy + lint + demo działa")</span></label></li>
+    </ul>
+    <p><strong>Cykl życia:</strong> plan ŻYJE KRÓTKO. Po wykonaniu: wartościowe decyzje -> ADR, zmiany zasad repo -> AGENTS.md, procedura do powtórzenia -> skill, a sam plan można skasować. Plan, który został "dokumentacją", to dług.</p>
+    <p><strong>Reguła:</strong> im większe zadanie, tym więcej wart plan. Zmiana 1 pliku nie potrzebuje planu; refactoring 40 plików bez planu to hazard.</p>
+  </div>
+
+  <div class="card">
+    <h2 id="harness-9">9) MCP - zewnętrzne narzędzia i dane dla agenta</h2>
+    <p><strong>Co to jest:</strong> Model Context Protocol - standard podłączania zewnętrznych narzędzi (Jira, baza danych, przeglądarka, dokumentacja bibliotek) jako narzędzi agenta. Serwer MCP działa lokalnie (stdio) albo zdalnie (HTTP) i rozszerza możliwości agenta bez pisania własnych integracji.</p>
+    <p><strong>Gdzie konfigurować:</strong></p>
+    <ul class="plain-list">
+      <li>Claude Code: <code>.mcp.json</code> w katalogu głównym repo (zespołowe, commitowane) lub konfiguracja osobista (<code>claude mcp add</code>)</li>
+      <li>OpenCode: klucz <code>"mcp"</code> w <code>opencode.json</code> (projektowym lub globalnym)</li>
+    </ul>
+    <p><strong>Co tu umieszczać (checklist):</strong></p>
+    <ul class="task-list">
+      <li class="task"><label><input type="checkbox" data-id="harness-mcp-0"><span>Serwer dokumentacji (np. Context7) - aktualne docs bibliotek na żądanie</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="harness-mcp-1"><span>Integracje firmowe: Jira/Confluence (Atlassian MCP), GitLab/Bitbucket</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="harness-mcp-2"><span>Narzędzia przeglądarkowe (Playwright MCP) - weryfikacja UI, testy E2E</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="harness-mcp-3"><span><code>"enabled": false</code> dla ciężkich/rzadko używanych serwerów - włączanie na żądanie (przykład: JetBrains MCP w <code>agent-configs/opencode/</code>)</span></label></li>
+    </ul>
+    <p><strong>Czego NIE robić:</strong></p>
+    <ul class="plain-list">
+      <li>Nie włączaj wszystkich serwerów na stałe: każdy serwer MCP wstrzykuje opisy swoich narzędzi do kontekstu KAŻDEJ sesji (płacisz jak za długi AGENTS.md, a model gorzej wybiera narzędzia)</li>
+      <li>Nie wpisuj sekretów wprost do konfiguracji - używaj zmiennych środowiskowych</li>
+      <li>Nie podłączaj serwerów MCP z niezaufanych źródeł (opisy narzędzi to wektor prompt injection; serwer widzi też dane, które agent mu przekazuje)</li>
+    </ul>
+    <p><strong>Różnice schematów</strong> (ta sama idea, inna składnia):</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th></th><th>Claude Code <code>.mcp.json</code></th><th>OpenCode <code>opencode.json</code></th></tr>
+        </thead>
+        <tbody>
+          <tr><td>serwer stdio</td><td><code>"type": "stdio"</code>, <code>command</code> (string) + <code>args</code></td><td><code>"type": "local"</code>, <code>command</code> (tablica)</td></tr>
+          <tr><td>zmienne środowiskowe</td><td><code>"env"</code></td><td><code>"environment"</code></td></tr>
+          <tr><td>serwer HTTP</td><td><code>"type": "http"</code></td><td><code>"type": "remote"</code> + <code>"url"</code></td></tr>
+          <tr><td>wyłączenie</td><td><code>"enabled": false</code></td><td><code>"enabled": false</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Przykłady z komentarzami w tym repo: <code>course-materials/agent-configs/opencode/opencode.jsonc</code> oraz <code>.mcp.json</code> w katalogu głównym.</p>
+  </div>
+
+  <div class="card">
+    <h2 id="harness-10">10) OpenCode - mapa odpowiedników</h2>
+    <p>Cały ten dokument stosuje się też do OpenCode (również z modelami self-hosted). Różnią się głównie składnia i lokalizacje plików:</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Element harnessu</th><th>Claude Code</th><th>OpenCode</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Instrukcje repo</td><td><code>AGENTS.md</code> / <code>CLAUDE.md</code> (import <code>@AGENTS.md</code>)</td><td><code>AGENTS.md</code> natywnie (czyta też <code>CLAUDE.md</code>); dodatkowe pliki przez <code>"instructions"</code> w <code>opencode.json</code></td></tr>
+          <tr><td>Instrukcje osobiste globalne</td><td><code>~/.claude/CLAUDE.md</code></td><td><code>~/.config/opencode/AGENTS.md</code></td></tr>
+          <tr><td>Settings</td><td><code>.claude/settings.json</code></td><td><code>opencode.json</code> w repo / <code>~/.config/opencode/opencode.json</code> (JSONC, kolejność: globalny -> projektowy)</td></tr>
+          <tr><td>Permissions</td><td><code>permissions</code> (listy allow/deny)</td><td><code>"permission"</code>: <code>edit</code> / <code>bash</code> / <code>webfetch</code> = <code>"allow"</code> / <code>"ask"</code> / <code>"deny"</code> (także per agent)</td></tr>
+          <tr><td>Skills</td><td><code>.claude/skills/</code> lub <code>.agents/skills/</code></td><td><code>.opencode/skills/</code>; czyta TEŻ <code>.claude/skills/</code> i <code>.agents/skills/</code> - te same skille działają w obu narzędziach</td></tr>
+          <tr><td>Custom commands</td><td>scalone ze skills (<code>/nazwa</code>)</td><td>osobny byt: <code>.opencode/commands/*.md</code> z frontmatter (<code>description</code>, <code>agent</code>, <code>model</code>) i szablonem (<code>$ARGUMENTS</code>, <code>$1..$n</code>, <code>@plik</code>)</td></tr>
+          <tr><td>Sub-agents</td><td><code>.claude/agents/*.md</code></td><td><code>.opencode/agents/*.md</code>, frontmatter <code>mode: primary/subagent</code>; wywołanie <code>@nazwa</code> lub automatycznie przez Task tool</td></tr>
+          <tr><td>Hooks</td><td><code>hooks</code> w <code>settings.json</code></td><td>pluginy (custom tools, hooks, integracje)</td></tr>
+          <tr><td>Memory</td><td>katalog memory + MEMORY.md, skrót <code>#</code></td><td>brak automatycznej pamięci - trwałe fakty zapisuj świadomie w <code>AGENTS.md</code></td></tr>
+          <tr><td>MCP</td><td><code>.mcp.json</code></td><td><code>"mcp"</code> w <code>opencode.json</code> (sekcja 9)</td></tr>
+          <tr><td>Model domyślny</td><td><code>settings.json</code> / <code>/model</code></td><td><code>"model": "&lt;provider&gt;/&lt;model-id&gt;"</code> + opcjonalnie <code>"small_model"</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><strong>Modele lokalne / self-hosted w OpenCode:</strong> blok <code>"provider"</code> z endpointem OpenAI-compatible (Ollama, vLLM itp.) - kompletny przykład z komentarzami: <code>course-materials/agent-configs/opencode/opencode.jsonc</code>.</p>
+  </div>
+
+  <div class="card">
+    <h2 id="harness-decyzje">Tabela decyzyjna (ściąga)</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Informacja</th><th>Trwałość</th><th>Miejsce</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>"Testy odpalamy <code>pnpm test</code>"</td><td>stała, całe repo</td><td>AGENTS.md</td></tr>
+          <tr><td>"Frontend: komponenty wg wzorca X"</td><td>stała, jeden moduł</td><td><code>frontend/AGENTS.md</code></td></tr>
+          <tr><td>"Nigdy nie dotykaj prod CLI"</td><td>stała, krytyczna</td><td>permissions/rules (+ zdanie w AGENTS.md)</td></tr>
+          <tr><td>"Jak robimy security review"</td><td>stała, wiele repo</td><td>skill</td></tr>
+          <tr><td>"Review robi osobny agent bez edycji"</td><td>stała, rola</td><td>sub-agent</td></tr>
+          <tr><td>"Lint po każdej edycji"</td><td>stała, automat</td><td>hook</td></tr>
+          <tr><td>"Wolę pnpm, odpowiadaj po polsku"</td><td>stała, osobista</td><td>memory / ~/.claude/CLAUDE.md</td></tr>
+          <tr><td>"Operator pobiera zgłoszenia z wybranego miesiąca do CSV, bez danych kontaktowych"</td><td>do zmiany wymagań produktu</td><td>PRD</td></tr>
+          <tr><td>"Pieniądze w decimal cents, nie float"</td><td>stała decyzja</td><td>ADR</td></tr>
+          <tr><td>"Kolory, typografia, zasady komponentów"</td><td>stała, całe UI</td><td>Design Guidelines</td></tr>
+          <tr><td>"T1: kontrakt CSV i test pustego miesiąca; T2: endpoint (po T1); T3: przycisk (po T1); T4: test przepływu (po T2 i T3)"</td><td>jedno zadanie</td><td>plan / plan mode</td></tr>
+          <tr><td>"Odrzucam sugestię X w tym diffie"</td><td>jeden PR</td><td>komentarz PR</td></tr>
+          <tr><td>"Aktualna dokumentacja biblioteki Y"</td><td>na żądanie</td><td>MCP (np. Context7)</td></tr>
+          <tr><td>"Szablon promptu z parametrami"</td><td>stała, powtarzalna</td><td>skill lub custom command (Claude Code / OpenCode)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 id="harness-antywzorce">Top 8 antywzorców</h2>
+    <ol class="antipatterns">
+      <li class="antipattern"><strong>Wszystko do AGENTS.md</strong> - 500 linii, których model nie czyta uważnie.</li>
+      <li class="antipattern"><strong>Sekrety w plikach instrukcji</strong> - trafią do logów i odpowiedzi.</li>
+      <li class="antipattern"><strong>Plan jako dokumentacja</strong> - nieaktualny plan myli kolejne sesje.</li>
+      <li class="antipattern"><strong>Memory zamiast ADR</strong> - decyzje projektowe znikają z repo.</li>
+      <li class="antipattern"><strong>Skill na wszystko</strong> - 40 skilli o zbyt podobnych opisach; agent wybiera zły albo żaden. Skill ma mieć ostry trigger.</li>
+      <li class="antipattern"><strong>Instrukcja markdown zamiast permissions</strong> - "nie kasuj bazy" musi być regułą harnessu, nie prośbą.</li>
+      <li class="antipattern"><strong>Sub-agenci na wspólnych plikach</strong> - Worktree twórz tylko wtedy, gdy agenci muszą równolegle zmieniać te same pliki, np. przy różnych zadaniach w tym samym kodzie. W pozostałych przypadkach rozdziel zadania według plików lub folderów, poinformuj agentów o równoległej pracy i zapisz plan zależności; wspólne zmiany scalaj kolejno.</li>
+      <li class="antipattern"><strong>Wszystkie serwery MCP włączone na stałe</strong> - opisy narzędzi zjadają kontekst każdej sesji; ciężkie serwery trzymaj z <code>"enabled": false</code>.</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h2 id="harness-minimal">Minimalny zestaw startowy</h2>
+    <p><strong>Greenfield (nowy projekt):</strong></p>
+    <ol>
+      <li>AGENTS.md (30-60 linii): komendy, konwencje, definicja done</li>
+      <li>PRD (1-2 strony) + pierwszy ADR (stack)</li>
+      <li>Permissions: allowlist komend projektu, denylist destrukcyjnych</li>
+      <li>Plan mode dla pierwszego feature'a; po nim - zapisz ADR-y</li>
+      <li>Hook: lint/format po edycji</li>
+      <li>Skills i sub-agentów dodawaj dopiero, gdy zobaczysz powtórkę</li>
+    </ol>
+    <p><strong>Brownfield (istniejący kod):</strong></p>
+    <ol>
+      <li>Sesja eksploracji: agent sam pisze szkic AGENTS.md (Ty weryfikujesz!)</li>
+      <li>ADR-y wstecz dla 3-5 kluczowych decyzji (z git log / wywiadu z zespołem)</li>
+      <li>Permissions od dnia 1 (stary kod = więcej niespodzianek)</li>
+      <li>Sub-agent researcher do mapowania modułów przed pierwszą zmianą</li>
+      <li>Pierwsze zmiany wyłącznie przez plan mode + małe PR-y</li>
+    </ol>
+    <p>Pełne wersje krok po kroku (z odpowiednikami OpenCode): <a href="#greenfield">greenfield-checklist.md</a> i <a href="#brownfield">brownfield-checklist.md</a> w tym katalogu.</p>
+  </div>
+</section>
+
+<!-- GREENFIELD -->
+<section id="pane-greenfield" class="tab-pane" data-tab="greenfield">
+  <div class="section-head">
+    <h2 style="margin-bottom:4px;">Greenfield Checklist - nowy projekt z agentami od dnia pierwszego</h2>
+    <button class="reset-btn" data-reset="greenfield" title="Wyczyść zaznaczenia tej checklisty">Reset</button>
+  </div>
+  <nav class="toc" aria-label="Spis treści Greenfield">
+    <a href="#greenfield-krok-0">Krok 0 - repo i szkielet</a>
+    <a href="#greenfield-krok-1">Krok 1 - PRD zanim powstanie kod</a>
+    <a href="#greenfield-krok-2">Krok 2 - pierwsze ADR-y</a>
+    <a href="#greenfield-krok-3">Krok 3 - AGENTS.md (konstytucja repo, 30-60 linii)</a>
+    <a href="#greenfield-krok-4">Krok 4 - permissions od startu</a>
+    <a href="#greenfield-krok-5">Krok 5 - MCP tylko tam, gdzie potrzebne</a>
+    <a href="#greenfield-krok-6">Krok 6 - pierwszy feature przez plan mode</a>
+    <a href="#greenfield-krok-7">Krok 7 - testy jako fundament</a>
+    <a href="#greenfield-krok-8">Krok 8 - automatyzacja bramek jakości</a>
+    <a href="#greenfield-krok-9">Krok 9 - skills i sub-agenci dopiero przy powtórce</a>
+    <a href="#greenfield-krok-10">Krok 10 - rytm pracy</a>
+    <a href="#greenfield-minimal">Minimalny dzień pierwszy (wersja "nie mam czasu")</a>
+  </nav>
+
+  <div class="card">
+    <p>Kolejność kroków przy starcie nowego projektu, w którym od początku pracują agenci (Claude Code, OpenCode - z modelami chmurowymi lub self-hosted). Skrócona wersja i wyjaśnienie "co gdzie": <a href="#harness">harness-checklist.md</a>.</p>
+    <p>Zasada: <strong>najpierw dokumenty i granice, potem kod</strong>. Każda godzina włożona w PRD, ADR i AGENTS.md zwraca się w każdej kolejnej sesji agenta.</p>
+  </div>
+
+  <div class="card">
+    <h2 id="greenfield-krok-0">Krok 0 - repo i szkielet</h2>
+    <ul class="task-list">
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k0-0"><span><code>git init</code> + pierwszy commit (agent musi mieć punkt powrotu od początku)</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k0-1"><span>README: jedno zdanie "co budujemy i dla kogo" (agent też je czyta)</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k0-2"><span><code>.gitignore</code> + <code>.env.example</code> (sekrety NIGDY w repo - agent może wkleić zawartość plików do odpowiedzi i logów)</span></label></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2 id="greenfield-krok-1">Krok 1 - PRD zanim powstanie kod</h2>
+    <ul class="task-list">
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k1-0"><span>Problem: czyj problem rozwiązujemy i skąd wiemy, że istnieje</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k1-1"><span>Persona / użytkownik docelowy</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k1-2"><span>Zakres MVP + jawna lista "POZA zakresem" (to zatrzymuje scope creep, także ten proponowany przez agenta)</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k1-3"><span>Kryteria akceptacji - mierzalne, testowalne</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k1-4"><span>Zapisz do <code>docs/PRD-....md</code>; wygeneruj z agentem w trybie wywiadu (przykładowe prompty: <code>course-materials/Prompt examples/</code>)</span></label></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2 id="greenfield-krok-2">Krok 2 - pierwsze ADR-y</h2>
+    <ul class="task-list">
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k2-0"><span>ADR-001: wybór stacku (kontekst -> decyzja -> konsekwencje -> odrzucone alternatywy)</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k2-1"><span>Jeden ADR = jedna decyzja, max 1 strona, do <code>docs/ADR/</code></span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k2-2"><span>Każda kolejna ważna decyzja w trakcie budowy = nowy ADR (inaczej następna sesja agenta "naprawi" Wam świadomy wybór)</span></label></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2 id="greenfield-krok-3">Krok 3 - AGENTS.md (konstytucja repo, 30-60 linii)</h2>
+    <ul class="task-list">
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k3-0"><span>Komendy: build, test, lint, typecheck - dokładne, z package managerem</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k3-1"><span>Konwencje: język, styl, struktura katalogów, nazewnictwo</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k3-2"><span>Definicja "done": co musi przejść, zanim agent uzna pracę za skończoną</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k3-3"><span>Granice: czego nie czytać (sekrety), czego nie uruchamiać (deploy)</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k3-4"><span>Wskaźniki do PRD/ADR ("wymagania: docs/PRD-....md")</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k3-5"><span>Claude Code: <code>CLAUDE.md</code> z jedną linią <code>@AGENTS.md</code></span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k3-6"><span>OpenCode: czyta <code>AGENTS.md</code> natywnie (nic więcej nie trzeba); dodatkowe pliki można wskazać w <code>opencode.json</code> -> <code>"instructions"</code></span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k3-7"><span>Trzymaj krótko; szczegóły modułów trafią później do zagnieżdżonych <code>AGENTS.md</code> w podkatalogach</span></label></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2 id="greenfield-krok-4">Krok 4 - permissions od startu</h2>
+    <ul class="task-list">
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k4-0"><span>Allowlist bezpiecznych komend projektu (test, lint, build) - mniej pytań o zgodę, szybsza praca</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k4-1"><span>Denylist: destrukcyjne komendy, produkcyjne CLI, katalogi z sekretami</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k4-2"><span>Claude Code: <code>permissions</code> w <code>.claude/settings.json</code> (commitowane dla zespołu)</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k4-3"><span>OpenCode: <code>"permission"</code> w <code>opencode.json</code>, wartości <code>"allow"</code> / <code>"ask"</code> / <code>"deny"</code> dla <code>edit</code>, <code>bash</code>, <code>webfetch</code> (też per agent)</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k4-4"><span>Reguła: kosztowna zasada = permissions, nie zdanie w markdown (markdown to prośba, settings to prawo)</span></label></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2 id="greenfield-krok-5">Krok 5 - MCP tylko tam, gdzie potrzebne</h2>
+    <ul class="task-list">
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k5-0"><span>Serwer dokumentacji (np. Context7) - aktualne docs wybranego stacku</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k5-1"><span>Playwright MCP, jeśli budujecie UI (agent sam zweryfikuje efekt w przeglądarce)</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k5-2"><span>Ciężkie/rzadkie serwery z <code>"enabled": false</code> - włączane na żądanie</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k5-3"><span>Claude Code: <code>.mcp.json</code> w repo; OpenCode: <code>"mcp"</code> w <code>opencode.json</code> (schematy różnią się składnią - tabela w harness-checklist, sekcja 9; przykład: <code>course-materials/agent-configs/opencode/opencode.jsonc</code>)</span></label></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2 id="greenfield-krok-6">Krok 6 - pierwszy feature przez plan mode</h2>
+    <ul class="task-list">
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k6-0"><span>Agent najpierw bada i proponuje plan; edycje dopiero po akceptacji</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k6-1"><span>Plan: kroki z plikami i testami, checkpointy weryfikacji, kryterium końca</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k6-2"><span>Po wykonaniu: decyzje -> ADR, nowe zasady -> AGENTS.md, sam plan można skasować (plan, który został "dokumentacją", to dług)</span></label></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2 id="greenfield-krok-7">Krok 7 - testy jako fundament</h2>
+    <ul class="task-list">
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k7-0"><span>Infrastruktura testowa w pierwszym tygodniu, nie "kiedyś"</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k7-1"><span>TDD z agentem: test przed implementacją; agent ma potwierdzić, że nowy test najpierw failuje z oczekiwanego powodu</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k7-2"><span>Definicja "done" w AGENTS.md odwołuje się do testów ("testy pakietu zielone, lint bez błędów")</span></label></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2 id="greenfield-krok-8">Krok 8 - automatyzacja bramek jakości</h2>
+    <ul class="task-list">
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k8-0"><span>Lint/format automatycznie po każdej edycji pliku</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k8-1"><span>Szybkie testy przed commitem</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k8-2"><span>Claude Code: <code>hooks</code> w <code>settings.json</code>; OpenCode: pluginy</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k8-3"><span>Hook ma być szybki - pełny build w hooku po edycji to ból</span></label></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2 id="greenfield-krok-9">Krok 9 - skills i sub-agenci dopiero przy powtórce</h2>
+    <ul class="task-list">
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k9-0"><span>Trzeci raz tłumaczysz agentowi to samo w prompcie -> czas na skill</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k9-1"><span>Dobra sesja, którą chcesz umieć powtórzyć -> "zrób z tej sesji skill"</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k9-2"><span>Skills: <code>.claude/skills/</code> lub <code>.agents/skills/</code> - OpenCode czyta oba te katalogi oraz własny <code>.opencode/skills/</code> (jeden skill działa w obu narzędziach)</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k9-3"><span>OpenCode dodatkowo: proste szablony promptów jako custom commands (<code>.opencode/commands/*.md</code>, zmienne <code>$ARGUMENTS</code>, <code>$1..$n</code>)</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k9-4"><span>Sub-agenci, gdy klarują się role: reviewer (bez prawa edycji), researcher, QA - Claude Code: <code>.claude/agents/*.md</code>; OpenCode: <code>.opencode/agents/*.md</code> (<code>mode: subagent</code>, wywołanie <code>@nazwa</code>)</span></label></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2 id="greenfield-krok-10">Krok 10 - rytm pracy</h2>
+    <ul class="task-list">
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k10-0"><span>Małe zadania, małe PR-y; jeden logiczny temat = jeden commit</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k10-1"><span>Commit dopiero po weryfikacji (testy + lint + aplikacja startuje; testy przechodzą != aplikacja działa)</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k10-2"><span>Nowe zadanie = świeży kontekst/sesja; nie ciągnij jednej rozmowy przez trzy różne tematy</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="greenfield-k10-3"><span>Raz w tygodniu przejrzyj AGENTS.md: czy urósł ponad ~150 linii? Wydziel skills / zagnieżdżone pliki / docs</span></label></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2 id="greenfield-minimal">Minimalny dzień pierwszy (wersja "nie mam czasu")</h2>
+    <ol>
+      <li>Krok 0 + Krok 3 (AGENTS.md, choćby 20 linii: komendy + definicja done)</li>
+      <li>Krok 4 (permissions: denylist destrukcyjnych)</li>
+      <li>Krok 1 (PRD - może być 1 strona)</li>
+      <li>Pierwszy feature przez plan mode (Krok 6)</li>
+    </ol>
+    <p>Reszta dojdzie naturalnie - byle nie pomijać ADR-ów przy ważnych decyzjach.</p>
+  </div>
+</section>
+
+<!-- BROWNFIELD -->
+<section id="pane-brownfield" class="tab-pane" data-tab="brownfield">
+  <div class="section-head">
+    <h2 style="margin-bottom:4px;">Brownfield Checklist - agenci w istniejącym projekcie (legacy)</h2>
+    <button class="reset-btn" data-reset="brownfield" title="Wyczyść zaznaczenia tej checklisty">Reset</button>
+  </div>
+  <nav class="toc" aria-label="Spis treści Brownfield">
+    <a href="#brownfield-krok-0">Krok 0 - granice bezpieczeństwa PRZED pierwszą sesją</a>
+    <a href="#brownfield-krok-1">Krok 1 - sesja eksploracji: agent pisze szkic AGENTS.md</a>
+    <a href="#brownfield-krok-2">Krok 2 - ADR-y wstecz dla 3-5 kluczowych decyzji</a>
+    <a href="#brownfield-krok-3">Krok 3 - stan testów: ustal, na czym stoisz</a>
+    <a href="#brownfield-krok-4">Krok 4 - sub-agent researcher do mapowania</a>
+    <a href="#brownfield-krok-5">Krok 5 - MCP tam, gdzie firma już ma dane</a>
+    <a href="#brownfield-krok-6">Krok 6 - pierwsze zmiany: wyłącznie plan mode + małe PR-y</a>
+    <a href="#brownfield-krok-7">Krok 7 - zagnieżdżone AGENTS.md dla obszarów o różnych regułach</a>
+    <a href="#brownfield-krok-8">Krok 8 - automatyzacja bramek jakości</a>
+    <a href="#brownfield-krok-9">Krok 9 - skills z powtarzalnych procedur zespołu</a>
+    <a href="#brownfield-krok-10">Krok 10 - rytm i higiena</a>
+    <a href="#brownfield-minimal">Minimalny dzień pierwszy (wersja "nie mam czasu")</a>
+  </nav>
+
+  <div class="card">
+    <p>Kolejność kroków przy wdrażaniu agentów (Claude Code, OpenCode - z modelami chmurowymi lub self-hosted) do istniejącego kodu. Skrócona wersja i wyjaśnienie "co gdzie": <a href="#harness">harness-checklist.md</a>.</p>
+    <p>Różnica vs greenfield: tu agent NIE zna decyzji, które ukształtowały kod, a kod pełen jest niespodzianek. Dlatego kolejność jest odwrócona: <strong>najpierw granice i eksploracja, dopiero potem zmiany</strong>.</p>
+  </div>
+
+  <div class="card">
+    <h2 id="brownfield-krok-0">Krok 0 - granice bezpieczeństwa PRZED pierwszą sesją</h2>
+    <ul class="task-list">
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k0-0"><span>Denylist od dnia 1: produkcyjne CLI, komendy destrukcyjne, migracje baz, katalogi z sekretami (stary kod = więcej niespodzianek niż nowy)</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k0-1"><span>Claude Code: <code>permissions</code> w <code>.claude/settings.json</code>; OpenCode: <code>"permission"</code> w <code>opencode.json</code> (<code>"allow"</code>/<code>"ask"</code>/<code>"deny"</code> dla <code>edit</code>, <code>bash</code>, <code>webfetch</code>)</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k0-2"><span>Sprawdź, czy w repo nie leżą sekrety (<code>.env</code> w git? tokeny w konfiguracji?); jeśli tak - usuń/zrotuj ZANIM agent zacznie czytać pliki</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k0-3"><span><code>.env.example</code> zamiast prawdziwych wartości; sekrety do zmiennych środowiskowych</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k0-4"><span>Upewnij się, że jest kopia/branch startowy - agentowi potrzebny punkt powrotu (<code>git switch -c agents-onboarding</code>)</span></label></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2 id="brownfield-krok-1">Krok 1 - sesja eksploracji: agent pisze szkic AGENTS.md</h2>
+    <ul class="task-list">
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k1-0"><span>Poproś agenta o zwiedzenie repo i NAPISANIE szkicu AGENTS.md: komendy build/test/lint (niech je URUCHOMI i potwierdzi, że działają), struktura katalogów, konwencje, które widzi w kodzie</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k1-1"><span>TY weryfikujesz każdą linię - agent zgaduje z kodu, a kod bywa niereprezentatywny (stare wzorce, martwe katalogi)</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k1-2"><span>Zapisz też to, czego agent NIE wywnioskuje z kodu: dziwne środowisko, "tego katalogu nie ruszamy, bo...", zależności od innych systemów</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k1-3"><span>Claude Code: <code>CLAUDE.md</code> = jedna linia <code>@AGENTS.md</code>; OpenCode: czyta <code>AGENTS.md</code> natywnie</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k1-4"><span>Cel: 30-60 linii; nie przepisuj całej wiedzy plemiennej naraz - dopisuj, gdy agent się potknie</span></label></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2 id="brownfield-krok-2">Krok 2 - ADR-y wstecz dla 3-5 kluczowych decyzji</h2>
+    <ul class="task-list">
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k2-0"><span>Z <code>git log</code>, komentarzy i wywiadu z zespołem odtwórz decyzje, które ukształtowały architekturę ("czemu monolit", "czemu ta baza", "czemu własny framework do X")</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k2-1"><span>Format: kontekst -> decyzja -> konsekwencje -> odrzucone alternatywy; jeden ADR = jedna decyzja, do <code>docs/ADR/</code></span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k2-2"><span>Bez tego agent w dobrej wierze "naprawi" świadome decyzje - i zrobi to przekonująco</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k2-3"><span>Dopisuj kolejne ADR-y, gdy podczas pracy odkryjecie następne niepisane decyzje</span></label></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2 id="brownfield-krok-3">Krok 3 - stan testów: ustal, na czym stoisz</h2>
+    <ul class="task-list">
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k3-0"><span>Uruchom istniejące testy; zapisz w AGENTS.md, jak się je odpala i czego się spodziewać (które są flaky, które wolne)</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k3-1"><span>Brak testów w obszarze, który będziesz zmieniać? Najpierw testy charakteryzujące (opisujące OBECNE zachowanie, nawet jeśli dziwne) - dopiero potem zmiany</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k3-2"><span>Definicja "done" w AGENTS.md: co musi być zielone przed commitem</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k3-3"><span>Testy przechodzą != aplikacja działa: zapisz też, jak uruchomić aplikację i po czym poznać, że żyje</span></label></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2 id="brownfield-krok-4">Krok 4 - sub-agent researcher do mapowania</h2>
+    <ul class="task-list">
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k4-0"><span>Zanim zmienisz moduł, wyślij sub-agenta researchera (rola tylko-czytanie), żeby zmapował zależności i zwrócił raport - jego "brudny" kontekst (dziesiątki przeczytanych plików) nie zaśmieca Twojej sesji</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k4-1"><span>Claude Code: <code>.claude/agents/researcher.md</code> (bez prawa edycji); OpenCode: <code>.opencode/agents/researcher.md</code> (<code>mode: subagent</code>, wywołanie <code>@researcher</code>)</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k4-2"><span>Wnioski z raportów: trwałe -> AGENTS.md lub docs, jednorazowe -> plan</span></label></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2 id="brownfield-krok-5">Krok 5 - MCP tam, gdzie firma już ma dane</h2>
+    <ul class="task-list">
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k5-0"><span>Integracje firmowe: Jira/Confluence (Atlassian MCP), GitLab/Bitbucket - agent czyta tickety i historię zamiast zgadywać</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k5-1"><span>Serwer dokumentacji (np. Context7) dla bibliotek, na których stoi projekt</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k5-2"><span>Ciężkie/rzadkie serwery <code>"enabled": false</code>, włączane na żądanie</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k5-3"><span>Claude Code: <code>.mcp.json</code>; OpenCode: <code>"mcp"</code> w <code>opencode.json</code> (różnice składni: harness-checklist sekcja 9)</span></label></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2 id="brownfield-krok-6">Krok 6 - pierwsze zmiany: wyłącznie plan mode + małe PR-y</h2>
+    <ul class="task-list">
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k6-0"><span>Każda zmiana zaczyna się od planu: kroki, pliki, testy, checkpointy; edycje dopiero po Twojej akceptacji planu</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k6-1"><span>Małe PR-y (jeden temat), częste commity, łatwy rollback</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k6-2"><span>Zasada dla legacy: refactoring i zmiana zachowania NIGDY w jednym commicie</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k6-3"><span>Po zadaniu: decyzje -> ADR, nowe zasady -> AGENTS.md, procedura do powtórki -> skill, plan skasuj</span></label></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2 id="brownfield-krok-7">Krok 7 - zagnieżdżone AGENTS.md dla obszarów o różnych regułach</h2>
+    <ul class="task-list">
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k7-0"><span>Moduły z własnymi konwencjami (stary frontend vs nowy, inny język, inne standardy) dostają własny <code>AGENTS.md</code> w podkatalogu - agent czyta go dopiero, gdy tam pracuje (naturalne lazy loading)</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k7-1"><span>Główny AGENTS.md zostaje krótki i uniwersalny (~150 linii max)</span></label></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2 id="brownfield-krok-8">Krok 8 - automatyzacja bramek jakości</h2>
+    <ul class="task-list">
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k8-0"><span>Lint/format po każdej edycji; szybkie testy przed commitem</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k8-1"><span>Blokady na pliki wrażliwe i katalogi generowane</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k8-2"><span>Claude Code: <code>hooks</code> w <code>settings.json</code>; OpenCode: pluginy</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k8-3"><span>W legacy hooki są ważniejsze niż w greenfield: automatyczna bramka wyłapie regresję, o której instrukcja w markdown "zapomni"</span></label></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2 id="brownfield-krok-9">Krok 9 - skills z powtarzalnych procedur zespołu</h2>
+    <ul class="task-list">
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k9-0"><span>Procedury, które zespół powtarza od lat ("jak dodajemy endpoint", "jak robimy release", "jak debugujemy X") - spisz jako skills; to jednocześnie onboarding dla ludzi i dla agentów</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k9-1"><span>Skills: <code>.claude/skills/</code> lub <code>.agents/skills/</code> - OpenCode czyta oba oraz własny <code>.opencode/skills/</code> (jeden skill działa w obu narzędziach)</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k9-2"><span>OpenCode dodatkowo: proste szablony promptów jako custom commands (<code>.opencode/commands/*.md</code>, zmienne <code>$ARGUMENTS</code>, <code>$1..$n</code>)</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k9-3"><span>Sygnał: trzeci raz tłumaczysz agentowi to samo -> skill</span></label></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2 id="brownfield-krok-10">Krok 10 - rytm i higiena</h2>
+    <ul class="task-list">
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k10-0"><span>Nowe zadanie = świeża sesja; nie ciągnij jednego kontekstu przez wiele tematów</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k10-1"><span>Raz w tygodniu: przejrzyj AGENTS.md (rośnie? wydziel), skasuj martwe plany, dopisz brakujące ADR-y</span></label></li>
+      <li class="task"><label><input type="checkbox" data-id="brownfield-k10-2"><span>Mierz efekt: czy agent przestał zadawać te same pytania? Czy PR-y przechodzą review bez uwag o konwencje? To test jakości harnessu</span></label></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2 id="brownfield-minimal">Minimalny dzień pierwszy (wersja "nie mam czasu")</h2>
+    <ol>
+      <li>Krok 0 (denylist + sprawdź sekrety + branch startowy)</li>
+      <li>Krok 1 (sesja eksploracji -> szkic AGENTS.md, Ty weryfikujesz)</li>
+      <li>Krok 6 (pierwsza zmiana przez plan mode, mały PR)</li>
+    </ol>
+    <p>ADR-y wstecz (Krok 2) zrób w pierwszym tygodniu - to najtańsze ubezpieczenie od "agent naprawił nam architekturę".</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    Łukasz Matuszewski - <a href="https://devpowers.com" target="_blank" rel="noopener">devpowers.com</a><br>
+    <a href="#" target="_blank" rel="noopener">Przykładowe repozytorium kursowe</a>
+  </div>
+</footer>
+
+<script>
+(function() {
+  'use strict';
+  var THEME_KEY = 'theme';
+  var CHECK_KEY = 'cl-';
+
+  function applyTheme(theme) {
+    if (theme === 'light') {
+      document.body.classList.add('light');
+    } else {
+      document.body.classList.remove('light');
+    }
+  }
+
+  function toggleTheme() {
+    var isLight = document.body.classList.contains('light');
+    var next = isLight ? 'dark' : 'light';
+    localStorage.setItem(THEME_KEY, next);
+    applyTheme(next);
+    updateToggleIcon();
+  }
+
+  function updateToggleIcon() {
+    var btn = document.getElementById('theme-toggle');
+    if (!btn) return;
+    var isLight = document.body.classList.contains('light');
+    btn.textContent = isLight ? '☀️' : '🌙';
+    btn.setAttribute('aria-label', isLight ? 'Przełącz na ciemny motyw' : 'Przełącz na jasny motyw');
+  }
+
+  function initTheme() {
+    var theme = localStorage.getItem(THEME_KEY);
+    if (!theme) {
+      theme = 'dark';
+    }
+    applyTheme(theme);
+    updateToggleIcon();
+  }
+
+  var currentTab = 'harness';
+
+  function showTab(tab) {
+    currentTab = tab;
+    var panes = document.querySelectorAll('.tab-pane');
+    for (var i = 0; i < panes.length; i++) {
+      panes[i].classList.remove('active');
+    }
+    var pane = document.getElementById('pane-' + tab);
+    if (pane) pane.classList.add('active');
+
+    var buttons = document.querySelectorAll('.tab-btn');
+    for (var j = 0; j < buttons.length; j++) {
+      buttons[j].classList.toggle('active', buttons[j].dataset.tab === tab);
+    }
+    if (location.hash !== '#' + tab) {
+      history.replaceState(null, '', '#' + tab);
+    }
+  }
+
+  function initTabs() {
+    var buttons = document.querySelectorAll('.tab-btn');
+    for (var i = 0; i < buttons.length; i++) {
+      (function(btn) {
+        btn.addEventListener('click', function() {
+          var t = btn.dataset.tab;
+          showTab(t);
+        });
+      })(buttons[i]);
+    }
+
+    function fromHash() {
+      var h = location.hash.replace('#', '');
+      if (h === 'harness' || h === 'greenfield' || h === 'brownfield') {
+        showTab(h);
+      } else {
+        showTab('harness');
+      }
+    }
+    window.addEventListener('hashchange', fromHash);
+
+    if (location.hash) {
+      fromHash();
+    } else {
+      showTab('harness');
+      history.replaceState(null, '', '#harness');
+    }
+  }
+
+  function getTabForId(id) {
+    if (id.indexOf('harness-') === 0) return 'harness';
+    if (id.indexOf('greenfield-') === 0) return 'greenfield';
+    if (id.indexOf('brownfield-') === 0) return 'brownfield';
+    return null;
+  }
+
+  function updateProgress(tab) {
+    var pane = document.getElementById('pane-' + tab);
+    if (!pane) return;
+    var cbs = pane.querySelectorAll('input[type="checkbox"][data-id]');
+    var total = cbs.length;
+    var checked = 0;
+    for (var i = 0; i < cbs.length; i++) {
+      if (cbs[i].checked) checked++;
+    }
+    var badges = document.querySelectorAll('.progress-badge[data-for="' + tab + '"]');
+    for (var b = 0; b < badges.length; b++) {
+      badges[b].textContent = checked + '/' + total;
+    }
+  }
+
+  function updateAllProgress() {
+    updateProgress('harness');
+    updateProgress('greenfield');
+    updateProgress('brownfield');
+  }
+
+  function restoreCheckboxes() {
+    var cbs = document.querySelectorAll('input[type="checkbox"][data-id]');
+    for (var i = 0; i < cbs.length; i++) {
+      (function(cb) {
+        var id = cb.dataset.id;
+        var saved = localStorage.getItem(CHECK_KEY + id);
+        if (saved === '1') {
+          cb.checked = true;
+          var li = cb.closest('li.task');
+          if (li) li.classList.add('done');
+        }
+        cb.addEventListener('change', function() {
+          var checked = cb.checked;
+          localStorage.setItem(CHECK_KEY + id, checked ? '1' : '0');
+          var li = cb.closest('li.task');
+          if (li) li.classList.toggle('done', checked);
+          var tab = getTabForId(id);
+          if (tab) updateProgress(tab);
+        });
+      })(cbs[i]);
+    }
+  }
+
+  function initResets() {
+    var resets = document.querySelectorAll('.reset-btn');
+    for (var i = 0; i < resets.length; i++) {
+      (function(btn) {
+        var tab = btn.dataset.reset;
+        btn.addEventListener('click', function() {
+          if (!confirm('Zresetować wszystkie zaznaczenia dla tej checklisty?')) return;
+          var pane = document.getElementById('pane-' + tab);
+          if (!pane) return;
+          var cbs = pane.querySelectorAll('input[type="checkbox"][data-id]');
+          for (var k = 0; k < cbs.length; k++) {
+            cbs[k].checked = false;
+            localStorage.setItem(CHECK_KEY + cbs[k].dataset.id, '0');
+            var li = cbs[k].closest('li.task');
+            if (li) li.classList.remove('done');
+          }
+          updateProgress(tab);
+        });
+      })(resets[i]);
+    }
+  }
+
+  function initCheckboxes() {
+    restoreCheckboxes();
+    updateAllProgress();
+    initResets();
+  }
+
+  function initKeyboard() {
+    document.addEventListener('keydown', function(e) {
+      var k = e.key;
+      var t = e.target;
+      if ((k === 'd' || k === 'D') && !(t && t.matches && t.matches('input, textarea, select'))) {
+        e.preventDefault();
+        toggleTheme();
+      }
+    });
+  }
+
+  function init() {
+    initTheme();
+    initTabs();
+    initCheckboxes();
+    initKeyboard();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+</body>
+</html>

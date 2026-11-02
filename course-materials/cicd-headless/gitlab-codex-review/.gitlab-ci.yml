@@ -1,0 +1,54 @@
+# GitLab: Maven build + Codex review on every merge request. Tested 30.10.2026 on GitLab 19.5.3 (Docker runner) with Eclipse Cargo Tracker; change the build job for another project.
+#
+# Setup (once per project):
+# 1. Copy course-materials/cicd-headless/agent-review to ci/agent-review/ in your repository
+#    and this file to the repository root as .gitlab-ci.yml.
+# 2. OPENROUTER_API_KEY is set by the trainer for the whole instance.
+# 3. Add your own token so the job can comment on your MR (PowerShell; the token stays out of
+#    shell history and process arguments):
+#      $t = Read-Host 'Token'; $t | glab variable set GITLAB_TOKEN --masked; Remove-Variable t
+
+stages: [build, review]
+
+build:
+  stage: build
+  image: eclipse-temurin:17-jdk
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS
+      when: never
+    - if: $CI_COMMIT_BRANCH
+  script:
+    - chmod +x mvnw
+    - ./mvnw -B -ntp clean package
+  artifacts:
+    when: always
+    reports:
+      junit: target/surefire-reports/TEST-*.xml
+    expire_in: 3 days
+
+codex-review:
+  stage: review
+  # agent-ci:1 must exist where the job runs: build it on the runner host from
+  # ci/agent-review/Dockerfile (docker build -t agent-ci:1 ci/agent-review) with the Docker
+  # executor's pull_policy set to if-not-present, or push it to your registry and use the
+  # full name here, e.g. registry.example.com/team/agent-ci:1.
+  image: agent-ci:1
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  variables:
+    GIT_DEPTH: "0"
+    AGENT: codex
+    LLM_PROVIDER: openrouter
+    REVIEW_MODEL: openai/gpt-6-luna
+    # Codex's Linux sandbox (bubblewrap) cannot create namespaces in a default Docker job.
+    # The job container is the boundary here; keys are limited training keys.
+    CODEX_SANDBOX: danger-full-access
+  script:
+    - bash ci/agent-review/agent_review.sh "$CI_MERGE_REQUEST_TARGET_BRANCH_NAME" ci/agent-review/prompts/code-review.md
+    - bash ci/agent-review/post_review_comment.sh .agent-review/review.md
+  artifacts:
+    when: always
+    paths: [.agent-review/]
+    expire_in: 3 days

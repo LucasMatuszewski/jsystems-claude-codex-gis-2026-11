@@ -1,0 +1,12 @@
+# To use OpenRouter copy to ~/.codex/ and run with:
+#   codex --profile openrouter
+
+model_provider = "openrouter"
+model = "deepseek/deepseek-v4-pro" # or "z-ai/glm-5.1" or "minimax/minimax-m2.7", etc.
+model_context_window = 128000 # check for each model what is max contex window
+
+# Provider definition lives here because Codex ignores [model_providers.*] in a project config.
+[model_providers.openrouter]
+name = "OpenRouter"
+base_url = "https://openrouter.ai/api/v1"
+env_key = "OPENROUTER_API_KEY" # name of the environment variable that holds your key

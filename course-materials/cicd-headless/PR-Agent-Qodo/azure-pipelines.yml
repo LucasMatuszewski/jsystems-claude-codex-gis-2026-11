@@ -1,0 +1,59 @@
+# Azure DevOps (Azure Repos Git): configure target-branch Build Validation, not YAML pr:.
+# Variable group pr-agent: secret REVIEW_API_KEY and AZURE_DEVOPS__PAT.
+# Optional in the group: REVIEW_API_BASE, REVIEW_MODEL, REVIEW_MAX_TOKENS (defaults: OpenRouter, gpt-6-luna).
+trigger: none
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  - group: pr-agent
+
+steps:
+  - checkout: none
+  - bash: |
+      set -euo pipefail
+      : "${SYSTEM_PULLREQUEST_PULLREQUESTID:?Run as a PR Build Validation}"
+      : "${REVIEW_API_KEY:?Set secret REVIEW_API_KEY (model endpoint API key) in the variable group}"
+      # An undefined optional variable arrives as the literal text "$(NAME)"; treat that as unset.
+      unset_if_macro() { case "${!1:-}" in '$('*')') unset "$1" ;; esac; }
+      unset_if_macro REVIEW_API_BASE; unset_if_macro REVIEW_MODEL; unset_if_macro REVIEW_MAX_TOKENS
+      # Any OpenAI-compatible endpoint; "openai/" selects PR-Agent's OpenAI-compatible client.
+      export OPENAI__KEY="$REVIEW_API_KEY"
+      export OPENAI__API_BASE="${REVIEW_API_BASE:-https://openrouter.ai/api/v1}"
+      MODEL="openai/${REVIEW_MODEL:-openai/gpt-6-luna}"
+      export CONFIG__GIT_PROVIDER=azure
+      export CONFIG__MODEL="$MODEL"
+      export CONFIG__FALLBACK_MODELS='[]'
+      export CONFIG__CUSTOM_MODEL_MAX_TOKENS="${REVIEW_MAX_TOKENS:-250000}"
+      export CONFIG__MAX_MODEL_TOKENS="${REVIEW_MAX_TOKENS:-250000}"
+      export CONFIG__NO_TEMPERATURE_MODELS="[\"$MODEL\"]"
+      export CONFIG__ADDITIONAL_REASONING_EFFORT_MODELS="[\"$MODEL\"]"
+      export CONFIG__REASONING_EFFORT=low
+      export CONFIG__RESTRICTED_MODE=true
+      export CONFIG__PROPAGATE_TOOL_ERRORS=true
+      export PR_REVIEWER__PERSISTENT_COMMENT=true
+      export PR_REVIEWER__INLINE_KEY_ISSUES=false
+      export PR_REVIEWER__ENABLE_LARGE_PR_CHUNKING=true
+      export PR_REVIEWER__MAX_NUMBER_OF_CALLS=4
+      export AZURE_DEVOPS__ORG="${SYSTEM_COLLECTIONURI%/}"
+      # Repository URI handles projects/repository names already URL encoded by Azure.
+      PR_URL="${BUILD_REPOSITORY_URI%/}/pullrequest/$SYSTEM_PULLREQUEST_PULLREQUESTID"
+      docker run --rm --cap-drop ALL --security-opt no-new-privileges \
+        --env AZURE_DEVOPS__ORG --env AZURE_DEVOPS__PAT --env OPENAI__KEY --env OPENAI__API_BASE \
+        --env CONFIG__GIT_PROVIDER --env CONFIG__MODEL --env CONFIG__FALLBACK_MODELS \
+        --env CONFIG__CUSTOM_MODEL_MAX_TOKENS --env CONFIG__MAX_MODEL_TOKENS \
+        --env CONFIG__NO_TEMPERATURE_MODELS --env CONFIG__ADDITIONAL_REASONING_EFFORT_MODELS \
+        --env CONFIG__REASONING_EFFORT --env CONFIG__RESTRICTED_MODE --env CONFIG__PROPAGATE_TOOL_ERRORS \
+        --env PR_REVIEWER__PERSISTENT_COMMENT --env PR_REVIEWER__INLINE_KEY_ISSUES \
+        --env PR_REVIEWER__ENABLE_LARGE_PR_CHUNKING --env PR_REVIEWER__MAX_NUMBER_OF_CALLS \
+        --entrypoint python \
+        pragent/pr-agent:0.47.0@sha256:7d98954c29289846a08faf00aaea0f1f1375b1676cd8a2ed303e0af07010af7a \
+        -m pr_agent.cli --pr_url "$PR_URL" review
+    displayName: Community PR-Agent review
+    env:
+      REVIEW_API_KEY: $(REVIEW_API_KEY)
+      AZURE_DEVOPS__PAT: $(AZURE_DEVOPS__PAT)
+      REVIEW_API_BASE: $(REVIEW_API_BASE)
+      REVIEW_MODEL: $(REVIEW_MODEL)
+      REVIEW_MAX_TOKENS: $(REVIEW_MAX_TOKENS)

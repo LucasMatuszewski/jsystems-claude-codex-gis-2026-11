@@ -1,0 +1,436 @@
+id,order_id,product_id,type,reason_category,created_at,resolved_at,decision,decision_source
+1,4,7,complaint,damaged in transport,2025-01-08,2025-01-19,rejected,human
+2,23,16,complaint,battery issue,2024-07-16,,rejected,ai
+3,70,15,complaint,screen defect,2024-10-08,2024-10-14,partial refund,human
+4,71,37,return,changed mind,2024-07-31,2024-08-12,accepted,ai
+5,73,50,return,changed mind,2024-07-11,2024-07-15,rejected,human
+6,76,46,complaint,battery issue,2024-09-13,2024-10-03,partial refund,ai
+7,84,9,complaint,battery issue,2024-09-20,2024-09-28,partial refund,ai
+8,98,9,complaint,damaged in transport,2024-09-30,,rejected,human
+9,111,26,return,does not meet expectations,2024-07-19,2024-08-02,accepted,human
+10,119,17,complaint,damaged in transport,2024-09-29,2024-10-14,partial refund,ai
+11,129,46,return,does not meet expectations,2024-07-23,,rejected,human
+12,153,18,complaint,battery issue,2024-12-31,2025-01-19,accepted,ai
+13,185,53,complaint,damaged in transport,2024-08-25,2024-09-13,accepted,ai
+14,187,1,complaint,battery issue,2025-02-21,2025-03-02,rejected,human
+15,197,12,return,changed mind,2024-08-11,2024-08-12,accepted,human
+16,201,35,return,changed mind,2024-08-26,,accepted,human
+17,210,23,return,changed mind,2024-08-24,2024-09-07,accepted,ai
+18,214,24,complaint,battery issue,2025-04-04,2025-04-13,accepted,ai
+19,222,51,complaint,battery issue,2025-01-21,2025-02-09,accepted,ai
+20,247,51,complaint,performance issues,2024-11-11,2024-11-30,rejected,ai
+21,262,9,complaint,battery issue,2025-04-07,2025-04-20,rejected,human
+22,279,33,return,wrong item delivered,2024-08-25,2024-09-15,rejected,ai
+23,306,48,complaint,manufacturing defect,2025-04-12,2025-04-15,accepted,ai
+24,308,7,return,wrong item delivered,2024-08-19,2024-09-07,partial refund,ai
+25,322,8,complaint,connectivity issues,2024-12-21,2025-01-11,partial refund,ai
+26,418,52,complaint,battery issue,2025-04-12,2025-05-03,accepted,ai
+27,435,30,complaint,connectivity issues,2024-10-27,2024-11-02,accepted,ai
+28,451,16,complaint,connectivity issues,2024-12-06,2024-12-12,accepted,ai
+29,462,19,complaint,damaged in transport,2025-01-11,2025-01-14,accepted,ai
+30,475,1,complaint,battery issue,2025-03-04,2025-03-05,rejected,ai
+31,513,30,complaint,damaged in transport,2025-03-28,2025-04-05,accepted,ai
+32,544,48,complaint,manufacturing defect,2025-01-23,2025-01-25,accepted,human
+33,574,49,return,changed mind,2024-10-14,2024-11-03,rejected,human
+34,579,7,return,changed mind,2024-10-08,2024-10-13,rejected,human
+35,584,44,return,wrong item delivered,2024-11-11,,accepted,ai
+36,588,38,return,does not meet expectations,2024-10-19,2024-11-02,rejected,ai
+37,620,57,complaint,performance issues,2024-12-23,2025-01-10,accepted,ai
+38,627,59,complaint,performance issues,2024-11-30,,rejected,ai
+39,627,53,complaint,performance issues,2025-06-17,2025-06-26,rejected,ai
+40,651,4,return,wrong item delivered,2024-10-30,2024-11-10,accepted,human
+41,652,58,complaint,damaged in transport,2025-03-11,2025-03-20,accepted,ai
+42,654,53,complaint,connectivity issues,2025-03-08,2025-03-27,accepted,ai
+43,680,47,complaint,performance issues,2025-01-20,2025-02-05,accepted,ai
+44,698,51,return,does not meet expectations,2024-10-27,2024-11-04,accepted,ai
+45,744,1,complaint,battery issue,2025-03-31,2025-04-01,accepted,ai
+46,757,57,complaint,manufacturing defect,2025-05-19,2025-05-24,accepted,human
+47,764,5,complaint,manufacturing defect,2025-04-03,2025-04-18,rejected,human
+48,772,38,complaint,performance issues,2025-01-29,2025-02-05,accepted,ai
+49,780,55,complaint,connectivity issues,2024-12-08,2024-12-22,accepted,human
+50,782,24,return,changed mind,2024-11-16,2024-11-17,accepted,ai
+51,800,48,complaint,battery issue,2025-04-15,2025-05-02,accepted,ai
+52,808,25,return,wrong item delivered,2024-11-07,2024-11-15,partial refund,ai
+53,813,10,complaint,connectivity issues,2025-05-08,2025-05-20,partial refund,ai
+54,828,13,return,wrong item delivered,2024-11-04,2024-11-19,accepted,ai
+55,832,1,complaint,battery issue,2025-04-30,2025-05-03,accepted,human
+56,840,14,return,wrong item delivered,2024-11-22,2024-12-11,rejected,ai
+57,843,16,complaint,performance issues,2025-04-19,2025-05-09,rejected,human
+58,850,2,complaint,connectivity issues,2025-02-16,2025-02-21,accepted,ai
+59,863,12,return,changed mind,2024-11-26,2024-12-14,accepted,ai
+60,864,29,complaint,connectivity issues,2025-04-08,2025-04-24,partial refund,ai
+61,866,2,complaint,damaged in transport,2025-05-24,2025-06-08,accepted,ai
+62,869,44,complaint,damaged in transport,2025-06-29,2025-07-17,accepted,ai
+63,891,47,return,does not meet expectations,2024-11-18,2024-11-26,accepted,human
+64,894,42,return,wrong item delivered,2024-12-12,2024-12-27,accepted,human
+65,896,10,return,changed mind,2024-11-07,2024-11-24,accepted,ai
+66,909,1,complaint,manufacturing defect,2024-11-25,2024-12-10,rejected,human
+67,915,41,complaint,battery issue,2025-04-23,2025-05-02,rejected,ai
+68,916,39,return,does not meet expectations,2024-11-21,2024-12-03,accepted,ai
+69,926,41,complaint,battery issue,2025-01-04,2025-01-20,partial refund,human
+70,929,26,complaint,connectivity issues,2025-06-29,,accepted,ai
+71,933,8,complaint,connectivity issues,2025-04-24,2025-05-02,accepted,ai
+72,972,45,return,changed mind,2024-11-30,2024-12-15,rejected,ai
+73,980,1,return,does not meet expectations,2024-12-03,2024-12-12,accepted,ai
+74,981,58,return,changed mind,2024-11-16,2024-12-03,accepted,ai
+75,992,32,return,wrong item delivered,2024-11-15,2024-11-28,accepted,human
+76,995,4,return,does not meet expectations,2024-11-19,2024-12-07,rejected,ai
+77,1018,37,complaint,performance issues,2025-03-25,2025-04-11,rejected,ai
+78,1031,2,complaint,screen defect,2024-12-24,2024-12-31,partial refund,human
+79,1035,11,return,does not meet expectations,2024-11-27,,accepted,ai
+80,1036,51,return,does not meet expectations,2024-11-24,2024-12-15,accepted,ai
+81,1049,24,return,does not meet expectations,2024-12-10,2024-12-20,rejected,ai
+82,1076,19,complaint,connectivity issues,2025-04-29,,partial refund,human
+83,1113,53,complaint,manufacturing defect,2025-02-05,2025-02-20,accepted,ai
+84,1119,13,complaint,performance issues,2025-06-05,2025-06-25,rejected,ai
+85,1121,60,complaint,battery issue,2025-03-28,2025-04-09,rejected,human
+86,1130,57,complaint,performance issues,2025-06-24,2025-07-07,rejected,ai
+87,1132,27,return,changed mind,2025-01-03,2025-01-06,accepted,ai
+88,1159,24,return,wrong item delivered,2024-12-04,2024-12-16,accepted,human
+89,1162,37,complaint,manufacturing defect,2025-04-09,2025-04-18,accepted,human
+90,1164,56,complaint,performance issues,2025-03-08,2025-03-26,accepted,human
+91,1168,60,return,changed mind,2024-12-18,2024-12-21,partial refund,ai
+92,1182,16,return,changed mind,2025-01-04,2025-01-15,rejected,human
+93,1210,38,return,does not meet expectations,2024-12-13,2025-01-02,accepted,ai
+94,1218,50,complaint,battery issue,2025-04-13,2025-04-17,accepted,ai
+95,1223,34,return,wrong item delivered,2025-01-09,2025-01-16,rejected,ai
+96,1270,30,complaint,screen defect,2024-12-19,2025-01-08,accepted,human
+97,1278,14,return,does not meet expectations,2024-12-31,2025-01-05,accepted,ai
+98,1311,37,complaint,manufacturing defect,2025-05-09,2025-05-13,partial refund,human
+99,1313,1,return,changed mind,2025-01-03,2025-01-14,rejected,ai
+100,1320,5,return,changed mind,2024-12-28,2025-01-09,rejected,human
+101,1326,28,complaint,battery issue,2025-05-10,2025-05-18,accepted,human
+102,1330,8,complaint,battery issue,2025-03-31,2025-04-16,rejected,human
+103,1343,46,complaint,damaged in transport,2025-02-10,2025-02-13,accepted,ai
+104,1362,16,complaint,manufacturing defect,2025-04-24,2025-05-10,rejected,human
+105,1363,22,complaint,connectivity issues,2025-05-20,2025-05-28,accepted,ai
+106,1388,1,complaint,screen defect,2025-07-25,2025-08-02,rejected,ai
+107,1398,17,complaint,battery issue,2025-03-20,2025-03-27,rejected,ai
+108,1415,50,return,wrong item delivered,2024-12-23,2024-12-30,accepted,human
+109,1417,57,complaint,connectivity issues,2025-08-11,2025-08-24,accepted,human
+110,1417,1,complaint,battery issue,2025-05-21,2025-05-24,rejected,ai
+111,1425,33,complaint,screen defect,2025-05-12,2025-05-30,rejected,ai
+112,1448,56,return,does not meet expectations,2024-12-15,2024-12-26,rejected,human
+113,1450,10,complaint,damaged in transport,2025-05-03,2025-05-17,rejected,human
+114,1480,32,complaint,damaged in transport,2025-02-03,,partial refund,human
+115,1483,58,complaint,damaged in transport,2025-05-05,2025-05-19,accepted,ai
+116,1485,56,return,changed mind,2024-12-08,2024-12-20,accepted,ai
+117,1495,23,complaint,battery issue,2025-07-08,2025-07-12,accepted,human
+118,1500,12,complaint,battery issue,2025-05-26,2025-06-06,accepted,ai
+119,1514,12,complaint,manufacturing defect,2025-08-19,2025-09-03,rejected,human
+120,1565,46,complaint,manufacturing defect,2025-06-02,2025-06-16,accepted,human
+121,1571,1,return,does not meet expectations,2025-01-14,2025-01-29,accepted,ai
+122,1594,58,return,does not meet expectations,2025-01-18,2025-02-06,rejected,ai
+123,1636,1,complaint,battery issue,2025-06-23,2025-07-08,partial refund,human
+124,1691,27,return,changed mind,2025-02-13,,accepted,ai
+125,1694,47,complaint,damaged in transport,2025-07-06,2025-07-16,accepted,ai
+126,1707,15,complaint,connectivity issues,2025-07-20,2025-07-24,rejected,human
+127,1783,58,return,wrong item delivered,2025-02-27,2025-03-19,partial refund,human
+128,1789,28,return,changed mind,2025-02-06,2025-02-10,accepted,human
+129,1791,1,complaint,battery issue,2025-08-28,2025-09-03,rejected,ai
+130,1798,50,return,changed mind,2025-02-20,2025-02-28,accepted,ai
+131,1800,36,complaint,screen defect,2025-05-04,2025-05-16,rejected,ai
+132,1802,10,complaint,manufacturing defect,2025-02-14,2025-03-01,accepted,ai
+133,1805,4,complaint,damaged in transport,2025-03-07,2025-03-21,rejected,human
+134,1832,34,complaint,battery issue,2025-05-28,2025-05-31,accepted,human
+135,1839,46,complaint,screen defect,2025-06-08,2025-06-17,rejected,ai
+136,1848,13,return,does not meet expectations,2025-03-10,2025-03-22,partial refund,ai
+137,1848,43,return,changed mind,2025-03-01,,accepted,ai
+138,1879,55,return,changed mind,2025-03-25,2025-04-11,accepted,ai
+139,1884,18,return,changed mind,2025-03-30,2025-04-04,rejected,human
+140,1892,58,complaint,damaged in transport,2025-11-13,2025-11-18,accepted,ai
+141,1900,9,complaint,screen defect,2025-03-29,2025-04-02,accepted,human
+142,1902,48,complaint,screen defect,2025-07-24,2025-08-05,accepted,ai
+143,1907,14,complaint,manufacturing defect,2025-09-13,2025-09-19,accepted,human
+144,1928,34,complaint,battery issue,2025-10-24,2025-11-06,accepted,ai
+145,1938,46,return,changed mind,2025-04-01,,accepted,ai
+146,1942,13,return,wrong item delivered,2025-04-05,2025-04-18,rejected,human
+147,1973,37,return,wrong item delivered,2025-04-10,2025-04-11,accepted,ai
+148,1987,58,return,changed mind,2025-03-28,2025-04-05,accepted,ai
+149,1994,49,return,wrong item delivered,2025-03-03,2025-03-17,accepted,human
+150,1994,9,complaint,connectivity issues,2025-10-09,,partial refund,ai
+151,1998,24,return,does not meet expectations,2025-03-12,2025-03-20,rejected,human
+152,2012,26,complaint,performance issues,2025-07-21,2025-07-31,partial refund,ai
+153,2015,30,return,wrong item delivered,2025-04-01,2025-04-12,accepted,ai
+154,2020,28,complaint,performance issues,2025-07-02,2025-07-06,accepted,human
+155,2032,13,complaint,battery issue,2025-04-24,2025-04-25,accepted,human
+156,2034,60,return,wrong item delivered,2025-03-09,2025-03-16,accepted,ai
+157,2048,7,complaint,screen defect,2025-10-16,2025-10-20,accepted,ai
+158,2090,44,return,changed mind,2025-05-10,2025-05-19,rejected,human
+159,2090,11,complaint,manufacturing defect,2025-11-17,2025-12-01,rejected,human
+160,2100,10,return,wrong item delivered,2025-04-09,2025-04-14,accepted,human
+161,2103,53,complaint,damaged in transport,2025-09-27,2025-10-12,rejected,ai
+162,2116,47,complaint,performance issues,2025-07-23,2025-08-05,accepted,ai
+163,2127,43,complaint,damaged in transport,2025-09-29,2025-10-03,accepted,ai
+164,2131,37,return,does not meet expectations,2025-04-06,2025-04-26,accepted,ai
+165,2147,24,return,changed mind,2025-05-08,2025-05-22,partial refund,human
+166,2157,37,complaint,screen defect,2025-09-12,2025-09-20,accepted,human
+167,2163,31,complaint,damaged in transport,2025-07-18,2025-08-08,rejected,ai
+168,2185,9,return,changed mind,2025-04-18,2025-04-19,accepted,human
+169,2202,12,complaint,manufacturing defect,2025-10-05,,accepted,human
+170,2245,11,complaint,manufacturing defect,2025-12-03,2025-12-24,accepted,human
+171,2251,58,complaint,screen defect,2025-08-16,2025-08-26,accepted,human
+172,2254,4,return,does not meet expectations,2025-05-19,2025-06-04,accepted,ai
+173,2266,13,complaint,manufacturing defect,2025-06-17,2025-06-30,accepted,human
+174,2268,37,complaint,connectivity issues,2025-09-06,2025-09-22,rejected,ai
+175,2271,1,complaint,battery issue,2025-05-31,2025-06-14,accepted,ai
+176,2289,29,complaint,connectivity issues,2025-10-15,2025-11-02,partial refund,ai
+177,2304,5,complaint,screen defect,2026-01-22,,partial refund,human
+178,2339,40,complaint,screen defect,2025-10-16,2025-10-22,accepted,human
+179,2349,1,complaint,battery issue,2025-08-21,2025-08-24,rejected,ai
+180,2362,40,complaint,screen defect,2025-12-20,2026-01-08,rejected,ai
+181,2382,11,return,wrong item delivered,2025-05-12,2025-05-25,rejected,human
+182,2389,12,complaint,performance issues,2025-10-08,,accepted,human
+183,2441,26,return,changed mind,2025-06-26,2025-07-10,accepted,ai
+184,2447,13,return,changed mind,2025-06-19,,accepted,human
+185,2469,60,return,does not meet expectations,2025-07-04,2025-07-13,rejected,ai
+186,2483,60,complaint,connectivity issues,2026-01-15,2026-01-18,accepted,ai
+187,2489,58,complaint,performance issues,2025-07-28,2025-07-29,accepted,human
+188,2503,53,return,wrong item delivered,2025-06-12,2025-07-03,rejected,ai
+189,2519,21,complaint,connectivity issues,2025-07-25,2025-08-08,accepted,ai
+190,2522,17,complaint,damaged in transport,2026-01-10,2026-01-25,accepted,human
+191,2524,59,return,wrong item delivered,2025-06-16,2025-07-03,accepted,ai
+192,2524,45,complaint,screen defect,2025-07-24,2025-08-14,rejected,ai
+193,2526,50,return,changed mind,2025-07-05,,accepted,ai
+194,2532,1,complaint,battery issue,2026-01-11,2026-01-18,rejected,ai
+195,2540,12,return,does not meet expectations,2025-07-12,2025-07-28,partial refund,ai
+196,2558,53,complaint,damaged in transport,2025-11-09,2025-11-25,rejected,ai
+197,2570,1,complaint,manufacturing defect,2025-09-02,2025-09-23,rejected,ai
+198,2587,1,return,does not meet expectations,2025-07-04,2025-07-07,rejected,ai
+199,2591,8,return,wrong item delivered,2025-06-28,2025-07-18,accepted,ai
+200,2605,54,complaint,screen defect,2025-12-19,2025-12-22,accepted,ai
+201,2618,28,complaint,screen defect,2025-07-25,2025-08-06,rejected,ai
+202,2623,30,return,changed mind,2025-07-23,2025-08-06,accepted,human
+203,2635,10,return,wrong item delivered,2025-07-28,2025-08-02,accepted,human
+204,2641,1,complaint,battery issue,2025-11-02,2025-11-08,accepted,human
+205,2643,21,return,does not meet expectations,2025-08-09,2025-08-13,accepted,ai
+206,2674,37,complaint,connectivity issues,2025-09-30,,rejected,human
+207,2676,36,complaint,performance issues,2025-09-05,2025-09-22,accepted,ai
+208,2700,52,return,changed mind,2025-08-09,2025-08-16,partial refund,human
+209,2742,1,complaint,battery issue,2026-01-22,2026-01-31,accepted,ai
+210,2764,54,complaint,screen defect,2025-11-25,2025-11-27,accepted,ai
+211,2779,20,complaint,performance issues,2026-04-08,2026-04-09,accepted,human
+212,2807,5,complaint,connectivity issues,2026-04-23,2026-05-03,accepted,human
+213,2808,20,complaint,screen defect,2026-01-19,2026-02-05,partial refund,ai
+214,2813,17,complaint,connectivity issues,2025-12-21,2025-12-29,accepted,ai
+215,2823,39,return,changed mind,2025-08-23,2025-09-10,accepted,human
+216,2825,59,return,wrong item delivered,2025-08-13,2025-08-26,accepted,ai
+217,2832,2,complaint,damaged in transport,2025-12-27,2025-12-30,rejected,human
+218,2853,42,complaint,manufacturing defect,2026-04-12,2026-04-24,accepted,ai
+219,2856,24,complaint,manufacturing defect,2026-02-02,2026-02-09,rejected,human
+220,2862,55,complaint,performance issues,2025-10-28,2025-11-09,accepted,ai
+221,2871,41,return,does not meet expectations,2025-08-29,2025-09-12,accepted,ai
+222,2884,10,complaint,damaged in transport,2025-12-03,2025-12-06,accepted,ai
+223,2890,47,complaint,damaged in transport,2025-10-06,2025-10-18,rejected,human
+224,2898,38,complaint,connectivity issues,2026-04-03,2026-04-07,rejected,ai
+225,2905,17,complaint,screen defect,2026-02-25,2026-03-16,accepted,ai
+226,2910,35,complaint,screen defect,2026-02-05,2026-02-22,accepted,ai
+227,2923,54,complaint,battery issue,2026-03-14,2026-03-15,partial refund,ai
+228,2932,1,return,does not meet expectations,2025-08-30,2025-09-14,rejected,ai
+229,2935,6,return,does not meet expectations,2025-08-15,2025-08-17,accepted,human
+230,2939,18,complaint,performance issues,2025-11-03,2025-11-12,accepted,ai
+231,2951,38,complaint,screen defect,2025-09-13,,accepted,ai
+232,2963,43,complaint,battery issue,2026-05-15,2026-05-19,accepted,ai
+233,2965,52,complaint,battery issue,2026-02-19,2026-02-26,accepted,ai
+234,2968,33,complaint,performance issues,2025-10-22,2025-11-03,rejected,ai
+235,2983,6,complaint,connectivity issues,2026-05-01,2026-05-20,partial refund,human
+236,2987,4,complaint,manufacturing defect,2026-02-03,2026-02-24,accepted,ai
+237,2993,15,return,does not meet expectations,2025-09-23,2025-10-12,rejected,human
+238,3004,59,complaint,manufacturing defect,2026-05-18,2026-05-20,accepted,human
+239,3021,7,complaint,damaged in transport,2026-04-29,2026-05-15,accepted,ai
+240,3050,38,return,changed mind,2025-09-25,2025-10-03,partial refund,ai
+241,3060,59,complaint,manufacturing defect,2026-05-03,2026-05-10,accepted,human
+242,3074,25,return,wrong item delivered,2025-10-02,2025-10-14,accepted,human
+243,3083,42,return,wrong item delivered,2025-09-11,2025-09-19,accepted,ai
+244,3085,1,complaint,battery issue,2026-02-19,,accepted,ai
+245,3093,42,complaint,damaged in transport,2026-04-29,2026-05-16,rejected,human
+246,3094,24,complaint,manufacturing defect,2025-11-18,2025-12-06,accepted,ai
+247,3096,7,complaint,performance issues,2026-01-18,2026-01-21,accepted,human
+248,3102,1,return,does not meet expectations,2025-10-01,2025-10-02,accepted,human
+249,3103,2,complaint,performance issues,2026-04-04,2026-04-07,rejected,ai
+250,3105,1,return,wrong item delivered,2025-09-21,2025-09-25,rejected,human
+251,3121,26,return,changed mind,2025-10-29,2025-11-06,accepted,ai
+252,3123,3,complaint,performance issues,2026-02-23,2026-03-15,accepted,ai
+253,3130,52,complaint,manufacturing defect,2026-03-12,,accepted,ai
+254,3164,1,complaint,battery issue,2025-10-21,2025-10-23,accepted,ai
+255,3249,10,complaint,performance issues,2026-05-21,2026-05-30,rejected,ai
+256,3250,1,return,does not meet expectations,2025-11-07,2025-11-18,accepted,ai
+257,3262,28,complaint,battery issue,2026-03-30,,accepted,ai
+258,3272,9,complaint,screen defect,2026-04-04,2026-04-06,rejected,ai
+259,3280,15,return,wrong item delivered,2025-10-21,2025-10-24,rejected,ai
+260,3285,7,complaint,battery issue,2026-01-22,2026-02-10,rejected,ai
+261,3302,10,return,does not meet expectations,2025-11-26,2025-12-15,accepted,human
+262,3305,47,complaint,connectivity issues,2026-06-27,2026-07-14,rejected,ai
+263,3308,39,complaint,manufacturing defect,2026-02-10,2026-02-23,accepted,ai
+264,3318,48,complaint,battery issue,2026-02-10,2026-02-13,accepted,human
+265,3331,1,complaint,battery issue,2026-03-13,2026-03-16,partial refund,human
+266,3352,22,return,does not meet expectations,2025-11-13,2025-12-01,partial refund,ai
+267,3372,18,complaint,performance issues,2026-02-09,2026-02-18,rejected,human
+268,3375,7,return,wrong item delivered,2025-11-06,2025-11-09,accepted,ai
+269,3376,13,return,wrong item delivered,2025-12-02,2025-12-04,rejected,ai
+270,3385,16,return,does not meet expectations,2025-11-27,2025-12-15,rejected,ai
+271,3392,7,return,does not meet expectations,2025-11-21,2025-11-27,rejected,human
+272,3405,36,complaint,screen defect,2026-03-16,2026-03-30,rejected,human
+273,3406,52,complaint,manufacturing defect,2026-06-04,2026-06-12,rejected,ai
+274,3406,3,return,does not meet expectations,2025-12-01,2025-12-18,accepted,ai
+275,3408,33,return,wrong item delivered,2025-12-01,2025-12-02,rejected,ai
+276,3418,51,complaint,damaged in transport,2026-06-30,2026-07-08,accepted,ai
+277,3422,17,return,does not meet expectations,2025-11-24,2025-12-07,accepted,ai
+278,3429,44,return,changed mind,2025-11-18,2025-11-28,accepted,human
+279,3430,2,return,changed mind,2025-12-04,2025-12-09,rejected,ai
+280,3442,56,complaint,battery issue,2026-06-03,2026-06-17,accepted,ai
+281,3449,21,complaint,damaged in transport,2025-11-29,,accepted,ai
+282,3507,6,complaint,connectivity issues,2026-04-26,2026-05-08,rejected,ai
+283,3513,40,return,does not meet expectations,2025-12-05,2025-12-14,accepted,ai
+284,3516,43,return,does not meet expectations,2025-11-30,2025-12-07,accepted,human
+285,3526,40,return,wrong item delivered,2025-11-12,2025-12-02,rejected,human
+286,3529,55,return,wrong item delivered,2025-12-10,2025-12-23,rejected,human
+287,3583,50,return,wrong item delivered,2025-11-27,2025-12-06,partial refund,human
+288,3586,1,return,wrong item delivered,2025-12-06,2025-12-22,accepted,ai
+289,3597,12,return,changed mind,2025-12-10,2025-12-30,accepted,ai
+290,3616,22,return,does not meet expectations,2025-12-03,,rejected,ai
+291,3625,46,complaint,screen defect,2026-02-15,2026-02-24,accepted,human
+292,3652,13,complaint,performance issues,2025-12-18,2026-01-05,accepted,ai
+293,3665,37,return,does not meet expectations,2025-12-24,2026-01-14,accepted,ai
+294,3680,46,return,wrong item delivered,2025-12-16,2025-12-25,accepted,ai
+295,3683,40,complaint,damaged in transport,2025-12-16,2025-12-28,accepted,ai
+296,3699,1,return,changed mind,2026-01-03,2026-01-12,rejected,ai
+297,3702,29,complaint,performance issues,2026-06-26,2026-07-08,accepted,human
+298,3727,6,complaint,damaged in transport,2026-04-01,2026-04-15,accepted,ai
+299,3749,27,complaint,connectivity issues,2026-06-07,2026-06-11,accepted,ai
+300,3755,5,complaint,connectivity issues,2026-06-30,2026-07-20,accepted,human
+301,3758,37,return,wrong item delivered,2025-12-27,,accepted,ai
+302,3774,51,return,does not meet expectations,2026-01-12,2026-01-26,accepted,ai
+303,3780,55,complaint,connectivity issues,2026-05-06,2026-05-25,accepted,human
+304,3796,57,complaint,screen defect,2026-03-05,2026-03-22,accepted,human
+305,3825,50,complaint,performance issues,2026-04-18,2026-05-03,partial refund,human
+306,3839,1,return,wrong item delivered,2025-12-29,,rejected,human
+307,3840,3,complaint,screen defect,2026-02-24,2026-03-12,rejected,human
+308,3847,35,complaint,manufacturing defect,2026-02-21,2026-02-26,accepted,ai
+309,3853,11,return,wrong item delivered,2025-12-22,2026-01-03,accepted,ai
+310,3857,49,return,does not meet expectations,2025-12-30,2026-01-02,accepted,ai
+311,3867,18,return,wrong item delivered,2025-12-15,2025-12-19,accepted,human
+312,3876,32,complaint,connectivity issues,2026-02-13,2026-03-03,accepted,human
+313,3879,53,complaint,damaged in transport,2026-05-12,2026-05-22,rejected,ai
+314,3880,44,complaint,manufacturing defect,2026-04-29,2026-05-20,accepted,ai
+315,3883,20,return,does not meet expectations,2025-12-14,2025-12-15,accepted,ai
+316,3890,10,complaint,damaged in transport,2025-12-29,2026-01-16,accepted,ai
+317,3897,30,complaint,manufacturing defect,2025-12-25,2025-12-28,accepted,ai
+318,3908,47,complaint,performance issues,2025-12-20,2025-12-25,accepted,human
+319,3939,35,return,does not meet expectations,2025-12-25,2026-01-13,accepted,ai
+320,3947,52,complaint,battery issue,2026-06-04,2026-06-24,rejected,human
+321,3964,1,return,does not meet expectations,2025-12-22,,accepted,ai
+322,3988,41,return,does not meet expectations,2025-12-22,2025-12-27,rejected,ai
+323,3993,19,return,wrong item delivered,2025-12-12,2025-12-27,rejected,ai
+324,4006,14,complaint,manufacturing defect,2026-04-02,2026-04-22,accepted,human
+325,4013,21,return,changed mind,2026-01-04,,rejected,ai
+326,4029,2,complaint,screen defect,2026-03-21,2026-04-03,partial refund,ai
+327,4044,27,complaint,connectivity issues,2026-06-30,2026-07-13,accepted,ai
+328,4047,34,complaint,battery issue,2026-06-30,2026-07-13,accepted,ai
+329,4056,1,complaint,battery issue,2026-03-15,2026-03-18,accepted,human
+330,4061,44,return,does not meet expectations,2026-01-25,2026-02-01,accepted,human
+331,4091,59,complaint,battery issue,2026-03-05,2026-03-17,rejected,ai
+332,4108,39,complaint,screen defect,2026-06-30,2026-07-08,accepted,human
+333,4134,21,return,wrong item delivered,2026-01-30,2026-02-02,rejected,human
+334,4134,2,return,does not meet expectations,2026-02-08,2026-02-15,accepted,ai
+335,4135,34,complaint,connectivity issues,2026-04-24,2026-05-07,partial refund,ai
+336,4142,40,return,changed mind,2026-01-09,2026-01-30,accepted,human
+337,4166,59,return,does not meet expectations,2026-02-20,2026-03-13,partial refund,ai
+338,4171,26,return,does not meet expectations,2026-03-11,2026-03-22,partial refund,human
+339,4188,21,return,wrong item delivered,2026-02-15,2026-02-22,rejected,ai
+340,4188,48,complaint,connectivity issues,2026-03-14,2026-03-24,accepted,ai
+341,4189,40,return,wrong item delivered,2026-02-12,,accepted,human
+342,4197,49,return,does not meet expectations,2026-02-22,2026-02-27,partial refund,ai
+343,4201,40,return,does not meet expectations,2026-03-02,2026-03-21,rejected,human
+344,4210,7,complaint,performance issues,2026-06-11,2026-06-29,accepted,human
+345,4215,52,complaint,connectivity issues,2026-05-13,2026-06-02,partial refund,ai
+346,4218,48,return,changed mind,2026-02-23,2026-02-28,rejected,ai
+347,4246,17,complaint,performance issues,2026-03-04,2026-03-06,accepted,human
+348,4279,34,return,does not meet expectations,2026-02-17,2026-02-19,rejected,human
+349,4295,36,complaint,manufacturing defect,2026-06-30,2026-07-15,partial refund,human
+350,4308,28,return,changed mind,2026-02-16,2026-02-28,rejected,ai
+351,4316,52,complaint,performance issues,2026-06-02,2026-06-12,partial refund,ai
+352,4331,46,return,changed mind,2026-02-21,2026-03-02,rejected,human
+353,4349,51,return,wrong item delivered,2026-03-04,2026-03-11,rejected,human
+354,4366,38,return,does not meet expectations,2026-04-02,2026-04-03,partial refund,ai
+355,4383,37,complaint,connectivity issues,2026-03-18,,accepted,ai
+356,4383,59,return,changed mind,2026-03-13,2026-03-14,partial refund,human
+357,4390,21,return,does not meet expectations,2026-03-16,2026-03-18,rejected,human
+358,4395,24,complaint,manufacturing defect,2026-03-22,,rejected,ai
+359,4398,25,return,wrong item delivered,2026-03-27,2026-04-08,partial refund,ai
+360,4403,51,complaint,battery issue,2026-06-30,2026-07-12,accepted,ai
+361,4406,56,return,wrong item delivered,2026-03-15,,accepted,ai
+362,4416,33,return,wrong item delivered,2026-03-14,2026-04-04,accepted,ai
+363,4419,10,return,does not meet expectations,2026-03-30,2026-04-03,accepted,human
+364,4421,6,return,changed mind,2026-03-16,2026-03-18,accepted,ai
+365,4438,59,complaint,connectivity issues,2026-06-30,,rejected,ai
+366,4462,3,complaint,battery issue,2026-06-30,2026-07-14,accepted,ai
+367,4467,58,return,changed mind,2026-04-03,2026-04-08,rejected,ai
+368,4475,4,return,does not meet expectations,2026-03-26,2026-04-03,accepted,ai
+369,4488,55,return,changed mind,2026-03-12,2026-03-17,rejected,ai
+370,4498,56,return,changed mind,2026-03-17,2026-04-02,rejected,human
+371,4501,23,complaint,manufacturing defect,2026-06-30,2026-07-21,rejected,ai
+372,4502,5,return,wrong item delivered,2026-04-09,2026-04-20,partial refund,ai
+373,4503,14,return,changed mind,2026-04-08,,rejected,ai
+374,4506,52,complaint,performance issues,2026-06-30,2026-07-14,accepted,human
+375,4514,47,return,changed mind,2026-03-25,2026-03-27,rejected,human
+376,4516,25,return,does not meet expectations,2026-03-24,2026-04-11,accepted,human
+377,4518,30,return,changed mind,2026-04-24,2026-04-27,accepted,ai
+378,4523,38,complaint,connectivity issues,2026-06-30,2026-07-21,accepted,ai
+379,4527,12,complaint,battery issue,2026-06-30,2026-07-20,partial refund,human
+380,4532,38,return,does not meet expectations,2026-04-26,2026-05-11,accepted,ai
+381,4544,52,complaint,screen defect,2026-04-25,2026-04-27,accepted,ai
+382,4557,50,complaint,damaged in transport,2026-06-30,2026-07-12,accepted,ai
+383,4560,26,complaint,battery issue,2026-06-30,2026-07-19,accepted,ai
+384,4564,2,complaint,manufacturing defect,2026-06-04,2026-06-19,rejected,human
+385,4570,52,return,does not meet expectations,2026-05-02,2026-05-16,accepted,human
+386,4571,7,return,does not meet expectations,2026-04-22,2026-05-01,accepted,ai
+387,4578,38,return,wrong item delivered,2026-04-21,2026-05-01,accepted,ai
+388,4585,9,complaint,damaged in transport,2026-06-30,2026-07-15,accepted,ai
+389,4588,14,complaint,connectivity issues,2026-06-23,,accepted,ai
+390,4625,20,return,wrong item delivered,2026-04-09,,rejected,ai
+391,4642,46,return,does not meet expectations,2026-05-10,2026-05-19,rejected,ai
+392,4647,55,complaint,performance issues,2026-05-17,2026-05-27,accepted,ai
+393,4647,20,return,wrong item delivered,2026-04-30,2026-05-02,partial refund,ai
+394,4650,3,complaint,damaged in transport,2026-06-30,2026-07-11,accepted,ai
+395,4651,15,complaint,manufacturing defect,2026-06-30,2026-07-21,accepted,human
+396,4656,7,return,wrong item delivered,2026-04-18,2026-04-21,accepted,human
+397,4658,30,return,wrong item delivered,2026-04-15,2026-04-21,accepted,ai
+398,4686,56,return,wrong item delivered,2026-04-20,2026-05-05,accepted,ai
+399,4704,46,complaint,performance issues,2026-06-30,2026-07-08,partial refund,human
+400,4714,43,return,wrong item delivered,2026-05-10,2026-05-17,partial refund,ai
+401,4746,35,complaint,performance issues,2026-06-30,2026-07-18,accepted,human
+402,4748,7,complaint,screen defect,2026-06-30,2026-07-06,partial refund,human
+403,4750,30,return,does not meet expectations,2026-05-12,2026-05-23,accepted,human
+404,4750,1,complaint,battery issue,2026-06-30,2026-07-03,accepted,ai
+405,4754,4,return,does not meet expectations,2026-05-24,2026-06-06,partial refund,ai
+406,4792,12,return,wrong item delivered,2026-05-12,2026-05-15,rejected,human
+407,4800,2,complaint,connectivity issues,2026-06-30,2026-07-04,partial refund,human
+408,4809,17,return,wrong item delivered,2026-05-17,2026-05-23,accepted,human
+409,4816,7,complaint,connectivity issues,2026-06-30,2026-07-15,accepted,ai
+410,4818,2,complaint,screen defect,2026-05-14,2026-05-26,accepted,ai
+411,4820,30,return,wrong item delivered,2026-05-27,2026-06-03,partial refund,ai
+412,4843,56,complaint,damaged in transport,2026-06-30,2026-07-20,accepted,human
+413,4845,30,complaint,manufacturing defect,2026-06-30,,rejected,human
+414,4858,20,return,changed mind,2026-06-04,2026-06-24,rejected,human
+415,4866,18,complaint,damaged in transport,2026-06-06,2026-06-15,partial refund,ai
+416,4869,19,complaint,manufacturing defect,2026-06-30,2026-07-08,rejected,human
+417,4874,59,complaint,battery issue,2026-06-30,2026-07-20,accepted,human
+418,4882,7,return,changed mind,2026-06-30,2026-07-05,rejected,ai
+419,4883,44,complaint,battery issue,2026-06-30,2026-07-01,accepted,human
+420,4888,25,complaint,connectivity issues,2026-06-30,2026-07-10,partial refund,ai
+421,4893,14,return,does not meet expectations,2026-06-11,2026-06-18,accepted,ai
+422,4910,35,complaint,performance issues,2026-06-30,2026-07-11,accepted,ai
+423,4926,20,complaint,performance issues,2026-06-26,2026-07-11,rejected,human
+424,4934,19,complaint,manufacturing defect,2026-06-30,,accepted,ai
+425,4947,12,complaint,manufacturing defect,2026-06-30,2026-07-18,accepted,ai
+426,4960,40,return,changed mind,2026-06-27,2026-06-30,accepted,human
+427,4962,41,return,wrong item delivered,2026-06-30,2026-07-05,rejected,ai
+428,4968,33,return,changed mind,2026-06-30,2026-07-14,rejected,ai
+429,4979,55,complaint,performance issues,2026-06-30,2026-07-09,rejected,ai
+430,4985,55,return,does not meet expectations,2026-06-10,2026-06-15,rejected,human
+431,4990,12,return,does not meet expectations,2026-06-16,,rejected,ai
+432,5012,22,complaint,performance issues,2026-06-30,2026-07-01,partial refund,human
+433,5015,17,complaint,connectivity issues,2026-06-30,2026-07-08,accepted,human
+434,5017,1,return,does not meet expectations,2026-06-21,2026-06-23,accepted,ai
+435,5021,26,complaint,battery issue,2026-06-30,2026-07-03,accepted,human

@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "hooks": {
+    "PreToolUse": [
+      {
+        "type": "command",
+        "bash": "node .github/hooks/context7-permissions.cjs",
+        "powershell": "node \".github\\hooks\\context7-permissions.cjs\"",
+        "cwd": ".",
+        "timeoutSec": 10
+      }
+    ]
+  }
+}

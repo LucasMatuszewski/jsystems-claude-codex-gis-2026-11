@@ -1,0 +1,351 @@
+# ============================================================
+# Codex CLI configuration (config.toml)
+#
+# This file is loaded from CODEX_HOME (usually ~/.codex/config.toml).
+# Most settings also have CLI equivalents (shown in comments below).
+# ============================================================
+
+# ----------------------------
+# Basic model + behavior config
+# ----------------------------
+# `model` and `model_reasoning_effort` are commented out on purpose. A project .codex/config.toml
+# is applied AFTER the selected profile, so an active `model` here would override the model of
+# every `codex --profile <name>`. Uncomment them only in your user-level ~/.codex/config.toml.
+# model = "gpt-6.1-sol"            # Default model for cloud runs. CLI: codex --model gpt-6.1-sol
+approval_policy = "on-request"   # Route approval-worthy actions through the configured reviewer.
+# Default tool-output history budget; tools can override it and raw rollouts retain output.
+tool_output_token_limit = 4000
+approvals_reviewer = "auto_review" # Route eligible approval requests to the reviewer agent.
+personality = "pragmatic"        # Style/tone preset (e.g., pragmatic/friendly/none depending on build).
+# Permission examples mapped from Claude: file profiles below plus rules/course.rules.
+# Avoid mixing legacy sandbox_mode selectors with named profiles; higher-precedence selectors win.
+# See PERMISSIONS.md for allow, approval, deny and platform-specific limitations.
+default_permissions = "course-workspace"
+web_search = "cached" # Hosted web search is separate from command network permissions.
+oss_provider = "ollama"          # Default OSS (Open Source) models provider
+
+# approval_policy controls when Codex asks before it runs tools/commands.
+# CLI override example:
+#   codex --config 'approval_policy="on-request"'
+#
+# approval_policy = "never"      # Never ask; actions requiring approval are rejected, not automatically allowed.
+# "untrusted" is no longer supported as an approval_policy value (use "on-request" or "never").
+#
+# Example granular approval policy:
+# approval_policy = { granular = {
+#   sandbox_approval = true,
+#   rules = true,
+#   mcp_elicitations = true,
+#   request_permissions = false,
+#   skill_approval = false
+# } }
+
+# -----------------------------------------
+# Projects: per-folder trust configuration
+# -----------------------------------------
+# Projects map a local path to a trust policy.
+# trust_level="trusted" reduces friction by allowing trusted execution/workflows for that project path.
+# (Keep untrusted for unknown repos to increase safety.)
+# Codex adds an entry here itself when you trust a folder. Example:
+# [projects.'~/code/my-project']
+# trust_level = "trusted"
+
+# --------------------
+# Model migrations note
+# --------------------
+# Optional reminder layer: when a model name is deprecated, map it to a replacement.
+[notice.model_migrations]
+"gpt-5.4" = "gpt-6.1-sol"
+
+# ----------------
+# Windows sandboxing
+# ----------------
+# Windows sandbox mode. "elevated" uses the Windows sandbox with elevated setup when required.
+# Legacy fallback: elevated supports denied reads; unelevated does not. Validate MXC separately.
+[windows]
+sandbox = "elevated"
+
+# ----------------
+# Feature toggles
+# ----------------
+[features]
+network_proxy = true            # Enforce domain rules for the selected network-enabled profile.
+multi_agent = true               # Allow spawning/using multiple agents (if supported by your build).
+
+# ----------------
+# TUI (terminal UI)
+# ----------------
+[tui]
+status_line = ["model-with-reasoning", "context-remaining", "current-dir", "git-branch", "five-hour-limit", "weekly-limit"]
+# status_line controls what the Terminal UI shows in the bottom status bar.
+
+# ---------------------------
+# MCP servers (external tools)
+# ---------------------------
+# MCP servers expose extra tools (browser automation, docs search, etc.).
+# Enable only what you trust and what you actually use.
+
+# Playwright (browser automation)
+[mcp_servers.playwright]
+args = ["@playwright/mcp@latest"]
+command = "npx"
+enabled = false
+
+# Context7 (docs context provider) - connect to remote server
+[mcp_servers.context7]
+url = "https://mcp.context7.com/mcp"
+env_http_headers = { "CONTEXT7_API_KEY" = "CONTEXT7_API_KEY" } # Optional environment-variable header; never paste a key.
+startup_timeout_sec = 20
+tool_timeout_sec = 60
+enabled = false # Optional integration; the course starts with local CLI tools.
+# Local MCP server with Context7 on your machine
+# [mcp_servers.context7]
+# command = "npx"
+# args = ["-y", "@upstash/context7-mcp", "--api-key", "YOUR_API_KEY"]
+# startup_timeout_sec = 20
+
+# Filesystem and network permission profiles appear below.
+
+# ============================================================
+# Custom Model Providers
+# ============================================================
+[model_providers.openrouter]
+name = "OpenRouter"
+base_url = "https://openrouter.ai/api/v1" # OpenRouter Responses is in beta (Completions is deprecated by Codex)
+env_key = "OPENROUTER_API_KEY" # use env defined in your system
+# wire_api = "responses" # only responsnes are supported now. Completions are deprecated in Codex
+# query_params = { api-version = "2025-04-01-preview" }
+#
+# If your endpoint needs headers, you can add:
+# http_headers = { "X-Example" = "value" }
+# env_http_headers = { "X-Example-Features" = "EXAMPLE_FEATURES" }
+#
+# Z.ai GLM Coding Plan - official guide: https://docs.z.ai/devpack/tool/codex
+# Use the Responses endpoint below. The older Chat Completions endpoint
+# (https://api.z.ai/api/coding/paas/v4) no longer works with Codex.
+# The Z.ai guide pastes the key into `experimental_bearer_token`; `env_key` keeps it out of the file.
+[model_providers.zai]
+name = "Z.ai Coding Plan"
+base_url = "https://api.z.ai/api/v1"
+env_key = "ZAI_API_KEY" # name of the environment variable that holds your Z.ai API key
+wire_api = "responses"
+
+# ============================================================
+# Profiles (switch configs from CLI)
+# ============================================================
+# A profile is a separate file: ~/.codex/<name>.config.toml (top-level keys, no table).
+#   codex --profile <name>
+# loads ~/.codex/config.toml first, then layers ~/.codex/<name>.config.toml on top.
+#
+# Rules since Codex 0.134.0 (checked on Codex CLI 0.160.0):
+# - Profile files are read ONLY from CODEX_HOME (~/.codex). A <name>.config.toml inside a
+#   project's .codex/ directory is ignored, so copy the profile files to your home:
+#     cp course-materials/agent-configs/codex/*.config.toml ~/.codex/
+#     Copy-Item course-materials\agent-configs\codex\*.config.toml $HOME\.codex\   (PowerShell)
+# - A trusted project's .codex/config.toml is applied AFTER the profile and wins: keep `model`
+#   and other per-profile keys out of it. Codex also ignores [model_providers.*] tables in a
+#   project config, so each profile file below carries its own provider definition.
+# - [profiles.<name>] tables and the top-level `profile = "<name>"` selector are no longer
+#   read. A leftover [profiles.<name>] table makes `codex --profile <name>` fail with
+#   "cannot be used while config.toml contains legacy ... config".
+# - A profile name with no matching file is NOT an error: Codex silently keeps the base
+#   config (the default cloud model). Check the "model:" / "provider:" lines at startup.
+#
+# Profiles shipped in course-materials/agent-configs/codex/:
+#   codex --profile ollama-cloud   # Ollama cloud model for coding
+#   codex --profile ollama-lfm     # small/fast local model
+#   codex --profile ollama-sql     # local text-to-SQL model
+#   codex --profile openrouter     # OpenRouter
+#   codex --profile zai            # Z.ai GLM Coding Plan (also copy models.zai.json)
+#
+# Do NOT combine `--oss` with a profile. `--oss` without `-m` always runs the default
+# gpt-oss:20b and ignores the profile's `model`. The ollama-* profiles set
+# `model_provider = "ollama"` (built-in provider) instead, so no flag is needed.
+# Without `--oss` Codex does not download the model for you: run `ollama pull <model>` first.
+
+# ============================================================
+# Local / OSS models (Ollama / LM Studio) - OPTIONAL
+# ============================================================
+# When you run:
+#   codex --oss
+# Codex uses an "OSS provider" (built-in IDs: "ollama" or "lmstudio").
+#
+# You can set the default OSS provider on top of this file:
+# oss_provider = "ollama"
+#
+# Then run:
+#   codex --oss
+# to load default gpt-oss:20b model from OpenAI.
+#
+# Or pick a model for one run:
+#   codex --oss -m lfm2.5-thinking:latest
+#
+# IMPORTANT: do not define [model_providers.ollama] locally if your Codex build reserves that ID.
+# If you need a custom local provider ID, define a non-reserved one (example below) and use it
+# in normal (non --oss) runs with model_provider="...".
+#
+# [model_providers.ollama_local]
+# name = "Ollama (local /v1 compatible)"
+# base_url = "http://localhost:11434/v1"
+# If your Ollama endpoint needs headers, you can add:
+# http_headers = { "X-Example" = "value" }
+# env_http_headers = { "X-Example-Features" = "EXAMPLE_FEATURES" }
+
+# ------------------------------------------------------------
+# Context length (Ollama): recommended min. 64k for agents/coding
+# ------------------------------------------------------------
+# Codex + agents + web search need a large context window. For Ollama, set at least 64000 tokens.
+#
+# Two knobs exist and they are DIFFERENT:
+# 1) Ollama server context length (how much context Ollama will allocate)
+#    - App: set the "Context length" slider in Ollama settings
+#    - CLI (serve):
+#        OLLAMA_CONTEXT_LENGTH=64000 ollama serve
+#
+# 2) Codex model_context_window (what Codex assumes/targets for the selected model)
+#    - Uncomment if needed:
+#        model_context_window = 65536
+#
+# Memory warning (important):
+# - Model size (e.g., "6.6 GB") is only the baseline to load weights.
+# - Increasing context length ALSO increases VRAM/RAM usage (KV cache grows with context size),
+#   so a 64k context can require significantly more memory than the model file size alone.
+#
+# Ollama defaults context length by VRAM (from Ollama docs):
+#   < 24 GiB VRAM   -> 4k context
+#   24-48 GiB VRAM  -> 32k context
+#   >= 48 GiB VRAM  -> 256k context
+#
+# Check models currently loaded to memory (and % loaded to CPU and GPU):
+#   ollama ps
+# Example output includes the allocated CONTEXT and PROCESSOR split.
+
+# ============================================================
+# Suggested Ollama models (CLI usage quick reference)
+# ============================================================
+# Pick a model per run:
+#   codex --oss -m glm-5.3:cloud
+#   codex --oss -m minimax-m2.7:cloud
+#   codex --oss -m nemotron-3-super:cloud
+#
+# SQL expert model from Snowflake:
+#   codex --oss -m a-kore/Arctic-Text2SQL-R1-7B
+#
+# Small (730mb) reasoning and function calling model (e.g. for IoT, decisions, data processing):
+#   codex --oss -m lfm2.5-thinking:latest
+#
+# Multimodal (text and image) from Google:
+#   codex --oss -m gemma3:27b-cloud
+#   codex --oss -m gemma3:4b
+#
+# Ollama shortcut commands:
+#   ollama launch codex
+#   ollama launch codex --config
+#   ollama launch codex --model minimax-m2.7:cloud
+
+# ============================================================
+# OCR model (Ollama): glm-ocr (run via Ollama directly)
+# ============================================================
+# Text recognition:
+#   ollama run glm-ocr Text Recognition: ./image.png
+# Table recognition:
+#   ollama run glm-ocr Table Recognition: ./image.png
+# Figure recognition:
+#   ollama run glm-ocr Figure Recognition: ./image.png
+
+# ============================================================
+# Course permission examples: read, write, deny and network access
+# ============================================================
+# Beta permission profiles; use instead of sandbox_mode / sandbox_workspace_write.
+# Higher-precedence sandbox_mode/--sandbox can select legacy behavior; inspect the effective profile.
+# See course-materials/agent-configs/codex/PERMISSIONS.md for scope and platform limits.
+
+[permissions.course-workspace]
+description = "Workspace editing; named environment files and secrets are unreadable."
+extends = ":workspace"
+
+[permissions.course-workspace.filesystem]
+# Linux/WSL and native Windows snapshot deny-glob matches before sandbox startup.
+# This is a scanning bound, not a guarantee about paths deeper than 12 levels.
+glob_scan_max_depth = 12
+
+[permissions.course-workspace.filesystem.":workspace_roots"]
+# Exact denials also protect absent paths; keep them alongside bounded recursive globs.
+".env" = "deny"
+".env.local" = "deny"
+".env.dev" = "deny"
+".env.prod" = "deny"
+".env.test" = "deny"
+"**/.env" = "deny"
+"**/.env.local" = "deny"
+"**/.env.dev" = "deny"
+"**/.env.prod" = "deny"
+"**/.env.test" = "deny"
+"secrets" = "deny"
+"**/secrets/**" = "deny"
+# A synthetic template is available for inspection but cannot be edited in this profile.
+".env.example" = "read"
+
+[permissions.course-workspace.network]
+enabled = true
+
+[permissions.course-workspace.network.domains]
+# Public network access is available in the default profile.
+# This does not request automatic review for every network connection.
+"*" = "allow"
+
+[permissions.course-root]
+description = "Course repository editing; logs and training examples remain accessible."
+extends = "course-workspace"
+# This named root preset inherits the default network and filesystem policy.
+# Logs are available to sandboxed search commands; there is no directory deny.
+
+[permissions.course-review]
+description = "Review workspace files; edits inside the workspace require extra permission."
+extends = "course-workspace"
+
+[permissions.course-review.filesystem.":workspace_roots"]
+"." = "read"
+# Temporary directories inherited from :workspace remain writable.
+
+[permissions.course-docs]
+description = "Read the workspace and edit only docs/ (plus inherited temporary directories)."
+extends = "course-review"
+
+[permissions.course-docs.filesystem.":workspace_roots"]
+"docs" = "write"
+
+[permissions.course-jetbrains]
+description = "Optional example: restrict command network access to two JetBrains hosts."
+# Independent baseline avoids inheriting course-workspace's global host allowance.
+extends = ":workspace"
+
+[permissions.course-jetbrains.filesystem]
+# Linux/WSL and native Windows snapshot deny-glob matches before sandbox startup.
+# This is a scanning bound, not a guarantee about paths deeper than 12 levels.
+glob_scan_max_depth = 12
+
+[permissions.course-jetbrains.filesystem.":workspace_roots"]
+# Exact denials also protect absent paths; keep them alongside bounded recursive globs.
+".env" = "deny"
+".env.local" = "deny"
+".env.dev" = "deny"
+".env.prod" = "deny"
+".env.test" = "deny"
+"**/.env" = "deny"
+"**/.env.local" = "deny"
+"**/.env.dev" = "deny"
+"**/.env.prod" = "deny"
+"**/.env.test" = "deny"
+"secrets" = "deny"
+"**/secrets/**" = "deny"
+# A synthetic template is available for inspection but cannot be edited in this profile.
+".env.example" = "read"
+
+[permissions.course-jetbrains.network]
+enabled = true
+
+[permissions.course-jetbrains.network.domains]
+"blog.jetbrains.com" = "allow"
+"www.jetbrains.com" = "allow"
+# Domain rules require [features] network_proxy = true, provided in the sample config.

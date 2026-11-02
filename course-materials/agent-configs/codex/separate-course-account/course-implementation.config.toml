@@ -1,0 +1,6 @@
+# Place this file in $CODEX_HOME, not in the project .codex directory.
+model = "gpt-6.1-sol"
+model_reasoning_effort = "medium"
+sandbox_mode = "workspace-write"
+approval_policy = "on-request"
+approvals_reviewer = "user"

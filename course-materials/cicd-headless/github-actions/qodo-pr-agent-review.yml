@@ -1,0 +1,161 @@
+# Community PR-Agent, checked against v0.47.0 on 2026-10-02.
+# Qodo is a separate commercial product. Historical filename retained for course links.
+# Copy to .github/workflows/pr-agent-review.yml; set ANTHROPIC_API_KEY (secret)
+# and PR_AGENT_MODEL (repository variable, an available anthropic/<model> ID).
+# The upstream action The-PR-Agent/pr-agent@v0.47.0 uses a rolling Docker tag;
+# this example pins the published action image itself instead.
+name: Community PR-Agent Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review, review_requested]
+  issue_comment:
+    types: [created]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: Existing PR number in this repository
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+env:
+  CONFIG__MODEL: ${{ vars.PR_AGENT_MODEL }}
+  CONFIG__FALLBACK_MODELS: '[]'
+  CONFIG__RESTRICTED_MODE: 'true'
+  CONFIG__PROPAGATE_TOOL_ERRORS: 'true'
+  PR_REVIEWER__EXTRA_INSTRUCTIONS: |
+    Focus on new security, correctness, performance, tests and error-handling defects.
+    Give a concrete failing scenario, evidence and an actionable fix.
+    Prioritize high-impact issues; explain missing context and never invent test results.
+  PR_REVIEWER__REQUIRE_TESTS_REVIEW: 'true'
+  PR_REVIEWER__REQUIRE_SECURITY_REVIEW: 'true'
+  PR_REVIEWER__REQUIRE_ESTIMATE_EFFORT_TO_REVIEW: 'false'
+  PR_REVIEWER__REQUIRE_SCORE_REVIEW: 'false'
+  PR_REVIEWER__NUM_MAX_FINDINGS: '10'
+  PR_REVIEWER__ENABLE_REVIEW_LABELS_SECURITY: 'true'
+  PR_REVIEWER__ENABLE_REVIEW_LABELS_EFFORT: 'false'
+  PR_REVIEWER__PERSISTENT_COMMENT: 'true'
+  PR_CODE_SUGGESTIONS__EXTRA_INSTRUCTIONS: |
+    Focus on demonstrated security, performance, test and error-handling problems.
+    Explain the failing scenario and propose a concrete fix based on the original code.
+  PR_CODE_SUGGESTIONS__NUM_CODE_SUGGESTIONS_PER_CHUNK: '5'
+  PR_CODE_SUGGESTIONS__FOCUS_ONLY_ON_PROBLEMS: 'true'
+  PR_CODE_SUGGESTIONS__PERSISTENT_COMMENT: 'true'
+  PR_CODE_SUGGESTIONS__COMMITTABLE_CODE_SUGGESTIONS: 'true'
+  PR_CODE_SUGGESTIONS__PUBLISH_OUTPUT_NO_SUGGESTIONS: 'false'
+  PR_DESCRIPTION__ADD_ORIGINAL_USER_DESCRIPTION: 'true'
+  PR_DESCRIPTION__GENERATE_AI_TITLE: 'false'
+  PR_DESCRIPTION__PUBLISH_DESCRIPTION_AS_COMMENT: 'true'
+  PR_DESCRIPTION__ENABLE_PR_DIAGRAM: 'true'
+  PR_DESCRIPTION__ENABLE_SEMANTIC_FILES_TYPES: 'false'
+  PR_DESCRIPTION__EXTRA_INSTRUCTIONS: Be concise and focus on the most important changes.
+
+jobs:
+  automatic_review:
+    if: >-
+      github.event.sender.type != 'Bot' &&
+      ((github.event_name == 'pull_request' &&
+        github.event.pull_request.head.repo.full_name == github.repository &&
+        !github.event.pull_request.draft) ||
+       (github.event_name == 'issue_comment' && github.event.issue.pull_request &&
+        contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.comment.author_association) &&
+        (startsWith(github.event.comment.body, '/review') ||
+         startsWith(github.event.comment.body, '/describe') ||
+         startsWith(github.event.comment.body, '/improve') ||
+         startsWith(github.event.comment.body, '/ask'))))
+    concurrency:
+      group: pr-agent-${{ github.event.pull_request.number || github.event.issue.number || inputs.pr_number }}
+      cancel-in-progress: true
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Validate Anthropic configuration
+        shell: bash
+        env:
+          ANTHROPIC__KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COMMENT_LOGIN: ${{ github.event.comment.user.login }}
+          PR_NUMBER: ${{ github.event.pull_request.number || github.event.issue.number || inputs.pr_number }}
+        run: |
+          set -euo pipefail
+          [[ -n "${ANTHROPIC__KEY:-}" ]] || { echo '::error::Set Actions secret ANTHROPIC_API_KEY.' >&2; exit 1; }
+          [[ -n "${CONFIG__MODEL:-}" ]] || { echo '::error::Set Actions variable PR_AGENT_MODEL.' >&2; exit 1; }
+          if [[ "$GITHUB_EVENT_NAME" == issue_comment ]]; then
+            permission=$(gh api "repos/$GITHUB_REPOSITORY/collaborators/$COMMENT_LOGIN/permission" --jq '.permission')
+            [[ "$permission" == write || "$permission" == maintain || "$permission" == admin ]] || { echo '::error::Comment commands require current write, maintain or admin repository permission.' >&2; exit 1; }
+          fi
+          # Same rule for every trigger: only an open, non-draft PR from this repository reaches the paid reviewer.
+          [[ "$PR_NUMBER" =~ ^[1-9][0-9]*$ ]] || { echo '::error::Invalid PR number.' >&2; exit 1; }
+          metadata=$(gh api "repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER" --jq '[.state,.head.repo.full_name,.draft]|@tsv')
+          IFS=$'\t' read -r state head_repo draft <<< "$metadata"
+          [[ "$state" == open && "$head_repo" == "$GITHUB_REPOSITORY" && "$draft" == false ]] || { echo '::error::Choose an open, non-draft PR from this repository; fork PRs are skipped.' >&2; exit 1; }
+      # API-only review: no checkout or execution of PR code.
+      - name: Community PR-Agent action
+        uses: docker://pragent/pr-agent:0.47.0-github_action@sha256:31b9aac6ab067bada9a0c1b001d30ebc500ea4487e00a93c18c59b9ef5fa66db
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ANTHROPIC__KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GITHUB_ACTION_CONFIG__AUTO_REVIEW: 'true'
+          GITHUB_ACTION_CONFIG__AUTO_DESCRIBE: 'true'
+          GITHUB_ACTION_CONFIG__AUTO_IMPROVE: 'true'
+          GITHUB_ACTION_CONFIG__PR_ACTIONS: '["opened","reopened","ready_for_review","review_requested"]'
+          # synchronize has a separate push-trigger path in current releases.
+          GITHUB_ACTION_CONFIG__HANDLE_PUSH_TRIGGER: 'true'
+          GITHUB_ACTION_CONFIG__PUSH_COMMANDS: '["/describe","/review","/improve"]'
+
+  manual_review:
+    if: github.event_name == 'workflow_dispatch'
+    concurrency:
+      group: pr-agent-${{ github.event.pull_request.number || github.event.issue.number || inputs.pr_number }}
+      cancel-in-progress: true
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Validate Anthropic configuration
+        shell: bash
+        env:
+          ANTHROPIC__KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COMMENT_LOGIN: ${{ github.event.comment.user.login }}
+          PR_NUMBER: ${{ github.event.pull_request.number || github.event.issue.number || inputs.pr_number }}
+        run: |
+          set -euo pipefail
+          [[ -n "${ANTHROPIC__KEY:-}" ]] || { echo '::error::Set Actions secret ANTHROPIC_API_KEY.' >&2; exit 1; }
+          [[ -n "${CONFIG__MODEL:-}" ]] || { echo '::error::Set Actions variable PR_AGENT_MODEL.' >&2; exit 1; }
+          if [[ "$GITHUB_EVENT_NAME" == issue_comment ]]; then
+            permission=$(gh api "repos/$GITHUB_REPOSITORY/collaborators/$COMMENT_LOGIN/permission" --jq '.permission')
+            [[ "$permission" == write || "$permission" == maintain || "$permission" == admin ]] || { echo '::error::Comment commands require current write, maintain or admin repository permission.' >&2; exit 1; }
+          fi
+          # Same rule for every trigger: only an open, non-draft PR from this repository reaches the paid reviewer.
+          [[ "$PR_NUMBER" =~ ^[1-9][0-9]*$ ]] || { echo '::error::Invalid PR number.' >&2; exit 1; }
+          metadata=$(gh api "repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER" --jq '[.state,.head.repo.full_name,.draft]|@tsv')
+          IFS=$'\t' read -r state head_repo draft <<< "$metadata"
+          [[ "$state" == open && "$head_repo" == "$GITHUB_REPOSITORY" && "$draft" == false ]] || { echo '::error::Choose an open, non-draft PR from this repository; fork PRs are skipped.' >&2; exit 1; }
+      # The action runner has no workflow_dispatch handler; use the CLI explicitly.
+      - name: Review the requested PR
+        shell: bash
+        env:
+          PR_NUMBER: ${{ inputs.pr_number }}
+          GITHUB__USER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ANTHROPIC__KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COMMENT_LOGIN: ${{ github.event.comment.user.login }}
+        run: |
+          set -euo pipefail
+          [[ "$PR_NUMBER" =~ ^[1-9][0-9]*$ ]] || { echo 'Invalid PR number' >&2; exit 2; }
+          : "${CONFIG__MODEL:?Set repository variable PR_AGENT_MODEL}"
+          PR_URL="https://github.com/$GITHUB_REPOSITORY/pull/$PR_NUMBER"
+          docker run --rm --cap-drop ALL --security-opt no-new-privileges \
+            --env GITHUB__USER_TOKEN --env ANTHROPIC__KEY \
+            --env CONFIG__MODEL --env CONFIG__FALLBACK_MODELS \
+            --env CONFIG__RESTRICTED_MODE --env CONFIG__PROPAGATE_TOOL_ERRORS \
+            --env PR_REVIEWER__EXTRA_INSTRUCTIONS --env PR_REVIEWER__PERSISTENT_COMMENT \
+            --env PR_REVIEWER__NUM_MAX_FINDINGS --env PR_REVIEWER__REQUIRE_SECURITY_REVIEW \
+            --entrypoint python \
+            pragent/pr-agent:0.47.0@sha256:7d98954c29289846a08faf00aaea0f1f1375b1676cd8a2ed303e0af07010af7a \
+            -m pr_agent.cli --pr_url "$PR_URL" review

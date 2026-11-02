@@ -1,0 +1,40 @@
+# GitLab CI: agent code review and security review on every merge request.
+#
+# Setup:
+# 1. Copy the agent-review folder to ci/agent-review/ in your repository and
+#    merge this job into your .gitlab-ci.yml.
+# 2. Build and push ci/agent-review/Dockerfile (e.g. to the GitLab registry).
+# 3. Settings > CI/CD > Variables (masked, protected as needed):
+#    OPENROUTER_API_KEY, GITLAB_TOKEN (project access token, scope api, role Reporter+),
+#    optional JIRA_BASE_URL, JIRA_EMAIL, JIRA_API_TOKEN.
+
+stages: [review]
+
+.agent-review:
+  stage: review
+  image: registry.example.com/agent-ci:1
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  variables:
+    GIT_DEPTH: "0"          # full history so the diff against the target branch works
+    AGENT: claude
+    LLM_PROVIDER: openrouter
+  script:
+    - bash ci/agent-review/agent_review.sh "$CI_MERGE_REQUEST_TARGET_BRANCH_NAME" "$PROMPT"
+    - bash ci/agent-review/post_review_comment.sh .agent-review/review.md
+  artifacts:
+    when: always
+    paths: [.agent-review/]
+    expire_in: 1 week
+
+agent-code-review:
+  extends: .agent-review
+  variables:
+    PROMPT: ci/agent-review/prompts/code-review.md
+  after_script:
+    - bash ci/agent-review/jira_update.sh .agent-review/review.md || true
+
+agent-security-review:
+  extends: .agent-review
+  variables:
+    PROMPT: ci/agent-review/prompts/security-review.md

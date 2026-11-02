@@ -1,0 +1,41 @@
+# Bitbucket CLOUD; Server/Data Center uses Jenkins or Bamboo + review-pr.sh instead.
+# Merge into bitbucket-pipelines.yml. Repository variables: secured REVIEW_API_KEY and
+# BITBUCKET__BEARER_TOKEN (repository access token).
+# Optional: REVIEW_API_BASE, REVIEW_MODEL, REVIEW_MAX_TOKENS (defaults: OpenRouter, gpt-6-luna).
+image: pragent/pr-agent:0.47.0@sha256:7d98954c29289846a08faf00aaea0f1f1375b1676cd8a2ed303e0af07010af7a
+clone:
+  enabled: false
+
+pipelines:
+  pull-requests:
+    '**':
+      - step:
+          name: Community PR-Agent review
+          max-time: 15
+          script:
+            - |
+              set -eu
+              : "${REVIEW_API_KEY:?Set secured variable REVIEW_API_KEY (model endpoint API key)}"
+              : "${BITBUCKET__BEARER_TOKEN:?Inject a Bitbucket repository access token}"
+              # Any OpenAI-compatible endpoint; "openai/" selects PR-Agent's OpenAI-compatible client.
+              export OPENAI__KEY="$REVIEW_API_KEY"
+              export OPENAI__API_BASE="${REVIEW_API_BASE:-https://openrouter.ai/api/v1}"
+              MODEL="openai/${REVIEW_MODEL:-openai/gpt-6-luna}"
+              export CONFIG__GIT_PROVIDER=bitbucket
+              export BITBUCKET__AUTH_TYPE=bearer
+              export CONFIG__MODEL="$MODEL"
+              export CONFIG__FALLBACK_MODELS='[]'
+              export CONFIG__CUSTOM_MODEL_MAX_TOKENS="${REVIEW_MAX_TOKENS:-250000}"
+              export CONFIG__MAX_MODEL_TOKENS="${REVIEW_MAX_TOKENS:-250000}"
+              export CONFIG__NO_TEMPERATURE_MODELS="[\"$MODEL\"]"
+              export CONFIG__ADDITIONAL_REASONING_EFFORT_MODELS="[\"$MODEL\"]"
+              export CONFIG__REASONING_EFFORT=low
+              export CONFIG__RESTRICTED_MODE=true
+              export CONFIG__PROPAGATE_TOOL_ERRORS=true
+              export PR_REVIEWER__PERSISTENT_COMMENT=true
+              export PR_REVIEWER__INLINE_KEY_ISSUES=false
+              export PR_REVIEWER__ENABLE_LARGE_PR_CHUNKING=true
+              export PR_REVIEWER__MAX_NUMBER_OF_CALLS=4
+              PR_URL="https://bitbucket.org/$BITBUCKET_WORKSPACE/$BITBUCKET_REPO_SLUG/pull-requests/$BITBUCKET_PR_ID"
+              cd /app
+              python -m pr_agent.cli --pr_url "$PR_URL" review

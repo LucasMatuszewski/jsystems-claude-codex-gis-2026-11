@@ -1,0 +1,63 @@
+# Azure Pipelines: agent code review and security review on every pull request.
+#
+# Setup:
+# 1. Copy the agent-review folder to ci/agent-review/ in your repository.
+# 2. Build and push ci/agent-review/Dockerfile to a registry the pipeline can pull.
+# 3. Library > Variable group "agent-review": OPENROUTER_API_KEY (secret) and,
+#    for Jira, JIRA_BASE_URL, JIRA_EMAIL, JIRA_API_TOKEN (secret).
+# 4. Azure Repos: add this pipeline as Build validation in the branch policy of
+#    main (the pr: trigger below applies only to GitHub and Bitbucket repos).
+# 5. Project Settings > Repositories > Security: give "<project> Build Service"
+#    the permission "Contribute to pull requests" so it can post the comment.
+
+trigger: none
+pr:
+  branches:
+    include: [main]
+
+pool:
+  vmImage: ubuntu-latest
+
+container: registry.example.com/agent-ci:1
+
+variables:
+  - group: agent-review
+
+jobs:
+  - job: review
+    strategy:
+      matrix:
+        code:
+          PROMPT: ci/agent-review/prompts/code-review.md
+        security:
+          PROMPT: ci/agent-review/prompts/security-review.md
+    steps:
+      - checkout: self
+        fetchDepth: 0
+
+      - bash: bash ci/agent-review/agent_review.sh "${SYSTEM_PULLREQUEST_TARGETBRANCH#refs/heads/}" "$PROMPT"
+        displayName: Agent review
+        env:
+          AGENT: copilot
+          LLM_PROVIDER: openrouter
+          # Secret variables reach scripts only when mapped explicitly.
+          OPENROUTER_API_KEY: $(OPENROUTER_API_KEY)
+          JIRA_API_TOKEN: $(JIRA_API_TOKEN)
+
+      - bash: bash ci/agent-review/post_review_comment.sh .agent-review/review.md
+        displayName: Comment on pull request
+        condition: eq(variables['Build.Reason'], 'PullRequest')
+        env:
+          AGENT: copilot
+          SYSTEM_ACCESSTOKEN: $(System.AccessToken)
+
+      - bash: bash ci/agent-review/jira_update.sh .agent-review/review.md
+        displayName: Jira comment
+        condition: and(eq(variables['Build.Reason'], 'PullRequest'), eq(variables['PROMPT'], 'ci/agent-review/prompts/code-review.md'))
+        env:
+          JIRA_API_TOKEN: $(JIRA_API_TOKEN)
+          JIRA_TRANSITION: In Review
+
+      - publish: .agent-review
+        artifact: agent-review-$(System.JobName)
+        condition: always()

@@ -1,0 +1,147 @@
+{
+  // ===========================================================================
+  // OpenCode config example (opencode.json)
+  //
+  // Global config lives at:  ~/.config/opencode/opencode.json   (Linux/macOS)
+  //                          %USERPROFILE%\.config\opencode\opencode.json (Win)
+  // Project config:          ./opencode.json   (overrides global for this repo)
+  //
+  // OpenCode supports JSONC, so these // comments are allowed.
+  // Config load order (later wins): remote -> global -> $OPENCODE_CONFIG -> project
+  // ===========================================================================
+  "$schema": "https://opencode.ai/config.json",
+
+  // Course push policy: other commands, including feature pushes, ask for approval.
+  // Wildcards match command text, including spaces; the LAST matching rule wins.
+  // Keep the catch-all first and explicit denials after it.
+  // Bare git push names no branch; aliases, full refs and alternate options can
+  // escape these patterns. GitHub/Bitbucket branch protection is the real guard.
+  // Docs: https://opencode.ai/docs/permissions/#granular-rules-object-syntax
+  "permission": {
+    "bash": {
+      "*": "ask",
+      "git push * main": "deny",
+      "git push * main *": "deny",
+      "git push *:main": "deny",
+      "git push *:main *": "deny",
+      "git push * master": "deny",
+      "git push * master *": "deny",
+      "git push *:master": "deny",
+      "git push *:master *": "deny",
+      "git push * prod": "deny",
+      "git push * prod *": "deny",
+      "git push *:prod": "deny",
+      "git push *:prod *": "deny",
+      "git push --force*": "deny",
+      "git push -f": "deny",
+      "git push -f *": "deny",
+      "git push * --force*": "deny",
+      "git push * -f": "deny",
+      "git push * -f *": "deny"
+    }
+  },
+
+  // ---------------------------------------------------------------------------
+  // DEFAULT MODEL  ->  format is "<provider>/<model-id>"
+  //
+  // This is what fixes the "ACP keeps using the default Zen model" problem:
+  // OpenCode ACP (used by JetBrains/IntelliJ, Zed, etc.) starts a fresh session
+  // and reads THIS key for the model. It does NOT inherit the last model you
+  // picked in the TUI/Desktop app (that is per-session TUI state, not config).
+  // If "model" is unset, OpenCode falls back to its built-in "opencode zen"
+  // gateway default -> that is the "Zen" model you saw in IntelliJ.
+  //
+  // OpenRouter DeepSeek V4 Pro (confirmed id on OpenRouter: deepseek/deepseek-v4-pro)
+  // The "openrouter/" prefix is OpenCode's provider id; OpenRouter's own model
+  // id keeps its slash, so the full string has two slashes.
+  // Requires OPENROUTER_API_KEY in env, or run:  opencode auth login
+  // ---------------------------------------------------------------------------
+  "model": "openrouter/deepseek/deepseek-v4-pro",
+
+  // Optional: a cheaper/faster model OpenCode uses for small background tasks
+  // (titles, summaries). Comment out to use the same as "model".
+  "small_model": "openrouter/deepseek/deepseek-v4-flash",
+
+  // ---------------------------------------------------------------------------
+  // MCP servers
+  // OpenCode MCP schema differs from Claude Code's .mcp.json:
+  //   - stdio servers use   "type": "local"   with command as an ARRAY
+  //     and env vars under   "environment"     (not "env")
+  //   - http servers use     "type": "remote"  with "url" + "headers"
+  //   - "enabled": false  ->  defined but NOT loaded (load on demand)
+  // ---------------------------------------------------------------------------
+  "mcp": {
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp",
+      // Put the real key in env (CONTEXT7_API_KEY) instead of hardcoding it here.
+      "headers": {
+        "CONTEXT7_API_KEY": "${CONTEXT7_API_KEY}"
+      },
+      "enabled": true
+    },
+
+    // JetBrains / IntelliJ MCP bridge — DISABLED by default.
+    // Heavy + only useful while IntelliJ is open, so we don't load it every run.
+    // To use on demand: set "enabled": true (and make sure IntelliJ is running
+    // with the MCP Server plugin on the matching port). Adjust the IntelliJ
+    // install path / version to your machine.
+    "jetbrains": {
+      "type": "local",
+      "command": [
+        "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2025.3.3\\jbr\\bin\\java",
+        "-classpath",
+        "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2025.3.3\\plugins\\mcpserver\\lib\\mcpserver-frontend.jar",
+        "com.intellij.mcpserver.stdio.McpStdioRunnerKt"
+      ],
+      "environment": {
+        "IJ_MCP_SERVER_PORT": "64342"
+      },
+      "enabled": false
+    }
+  },
+
+  "disabled_providers": [],
+
+  // ---------------------------------------------------------------------------
+  // Custom provider example: local Ollama (OpenAI-compatible endpoint).
+  // Built-in providers (openrouter, anthropic, openai, ...) come from models.dev
+  // and do NOT need a block here — you only declare custom/local ones.
+  // Example is for Ollama, but it could be e.g. an OpenAI-compatible vLLM endpoint.
+  // Docs: https://opencode.ai/docs/providers/#custom-provider
+  // ---------------------------------------------------------------------------
+  "provider": {
+    "ollama": {
+      "name": "Ollama (local)",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "http://localhost:11434/v1"
+        // options.apiKey: Optionally set the API key, if not using auth.
+        // "apiKey": "{env:OLLAMA_API_KEY}"
+        // options.headers: Optionally set custom headers.
+        // "headers": { "Authorization": "Bearer custom_token" }
+      },
+      "models": {
+        "glm-5.2:cloud": { "name": "GLM 5.2 Cloud" },
+        "gemma4:latest": {
+          "name": "Gemma 4",
+          "limit": {
+            // Set same values as you have in Ollama settings for the model, e.g.:
+            "context": 64000,
+            "output": 32000
+          }
+        },
+        "granite4.1:3b": { "name": "Granite 4.1 3B" }
+      }
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // Optional: per-agent model override. ACP/JetBrains uses the primary agent's
+  // model; set "model" here to force a specific model just for one agent.
+  // ---------------------------------------------------------------------------
+  // "agent": {
+  //   "build": { "model": "openrouter/deepseek/deepseek-v4-pro" },
+  //   "plan":  { "model": "openrouter/anthropic/claude-sonnet-4-6" }
+  // }
+}

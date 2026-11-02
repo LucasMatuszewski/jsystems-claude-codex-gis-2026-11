@@ -1,0 +1,21 @@
+node_modules/
+coverage/
+dist/
+build/
+*.db
+.env
+.env.*
+!.env.example
+.DS_Store
+.agents/skills/
+.claude/skills/
+skills-lock.json
+__pycache__/
+*.pyc
+.playwright-cli
+
+# Private agent briefs and Java build artifacts
+.agent-briefs/
+**/target/
+*.class
+/.idea

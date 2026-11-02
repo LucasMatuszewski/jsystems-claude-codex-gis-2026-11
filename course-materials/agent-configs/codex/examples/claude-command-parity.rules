@@ -1,0 +1,108 @@
+# TEACHING COMPARISON ONLY. Do not install this entire file as an active policy.
+# Claude Bash allow -> Codex allow: syntactic mapping with different approval semantics.
+# Broad allowances can bypass the sandbox when there are no denied-read restrictions.
+# In 0.162.1, active denied reads must survive allow rules and approved escalation.
+# These rules do not implement Read/Edit/Write/WebFetch; see permissions.toml.
+# Broad allow/prompt mappings can bypass or force review of sandboxed work;
+# this literal comparison is not the active policy for that reason.
+# Source: course-materials/agent-configs/claude/settings.json.
+# Colon-star becomes trailing argv; there are no wildcard strings in these patterns.
+# Even Claude's exact-looking Bash(pwd) maps to a Codex PREFIX, not exact argv length.
+
+# ALLOW command mappings
+prefix_rule(pattern=["cat"], decision="allow", match=['cat'], not_match=["true"])  # Bash(cat:*)
+prefix_rule(pattern=["ls"], decision="allow", match=['ls'], not_match=["true"])  # Bash(ls:*)
+prefix_rule(pattern=["find"], decision="allow", match=['find'], not_match=["true"])  # Bash(find:*)
+prefix_rule(pattern=["grep"], decision="allow", match=['grep'], not_match=["true"])  # Bash(grep:*)
+prefix_rule(pattern=["echo"], decision="allow", match=['echo'], not_match=["true"])  # Bash(echo:*)
+prefix_rule(pattern=["pwd"], decision="allow", match=['pwd'], not_match=["true"])  # Bash(pwd)
+prefix_rule(pattern=["wc"], decision="allow", match=['wc'], not_match=["true"])  # Bash(wc:*)
+prefix_rule(pattern=["head"], decision="allow", match=['head'], not_match=["true"])  # Bash(head:*)
+prefix_rule(pattern=["tail"], decision="allow", match=['tail'], not_match=["true"])  # Bash(tail:*)
+prefix_rule(pattern=["diff"], decision="allow", match=['diff'], not_match=["true"])  # Bash(diff:*)
+prefix_rule(pattern=["git", "status"], decision="allow", match=['git status'], not_match=["true"])  # Bash(git status:*)
+prefix_rule(pattern=["git", "log"], decision="allow", match=['git log'], not_match=["true"])  # Bash(git log:*)
+prefix_rule(pattern=["git", "diff"], decision="allow", match=['git diff'], not_match=["true"])  # Bash(git diff:*)
+prefix_rule(pattern=["git", "show"], decision="allow", match=['git show'], not_match=["true"])  # Bash(git show:*)
+prefix_rule(pattern=["git", "branch"], decision="allow", match=['git branch'], not_match=["true"])  # Bash(git branch:*)
+prefix_rule(pattern=["git", "stash", "list"], decision="allow", match=['git stash list'], not_match=["true"])  # Bash(git stash list:*)
+prefix_rule(pattern=["git", "add"], decision="allow", match=['git add'], not_match=["true"])  # Bash(git add:*)
+prefix_rule(pattern=["git", "commit"], decision="allow", match=['git commit'], not_match=["true"])  # Bash(git commit:*)
+prefix_rule(pattern=["git", "checkout"], decision="allow", match=['git checkout'], not_match=["true"])  # Bash(git checkout:*)
+prefix_rule(pattern=["git", "switch"], decision="allow", match=['git switch'], not_match=["true"])  # Bash(git switch:*)
+prefix_rule(pattern=["git", "restore"], decision="allow", match=['git restore'], not_match=["true"])  # Bash(git restore:*)
+prefix_rule(pattern=["git", "fetch"], decision="allow", match=['git fetch'], not_match=["true"])  # Bash(git fetch:*)
+prefix_rule(pattern=["git", "merge"], decision="allow", match=['git merge'], not_match=["true"])  # Bash(git merge:*)
+prefix_rule(pattern=["git", "rebase"], decision="allow", match=['git rebase'], not_match=["true"])  # Bash(git rebase:*)
+prefix_rule(pattern=["npm", "install"], decision="allow", match=['npm install'], not_match=["true"])  # Bash(npm install:*)
+prefix_rule(pattern=["npm", "run"], decision="allow", match=['npm run'], not_match=["true"])  # Bash(npm run:*)
+prefix_rule(pattern=["npm", "test"], decision="allow", match=['npm test'], not_match=["true"])  # Bash(npm test:*)
+prefix_rule(pattern=["npm", "audit"], decision="allow", match=['npm audit'], not_match=["true"])  # Bash(npm audit:*)
+prefix_rule(pattern=["npx"], decision="allow", match=['npx'], not_match=["true"])  # Bash(npx:*)
+prefix_rule(pattern=["pnpm", "install"], decision="allow", match=['pnpm install'], not_match=["true"])  # Bash(pnpm install:*)
+prefix_rule(pattern=["pnpm", "run"], decision="allow", match=['pnpm run'], not_match=["true"])  # Bash(pnpm run:*)
+prefix_rule(pattern=["pnpm", "test"], decision="allow", match=['pnpm test'], not_match=["true"])  # Bash(pnpm test:*)
+prefix_rule(pattern=["yarn", "install"], decision="allow", match=['yarn install'], not_match=["true"])  # Bash(yarn install:*)
+prefix_rule(pattern=["yarn", "run"], decision="allow", match=['yarn run'], not_match=["true"])  # Bash(yarn run:*)
+prefix_rule(pattern=["tsc"], decision="allow", match=['tsc'], not_match=["true"])  # Bash(tsc:*)
+prefix_rule(pattern=["eslint"], decision="allow", match=['eslint'], not_match=["true"])  # Bash(eslint:*)
+prefix_rule(pattern=["prettier"], decision="allow", match=['prettier'], not_match=["true"])  # Bash(prettier:*)
+prefix_rule(pattern=["jest"], decision="allow", match=['jest'], not_match=["true"])  # Bash(jest:*)
+prefix_rule(pattern=["vitest"], decision="allow", match=['vitest'], not_match=["true"])  # Bash(vitest:*)
+prefix_rule(pattern=["next"], decision="allow", match=['next'], not_match=["true"])  # Bash(next:*)
+prefix_rule(pattern=["turbo"], decision="allow", match=['turbo'], not_match=["true"])  # Bash(turbo:*)
+prefix_rule(pattern=["tsx"], decision="allow", match=['tsx'], not_match=["true"])  # Bash(tsx:*)
+prefix_rule(pattern=["node"], decision="allow", match=['node'], not_match=["true"])  # Bash(node:*)
+prefix_rule(pattern=["python"], decision="allow", match=['python'], not_match=["true"])  # Bash(python:*)
+prefix_rule(pattern=["python3"], decision="allow", match=['python3'], not_match=["true"])  # Bash(python3:*)
+prefix_rule(pattern=["pip", "install"], decision="allow", match=['pip install'], not_match=["true"])  # Bash(pip install:*)
+prefix_rule(pattern=["uv"], decision="allow", match=['uv'], not_match=["true"])  # Bash(uv:*)
+prefix_rule(pattern=["pytest"], decision="allow", match=['pytest'], not_match=["true"])  # Bash(pytest:*)
+prefix_rule(pattern=["docker", "ps"], decision="allow", match=['docker ps'], not_match=["true"])  # Bash(docker ps:*)
+prefix_rule(pattern=["docker", "logs"], decision="allow", match=['docker logs'], not_match=["true"])  # Bash(docker logs:*)
+prefix_rule(pattern=["docker", "inspect"], decision="allow", match=['docker inspect'], not_match=["true"])  # Bash(docker inspect:*)
+prefix_rule(pattern=["docker", "images"], decision="allow", match=['docker images'], not_match=["true"])  # Bash(docker images:*)
+prefix_rule(pattern=["which"], decision="allow", match=['which'], not_match=["true"])  # Bash(which:*)
+prefix_rule(pattern=["date"], decision="allow", match=['date'], not_match=["true"])  # Bash(date)
+prefix_rule(pattern=["whoami"], decision="allow", match=['whoami'], not_match=["true"])  # Bash(whoami)
+prefix_rule(pattern=["export"], decision="allow", match=['export'], not_match=["true"])  # Bash(export:*)
+
+# DENY command mappings
+prefix_rule(pattern=["env"], decision="forbidden", match=['env'], not_match=["true"])  # Bash(env:*)
+prefix_rule(pattern=["printenv"], decision="forbidden", match=['printenv'], not_match=["true"])  # Bash(printenv:*)
+# Claude glob destinations have no literal argv-prefix equivalent; use the bounded
+# approximation below. All other entries remain literal Claude command mappings.
+# Publishing: ordinary feature pushes use the sandbox and on-request escalation.
+# No broad allow/prompt: an explicit prompt would review even in-sandbox pushes.
+# Token prefixes cover origin/upstream and common option orders, not all Git syntax.
+# Bare push, HEAD:main, refs/heads/main, +refspecs, other remotes, git -C and
+# force flags after arbitrary refspecs or --force-with-lease=<value> need server protection.
+prefix_rule(pattern=[["git", "git.exe"], "push", ["origin", "upstream"], ["main", "master", "prod"]], decision="forbidden", justification="Block explicit protected branches on the course remotes; refspec destinations are not token-prefix matches.", match=["git push origin main", "git.exe push upstream master", "git push origin prod"], not_match=["git push origin feature/example", "git push origin HEAD:main", "git push"])
+prefix_rule(pattern=[["git", "git.exe"], "push", ["-u", "--set-upstream"], ["origin", "upstream"], ["main", "master", "prod"]], decision="forbidden", justification="Block protected branches when setting the upstream before the remote.", match=["git push -u origin main", "git push --set-upstream upstream prod"], not_match=["git push -u origin feature/example"])
+prefix_rule(pattern=[["git", "git.exe"], "push", ["origin", "upstream"], ["-u", "--set-upstream"], ["main", "master", "prod"]], decision="forbidden", justification="Block protected branches when setting the upstream after the remote.", match=["git push origin -u master"], not_match=["git push origin -u feature/example"])
+prefix_rule(pattern=[["git", "git.exe"], "push", ["--force", "-f", "--force-with-lease"]], decision="forbidden", justification="Block force flags immediately after push; arbitrary later positions cannot be expressed by this prefix.", match=["git push --force origin feature/example", "git push -f origin feature/example", "git push --force-with-lease origin feature/example"], not_match=["git push origin feature/example"])
+prefix_rule(pattern=[["git", "git.exe"], "push", ["origin", "upstream"], ["--force", "-f", "--force-with-lease"]], decision="forbidden", justification="Block force flags immediately after a known remote.", match=["git push origin --force feature/example"], not_match=["git push origin feature/example --force"])
+prefix_rule(pattern=[["git", "git.exe"], "push", ["-u", "--set-upstream"], ["--force", "-f", "--force-with-lease"]], decision="forbidden", justification="Block force flags immediately after the upstream option.", match=["git push -u --force origin feature/example"], not_match=["git push -u origin feature/example"])
+prefix_rule(pattern=[["git", "git.exe"], "push", ["-u", "--set-upstream"], ["origin", "upstream"], ["--force", "-f", "--force-with-lease"]], decision="forbidden", justification="Block force flags after the upstream option and known remote.", match=["git push -u origin --force-with-lease feature/example"], not_match=["git push -u origin feature/example"])
+prefix_rule(pattern=[["git", "git.exe"], "push", ["origin", "upstream"], ["-u", "--set-upstream"], ["--force", "-f", "--force-with-lease"]], decision="forbidden", justification="Block force flags after the known remote and upstream option.", match=["git push origin -u -f feature/example"], not_match=["git push origin -u feature/example"])
+# Block direct repository deletion; review changes to the shared gh login and scopes.
+prefix_rule(pattern=[["gh", "gh.exe"], "repo", "delete"], decision="forbidden", justification="Repository deletion must be performed by the human, outside the agent session.", match=["gh repo delete example/synthetic-repo", "gh.exe repo delete example/synthetic-repo --yes"], not_match=["gh repo view example/synthetic-repo"])
+prefix_rule(pattern=[["gh", "gh.exe"], "auth", ["refresh", "login"]], decision="prompt", justification="Changing the shared gh token affects other tools; never grant delete_repo for an agent.", match=["gh auth refresh -s read:org", "gh auth login"], not_match=["gh auth status"])
+prefix_rule(pattern=["git", "reset", "--hard"], decision="forbidden", match=['git reset --hard'], not_match=["true"])  # Bash(git reset --hard:*)
+prefix_rule(pattern=["chmod"], decision="forbidden", match=['chmod'], not_match=["true"])  # Bash(chmod:*)
+prefix_rule(pattern=["chown"], decision="forbidden", match=['chown'], not_match=["true"])  # Bash(chown:*)
+prefix_rule(pattern=["sudo"], decision="forbidden", match=['sudo'], not_match=["true"])  # Bash(sudo:*)
+prefix_rule(pattern=["curl"], decision="forbidden", match=['curl'], not_match=["true"])  # Bash(curl:*)
+prefix_rule(pattern=["wget"], decision="forbidden", match=['wget'], not_match=["true"])  # Bash(wget:*)
+prefix_rule(pattern=["ssh"], decision="forbidden", match=['ssh'], not_match=["true"])  # Bash(ssh:*)
+prefix_rule(pattern=["scp"], decision="forbidden", match=['scp'], not_match=["true"])  # Bash(scp:*)
+prefix_rule(pattern=["docker", "run"], decision="forbidden", match=['docker run'], not_match=["true"])  # Bash(docker run:*)
+prefix_rule(pattern=["docker", "rm"], decision="forbidden", match=['docker rm'], not_match=["true"])  # Bash(docker rm:*)
+prefix_rule(pattern=["docker", "rmi"], decision="forbidden", match=['docker rmi'], not_match=["true"])  # Bash(docker rmi:*)
+prefix_rule(pattern=["docker-compose", "down"], decision="forbidden", match=['docker-compose down'], not_match=["true"])  # Bash(docker-compose down:*)
+
+# ASK examples from the root .claude/settings.json.
+prefix_rule(pattern=["git", "worktree", "add"], decision="prompt", justification="Ask before creating a worktree.", match=["git worktree add ../example"], not_match=["true"])
+# Claude's git -C * worktree add * has no literal wildcard-token equivalent.
+prefix_rule(pattern=["git", "-C"], decision="prompt", justification="Review the directory and operation, including worktree creation.", match=["git -C . worktree add ../example"], not_match=["true"])
+# EnterWorktree and Agent(isolation:worktree) are Claude tool names, not Codex argv.

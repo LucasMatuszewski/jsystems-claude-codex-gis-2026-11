@@ -1,0 +1,51 @@
+# Codex execpolicy (Starlark), not Claude JSON. Experimental.
+# Applies to command approval/escalation; filesystem denials live in config.toml.
+# Explicit prompt rules can require review even for commands that fit inside the sandbox.
+# In 0.162.1, allow/approval cannot remove active denied-read restrictions.
+# See course-materials/agent-configs/codex/PERMISSIONS.md for token-prefix, wrapper, and alternate-path limitations.
+
+# ALLOW: narrow teaching examples; denied-read restrictions still apply.
+prefix_rule(pattern=["pwd"], decision="allow", justification="Print the current directory.", match=["pwd"], not_match=["cat README.md"])
+prefix_rule(pattern=["whoami",], decision="allow", justification="Print the current account.", match=["whoami"], not_match=["printenv"])
+
+# Ordinary reads, searches, Git, builds, tests, Docker inspection and shell wrappers
+# have no explicit prompt rules. The sandbox controls access; on-request reviews
+# escalation. Broad prompt prefixes would send even sandboxed work to auto_review.
+# Do not replace them with broad allow rules, which have different bypass semantics.
+
+# Narrow exception: worktree creation requires review, even inside the sandbox.
+# git -C <dir> worktree add is not matched by this token prefix.
+prefix_rule(pattern=[["git", "git.exe"], "worktree", "add"], decision="prompt", justification="Ask before creating a Git worktree, as required by the shared machine instructions.", match=["git worktree add ../example", "git.exe worktree add ../example feature/example"], not_match=["git worktree list", "git -C . worktree add ../example"])
+
+# Network access is enabled. HTTP-client operations explicitly request review.
+# With approvals_reviewer = "auto_review", eligible prompts go to the judge.
+prefix_rule(pattern=[["curl", "curl.exe", "wget", "wget.exe"]], decision="prompt", justification="Review the destination and any upload, download or execution side effects.", match=["curl https://example.com", "wget https://example.com"], not_match=["rg ERROR logs"])
+
+# DENY: retained course restrictions (plus modern command aliases).
+prefix_rule(pattern=[["env", "printenv"]], decision="forbidden", justification="Environment dumps can disclose credentials; inspect only approved non-secret names.", match=["env", "printenv PATH"], not_match=["true"])
+prefix_rule(pattern=[["rm", "rmdir"]], decision="forbidden", justification="The root course policy disallows these deletion commands; request a scoped maintenance task.", match=["rm example.txt", "rmdir example"], not_match=["true"])
+# Publishing: ordinary feature pushes use the sandbox and on-request escalation.
+# No broad allow/prompt: an explicit prompt would review even in-sandbox pushes.
+# Token prefixes cover origin/upstream and common option orders, not all Git syntax.
+# Bare push, HEAD:main, refs/heads/main, +refspecs, other remotes, git -C and
+# force flags after arbitrary refspecs or --force-with-lease=<value> need server protection.
+prefix_rule(pattern=[["git", "git.exe"], "push", ["origin", "upstream"], ["main", "master", "prod"]], decision="forbidden", justification="Block explicit protected branches on the course remotes; refspec destinations are not token-prefix matches.", match=["git push origin main", "git.exe push upstream master", "git push origin prod"], not_match=["git push origin feature/example", "git push origin HEAD:main", "git push"])
+prefix_rule(pattern=[["git", "git.exe"], "push", ["-u", "--set-upstream"], ["origin", "upstream"], ["main", "master", "prod"]], decision="forbidden", justification="Block protected branches when setting the upstream before the remote.", match=["git push -u origin main", "git push --set-upstream upstream prod"], not_match=["git push -u origin feature/example"])
+prefix_rule(pattern=[["git", "git.exe"], "push", ["origin", "upstream"], ["-u", "--set-upstream"], ["main", "master", "prod"]], decision="forbidden", justification="Block protected branches when setting the upstream after the remote.", match=["git push origin -u master"], not_match=["git push origin -u feature/example"])
+prefix_rule(pattern=[["git", "git.exe"], "push", ["--force", "-f", "--force-with-lease"]], decision="forbidden", justification="Block force flags immediately after push; arbitrary later positions cannot be expressed by this prefix.", match=["git push --force origin feature/example", "git push -f origin feature/example", "git push --force-with-lease origin feature/example"], not_match=["git push origin feature/example"])
+prefix_rule(pattern=[["git", "git.exe"], "push", ["origin", "upstream"], ["--force", "-f", "--force-with-lease"]], decision="forbidden", justification="Block force flags immediately after a known remote.", match=["git push origin --force feature/example"], not_match=["git push origin feature/example --force"])
+prefix_rule(pattern=[["git", "git.exe"], "push", ["-u", "--set-upstream"], ["--force", "-f", "--force-with-lease"]], decision="forbidden", justification="Block force flags immediately after the upstream option.", match=["git push -u --force origin feature/example"], not_match=["git push -u origin feature/example"])
+prefix_rule(pattern=[["git", "git.exe"], "push", ["-u", "--set-upstream"], ["origin", "upstream"], ["--force", "-f", "--force-with-lease"]], decision="forbidden", justification="Block force flags after the upstream option and known remote.", match=["git push -u origin --force-with-lease feature/example"], not_match=["git push -u origin feature/example"])
+prefix_rule(pattern=[["git", "git.exe"], "push", ["origin", "upstream"], ["-u", "--set-upstream"], ["--force", "-f", "--force-with-lease"]], decision="forbidden", justification="Block force flags after the known remote and upstream option.", match=["git push origin -u -f feature/example"], not_match=["git push origin -u feature/example"])
+# Block direct repository deletion; review changes to the shared gh login and scopes.
+prefix_rule(pattern=[["gh", "gh.exe"], "repo", "delete"], decision="forbidden", justification="Repository deletion must be performed by the human, outside the agent session.", match=["gh repo delete example/synthetic-repo", "gh.exe repo delete example/synthetic-repo --yes"], not_match=["gh repo view example/synthetic-repo"])
+prefix_rule(pattern=[["gh", "gh.exe"], "auth", ["refresh", "login"]], decision="prompt", justification="Changing the shared gh token affects other tools; never grant delete_repo for an agent.", match=["gh auth refresh -s read:org", "gh auth login"], not_match=["gh auth status"])
+prefix_rule(pattern=[["git", "git.exe"], "reset", "--hard"], decision="forbidden", justification="Avoid discarding work; inspect the diff and discuss the intended recovery.", match=["git reset --hard HEAD"], not_match=["git reset --mixed", "git reset HEAD --hard"])
+prefix_rule(pattern=[["chmod", "chown", "sudo", "ssh", "scp"]], decision="forbidden", justification="The course policy blocks privilege changes and these remote-access commands.", match=["ssh example.com", "sudo true"], not_match=["true"])
+prefix_rule(pattern=[["docker", "docker.exe"], ["run", "rm", "rmi"]], decision="forbidden", justification="The course policy blocks container creation and removal.", match=["docker run example", "docker rm example", "docker rmi example"], not_match=["docker ps"])
+prefix_rule(pattern=["docker-compose", "down"], decision="forbidden", justification="Do not tear down the course stack.", match=["docker-compose down"], not_match=["true"])
+prefix_rule(pattern=[["docker", "docker.exe"], "compose", "down"], decision="forbidden", justification="Modern spelling of the same blocked stack teardown.", match=["docker compose down"], not_match=["docker compose ps"])
+
+# Blanket staging is blocked; package managers follow the course project's own choice.
+prefix_rule(pattern=[["git", "git.exe"], "add", ["-A", "--all", "."]], decision="forbidden", justification="Stage explicitly named paths after reviewing git status.", match=["git add -A", "git add ."], not_match=["git add src/Main.java"])
+prefix_rule(pattern=["npm", "install", ["-g", "--global"]], decision="forbidden", justification="Use pnpm for global CLI installations.", match=["npm install -g example"], not_match=["npm install"])

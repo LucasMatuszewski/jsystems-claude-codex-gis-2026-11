@@ -1,0 +1,67 @@
+# Copy to ~/.codex/ and run with:
+#   codex --profile ollama-gemma
+model_provider = "ollama" # built-in local provider; do not add --oss (it would force gpt-oss:20b)
+model = "gemma4"
+model_context_window = 128000 # Recommended: set a larger context window for OSS models
+
+# ------------------------------------------------------------
+# Context length (Ollama): recommended min. 64k for agents/coding
+# ------------------------------------------------------------
+# Codex + agents + web search need a large context window. For Ollama, set at least 64000 tokens.
+#
+# Two knobs exist and they are DIFFERENT:
+# 1) Ollama server context length (how much context Ollama will allocate)
+#    - App: set the "Context length" slider in Ollama settings
+#    - CLI (serve):
+#        OLLAMA_CONTEXT_LENGTH=64000 ollama serve
+#
+# 2) Codex model_context_window (what Codex assumes/targets for the selected model)
+#    - Uncomment if needed:
+#        model_context_window = 65536
+#
+# Memory warning (important):
+# - Model size (e.g., “6.6 GB”) is only the baseline to load weights.
+# - Increasing context length ALSO increases VRAM/RAM usage (KV cache grows with context size),
+#   so a 64k context can require significantly more memory than the model file size alone.
+#
+# Ollama defaults context length by VRAM (from Ollama docs):
+#   < 24 GiB VRAM   -> 4k context
+#   24–48 GiB VRAM  -> 32k context
+#   >= 48 GiB VRAM  -> 256k context
+#
+# Check models currently loaded to memory (and % loaded to CPU and GPU):
+#   ollama ps
+# Example output includes the allocated CONTEXT and PROCESSOR split.
+
+# ============================================================
+# Suggested Ollama models (CLI usage quick reference)
+# ============================================================
+# Pick a model per run:
+#   codex --oss -m glm-5.3:cloud
+#   codex --oss -m minimax-m3:cloud
+#   codex --oss -m nemotron-3-ultra:cloud
+#
+# SQL expert model from Snowflake:
+#   codex --oss -m a-kore/Arctic-Text2SQL-R1-7B
+#
+# Small (730mb) reasoning and function calling model (e.g. for IoT, decisions, data processing):
+#   codex --oss -m lfm2.5-thinking:latest
+#
+# Multimodal (text and image) from Google:
+#   codex --oss -m gemma3:27b-cloud
+#   codex --oss -m gemma3:4b
+#
+# Ollama shortcut commands:
+#   ollama launch codex
+#   ollama launch codex --config
+#   ollama launch codex --model minimax-m2.7:cloud
+
+# ============================================================
+# OCR model (Ollama): glm-ocr (run via Ollama directly)
+# ============================================================
+# Text recognition:
+#   ollama run glm-ocr Text Recognition: ./image.png
+# Table recognition:
+#   ollama run glm-ocr Table Recognition: ./image.png
+# Figure recognition:
+#   ollama run glm-ocr Figure Recognition: ./image.png

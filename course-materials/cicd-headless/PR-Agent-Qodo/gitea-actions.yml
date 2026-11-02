@@ -1,0 +1,60 @@
+# Community PR-Agent v0.47.0 on Gitea Actions (also Forgejo Actions), any OpenAI-compatible endpoint.
+# Copy to .gitea/workflows/pr-agent-review.yml. The runner needs Docker (act_runner with a Docker
+# socket, or a host runner). NOT run against a live Gitea instance by the course; see README.md.
+# Secrets: REVIEW_API_KEY, GITEA_REVIEW_TOKEN (bot token that may read the repository and
+# comment on pull requests). Optional variables: REVIEW_API_BASE, REVIEW_MODEL, REVIEW_MAX_TOKENS.
+name: Community PR-Agent Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  review:
+    # Same-repository pull requests only: a fork PR must not reach the secrets.
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      # No checkout: the reviewer reads the diff through the Gitea API, never PR code.
+      - name: Community PR-Agent review
+        env:
+          REVIEW_API_KEY: ${{ secrets.REVIEW_API_KEY }}
+          GITEA__PERSONAL_ACCESS_TOKEN: ${{ secrets.GITEA_REVIEW_TOKEN }}
+          GITEA__URL: ${{ github.server_url }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          REVIEW_API_BASE: ${{ vars.REVIEW_API_BASE }}
+          REVIEW_MODEL: ${{ vars.REVIEW_MODEL }}
+          REVIEW_MAX_TOKENS: ${{ vars.REVIEW_MAX_TOKENS }}
+        run: |
+          set -eu
+          : "${REVIEW_API_KEY:?Set secret REVIEW_API_KEY}"
+          : "${GITEA__PERSONAL_ACCESS_TOKEN:?Set secret GITEA_REVIEW_TOKEN}"
+          export OPENAI__KEY="$REVIEW_API_KEY"
+          export OPENAI__API_BASE="${REVIEW_API_BASE:-https://openrouter.ai/api/v1}"
+          MODEL="openai/${REVIEW_MODEL:-openai/gpt-6-luna}"
+          export CONFIG__GIT_PROVIDER=gitea
+          export CONFIG__MODEL="$MODEL"
+          export CONFIG__FALLBACK_MODELS='[]'
+          export CONFIG__CUSTOM_MODEL_MAX_TOKENS="${REVIEW_MAX_TOKENS:-250000}"
+          export CONFIG__MAX_MODEL_TOKENS="${REVIEW_MAX_TOKENS:-250000}"
+          export CONFIG__NO_TEMPERATURE_MODELS="[\"$MODEL\"]"
+          export CONFIG__ADDITIONAL_REASONING_EFFORT_MODELS="[\"$MODEL\"]"
+          export CONFIG__REASONING_EFFORT=low
+          export CONFIG__RESTRICTED_MODE=true
+          export CONFIG__PROPAGATE_TOOL_ERRORS=true
+          export PR_REVIEWER__PERSISTENT_COMMENT=true
+          export PR_REVIEWER__INLINE_KEY_ISSUES=false
+          export PR_REVIEWER__ENABLE_LARGE_PR_CHUNKING=true
+          export PR_REVIEWER__MAX_NUMBER_OF_CALLS=4
+          docker run --rm --cap-drop ALL --security-opt no-new-privileges \
+            --env OPENAI__KEY --env OPENAI__API_BASE \
+            --env GITEA__URL --env GITEA__PERSONAL_ACCESS_TOKEN \
+            --env CONFIG__GIT_PROVIDER --env CONFIG__MODEL --env CONFIG__FALLBACK_MODELS \
+            --env CONFIG__CUSTOM_MODEL_MAX_TOKENS --env CONFIG__MAX_MODEL_TOKENS \
+            --env CONFIG__NO_TEMPERATURE_MODELS --env CONFIG__ADDITIONAL_REASONING_EFFORT_MODELS \
+            --env CONFIG__REASONING_EFFORT --env CONFIG__RESTRICTED_MODE --env CONFIG__PROPAGATE_TOOL_ERRORS \
+            --env PR_REVIEWER__PERSISTENT_COMMENT --env PR_REVIEWER__INLINE_KEY_ISSUES \
+            --env PR_REVIEWER__ENABLE_LARGE_PR_CHUNKING --env PR_REVIEWER__MAX_NUMBER_OF_CALLS \
+            --entrypoint python \
+            pragent/pr-agent:0.47.0@sha256:7d98954c29289846a08faf00aaea0f1f1375b1676cd8a2ed303e0af07010af7a \
+            -m pr_agent.cli --pr_url "$PR_URL" review

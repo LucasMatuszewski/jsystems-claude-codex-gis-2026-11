@@ -1,0 +1,41 @@
+# Bitbucket Pipelines: agent code review and security review on every pull request.
+#
+# Setup:
+# 1. Copy the agent-review folder to ci/agent-review/ in your repository and
+#    merge this file into bitbucket-pipelines.yml.
+# 2. Build and push ci/agent-review/Dockerfile to a registry Bitbucket can pull
+#    (add username/password under image: for a private registry).
+# 3. Repository settings > Repository variables (secured):
+#    OPENROUTER_API_KEY, BITBUCKET_ACCESS_TOKEN (Repository settings > Access tokens,
+#    scope pullrequest:write), optional JIRA_BASE_URL, JIRA_EMAIL, JIRA_API_TOKEN.
+#    App passwords no longer work (fully removed July 2026); use access or API tokens.
+
+image: registry.example.com/agent-ci:1
+
+clone:
+  depth: full   # full history so the diff against the target branch works
+
+definitions:
+  steps:
+    - step: &code-review
+        name: Agent code review
+        script:
+          - export AGENT=codex LLM_PROVIDER=openrouter
+          - bash ci/agent-review/agent_review.sh "$BITBUCKET_PR_DESTINATION_BRANCH" ci/agent-review/prompts/code-review.md
+          - bash ci/agent-review/post_review_comment.sh .agent-review/review.md
+          - bash ci/agent-review/jira_update.sh .agent-review/review.md || true
+        artifacts:
+          - .agent-review/**
+    - step: &security-review
+        name: Agent security review
+        script:
+          - export AGENT=opencode LLM_PROVIDER=openrouter
+          - bash ci/agent-review/agent_review.sh "$BITBUCKET_PR_DESTINATION_BRANCH" ci/agent-review/prompts/security-review.md
+          - bash ci/agent-review/post_review_comment.sh .agent-review/review.md
+
+pipelines:
+  pull-requests:
+    '**':
+      - parallel:
+          - step: *code-review
+          - step: *security-review

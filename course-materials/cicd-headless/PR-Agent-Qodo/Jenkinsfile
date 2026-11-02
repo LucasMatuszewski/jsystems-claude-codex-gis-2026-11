@@ -1,0 +1,38 @@
+// Trusted pipeline for Bitbucket Server/Data Center. Runner: bash, python3, Docker.
+// Install reviewed review-pr.sh at /opt/course-ci/pr-agent/review-pr.sh.
+// A multibranch integration or authenticated webhook supplies CHANGE_URL.
+// For another Git host change GIT_PLATFORM and its credential variables; see review-pr.sh.
+pipeline {
+  agent any
+  options { skipDefaultCheckout(true); timeout(time: 15, unit: 'MINUTES'); disableConcurrentBuilds() }
+  // The endpoint, model and Git host are fixed here, in the trusted pipeline definition.
+  // They are deliberately NOT build parameters: anyone allowed to start a parameterized
+  // build could point REVIEW_API_BASE at their own server and receive the API key.
+  environment {
+    REVIEW_API_BASE = 'https://openrouter.ai/api/v1' // any OpenAI-compatible endpoint
+    REVIEW_MODEL = 'openai/gpt-6-luna'               // model ID exactly as that endpoint expects it
+    REVIEW_MAX_TOKENS = '250000'                     // input token budget per model call
+    REVIEW_PUBLISH = 'true'                          // post the review; the launcher alone only prints it
+    BITBUCKET_URL = 'https://bitbucket.example.com'  // your Bitbucket Server/DC base URL
+  }
+  stages {
+    stage('Review PR') {
+      when { expression { env.CHANGE_URL?.trim() } }
+      steps {
+        withCredentials([
+          string(credentialsId: 'pr-agent-review-api-key', variable: 'REVIEW_API_KEY'),
+          string(credentialsId: 'bitbucket-review-token', variable: 'BITBUCKET_SERVER__BEARER_TOKEN')
+        ]) {
+          sh '''#!/usr/bin/env bash
+            set -euo pipefail
+            export GIT_PLATFORM=bitbucket_server
+            export PR_URL="$CHANGE_URL"
+            export BITBUCKET_SERVER__URL="$BITBUCKET_URL"
+            export PR_AGENT_IMAGE='pragent/pr-agent:0.47.0@sha256:7d98954c29289846a08faf00aaea0f1f1375b1676cd8a2ed303e0af07010af7a'
+            bash /opt/course-ci/pr-agent/review-pr.sh review
+          '''
+        }
+      }
+    }
+  }
+}

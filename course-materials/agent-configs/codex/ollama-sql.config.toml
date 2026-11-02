@@ -1,0 +1,7 @@
+# Local text-to-SQL model from Snowflake
+# Copy to ~/.codex/ and run with:
+#   codex --profile ollama-sql
+
+model_provider = "ollama" # built-in local provider; do not add --oss (it would force gpt-oss:20b)
+model = "a-kore/Arctic-Text2SQL-R1-7B"
+model_context_window = 32000 # Recommended: set a larger context window for OSS models
