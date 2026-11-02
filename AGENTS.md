@@ -66,9 +66,9 @@ Use **the Playwright CLI** to drive the real running app like a human tester:
 
 1. Start the app with its verified project command and open it in the browser. Record successful startup separately from compilation and test execution.
 2. Take a screenshot of every screen you touched.
-3. Exercise the real flow end-to-end by hand: fill the form, upload the image, submit, follow the navigation to the chat, send a message — whatever the changed scope covers.
+3. Exercise the changed GIS flow end-to-end, such as importing a file, querying POIs, selecting a map filter or exporting a report. Test only actual features agreed in the PRD.
 4. Verify the flow actually works: correct navigation, correct data displayed, no console errors, Polish UI text.
-5. **Compare your screenshots against the brand reference** (`assets/homepage.png` + `docs/design-guidelines.md` tokens): colors, typography, spacing, button styles and logo placement must match the application's agreed brand reference.
+5. For UI changes, **compare screenshots against the agreed design reference** (`assets/design-tokens.json` and `docs/design-guidelines.md` once created during the design exercise). Verify colors, typography, spacing and controls; ask for the visual decision if no reference has been agreed.
 6. Report what you validated (steps + screenshots) in your task summary. If anything looks or behaves wrong, fix it before committing.
 
 ### Verification (required before every commit)

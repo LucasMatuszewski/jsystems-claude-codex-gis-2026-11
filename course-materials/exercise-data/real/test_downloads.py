@@ -36,12 +36,12 @@ class DownloadContracts(unittest.TestCase):
             with (Path(folder) / 'osm_chargers.csv').open(encoding='utf-8-sig') as handle:
                 rows = list(csv.DictReader(handle))
             self.assertEqual(json.loads(rows[0]['tags']), elements[0]['tags'])
-            self.assertEqual(len(json.loads((Path(folder) / 'osm_chargers.geojson').read_text())['features']), 2)
+            self.assertEqual(len(json.loads((Path(folder) / 'osm_chargers.geojson').read_text(encoding='utf-8'))['features']), 2)
 
     def test_osm_empty_result_is_valid(self):
         with tempfile.TemporaryDirectory() as folder:
             write_osm(Path(folder), [])
-            self.assertEqual(json.loads((Path(folder) / 'osm_chargers.geojson').read_text())['features'], [])
+            self.assertEqual(json.loads((Path(folder) / 'osm_chargers.geojson').read_text(encoding='utf-8'))['features'], [])
 
     def test_latest_measurement_does_not_turn_null_into_zero(self):
         values = [{'Data': '2026-11-02 01:00:00', 'Wartość': None},

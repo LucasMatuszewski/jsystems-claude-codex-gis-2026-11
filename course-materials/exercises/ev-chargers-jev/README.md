@@ -4,7 +4,7 @@ To rekomendowane ćwiczenie dla osób pracujących z danymi GIS. Budujesz aplika
 
 Wynik: powtarzalny pipeline Python + DuckDB oraz dashboard z mapą ładowarek OSM i Overture, tabelą kandydatów do scalenia, wynikami Jev i kolejką ręcznej weryfikacji. Model ocenia semantykę; kod oblicza odległości, stosuje progi i zapisuje decyzje.
 
-Pracuj na Windows 11 lub Linux, z Pythonem 3.12 i uv, bez Dockera, WSL i Hyper-V. Używamy publicznych danych i klucza OpenRouter po stronie backendu. Nie używamy danych firmowych ani prywatnych. Trening na Modal jest osobnym, opcjonalnym rozszerzeniem.
+Pracuj na Windows 11 lub Linux, z Pythonem 3.12 i uv, bez Dockera, WSL i Hyper-V. Używamy publicznych danych i opcjonalnego klucza OpenRouter po stronie backendu. Nie używamy danych firmowych ani prywatnych. Trening na Modal jest osobnym, opcjonalnym rozszerzeniem.
 
 ### Wariant bez klucza API
 
