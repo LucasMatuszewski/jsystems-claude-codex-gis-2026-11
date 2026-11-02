@@ -43,7 +43,7 @@ Do próby z agentem użyj jednorazowego repozytorium zawierającego wyłącznie 
 Tak, ale zdarzenie `preToolUse` / `PreToolUse` obejmuje każde wywołanie narzędzia, a hook dostaje jego pełne argumenty: polecenie powłoki, ścieżkę pliku, wzorzec wyszukiwania. Filtrowanie odbywa się na trzech poziomach:
 
 - **matcher** zawęża hook do wybranych narzędzi, np. `Bash|Read` (Claude Code, Codex, Copilot CLI; wyrażenie regularne na nazwie narzędzia),
-- **`if`** w Claude Code zawęża hook do argumentów w składni reguł uprawnień, np. `"if": "Bash(git commit *)"` albo `"if": "Edit(pom.xml)"` (przykład w [.claude/settings.json](../../.claude/settings.json) tego repozytorium),
+- **`if`** w Claude Code zawęża hook do argumentów w składni reguł uprawnień, np. `"if": "Bash(git commit *)"` albo `"if": "Edit(pom.xml)"` (przykład w [maven-agent-hooks.example.json](maven-agent-hooks.example.json) tego repozytorium),
 - **skrypt** sam sprawdza plik lub polecenie w otrzymanym JSON-ie, tak jak ten przykład.
 
 Hook to kod, więc zadziała także tam, gdzie reguły `allow`/`deny` nie wystarczą: może sprawdzić treść zapisu, zmodyfikować argumenty albo zapisać log.

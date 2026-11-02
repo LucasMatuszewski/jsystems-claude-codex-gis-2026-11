@@ -6,7 +6,7 @@ This is a **course project** for the "AI dla programistów: agenci AI w pracy z 
 
 This is only the **base starting repository** for the course; concrete decisions are made live with the group.
 
-Chat in Polish unless the user asks for another language. Repository documentation uses English unless another project language is agreed. The trainer chooses the teaching language separately. This is a greenfield scaffold, not an agreed product specification. For a legacy-led course, keep materials separate and work in the original application clone; adapt these instructions to its actual stack and verification commands.
+Chat in Polish unless the user asks for another language. Course PRD/ADR exercises and participant-facing project documentation use Polish. Keep filenames and code identifiers in English. The optional teaching library retains its source languages. This is a greenfield scaffold, not an agreed product specification. For a legacy-led course, keep materials separate and work in the original application clone; adapt these instructions to its actual stack and verification commands.
 
 **Key docs** (created during the course — load only when in doubt):
 - `docs/PRD.md` — product requirements and acceptance criteria
@@ -66,9 +66,9 @@ Use **the Playwright CLI** to drive the real running app like a human tester:
 
 1. Start the app with its verified project command and open it in the browser. Record successful startup separately from compilation and test execution.
 2. Take a screenshot of every screen you touched.
-3. Exercise the real flow end-to-end by hand: fill the form, upload the image, submit, follow the navigation to the chat, send a message — whatever the changed scope covers.
+3. Exercise the changed GIS flow end-to-end, such as importing a file, querying POIs, selecting a map filter or exporting a report. Test only actual features agreed in the PRD.
 4. Verify the flow actually works: correct navigation, correct data displayed, no console errors, Polish UI text.
-5. **Compare your screenshots against the brand reference** (`assets/homepage.png` + `docs/design-guidelines.md` tokens): colors, typography, spacing, button styles and logo placement must match the application's agreed brand reference.
+5. For UI changes, **compare screenshots against the agreed design reference** (`assets/design-tokens.json` and `docs/design-guidelines.md` once created during the design exercise). Verify colors, typography, spacing and controls; ask for the visual decision if no reference has been agreed.
 6. Report what you validated (steps + screenshots) in your task summary. If anything looks or behaves wrong, fix it before committing.
 
 ### Verification (required before every commit)
@@ -84,7 +84,7 @@ Verify only the scope relevant to your change. If the change affects runtime beh
 
 **Verification:** For runtime changes, start the real application and finish with Manual QA. Record compilation/build, test execution and startup as separate checks, including discovery counts and skips. A successful build or E2E run alone does not establish that the app works. Documentation-only changes use diff, link and consistency checks and do not require application startup. Fix errors and warnings introduced by the change; report pre-existing failures without hiding them.
 
-**Env Vars:** See `.env.example` (OPENROUTER_API_KEY required)
+**Env Vars:** No model API key is required for the synthetic GIS starter, PRD or normal Claude Code/Codex CLI use on the provided accounts. `.env.example` contains optional settings for an explicitly selected API exercise; `OPENROUTER_API_KEY` is needed only when that exercise actually calls OpenRouter.
 
 ### Commit Rules
 - Commit only after verification passes and the changed scope is in a working state.

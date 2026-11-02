@@ -1,5 +1,5 @@
 # Community PR-Agent v0.47.0; see README.md for Azure and fork setup.
-# Copy to .github/workflows/pr-agent-azure-review.yml to activate.
+# Active copy: .github/workflows/pr-agent-azure-review.yml; course-materials keeps the identical teaching copy.
 name: Community PR-Agent Azure Review
 
 on:
