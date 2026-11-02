@@ -1,11 +1,11 @@
 # AI dla programistów: agenci AI w pracy z danymi GIS (Claude Code i Codex) (JSystems)
 
-**Materiały szkoleniowe: [devpowers.com/szkolenia/jsystems/claude-codex-gis-2026-11](https://devpowers.com/szkolenia/jsystems/claude-codex-gis-2026-11/)**
+**Materiały szkoleniowe: [devpowers.com/szkolenia/jsystems/tomtom-ai-2026-11](https://devpowers.com/szkolenia/jsystems/tomtom-ai-2026-11/)**
 
-- [Zakres i wszystkie materiały](https://devpowers.com/szkolenia/jsystems/claude-codex-gis-2026-11/index.html#prezentacje)
-- [Slajdy](https://devpowers.com/szkolenia/jsystems/claude-codex-gis-2026-11/index.html#prezentacje)
-- [Biblioteka promptów](https://devpowers.com/szkolenia/jsystems/claude-codex-gis-2026-11/prompty.html) · [Ćwiczenia](https://devpowers.com/szkolenia/jsystems/claude-codex-gis-2026-11/cwiczenia.html) · [Checklisty](https://devpowers.com/szkolenia/jsystems/claude-codex-gis-2026-11/checklisty.html) · [Słownik AI](https://devpowers.com/szkolenia/jsystems/claude-codex-gis-2026-11/slownik-ai.html)
-- [Wyniki ankiety przed szkoleniem](https://devpowers.com/szkolenia/jsystems/claude-codex-gis-2026-11/raport-przed.html) · [Odpowiedzi na pytania z kursu](https://devpowers.com/szkolenia/jsystems/claude-codex-gis-2026-11/pytania.html) (uzupełniamy po każdym dniu)
+- [Zakres i wszystkie materiały](https://devpowers.com/szkolenia/jsystems/tomtom-ai-2026-11/index.html#prezentacje)
+- [Slajdy](https://devpowers.com/szkolenia/jsystems/tomtom-ai-2026-11/index.html#prezentacje)
+- [Biblioteka promptów](https://devpowers.com/szkolenia/jsystems/tomtom-ai-2026-11/prompty.html) · [Ćwiczenia](https://devpowers.com/szkolenia/jsystems/tomtom-ai-2026-11/cwiczenia.html) · [Checklisty](https://devpowers.com/szkolenia/jsystems/tomtom-ai-2026-11/checklisty.html) · [Słownik AI](https://devpowers.com/szkolenia/jsystems/tomtom-ai-2026-11/slownik-ai.html)
+- [Wyniki ankiety przed szkoleniem](https://devpowers.com/szkolenia/jsystems/tomtom-ai-2026-11/raport-przed.html) · [Odpowiedzi na pytania z kursu](https://devpowers.com/szkolenia/jsystems/tomtom-ai-2026-11/pytania.html) (uzupełniamy po każdym dniu)
 
 
 Repozytorium uczestnika szkolenia JSystems (2-3.11 i 12-13.11.2026, online, 09:00-16:00). W czasie szkolenia (4 dni w dwóch blokach po 2 dni) uczymy się pracy z agentami AI na zadaniach z danymi przestrzennymi: od rozpoznania danych, przez trwałe zasady pracy agenta, plan i powtarzalny pipeline z testami, po podział pracy między modele i agentów, code review w GitHub, łączenie agentów z usługami przez API i MCP.
