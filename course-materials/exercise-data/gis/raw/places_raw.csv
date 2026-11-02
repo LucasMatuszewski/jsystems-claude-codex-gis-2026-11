@@ -1,0 +1,1256 @@
+place_id,name,category,lat,lon,confidence,source,updated_at
+P00117,Hostel Słoneczna,hotel,51.79858,19.415387,0.67,partner_feed,2026-09-11
+P00720,Bistro Nowa,restaurant,51.717135,19.46469,0.75,partner_feed,2026-06-24
+P00100,Restauracja Zielona,restaurant,51.71481,19.397171,0.39,field_survey,2026-02-10
+P00736,Bistro Słoneczna,restaurant,51.718157,19.373255,0.95,user_report,2026-03-27
+P00114,Apteka Parkowa,pharmacy,51.709982,19.364222,0.53,partner_feed,2026-05-08
+P00072,Pierogarnia Zielona,restaurant,51.749097,19.529078,0.78,import_2025,2026-05-25
+P00163,Apteka Dworcowa,pharmacy,51.734391,19.513008,0.46,field_survey,2026-06-14
+P00435,Restauracja Kolejowa,restaurant,51.717553,19.479574,0.82,partner_feed,2026-06-18
+P00562,Café Centrum,cafe,51.807375,19.523547,0.68,import_2025,2026-09-21
+P01089,Paliwa Centrum,fuel_station,51.733058,19.356767,-0.2,field_survey,2026-08-21
+P00311,Apteka Zielona,pharmacy,51.772613,19.5859,0.44,field_survey,2026-08-07
+P00078,Przystanek Kolejowa,bus_stop,51.704731,19.387585,0.65,user_report,2026-07-18
+P01202,Szkoła Podstawowa nr 48,school,51.758469,19.429193,0.8,user_report,2026-08-25
+P00966,Przystanek Zielona,bus_stop,51.744826,19.566686,0.84,import_2025,2026-04-23
+P00987,Przystanek Dworcowa,bus_stop,51.790531,19.412374,0.5,import_2025,2026-07-26
+P00310,Przystanek Centrum,bus_stop,51.720157,19.374968,0.73,partner_feed,2026-04-04
+P00032,Przystanek Na Rogu,bus_stop,51.729328,19.553248,0.91,partner_feed,2026-08-17
+P00742,Liceum nr 47,school,51.815601,19.568627,0.98,user_report,2026-09-10
+P00213,Parking Kolejowa,parking,51.822699,19.592557,0.44,user_report,2026-10-17
+P00158,Parking Łąkowa,parking,51.727215,19.565267,0.55,partner_feed,2026-02-04
+P01197,Hotel Zielona,hotel,51.745938,19.559999,0.5,import_2025,2026-10-17
+P00673,Paliwa Zielona,fuel_station,51.725579,19.415784,0.91,partner_feed,2026-05-03
+P00052,Sklep Słoneczna,supermarket,51.735358,19.389013,0.67,field_survey,2026-10-23
+P00267,Restauracja Nowa,restaurant,51.729513,19.399239,0.39,user_report,2026-08-07
+P00160,Przystanek Nowa,bus_stop,51.810719,19.421417,0.89,field_survey,2026-06-03
+P00781,Market Nowa,supermarket,51.778779,19.485448,0.9,user_report,2026-10-04
+P00008,Apteka Dworcowa,pharmacy,51.763045,19.465043,0.37,field_survey,2026-05-13
+P01172,Hotel Centrum,hotel,51.735033,19.401859,0.47,field_survey,2026-05-23
+P00299,Liceum nr 20,school,51.726119,19.4834,0.51,user_report,2026-04-28
+P00400,Kawiarnia Parkowa,cafe,51.714762,19.515027,0.89,user_report,2026-03-17
+P00961,Kawiarnia Słoneczna,cafe,51.814856,19.557136,0.46,user_report,2026-03-13
+P00799,Przystanek Parkowa,bus_stop,51.820117,19.572413,0.56,field_survey,2026-08-04
+P00020,Przystanek Zielona,bus_stop,51.706618,19.503233,0.93,partner_feed,2026-01-23
+P00306,Pierogarnia Parkowa,restaurant,51.770652,19.543041,0.6,field_survey,2026-04-13
+P01226,Stacja Pod Lipami,fuel_station,51.78055,19.57715,0.71,import_2025,2026-05-13
+P00142,Parking Nowa,parking,51.801005,19.533719,0.72,partner_feed,2026-05-11
+P00458,Palarnia Centrum,cafe,51.815611,19.567039,0.41,partner_feed,2026-01-04
+P00870,Parking Nowa,parking,51.718135,19.359039,0.61,partner_feed,2026-06-15
+P00407,Bistro Pod Lipami,restaurant,51.74116,19.444268,0.89,user_report,2026-06-11
+P00225,Bistro Pod Lipami,restaurant,51.751184,19.4782,0.63,import_2025,2026-05-15
+P00079,Hotel Centrum,hotel,51.783244,19.526314,0.67,import_2025,2026-04-05
+P00110,Przystanek Na Rogu,bus_stop,51.788305,19.593732,0.88,import_2025,2026-05-06
+P01020,Przystanek Nowa,bus_stop,51.720213,19.576344,0.53,import_2025,2026-10-04
+P00405,Trattoria Na Rogu,restaurant,51.790315,19.49936,0.73,field_survey,2026-01-03
+P00590,Szkoła Podstawowa nr 37,school,51.745392,19.531174,0.84,user_report,2026-06-04
+P00416,Pierogarnia Na Rogu,restaurant,51.746598,19.442741,0.42,partner_feed,2026-02-05
+P00312,Pierogarnia Zielona,restaurant,51.75042,19.428665,0.64,partner_feed,2026-01-17
+P00179,Pierogarnia Łąkowa,restaurant,51.808195,19.581463,0.66,import_2025,2026-09-18
+P00381,Parking Nowa,parking,51.751196,19.370566,0.95,user_report,2026-01-25
+P00688,Café Centrum,cafe,51.792211,19.382349,0.91,field_survey,2026-09-17
+P00666,Trattoria Nowa,restaurant,51.707488,19.506646,0.69,import_2025,2026-10-12
+P00519,Parking Pod Lipami,parking,51.798054,19.434311,0.87,partner_feed,2026-05-07
+P00773,Restauracja Zielona,restaurant,51.741576,19.368995,0.72,partner_feed,2026-04-06
+P00211,Hotel Zielona,hotel,51.768415,19.59299,0.69,import_2025,2026-10-22
+P01211,Pierogarnia Zielona,restaurant,51.772139,19.40612,0.46,user_report,2026-10-17
+P00125,Przystanek Dworcowa,bus_stop,51.804085,19.442664,0.61,import_2025,2026-01-23
+P00092,Sklep Łąkowa,supermarket,51.720505,19.575735,0.75,user_report,2026-08-09
+P00910,Przystanek Centrum,bus_stop,51.756248,19.377937,0.79,field_survey,2026-08-12
+P00817,Sklep Dworcowa,supermarket,51.725635,19.381605,0.69,field_survey,2026-07-21
+P01224,Café Łąkowa,cafe,51.804119,19.439605,0.87,import_2025,2026-01-21
+P01096,Przystanek Nowa,bus_stop,51.71868,19.432815,0.98,user_report,2026-01-27
+P01195,Palarnia Parkowa,Cafe,51.756182,19.57252,0.74,partner_feed,2026-06-17
+P00738,Parking Centrum,parking,51.823401,19.382007,0.64,field_survey,2026-09-25
+P01164,Café Centrum,cafe,51.737047,19.414876,0.36,import_2025,2026-06-19
+P00748,Pierogarnia Nowa,restaurant,51.741964,19.511319,0.86,field_survey,2026-04-03
+P00173,Market Zielona,supermarket,51.747013,19.566484,0.47,field_survey,2026-02-08
+P00639,Liceum nr 8,school,51.749527,19.569982,0.64,user_report,2026-06-13
+P00249,Kawiarnia Centrum,cafe,51.806596,19.384709,0.42,user_report,2026-06-02
+P00479,Liceum nr 20,school,51.774539,19.454679,0.57,user_report,2026-10-13
+P00486,Liceum nr 21,school,51.726437,19.382381,0.37,user_report,2026-07-19
+P00029,Palarnia Zielona,cafe,51.818003,19.394021,0.74,field_survey,2026-05-26
+P00693,Paliwa Łąkowa,fuel_station,51.794718,19.359774,0.55,field_survey,2026-05-09
+P01077,Parking Słoneczna,parking,51.754209,19.387084,0.85,user_report,2026-02-25
+P00078,Przystanek Kolejowa,bus_stop,51.704731,19.387585,0.65,user_report,2026-07-18
+P00346,Pierogarnia Parkowa,restaurant,51.776786,19.546021,0.97,partner_feed,2026-08-01
+P00463,Bistro Dworcowa,restaurant,51.823508,19.491874,0.38,field_survey,2026-01-10
+P00441,Przystanek Na Rogu,bus_stop,51.802461,19.439707,0.84,import_2025,2026-03-03
+P00191,Szkoła Podstawowa nr 22,school,51.765852,19.407554,0.53,user_report,2026-06-13
+P00751,Trattoria Kolejowa,restaurant,51.70362,19.398541,0.55,field_survey,2026-02-04
+P00759,Pierogarnia Na Rogu,restaurant,51.765302,19.436245,0.45,field_survey,2026-05-20
+P00013,Parking Nowa,parking,51.727332,,0.79,user_report,2026-06-23
+P00146,Palarnia Słoneczna,cafe,51.804775,19.462077,0.76,user_report,2026-10-18
+P00963,Parking Zielona,parking,51.748647,19.579432,0.85,import_2025,2026-08-13
+P01019,Parking Na Rogu,parking,51.751963,19.531959,0.53,field_survey,2026-02-07
+P00705,Ładowarka Słoneczna,ev_charging,51.816655,19.554313,0.56,field_survey,2026-03-25
+P01187,Przystanek Łąkowa,bus_stop,51.827432,19.423892,0.97,field_survey,2026-08-24
+P00392,Przystanek Pod Lipami,bus_stop,51.716027,19.378543,0.9,import_2025,2026-03-27
+P00803,Apteka Łąkowa,pharmacy,51.744811,19.539149,0.48,partner_feed,2026-01-12
+P00629,Parking Na Rogu,parking,51.814514,19.468467,0.35,user_report,2026-07-26
+P00325,Parking Pod Lipami,parking,51.800822,19.589568,0.89,import_2025,2026-09-14
+P00204,Café Słoneczna,cafe,51.795735,19.395884,0.93,user_report,2026-08-19
+P00951,Ładowarka Parkowa,ev_charging,51.727249,19.389839,0.78,import_2025,2026-08-12
+P00740,Pierogarnia Centrum,restaurant,51.791997,19.385782,0.82,partner_feed,2026-02-13
+P00819,Trattoria Nowa,restaurant,51.726358,19.459085,0.37,import_2025,2026-10-15
+P00421,Café Słoneczna,cafe,51.726678,19.46303,0.4,field_survey,2026-02-25
+P00061,Ładowarka Parkowa,ev_charging,51.71516,19.538516,0.94,import_2025,2026-03-14
+P00108,Sklep Słoneczna,supermarket,51.755373,19.396635,0.83,import_2025,2026-01-27
+P01139,Stacja Łąkowa,fuel_station,51.809457,19.431608,0.84,import_2025,2026-02-15
+P00200,Hostel Na Rogu,hotel,51.821118,19.515143,0.82,field_survey,2026-01-28
+P01121,Przystanek Pod Lipami,bus_stop,51.794079,19.525144,0.47,import_2025,2026-08-13
+P00880,Pierogarnia Nowa,restaurant,51.743849,19.484883,0.88,user_report,2026-03-13
+P00025,Przystanek Parkowa,bus_stop,51.789945,19.444712,0.61,partner_feed,2026-09-27
+P00343,Parking Pod Lipami,parking,51.784608,19.562346,0.97,partner_feed,2026-10-10
+P00502,Ładowarka Dworcowa,ev_charging,51.721779,19.502915,0.59,partner_feed,2026-10-24
+P00778,Parking Nowa,parking,51.82254,19.50978,0.48,partner_feed,2026-04-04
+P00934,Parking Zielona,parking,51.796288,19.36314,0.68,field_survey,2026-03-01
+P00691,Przystanek Dworcowa,bus_stop,51.721406,19.448291,0.71,user_report,2026-02-07
+P01064,Stacja Pod Lipami,fuel_station,51.78046,19.577199,0.71,field_survey,2026-05-13
+P00216,Przystanek Łąkowa,bus_stop,51.776798,19.48484,0.98,partner_feed,2026-06-18
+P00263,Parking Dworcowa,parking,51.782069,19.506877,0.37,user_report,2026-07-09
+P00607,Café Łąkowa,cafe,51.703133,19.367082,0.93,partner_feed,2026-01-08
+P00315,Trattoria Łąkowa,restaurant,51.744404,19.597867,0.94,import_2025,2026-05-15
+P00135,Café Centrum,cafe,51.727183,19.484789,0.36,field_survey,2026-07-12
+P01183,Paliwa Łąkowa,fuel_station,51.705932,19.579705,0.43,import_2025,2026-06-08
+P00252,Parking Parkowa,parking,51.73521,19.565143,0.44,field_survey,2026-02-12
+P01113,Paliwa Parkowa,fuel_station,51.704867,19.354069,0.66,import_2025,2026-03-23
+P01186,Parking Kolejowa,parking,51.702053,19.511118,0.51,user_report,2026-03-10
+P00091,Apteka Kolejowa,pharmacy,51.703102,19.528818,0.38,field_survey,2026-04-22
+P01203,Trattoria Centrum,restaurant,51.705533,19.483711,0.63,field_survey,2026-08-18
+P00917,Bistro Łąkowa,restaurant,51.801266,19.440707,0.45,field_survey,2026-10-14
+P01024,Pierogarnia Dworcowa,restaurant,51.731923,19.379389,0.92,field_survey,2026-02-12
+P01208,Restauracja Kolejowa,restaurant,51.810741,19.448231,0.71,field_survey,2026-01-28
+P01094,Przystanek Pod Lipami,bus_stop,51.748672,19.513824,0.78,import_2025,2026-10-24
+P00227,Restauracja Zielona,restaurant,51.818946,19.573151,0.9,user_report,2026-06-07
+P01157,Przystanek Pod Lipami,bus_stop,51.822645,19.391716,0.46,user_report,2026-07-07
+P01229,Ładowarka Dworcowa,ev_charging,51.800358,19.56149,0.52,partner_feed,2026-06-26
+P01062,Liceum nr 7,school,51.783985,19.59553,0.49,field_survey,2026-08-24
+P00469,Café Dworcowa,cafe,51.777409,19.381097,0.54,user_report,2026-03-06
+P00298,Sklep Parkowa,supermarket,"51,744998",19.426344,0.94,user_report,2026-03-03
+P01012,Bistro Kolejowa,restaurant,51.771424,19.514283,0.42,field_survey,2026-08-02
+P00190,Paliwa Kolejowa,fuel_station,51.743086,19.52828,0.74,import_2025,2026-03-21
+P00563,Parking Słoneczna,,51.746738,19.363851,0.79,partner_feed,2026-03-16
+P00928,Café Łąkowa,cafe,51.791622,19.506145,0.55,user_report,2026-09-12
+P00995,Przystanek Centrum,bus_stop,51.739673,19.380354,0.76,user_report,2026-10-01
+P00550,Przystanek Pod Lipami,bus_stop,51.784587,19.498338,0.63,user_report,2026-04-24
+P00553,Kawiarnia Centrum,cafe,51.749607,19.475115,0.84,user_report,2026-06-09
+P00672,Ładowarka Nowa,ev_charging,51.811823,19.528465,0.99,field_survey,2026-04-12
+P00755,Kawiarnia Dworcowa,cafe,51.738787,19.413,0.96,field_survey,2026-01-08
+P00367,Parking Dworcowa,parking,51.766658,19.494961,0.64,import_2025,2026-09-19
+P00944,Paliwa Na Rogu,fuel_station,51.800647,19.404214,0.7,partner_feed,2026-10-02
+P01213,Przystanek Pod Lipami,bus_stop,51.752077,19.452619,0.92,field_survey,2026-06-24
+P00646,Stacja Zielona,fuel_station,51.759872,19.359736,0.59,import_2025,2026-01-28
+P00500,Bistro Słoneczna,restaurant,51.720218,19.565875,0.6,partner_feed,2026-04-25
+P00138,Pierogarnia Na Rogu,restaurant,51.789181,19.471102,1.7,field_survey,2026-01-17
+P00754,Przystanek Słoneczna,bus_stop,51.777965,19.536027,0.64,user_report,2026-05-18
+P00551,Parking Pod Lipami,parking,50.06,19.94,0.4,partner_feed,2026-08-19
+P00905,Restauracja Parkowa,restaurant,51.755846,19.536056,0.77,user_report,2026-08-03
+P00038,Apteka Dworcowa,pharmacy,51.724552,19.38536,0.64,field_survey,2026-10-13
+P01014,Hotel Słoneczna,hotel,51.70817,19.450358,0.66,field_survey,2026-02-07
+P00571,Trattoria Centrum,restaurant,51.747067,19.421165,0.98,import_2025,2026-04-26
+P01108,Trattoria Zielona,restaurant,51.742298,19.463454,0.86,partner_feed,2026-10-19
+P00073,Parking Centrum,parking,51.71173,19.481171,0.58,field_survey,2026-03-22
+P00022,Przystanek Nowa,bus_stop,51.781807,19.476438,0.81,user_report,2026-10-22
+P00635,Apteka Łąkowa,pharmacy,51.707404,19.588383,0.97,import_2025,2026-04-08
+P00425,Ładowarka Nowa,ev_charging,51.721599,19.354367,0.9,import_2025,2026-07-05
+P01117,Parking Zielona,parking,51.74189,19.466381,0.98,field_survey,2026-05-07
+P00534,Paliwa Kolejowa,fuel station,51.799917,19.572982,0.83,user_report,2026-02-09
+P00800,Apteka Łąkowa,pharmacy,51.786172,19.387086,0.84,field_survey,2026-09-11
+P00402,Parking Dworcowa,parking,51.78663,19.382352,0.88,import_2025,2026-07-11
+P00044,Liceum nr 42,school,51.787056,19.510183,0.6,user_report,2026-05-18
+P00930,Parking Na Rogu,parking,51.782142,19.38346,0.45,field_survey,2026-06-23
+P00908,Bistro Dworcowa,restaurant,51.789413,19.424167,0.78,field_survey,2026-02-15
+P00143,Liceum nr 34,school,51.717398,19.444481,0.58,field_survey,2026-09-27
+P00049,Liceum nr 31,school,51.786089,19.482958,0.71,field_survey,2026-07-02
+P00909,Palarnia Parkowa,cafe,51.741332,19.502061,0.77,field_survey,2026-06-19
+P00960,Kawiarnia Zielona,cafe,51.753498,19.37622,0.8,field_survey,2026-03-19
+P00844,Palarnia Na Rogu,cafe,51.807896,19.361192,0.69,partner_feed,2026-02-14
+P00373,Trattoria Pod Lipami,restaurant,51.766401,19.502769,0.67,field_survey,2026-08-17
+P00266,Parking Zielona,parking,51.801329,19.35247,0.38,import_2025,2026-07-20
+P01196,Kawiarnia Łąkowa,cafe,51.707225,19.47019,0.72,partner_feed,2026-05-14
+P00115,Apteka Słoneczna,pharmacy,51.809798,19.595456,0.78,import_2025,2026-10-22
+P00548,Przystanek Dworcowa,bus_stop,51.789235,19.4495,0.96,partner_feed,2026-05-04
+P01123,Apteka Kolejowa,pharmacy,51.754503,19.494309,0.45,partner_feed,2026-07-02
+P00558,Kawiarnia Nowa,cafe,51.7363,19.571307,0.4,user_report,2026-10-11
+P00454,Stacja Słoneczna,fuel_station,51.704292,19.445759,0.4,field_survey,2026-05-25
+P00627,Restauracja Łąkowa,restaurant,51.80656,19.487619,12.0,import_2025,2026-09-20
+P00696,Parking Parkowa,parking,51.738841,19.559666,0.37,user_report,2026-01-04
+P00295,Liceum nr 6,school,51.72912,19.55266,0.39,field_survey,2026-09-05
+P00149,Market Parkowa,supermarket,51.801702,19.371745,0.6,import_2025,2026-04-02
+P00789,Hostel Na Rogu,hotel,51.751577,19.391744,0.4,field_survey,2026-05-19
+P00168,Ładowarka Pod Lipami,ev_charging,51.70345,19.534365,0.5,user_report,2026-06-09
+P00501,Trattoria Kolejowa,restaurant,51.719736,19.594576,0.64,import_2025,2026-03-27
+P00466,Café Słoneczna,cafe,51.82142,19.536043,0.67,user_report,2026-02-06
+P00399,Apteka Nowa,pharmacy,51.794036,19.402739,0.7,user_report,2026-02-26
+P00681,Liceum nr 44,school,51.764506,19.571626,0.47,partner_feed,2026-07-23
+P00912,Bistro Zielona,restaurant,51.76188,19.572728,0.38,partner_feed,2026-06-24
+P00282,Trattoria Nowa,restaurant,51.798694,19.457866,0.69,user_report,2026-07-13
+P00357,Parking Dworcowa,parking,51.720996,19.515245,0.78,import_2025,2026-10-22
+P00080,Przystanek Dworcowa,bus_stop,51.746282,19.448633,-0.2,user_report,2026-09-21
+P00327,Parking Centrum,parking,51.80986,19.357112,0.64,user_report,2026-03-27
+P00495,Przystanek Pod Lipami,bus_stop,51.706222,19.592475,0.36,user_report,2026-05-15
+P00843,Sklep Kolejowa,supermarket,51.808519,19.383543,0.96,import_2025,2026-04-28
+P00130,Parking Parkowa,parking,51.744536,19.430398,0.5,partner_feed,2026-08-24
+P00043,Kawiarnia Parkowa,Cafe,51.72396,19.58147,0.43,import_2025,2026-05-13
+P00867,Parking Łąkowa,parking,51.748977,19.561223,0.83,partner_feed,2026-08-26
+P00031,Przystanek Słoneczna,bus_stop,51.818844,19.47538,0.93,user_report,2026-02-11
+P01212,Liceum nr 38,school,51.825272,19.466904,0.93,field_survey,2026-08-14
+P00549,Kawiarnia Parkowa,cafe,51.773149,19.353452,0.35,partner_feed,2026-08-17
+P00860,Apteka Na Rogu,pharmacy,51.80936,19.409855,0.81,field_survey,2026-02-21
+P01176,Stacja Zielona,fuel_station,51.796437,19.545777,0.9,partner_feed,2026-07-16
+P00057,Stacja Parkowa,fuel_station,51.76507,19.56835,0.6,import_2025,2026-01-13
+P00952,Przystanek Pod Lipami,bus_stop,51.792988,19.555077,0.86,partner_feed,2026-03-24
+P00760,Palarnia Pod Lipami,cafe,51.761369,19.566571,0.98,partner_feed,2026-03-13
+P00350,Sklep Słoneczna,supermarket,51.771564,19.46082,0.76,user_report,2026-08-04
+P00217,Palarnia Dworcowa,cafe,19.475189,51.751283,0.59,field_survey,2026-03-09
+P00871,Café Dworcowa,cafe,51.773107,19.529347,0.81,field_survey,2026-02-03
+P00790,Restauracja Centrum,restaurant,51.709335,19.407659,0.75,partner_feed,2026-10-09
+P00946,Stacja Nowa,fuel_station,51.809147,19.566469,0.66,import_2025,2026-07-04
+P00144,Pierogarnia Parkowa,restaurant,51.728433,19.435172,0.84,user_report,2026-08-13
+P00065,Trattoria Kolejowa,restaurant,51.789275,19.426086,0.49,partner_feed,2026-06-27
+P00446,Trattoria Słoneczna,restaurant,51.765072,19.582799,0.78,import_2025,2026-10-09
+P00586,Przystanek Dworcowa,bus_stop,51.718293,19.544284,0.7,partner_feed,2026-01-26
+P00386,Przystanek Pod Lipami,bus_stop,51.781565,19.487676,0.5,import_2025,2026-06-21
+P00102,Parking Łąkowa,parking,51.70713,19.596578,0.99,field_survey,2026-05-27
+P00677,Palarnia Dworcowa,cafe,51.710194,19.485574,0.94,field_survey,2026-05-03
+P00329,Parking Na Rogu,parking,51.726379,19.596523,0.39,import_2025,2026-05-04
+P01035,Apteka Łąkowa,pharmacy,51.79624,19.447797,0.57,import_2025,2026-01-16
+P01032,Przystanek Kolejowa,bus_stop,51.82738,19.519493,0.51,field_survey,2026-05-24
+P00253,Trattoria Słoneczna,restaurant,51.757798,19.57458,0.93,partner_feed,2026-03-15
+P01206,Trattoria Kolejowa,restaurant,51.786,19.589516,0.94,import_2025,2026-01-21
+P01015,Market Słoneczna,supermarket,51.806734,19.434938,0.4,import_2025,2026-06-14
+P01136,Trattoria Pod Lipami,restaurant,51.752041,19.442119,0.46,user_report,2026-09-14
+P01143,Przystanek Centrum,bus_stop,51.714451,19.539022,0.97,import_2025,2026-03-28
+P00992,Sklep Dworcowa,supermarket,51.813148,19.410167,0.41,partner_feed,2026-04-26
+P00336,Hotel Łąkowa,hotel,51.720015,19.436954,0.98,partner_feed,2026-06-03
+P01111,Market Na Rogu,supermarket,51.703808,19.375634,0.93,field_survey,2026-05-19
+P00209,Palarnia Kolejowa,cafe,51.781311,19.400451,0.96,user_report,2026-08-18
+P00656,Przystanek Na Rogu,bus_stop,51.787288,19.363855,0.83,import_2025,2026-03-23
+P01105,Pierogarnia Na Rogu,restaurant,51.774487,19.425691,0.45,partner_feed,2026-04-07
+P00258,Przystanek Parkowa,bus_stop,51.716106,19.531454,0.57,partner_feed,2026-07-22
+P00024,Parking Łąkowa,parking,51.788238,19.436627,0.95,field_survey,2026-10-05
+P00624,Hotel Słoneczna,hotel,51.819728,19.399666,0.49,user_report,2026-01-27
+P00852,Parking Kolejowa,parking,51.80803,19.489925,0.8,user_report,2026-01-05
+P00999,Przystanek Na Rogu,bus_stop,51.821131,19.577318,0.83,field_survey,2026-10-09
+P00439,Przystanek Pod Lipami,bus_stop,51.800315,19.523167,0.95,import_2025,2026-01-23
+P00545,Ładowarka Łąkowa,ev_charging,51.719784,19.385014,0.92,field_survey,2026-01-17
+P00497,Paliwa Centrum,fuel_station,51.77324,19.492093,0.51,partner_feed,2026-01-02
+P01037,Café Nowa,cafe,51.823677,19.447914,0.73,partner_feed,2026-03-17
+P01219,Parking Łąkowa,parking,51.731817,19.536049,0.95,user_report,2026-04-14
+P01122,Przystanek Na Rogu,bus_stop,51.734452,19.470207,0.74,user_report,2026-04-18
+P00547,Parking Kolejowa,parking,51.75392,19.566938,0.94,import_2025,2026-07-17
+P00520,Przystanek Dworcowa,bus_stop,51.78835,19.3981,0.57,user_report,2026-03-24
+P00132,Parking Pod Lipami,parking,51.816964,19.440737,0.47,partner_feed,2026-05-22
+P00304,Apteka Dworcowa,pharmacy,51.741421,19.420126,0.8,import_2025,2026-03-28
+P00090,Hostel Kolejowa,hotel,51.78766,19.553671,0.86,partner_feed,2026-07-05
+P00139,Parking Kolejowa,parking,51.810405,19.538597,0.44,import_2025,2026-07-11
+P00420,Pierogarnia Kolejowa,restaurant,51.706913,19.446318,0.46,field_survey,2026-09-17
+P00953,Bistro Centrum,restaurant,51.801775,19.573321,0.46,field_survey,2026-02-20
+P00300,Przystanek Pod Lipami,bus_stop,51.763797,19.424817,0.97,user_report,2026-01-27
+P01207,Przystanek Zielona,bus_stop,51.769035,19.580643,0.46,partner_feed,2026-07-10
+P00815,Restauracja Parkowa,restaurant,51.708188,19.466306,0.83,partner_feed,2026-01-04
+P01184,Przystanek Zielona,bus_stop,51.767979,19.523688,0.53,user_report,2026-10-16
+P01198,Parking Łąkowa,parking,51.713877,19.372985,0.67,import_2025,2026-08-06
+P00414,Kawiarnia Pod Lipami,cafe,51.794767,19.503396,0.68,import_2025,2026-09-16
+P00137,Ładowarka Parkowa,ev_charging,51.792596,19.384123,0.66,user_report,2026-07-13
+P00478,Szkoła Podstawowa nr 24,school,51.81963,19.541913,0.68,user_report,2026-01-20
+P00123,Szkoła Podstawowa nr 48,school,51.738148,19.454072,0.84,partner_feed,2026-03-20
+P00600,Hotel Dworcowa,hotel,51.77049,19.400935,0.53,user_report,2026-02-12
+P00752,Café Kolejowa,cafe,51.821566,19.545625,0.87,user_report,2026-09-25
+P00111,Apteka Zielona,pharmacy,51.708926,19.589382,0.95,import_2025,2026-09-06
+P00731,Pierogarnia Kolejowa,restaurant,51.794251,19.574759,0.43,field_survey,2026-04-25
+P00484,Café Parkowa,cafe,51.712975,19.507499,0.59,partner_feed,2026-02-03
+P00255,Bistro Parkowa,restaurant,51.740258,19.597398,0.92,field_survey,2026-02-27
+P00144,Pierogarnia Parkowa,restaurant,51.728433,19.435172,0.84,user_report,2026-08-13
+P00644,Bistro Łąkowa,restaurant,51.704895,19.476513,0.7,partner_feed,2026-04-17
+P00732,Kawiarnia Nowa,cafe,51.713409,19.577467,0.88,import_2025,2026-01-18
+P00352,Ładowarka Słoneczna,ev_charging,51.712746,19.474759,0.92,partner_feed,2026-06-28
+P00580,Café Pod Lipami,cafe,51.777241,19.370847,0.52,field_survey,2026-01-08
+P00539,Hostel Centrum,hotel,50.06,19.94,0.97,user_report,2026-07-09
+P00557,Hostel Słoneczna,hotel,51.76601,19.546168,0.93,import_2025,2026-01-19
+P00410,Apteka Nowa,pharmacy,51.797768,19.494162,0.52,field_survey,2026-10-11
+P00504,Przystanek Pod Lipami,bus_stop,51.757899,19.360099,0.79,user_report,2026-07-18
+P00794,Szkoła Podstawowa nr 53,school,51.779359,19.479719,0.76,import_2025,2026-01-28
+P00074,Kawiarnia Nowa,,51.768879,19.594644,0.39,import_2025,2026-04-08
+P00364,Pierogarnia Zielona,restaurant,51.772154,19.406066,0.46,field_survey,2026-10-17
+P00523,Restauracja Dworcowa,restaurant,51.737614,19.576225,0.64,import_2025,2026-04-12
+P00156,Kawiarnia Dworcowa,cafe,51.773599,19.535609,0.35,field_survey,2026-04-06
+P01146,Apteka Kolejowa,pharmacy,51.739435,19.591457,0.37,user_report,2026-07-19
+P00397,Apteka Zielona,pharmacy,51.823531,19.405701,0.49,field_survey,2026-07-22
+P00836,Trattoria Na Rogu,restaurant,51.746186,19.369818,0.77,partner_feed,2026-10-06
+P00592,Restauracja Łąkowa,restaurant,51.796885,19.520406,0.76,import_2025,2026-07-12
+P00506,Apteka Pod Lipami,pharmacy,51.802523,19.420321,0.81,partner_feed,2026-07-17
+P00360,Ładowarka Parkowa,ev_charging,51.746511,19.590525,0.36,field_survey,2026-08-21
+P00448,Apteka Na Rogu,pharmacy,51.791694,19.575783,0.44,import_2025,2026-04-03
+P00633,Paliwa Na Rogu,fuel_station,51.739267,19.363107,0.95,partner_feed,2026-05-22
+P00877,Restauracja Dworcowa,restaurant,51.772738,19.526441,0.6,partner_feed,2026-07-25
+P00344,Kawiarnia Na Rogu,cafe,51.813348,19.593153,0.88,partner_feed,2026-07-25
+P00654,Trattoria Centrum,restaurant,51.705584,19.483877,0.63,user_report,2026-08-18
+P00226,Pierogarnia Dworcowa,restaurant,51.793476,19.526623,0.5,user_report,2026-06-23
+P00275,Szkoła Podstawowa nr 54,school,51.730959,19.40457,0.64,import_2025,2026-01-12
+P01220,Apteka Centrum,pharmacy,51.726165,19.472113,0.88,user_report,2026-01-19
+P00712,Café Pod Lipami,cafe,51.803757,19.55328,0.81,import_2025,2026-07-14
+P00487,Restauracja Nowa,restaurant,51.75962,19.352837,0.75,partner_feed,2026-05-28
+P00011,Przystanek Łąkowa,bus_stop,51.742248,19.504464,0.57,import_2025,2026-06-27
+P00393,Pierogarnia Kolejowa,restaurant,51.744468,19.581325,0.95,partner_feed,2026-09-26
+P00019,Parking Centrum,parking,51.737975,19.560962,0.63,field_survey,2026-09-21
+P00097,Ładowarka Na Rogu,ev_charging,51.781347,19.559162,0.72,partner_feed,2026-04-04
+P00269,Restauracja Słoneczna,restaurant,51.810836,19.527256,0.75,user_report,2026-02-15
+P00824,Parking Zielona,parking,51.762557,19.411537,0.77,field_survey,2026-08-27
+P00856,Parking Łąkowa,parking,51.776986,19.419027,0.5,field_survey,2026-05-16
+P00835,Ładowarka Parkowa,ev_charging,51.74578,19.360355,0.59,user_report,2026-03-21
+P00569,Ładowarka Na Rogu,ev_charging,51.796903,19.428937,0.68,user_report,2026-08-14
+P00094,Liceum nr 16,school,51.726012,19.407477,0.53,field_survey,2026-05-14
+P00082,Paliwa Pod Lipami,fuel_station,51.824567,19.531707,0.6,user_report,2026-07-15
+P00797,Hotel Pod Lipami,hotel,51.762529,19.421068,0.45,user_report,2026-03-17
+P01106,Liceum nr 52,school,51.806987,19.499954,0.93,partner_feed,2026-08-21
+P00938,Parking Dworcowa,parking,51.733675,19.481852,0.59,user_report,2026-08-15
+P00095,Stacja Nowa,fuel_station,51.770948,19.521518,0.93,user_report,2026-05-02
+P00230,Parking Zielona,parking,51.742683,19.543913,0.88,field_survey,2026-04-17
+P00806,Pierogarnia Kolejowa,restaurant,51.750442,19.383859,0.7,partner_feed,2026-01-22
+P00927,Szkoła Podstawowa nr 60,school,51.737728,19.588404,0.76,import_2025,2026-03-06
+P00212,Przystanek Zielona,bus_stop,51.763277,19.459023,0.62,user_report,2026-03-13
+P00276,Sklep Pod Lipami,supermarket,51.757554,19.564519,0.8,partner_feed,2026-08-01
+P00564,Przystanek Na Rogu,bus_stop,51.752343,19.375715,0.61,partner_feed,2026-08-02
+P01033,Kawiarnia Nowa,cafe,51.786317,19.359221,0.76,partner_feed,2026-10-14
+P00443,Trattoria Łąkowa,restaurant,51.782085,19.371915,0.71,user_report,2026-05-03
+P00814,Parking Centrum,parking,51.810567,19.364928,0.98,import_2025,2026-07-19
+P00957,Pierogarnia Centrum,restaurant,51.731603,19.485672,0.67,field_survey,2026-10-06
+P00016,Sklep Parkowa,supermarket,51.811144,19.360157,0.87,user_report,2026-03-17
+P00030,Palarnia Kolejowa,cafe,51.769819,19.391992,0.47,import_2025,2026-09-08
+P01038,Przystanek Dworcowa,bus_stop,51.791319,19.594942,0.37,import_2025,2026-06-28
+P00989,Restauracja Centrum,restaurant,51.725468,19.58775,0.92,partner_feed,2026-07-22
+P00942,Market Na Rogu,supermarket,51.707122,19.549578,0.76,partner_feed,2026-02-28
+P00775,Apteka Zielona,pharmacy,51.782457,19.53842,0.95,field_survey,2026-07-25
+P00475,Szkoła Podstawowa nr 10,school,51.707693,19.353573,0.8,field_survey,2026-03-09
+P01162,Stacja Słoneczna,fuel_station,51.814089,19.481782,0.84,import_2025,2026-05-12
+P01046,Palarnia Dworcowa,cafe,51.721015,19.549369,0.88,partner_feed,2026-01-02
+P00235,Market Łąkowa,supermarket,51.760055,19.415057,0.73,partner_feed,2026-01-07
+P00196,Restauracja Nowa,restaurant,51.740094,19.392193,0.84,user_report,2026-06-13
+P01043,Parking Kolejowa,parking,51.794304,19.571645,0.84,field_survey,2026-09-20
+P00285,Ładowarka Centrum,ev_charging,51.764571,19.429387,0.6,user_report,2026-06-26
+P01170,Przystanek Zielona,bus_stop,51.815442,19.375846,0.42,import_2025,2026-04-27
+P00208,Ładowarka Na Rogu,ev_charging,51.785653,19.358292,0.41,user_report,2026-09-13
+P00457,Parking Słoneczna,parking,51.743141,19.561762,0.62,partner_feed,2026-03-22
+P00385,Liceum nr 40,school,51.764305,19.395006,0.46,user_report,2026-03-04
+P01079,Bistro Pod Lipami,restaurant,51.744068,19.380956,0.62,partner_feed,2026-09-13
+P00334,Przystanek Parkowa,bus_stop,51.776907,19.492611,0.88,user_report,2026-02-24
+P00201,Przystanek Łąkowa,bus_stop,51.735238,19.362975,0.57,import_2025,2026-03-28
+P00671,Palarnia Łąkowa,cafe,51.818613,19.528385,0.93,partner_feed,2026-06-21
+P00866,Stacja Kolejowa,fuel_station,51.711201,19.441471,0.83,user_report,2026-01-09
+P00493,Market Centrum,supermarket,51.803283,19.580697,0.5,field_survey,2026-09-23
+P00063,Palarnia Dworcowa,cafe,51.782636,19.357616,0.84,field_survey,2026-03-23
+P00152,Szkoła Podstawowa nr 4,school,51.821068,19.472028,0.35,import_2025,2026-06-26
+P00083,Kawiarnia Dworcowa,cafe,51.706318,19.56969,0.89,field_survey,2026-09-10
+P00745,Hotel Słoneczna,hotel,51.790177,19.466311,0.99,user_report,2026-05-10
+P01140,Café Łąkowa,cafe,51.763975,19.474559,0.58,field_survey,2026-07-14
+P00172,Bistro Zielona,restaurant,51.702881,19.451587,0.59,partner_feed,2026-10-25
+P01135,Café Na Rogu,cafe,51.758807,19.52221,0.73,partner_feed,2026-09-28
+P00830,Sklep Dworcowa,supermarket,51.782702,19.551603,0.96,user_report,2026-01-24
+P00695,Parking Na Rogu,parking,51.737815,19.587747,0.76,user_report,2026-04-17
+P00009,Przystanek Łąkowa,bus_stop,51.704088,19.541019,0.65,partner_feed,2026-05-11
+P00603,Apteka Łąkowa,pharmacy,51.814666,19.421985,0.38,user_report,2026-01-03
+P00462,Parking Zielona,,51.807229,19.430242,0.4,user_report,2026-03-05
+P00565,Restauracja Kolejowa,restaurant,51.810683,19.448395,0.71,field_survey,2026-01-28
+P00878,Ładowarka Dworcowa,ev_charging,51.72563,19.590548,0.65,partner_feed,2026-06-20
+P00861,Przystanek Dworcowa,bus_stop,51.732285,19.39406,0.83,user_report,2026-03-14
+P01055,Parking Dworcowa,parking,51.751948,19.403481,0.59,field_survey,2026-02-07
+P00442,Parking Dworcowa,parking,51.804613,19.572046,0.49,partner_feed,2026-10-25
+P01155,Paliwa Centrum,fuel_station,51.725059,19.534952,0.49,partner_feed,2026-01-23
+P00318,Przystanek Kolejowa,bus_stop,51.750443,19.539383,0.67,user_report,2026-09-20
+P00588,Przystanek Zielona,bus_stop,51.766347,19.354618,0.73,user_report,2026-06-21
+P00913,Market Centrum,supermarket,51.702357,19.44626,0.62,field_survey,2026-04-09
+P00810,Przystanek Zielona,bus_stop,51.825329,19.395219,0.67,import_2025,2026-04-15
+P00683,Palarnia Zielona,cafe,51.76453,19.566101,0.38,import_2025,2026-07-26
+P00452,Przystanek Dworcowa,bus_stop,51.741614,19.37045,0.94,import_2025,2026-07-16
+P00081,Przystanek Na Rogu,bus_stop,51.722502,19.533096,0.69,partner_feed,2026-01-15
+P00368,Liceum nr 20,school,51.715219,19.3958,0.73,partner_feed,2026-10-17
+P00997,Ładowarka Parkowa,ev_charging,51.712417,19.395114,0.46,partner_feed,2026-04-25
+P00422,Sklep Nowa,supermarket,51.797055,19.375159,0.39,partner_feed,2026-02-04
+P01056,Ładowarka Parkowa,ev_charging,51.77714,19.475294,0.98,import_2025,2026-04-04
+P00863,Parking Centrum,parking,51.714923,19.505769,0.46,user_report,2026-01-01
+P00330,Kawiarnia Na Rogu,cafe,51.703362,19.460355,0.6,partner_feed,2026-07-17
+P00729,Sklep Łąkowa,supermarket,51.824864,19.380217,0.57,import_2025,2026-05-16
+P00876,Parking Na Rogu,parking,51.747843,19.588015,0.59,field_survey,2026-07-04
+P01083,Bistro Nowa,restaurant,51.795512,19.554432,0.43,user_report,2026-01-26
+P00756,Apteka Kolejowa,pharmacy,51.736954,19.552094,0.9,user_report,2026-10-12
+P00436,Stacja Dworcowa,fuel_station,51.789325,19.508845,0.81,import_2025,2026-01-02
+P00826,Przystanek Pod Lipami,bus_stop,51.736202,19.426492,0.58,partner_feed,2026-06-27
+P00148,Kawiarnia Pod Lipami,cafe,51.756507,19.414418,0.53,user_report,2026-01-04
+P00722,Liceum nr 60,school,51.813521,19.469765,0.45,user_report,2026-09-17
+P00491,Paliwa Słoneczna,fuel_station,51.80286,19.474566,0.52,user_report,2026-05-16
+P00636,Restauracja Łąkowa,restaurant,51.82071,19.478918,0.86,user_report,2026-06-21
+P01141,Przystanek Na Rogu,bus_stop,51.738086,19.435352,0.88,field_survey,2026-07-09
+P01070,Przystanek Nowa,bus_stop,51.77053,19.591694,0.79,import_2025,2026-06-22
+P00795,Parking Zielona,parking,51.743044,19.434268,0.52,import_2025,2026-06-11
+P01052,Apteka Nowa,pharmacy,51.710491,19.369108,0.93,user_report,2026-07-22
+P00356,Restauracja Pod Lipami,restaurant,51.785718,19.587074,0.92,partner_feed,2026-10-21
+P00390,Parking Nowa,parking,51.737434,19.533664,0.95,import_2025,2026-05-24
+P00665,Kawiarnia Na Rogu,cafe,51.723001,19.568554,0.94,user_report,2026-10-27
+P00460,Przystanek Dworcowa,bus_stop,-95.2,19.483058,0.97,import_2025,2026-10-25
+P00535,Pierogarnia Zielona,restaurant,51.782652,19.581628,0.96,field_survey,2026-04-01
+P01026,Restauracja Pod Lipami,restaurant,51.794272,19.572972,0.65,partner_feed,2026-04-28
+P00619,Przystanek Słoneczna,bus_stop,51.774729,19.561587,0.79,user_report,2026-09-22
+P00053,Hotel Słoneczna,hotel,51.805837,19.484411,0.67,user_report,2026-01-10
+P00476,Przystanek Łąkowa,bus_stop,51.756886,19.491756,0.77,user_report,2026-06-05
+P00739,Apteka Na Rogu,pharmacy,51.705918,19.473271,0.43,import_2025,2026-01-13
+P01103,Pierogarnia Pod Lipami,restaurant,51.761904,19.463249,0.76,import_2025,2026-01-15
+P00507,Hotel Zielona,hotel,51.753171,19.371369,0.43,user_report,2026-06-02
+P00602,Bistro Łąkowa,restaurant,51.752436,19.432012,0.65,field_survey,2026-04-04
+P00613,Przystanek Parkowa,bus_stop,51.807648,19.439797,0.36,field_survey,2026-09-15
+P00932,Pierogarnia Słoneczna,restaurant,51.745015,19.420425,0.77,user_report,2026-06-17
+P00112,Parking Nowa,parking,51.711929,19.597112,0.36,field_survey,2026-05-11
+P00621,Przystanek Nowa,bus_stop,51.809135,19.491731,0.9,import_2025,2026-03-05
+P00632,Parking Kolejowa,parking,51.719089,19.413769,0.57,user_report,2026-10-24
+P01222,Café Kolejowa,cafe,51.821669,19.545621,0.87,field_survey,2026-09-25
+P00481,Przystanek Dworcowa,bus_stop,51.823635,19.482173,0.44,user_report,2026-06-20
+P00250,Ładowarka Dworcowa,ev_charging,51.723222,19.572949,0.63,field_survey,2026-05-07
+P00933,Bistro Parkowa,restaurant,51.776842,19.412877,0.76,user_report,2026-05-20
+P01133,Stacja Nowa,fuel_station,51.774351,19.474833,0.71,field_survey,2026-10-25
+P00355,Paliwa Nowa,fuel_station,51.825087,19.363387,0.39,user_report,2026-02-25
+P00296,Parking Łąkowa,parking,51.776526,19.56161,0.68,user_report,2026-05-10
+P00543,Pierogarnia Zielona,restaurant,51.799399,19.411363,0.5,field_survey,2026-09-10
+P00184,Ładowarka Na Rogu,,51.726279,19.460843,0.99,partner_feed,2026-05-10
+P01057,Parking Dworcowa,parking,51.739969,19.59651,0.75,field_survey,2026-10-26
+P00868,Kawiarnia Nowa,cafe,51.813105,19.37374,0.71,partner_feed,2026-01-28
+P00948,Ładowarka Na Rogu,ev_charging,51.706517,19.519528,0.8,field_survey,2026-08-10
+P00540,Liceum nr 38,school,51.825328,19.467044,0.93,field_survey,2026-08-14
+P01153,Bistro Pod Lipami,restaurant,51.717712,19.571724,0.36,field_survey,2026-09-10
+P00498,Kawiarnia Nowa,cafe,51.707121,19.390573,0.84,user_report,2026-08-26
+P00518,Pierogarnia Na Rogu,restaurant,51.750474,19.367429,0.89,field_survey,2026-02-03
+P00109,Przystanek Pod Lipami,bus_stop,51.726314,19.461753,0.93,user_report,2026-01-14
+P00461,Palarnia Słoneczna,,51.790103,19.57759,0.87,import_2025,2026-04-11
+P00345,Apteka Zielona,pharmacy,51.759618,19.478587,0.51,field_survey,2026-04-02
+P01069,Przystanek Słoneczna,bus_stop,51.767323,19.405996,0.43,partner_feed,2026-08-23
+P00707,Liceum nr 46,school,51.769103,19.568265,0.49,user_report,2026-10-16
+P00727,Market Kolejowa,supermarket,51.729106,19.379129,0.98,partner_feed,2026-03-24
+P01047,Apteka Parkowa,pharmacy,"51,822802",19.466934,0.54,user_report,2026-10-18
+P01163,Parking Słoneczna,parking,51.790572,19.571637,0.63,user_report,2026-05-07
+P00770,Palarnia Na Rogu,cafe,51.721551,19.596198,0.67,field_survey,2026-05-22
+P00883,Pierogarnia Centrum,restaurant,51.764175,19.440557,0.7,import_2025,2026-08-22
+P00651,Przystanek Zielona,bus_stop,51.799625,19.566239,0.73,field_survey,2026-03-03
+P00353,Stacja Kolejowa,fuel_station,51.791288,19.497623,0.35,field_survey,2026-06-07
+P00865,Parking Nowa,parking,51.749213,19.448929,0.84,import_2025,2026-08-10
+P00153,Parking Zielona,parking,51.765257,19.448805,0.99,field_survey,2026-03-22
+P01050,Ładowarka Centrum,,51.815679,19.514903,0.88,field_survey,2026-05-24
+P00287,Market Słoneczna,supermarket,51.751572,19.581298,0.54,user_report,2026-02-13
+P00449,Szkoła Podstawowa nr 35,school,51.773437,19.494485,0.94,import_2025,2026-01-05
+P00459,Ładowarka Łąkowa,ev_charging,51.815206,19.569954,0.88,user_report,2026-05-07
+P00089,Paliwa Zielona,fuel_station,51.799935,19.422623,0.5,user_report,2026-08-25
+P00372,Przystanek Parkowa,bus_stop,51.730251,19.459734,0.98,user_report,2026-04-13
+P00471,Liceum nr 33,school,51.804441,19.517908,0.54,import_2025,2026-09-01
+P00026,Przystanek Centrum,bus_stop,51.707362,19.509673,0.61,partner_feed,2026-08-27
+P00379,Parking Parkowa,parking,51.790867,19.488016,0.97,partner_feed,2026-06-23
+P00509,Przystanek Łąkowa,bus_stop,51.746249,19.427817,0.59,partner_feed,2026-10-22
+P00151,Przystanek Zielona,bus_stop,51.734909,19.570674,0.83,import_2025,2026-07-27
+P00084,Bistro Łąkowa,restaurant,51.775875,19.576197,0.82,field_survey,2026-05-06
+P00307,Restauracja Słoneczna,restaurant,51.791764,19.438626,0.66,field_survey,2026-05-26
+P00171,Trattoria Nowa,restaurant,51.815565,19.392837,0.88,field_survey,2026-02-02
+P01007,Stacja Kolejowa,fuel_station,51.737778,19.530896,0.58,import_2025,2026-10-11
+P00041,Apteka Kolejowa,pharmacy,51.728433,19.492848,0.48,user_report,2026-04-05
+P00711,Apteka Łąkowa,pharmacy,51.771003,19.472526,0.72,import_2025,2026-08-13
+P00604,Przystanek Słoneczna,bus_stop,51.736115,19.556181,0.6,user_report,2026-08-18
+P01193,Przystanek Kolejowa,bus_stop,51.733574,19.514535,0.36,field_survey,2026-03-10
+P00801,Przystanek Zielona,bus_stop,51.814225,19.389133,0.4,partner_feed,2026-07-25
+P01063,Przystanek Dworcowa,bus_stop,51.782234,19.418887,0.57,import_2025,2026-05-28
+P00803,Apteka Łąkowa,pharmacy,51.744811,19.539149,0.48,partner_feed,2026-01-12
+P00145,Market Zielona,supermarket,51.738445,19.393308,0.49,user_report,2026-10-23
+P00474,Parking Słoneczna,parking,51.74457,19.521508,0.85,field_survey,2026-02-21
+P00839,Parking Zielona,parking,51.78573,19.56461,0.72,partner_feed,2026-04-07
+P00555,Palarnia Dworcowa,cafe,51.781274,19.394762,0.64,field_survey,2026-09-14
+P00971,Apteka Łąkowa,pharmacy,51.706363,19.508335,0.78,partner_feed,2026-10-12
+P01095,Pierogarnia Słoneczna,restaurant,51.712557,19.532761,0.69,user_report,2026-07-19
+P00499,Ładowarka Dworcowa,ev_charging,51.800417,19.561387,0.52,user_report,2026-06-26
+P00968,Restauracja Nowa,,51.736743,19.425192,0.68,import_2025,2026-08-02
+P00274,Ładowarka Na Rogu,ev_charging,51.708753,19.422433,0.98,import_2025,2026-01-09
+P00956,Szkoła Podstawowa nr 23,school,51.78667,19.362053,0.57,field_survey,2026-09-13
+P00820,Market Kolejowa,supermarket,51.714684,19.409328,0.52,user_report,2026-07-02
+P01100,Palarnia Łąkowa,cafe,51.728148,19.585322,0.74,user_report,2026-07-21
+P00776,Parking Dworcowa,parking,51.710301,19.545026,0.74,partner_feed,2026-04-09
+P00674,Café Dworcowa,cafe,51.732327,19.548222,0.85,partner_feed,2026-09-05
+P00175,Bistro Dworcowa,restaurant,51.785687,19.517961,0.45,partner_feed,2026-05-17
+P00174,Hotel Słoneczna,hotel,51.77226,19.46974,0.56,user_report,2026-03-09
+P01148,Kawiarnia Kolejowa,cafe,51.762689,19.588425,0.91,partner_feed,2026-03-25
+P00513,Apteka Na Rogu,pharmacy,51.714162,19.576207,0.82,user_report,2026-06-28
+P01171,Stacja Słoneczna,fuel_station,51.800917,19.380546,0.72,partner_feed,2026-03-21
+P00054,Restauracja Łąkowa,restaurant,51.741584,19.467522,0.41,field_survey,2026-10-01
+P00793,Palarnia Zielona,cafe,51.764221,19.464105,0.55,user_report,2026-04-03
+P01151,Stacja Parkowa,fuel_station,51.7934,19.454046,0.75,field_survey,2026-06-05
+P01209,Kawiarnia Łąkowa,cafe,51.707169,19.47021,0.72,field_survey,2026-05-14
+P00093,Parking Na Rogu,parking,51.785798,19.597031,0.81,import_2025,2026-10-26
+P00012,Przystanek Dworcowa,bus_stop,51.728189,19.523302,0.93,user_report,2026-08-04
+P00048,Apteka Parkowa,pharmacy,51.704429,19.557908,0.76,user_report,2026-08-05
+P00697,Bistro Kolejowa,,51.752862,19.483768,0.79,partner_feed,2026-08-20
+P00260,Market Na Rogu,supermarket,51.751918,19.477056,0.9,partner_feed,2026-04-01
+P00638,Restauracja Parkowa,restaurant,51.74441,19.542993,0.86,partner_feed,2026-05-12
+P00782,Parking Kolejowa,parking,51.797138,19.580121,0.54,import_2025,2026-05-27
+P00268,Apteka Centrum,pharmacy,51.788575,19.436104,0.52,partner_feed,2026-09-14
+P00659,Hotel Nowa,hotel,51.801927,19.355166,0.97,user_report,2026-04-15
+P01016,Kawiarnia Pod Lipami,cafe,51.739095,19.55626,0.6,user_report,2026-01-04
+P00512,Restauracja Centrum,restaurant,51.743435,19.507056,0.6,field_survey,2026-08-02
+P00684,Ładowarka Kolejowa,ev_charging,51.770187,19.528217,0.56,partner_feed,2026-03-05
+P01214,Restauracja Centrum,restaurant,51.743405,19.507106,0.6,user_report,2026-08-02
+P00758,Przystanek Łąkowa,bus_stop,51.817506,19.482062,0.93,user_report,2026-02-27
+P00662,Bistro Na Rogu,restaurant,51.811868,19.587306,0.44,field_survey,2026-06-24
+P00067,Restauracja Parkowa,restaurant,51.749837,19.415533,0.92,user_report,2026-02-17
+P01188,Pierogarnia Dworcowa,restaurant,51.759155,19.443642,0.6,import_2025,2026-09-23
+P00363,Paliwa Nowa,fuel_station,51.823442,19.469896,0.87,user_report,2026-08-13
+P00616,Ładowarka Nowa,ev_charging,51.826349,19.451001,0.94,partner_feed,2026-09-22
+P01078,Bistro Parkowa,restaurant,51.747219,19.552746,0.36,user_report,2026-08-22
+P00855,Café Słoneczna,cafe,51.748702,19.47169,0.45,partner_feed,2026-02-18
+P00056,Trattoria Na Rogu,restaurant ,51.716479,19.409179,0.4,import_2025,2026-01-08
+P01009,Przystanek Łąkowa,bus_stop,51.822415,19.364137,0.45,user_report,2026-10-02
+P00975,Pierogarnia Zielona,restaurant,51.71978,19.388747,0.98,field_survey,2026-05-02
+P00517,Przystanek Parkowa,bus_stop,51.796457,19.569274,0.59,import_2025,2026-01-12
+P00920,Hostel Dworcowa,hotel,51.721864,19.433972,0.79,user_report,2026-09-08
+P00936,Ładowarka Centrum,ev_charging,51.777235,19.371058,0.8,partner_feed,2026-04-24
+P00734,Ładowarka Kolejowa,ev_charging,51.731047,19.405692,0.49,import_2025,2026-09-25
+P00427,Przystanek Dworcowa,bus_stop,51.788715,19.400355,0.61,field_survey,2026-01-14
+P00037,Bistro Słoneczna,restaurant,51.822331,19.477072,0.94,partner_feed,2026-03-03
+P00827,Pierogarnia Słoneczna,restaurant,51.783884,19.417371,0.36,partner_feed,2026-05-04
+P00926,Bistro Pod Lipami,restaurant,51.77228,19.48895,0.62,partner_feed,2026-03-09
+P01027,Apteka Zielona,pharmacy,19.520548,51.783151,0.69,user_report,2026-02-15
+P00169,Pierogarnia Pod Lipami,restaurant,51.73532,19.477143,0.57,partner_feed,2026-10-01
+P00085,Parking Zielona,parking,51.730198,19.580068,0.57,partner_feed,2026-09-09
+P01101,Szkoła Podstawowa nr 2,school,51.802357,19.441835,0.37,user_report,2026-09-10
+P00723,Liceum nr 19,school,51.767226,19.481639,0.51,partner_feed,2026-09-24
+P00847,Market Dworcowa,supermarket,51.751442,19.485189,0.99,field_survey,2026-10-19
+P00496,Przystanek Kolejowa,bus_stop,51.748601,19.386512,0.9,field_survey,2026-08-17
+P00576,Parking Kolejowa,parking,51.732734,19.465006,0.65,field_survey,2026-01-25
+P00505,Liceum nr 18,school,51.786859,19.44349,0.49,partner_feed,2026-01-24
+P00660,Pierogarnia Słoneczna,restaurant,51.807514,19.516735,0.56,import_2025,2026-06-23
+P00445,Przystanek Kolejowa,bus_stop,51.705,19.576456,0.69,user_report,2026-02-14
+P00450,Café Pod Lipami,cafe,51.807448,19.540861,0.43,field_survey,2026-09-11
+P00690,Restauracja Kolejowa,restaurant,51.712029,19.438091,0.6,import_2025,2026-02-15
+P00943,Przystanek Nowa,bus_stop,51.737243,19.447586,0.86,field_survey,2026-03-03
+P00524,Liceum nr 10,school,51.823445,19.400652,0.72,partner_feed,2026-02-22
+P01051,Ładowarka Łąkowa,ev_charging,51.756915,19.390752,0.88,user_report,2026-02-11
+P01181,Ładowarka Pod Lipami,ev_charging,51.799226,19.565791,0.49,user_report,2026-08-24
+P00308,Parking Dworcowa,parking,51.788078,19.530315,0.55,partner_feed,2026-04-21
+P00974,Hotel Centrum,hotel,51.723751,19.402455,0.92,partner_feed,2026-07-13
+P01142,Restauracja Słoneczna,restaurant,51.821848,19.370156,0.64,field_survey,2026-02-20
+P00277,Przystanek Łąkowa,bus_stop,51.706452,19.578957,0.72,user_report,2026-09-17
+P00415,Paliwa Nowa,fuel_station,51.756144,19.395943,0.49,user_report,2026-09-21
+P01093,Parking Centrum,parking,51.707077,19.572318,0.77,user_report,2026-09-07
+P00142,Parking Nowa,parking,51.801005,19.533719,0.72,partner_feed,2026-05-11
+P00802,Sklep Parkowa,supermarket,51.73228,19.488708,0.89,field_survey,2026-09-07
+P00585,Parking Na Rogu,parking,51.807273,19.593577,0.48,user_report,2026-07-25
+P01037,Café Nowa,cafe,51.823677,19.447914,0.73,partner_feed,2026-03-17
+P00859,Przystanek Dworcowa,bus_stop,51.823968,19.498512,0.95,user_report,2026-03-14
+P00853,Apteka Pod Lipami,pharmacy,51.78588,19.483373,0.63,field_survey,2026-10-06
+P00881,Przystanek Kolejowa,bus_stop,51.826546,19.545935,0.47,partner_feed,2026-04-03
+P00371,Parking Parkowa,parking,51.795612,,0.66,partner_feed,2026-09-20
+P00851,Parking Nowa,parking,51.745883,19.465138,0.8,import_2025,2026-07-23
+P00766,Trattoria Kolejowa,restaurant,51.786098,19.58949,0.94,field_survey,2026-01-21
+P00319,Ładowarka Łąkowa,ev_charging,51.773155,19.482315,0.67,partner_feed,2026-04-10
+P00537,Café Dworcowa,cafe,51.741041,19.399537,0.65,partner_feed,2026-02-05
+P00640,Apteka Słoneczna,pharmacy,51.774193,19.538937,0.64,field_survey,2026-03-11
+P01030,Ładowarka Centrum,ev_charging,50.06,19.94,0.4,user_report,2026-03-22
+P00951,Ładowarka Parkowa,ev_charging,51.727249,19.389839,0.78,import_2025,2026-08-12
+P00150,Przystanek Na Rogu,bus_stop,51.804566,19.406816,0.66,field_survey,2026-03-11
+P00791,Sklep Nowa,supermarket,51.82104,19.460535,0.58,user_report,2026-04-11
+P01173,Apteka Kolejowa,pharmacy,51.765866,19.459055,0.78,partner_feed,2026-03-10
+P00807,Przystanek Dworcowa,bus_stop,51.758817,19.42417,0.91,user_report,2026-09-01
+P00205,Market Łąkowa,supermarket,51.813934,19.523123,0.45,import_2025,2026-04-03
+P00483,Szkoła Podstawowa nr 30,school,51.81207,19.485972,0.54,user_report,2026-01-24
+P01189,Hostel Parkowa,hotel,51.795316,19.463047,0.92,user_report,2026-05-13
+P00096,Przystanek Dworcowa,bus_stop,51.724771,19.55786,0.92,field_survey,2026-01-22
+P00003,Bistro Parkowa,restaurant,51.722506,19.517581,0.57,import_2025,2026-03-13
+P00538,Market Kolejowa,supermarket,51.728901,19.505803,0.9,user_report,2026-10-09
+P00320,Bistro Dworcowa,restaurant,51.72043,19.427352,0.37,partner_feed,2026-01-20
+P00376,Palarnia Parkowa,cafe,51.797658,19.369082,0.57,field_survey,2026-06-25
+P00262,Kawiarnia Nowa,cafe,51.732453,19.374665,0.5,import_2025,2026-09-25
+P00046,Apteka Kolejowa,pharmacy,51.719624,19.381073,0.74,import_2025,2026-07-13
+P00307,Restauracja Słoneczna,restaurant,51.791764,19.438626,0.66,field_survey,2026-05-26
+P00430,Bistro Parkowa,restaurant,51.769394,19.504287,0.38,field_survey,2026-10-28
+P00813,Przystanek Centrum,bus_stop,51.816306,19.445943,0.95,partner_feed,2026-10-20
+P00314,Parking Parkowa,parking,51.730433,19.542354,0.41,partner_feed,2026-01-07
+P01125,Sklep Łąkowa,supermarket,51.796488,19.491654,0.46,partner_feed,2026-04-20
+P00280,Pierogarnia Centrum,restaurant,51.723319,19.546929,0.97,user_report,2026-09-27
+P00140,Parking Na Rogu,parking,51.704834,19.421229,0.39,user_report,2026-09-21
+P00889,Sklep Na Rogu,supermarket,51.76405,19.488375,0.56,import_2025,2026-01-27
+P00641,Przystanek Pod Lipami,bus_stop,51.721521,19.488538,0.72,import_2025,2026-02-22
+P00979,Apteka Centrum,pharmacy,51.751378,19.537294,0.38,partner_feed,2026-07-23
+P00234,Przystanek Łąkowa,bus_stop,51.756149,19.362063,0.74,partner_feed,2026-09-21
+P00792,Palarnia Kolejowa,cafe,"51,810774",19.501669,0.66,import_2025,2026-05-18
+P01191,Kawiarnia Nowa,cafe,51.733191,19.390903,0.76,field_survey,2026-02-14
+P00714,Restauracja Pod Lipami,restaurant,51.820426,19.437117,0.74,field_survey,2026-04-05
+P00757,Market Dworcowa,supermarket,51.811342,19.448202,0.79,user_report,2026-09-25
+P00062,Trattoria Słoneczna,restaurant,51.815455,19.544915,0.42,import_2025,2026-01-15
+P01228,Apteka Dworcowa,pharmacy,51.758173,19.443546,0.94,field_survey,2026-09-01
+P01129,Liceum nr 17,school,"51,822379",19.420257,0.98,field_survey,2026-01-20
+P01149,Trattoria Pod Lipami,restaurant,51.717646,19.523304,0.87,field_survey,2026-10-24
+P00733,Ładowarka Dworcowa,ev_charging,51.708599,19.597799,0.47,import_2025,2026-02-12
+P00648,Market Łąkowa,supermarket,51.703896,19.462646,0.72,partner_feed,2026-06-06
+P00857,Trattoria Dworcowa,restaurant,51.775885,19.485518,0.65,import_2025,2026-07-02
+P00670,Przystanek Nowa,bus_stop,51.802405,19.429104,0.78,field_survey,2026-07-15
+P00679,Trattoria Pod Lipami,restaurant,51.76638,19.364476,0.41,partner_feed,2026-02-01
+P00133,Ładowarka Na Rogu,ev_charging,51.738528,19.580704,0.51,field_survey,2026-06-20
+P00069,Apteka Słoneczna,pharmacy,55.1,17.2,0.95,import_2025,2026-09-26
+P01002,Café Słoneczna,cafe,51.720375,19.593923,0.41,import_2025,2026-09-24
+P01152,Parking Kolejowa,parking,51.776103,19.567739,0.47,user_report,2026-07-05
+P00167,Palarnia Na Rogu,cafe,51.790653,19.535021,0.49,partner_feed,2026-09-07
+P00210,Szkoła Podstawowa nr 29,school,51.778318,19.593841,0.97,user_report,2026-05-09
+P01217,Ładowarka Nowa,ev_charging,51.784207,19.353628,0.66,import_2025,2026-05-27
+P01221,Ładowarka Na Rogu,ev_charging,51.713371,19.573099,0.37,partner_feed,2026-07-17
+P00911,Przystanek Parkowa,bus_stop,51.795637,19.366181,0.46,partner_feed,2026-03-19
+P00291,Parking Dworcowa,parking,51.753785,19.401666,0.91,field_survey,2026-03-18
+P00845,Apteka Słoneczna,pharmacy,51.758601,19.554913,0.9,user_report,2026-08-16
+P00761,Hostel Na Rogu,hotel,51.816107,19.50782,0.61,partner_feed,2026-10-11
+P01010,Przystanek Łąkowa,bus_stop,51.715963,19.478446,0.76,user_report,2026-03-18
+P00380,Palarnia Parkowa,cafe,51.769762,19.357451,0.75,partner_feed,2026-05-12
+P00780,Przystanek Nowa,bus_stop,51.776394,19.593747,0.43,user_report,2026-05-12
+P00812,Apteka Słoneczna,pharmacy,51.716565,19.406788,0.66,import_2025,2026-05-19
+P01090,Pierogarnia Kolejowa,restaurant,51.771842,19.528642,0.97,field_survey,2026-06-21
+P00559,Palarnia Łąkowa,cafe,51.794808,19.410923,0.78,import_2025,2026-06-04
+P00922,Palarnia Na Rogu,cafe,51.734765,19.550021,0.85,import_2025,2026-07-16
+P01076,Przystanek Parkowa,bus_stop,51.806057,19.403413,0.35,partner_feed,2026-07-02
+P00238,Przystanek Zielona,bus_stop,51.773382,19.375074,0.59,user_report,2026-02-10
+P01160,Trattoria Parkowa,restaurant,51.749269,19.47408,0.46,field_survey,2026-01-09
+P00913,Market Centrum,supermarket,51.702357,19.44626,0.62,field_survey,2026-04-09
+P00522,Przystanek Kolejowa,bus_stop,51.756266,19.430178,0.76,field_survey,2026-09-18
+P00166,Café Nowa,cafe,51.82655,19.427944,0.83,field_survey,2026-01-08
+P00116,Przystanek Nowa,bus_stop,51.819805,19.376411,0.74,partner_feed,2026-10-02
+P00818,Przystanek Parkowa,bus_stop,51.747479,19.587336,0.93,user_report,2026-06-14
+P00155,Restauracja Nowa,restauracja,51.761021,19.495246,0.46,field_survey,2026-04-20
+P00730,Liceum nr 2,school,51.70827,19.443783,0.59,partner_feed,2026-02-24
+P00796,Pierogarnia Na Rogu,restaurant,51.72545,19.573376,0.66,field_survey,2026-08-17
+P00924,Parking Łąkowa,parking,19.492796,51.716144,0.97,user_report,2026-06-25
+P00331,Bistro Centrum,restaurant,,19.530673,0.57,field_survey,2026-07-23
+P00828,Restauracja Dworcowa,restaurant,51.748502,19.465853,0.5,partner_feed,2026-09-10
+P00849,Apteka Zielona,pharmacy,51.731578,19.35436,0.9,user_report,2026-05-20
+P00643,Przystanek Parkowa,bus_stop,51.748006,19.423507,0.65,field_survey,2026-02-26
+P00284,Apteka Słoneczna,pharmacy,51.80175,19.448014,0.54,user_report,2026-09-08
+P00176,Stacja Nowa,fuel_station,51.786979,19.520453,0.53,field_survey,2026-03-20
+P00383,Café Parkowa,cafe,51.816379,19.559055,0.93,user_report,2026-08-16
+P00783,Bistro Pod Lipami,restaurant,51.705792,19.363422,0.78,user_report,2026-05-24
+P00892,Apteka Centrum,pharmacy,51.775702,19.532188,0.81,user_report,2026-07-27
+P01166,Trattoria Łąkowa,restaurant,51.767567,19.383322,0.66,import_2025,2026-04-10
+P01066,Trattoria Słoneczna,restaurant,51.759471,19.461694,0.76,user_report,2026-01-26
+P01048,Przystanek Łąkowa,bus_stop,51.802968,19.596392,0.8,user_report,2026-06-04
+P00710,Sklep Dworcowa,supermarket,51.762421,19.359793,0.43,user_report,2026-03-02
+P00825,Paliwa Łąkowa,fuel_station,51.816147,19.453909,0.86,import_2025,2026-10-09
+P00566,Szkoła Podstawowa nr 39,school,51.790898,19.491098,0.54,partner_feed,2026-10-09
+P00993,Palarnia Centrum,cafe,51.737438,19.530294,0.86,partner_feed,2026-05-27
+P00575,Przystanek Pod Lipami,bus_stop,51.73829,19.542862,0.56,field_survey,2026-01-06
+P00453,Bistro Słoneczna,restaurant,51.72696,19.41004,0.71,user_report,2026-02-25
+P01119,Apteka Zielona,pharmacy,51.818355,19.358686,0.88,field_survey,2026-04-20
+P00465,Restauracja Centrum,restaurant,51.728185,19.48758,0.96,user_report,2026-08-07
+P00411,Palarnia Zielona,cafe,51.803345,19.543268,0.76,field_survey,2026-01-23
+P00034,Kawiarnia Pod Lipami,cafe,51.798373,19.450456,0.69,import_2025,2026-03-12
+P00617,Parking Łąkowa,parking,51.821314,19.520165,0.42,field_survey,2026-01-03
+P00248,Market Centrum,supermarket,51.717468,19.542326,0.54,user_report,2026-07-06
+P00198,Przystanek Zielona,bus_stop,51.775529,19.496405,0.76,partner_feed,2026-10-08
+P00362,Bistro Kolejowa,restaurant,51.79791,19.548306,0.59,user_report,2026-09-14
+P00129,Bistro Dworcowa,restaurant,51.732592,19.589645,0.5,import_2025,2026-02-13
+P00438,Liceum nr 4,school,51.754803,19.42836,0.61,user_report,2026-05-04
+P00316,Szkoła Podstawowa nr 17,school,51.784507,19.452277,0.64,partner_feed,2026-06-03
+P00290,Palarnia Słoneczna,cafe,51.750875,19.395994,0.71,user_report,2026-06-20
+P00542,Apteka Centrum,pharmacy,51.819192,19.435136,0.97,partner_feed,2026-03-28
+P00370,Apteka Słoneczna,,51.778628,19.356016,0.41,field_survey,2026-09-10
+P01065,Palarnia Nowa,cafe,51.718626,19.355086,0.39,partner_feed,2026-05-24
+P00552,Sklep Kolejowa,supermarket,51.811602,19.592018,0.71,partner_feed,2026-02-01
+P00578,Parking Łąkowa,parking,51.789266,19.415186,0.45,user_report,2026-04-12
+P01011,Kawiarnia Nowa,cafe,51.738615,,0.98,user_report,2026-07-22
+P00347,Apteka Nowa,pharmacy,19.464213,51.716495,0.91,user_report,2026-10-25
+P01179,Hostel Pod Lipami,hotel,51.804566,19.47532,0.79,partner_feed,2026-04-19
+P00050,Pierogarnia Parkowa,restaurant,51.732192,19.466391,0.82,field_survey,2026-08-21
+P01126,Paliwa Centrum,fuel_station,51.781551,19.510572,0.84,user_report,2026-04-03
+P00982,Palarnia Parkowa,cafe,51.720816,19.562538,0.73,user_report,2026-07-03
+P00221,Market Łąkowa,supermarket,51.702005,19.489708,0.78,field_survey,2026-03-02
+P01075,Przystanek Kolejowa,bus_stop,51.745629,19.37736,0.4,field_survey,2026-04-06
+P00039,Ładowarka Nowa,ev_charging,51.734201,19.511624,0.68,import_2025,2026-03-17
+P00192,Trattoria Parkowa,restaurant,51.819897,19.457926,0.47,import_2025,2026-09-09
+P01088,Przystanek Słoneczna,bus_stop,51.768565,19.403535,0.38,partner_feed,2026-04-04
+P00303,Restauracja Centrum,restaurant,51.784547,19.508086,0.8,user_report,2026-09-13
+P00719,Trattoria Kolejowa,restaurant,51.768857,19.361123,0.75,partner_feed,2026-03-24
+P00702,Sklep Na Rogu,supermarket,51.81373,19.42104,0.96,field_survey,2026-08-05
+P00561,Trattoria Nowa,restaurant,51.811012,19.492981,0.47,field_survey,2026-08-01
+P01138,Palarnia Parkowa,cafe,51.80043,19.545531,0.66,user_report,2026-06-05
+P00098,Paliwa Centrum,fuel_station,51.712499,19.488275,0.97,partner_feed,2026-03-03
+P01049,Restauracja Pod Lipami,restaurant,51.811296,19.517496,0.73,field_survey,2026-03-24
+P00403,Liceum nr 4,school,51.826941,19.47302,0.77,import_2025,2026-04-14
+P00816,Bistro Łąkowa,restaurant,51.821729,19.595652,0.62,user_report,2026-08-12
+P01185,Market Dworcowa,supermarket,51.805364,19.384916,0.39,user_report,2026-04-11
+P00701,Market Na Rogu,supermarket,51.818208,19.50438,0.71,partner_feed,2026-07-25
+P00680,Bistro Parkowa,restaurant,51.79045,19.528068,0.66,partner_feed,2026-05-12
+P00771,Przystanek Na Rogu,bus_stop,51.793388,19.362398,0.73,field_survey,2026-01-27
+P00188,Pierogarnia Słoneczna,restaurant,51.8002,19.401094,0.86,user_report,2026-06-27
+P00809,Przystanek Dworcowa,bus_stop,51.715344,19.440542,0.78,import_2025,2026-09-17
+P00349,Market Na Rogu,supermarket,51.75488,19.578293,0.39,field_survey,2026-06-07
+P00955,Restauracja Pod Lipami,restaurant,51.808477,19.541356,0.93,import_2025,2026-09-17
+P00854,Parking Słoneczna,parking,51.780971,19.576946,0.89,import_2025,2026-07-26
+P00270,Kawiarnia Parkowa,cafe,51.752749,19.357966,0.83,field_survey,2026-07-08
+P01068,Szkoła Podstawowa nr 23,school,51.809464,19.458826,0.41,field_survey,2026-03-04
+P00750,Parking Zielona,parking,51.721951,19.534951,0.42,user_report,2026-08-06
+P01204,Palarnia Centrum,cafe,51.737439,19.530185,0.86,field_survey,2026-05-27
+P00822,Apteka Dworcowa,pharmacy,51.78415,19.581391,0.89,user_report,2026-06-15
+P00941,Szkoła Podstawowa nr 30,school,51.73566,19.405072,0.87,field_survey,2026-05-07
+P00394,Market Dworcowa,supermarket,51.740422,19.42472,0.46,import_2025,2026-07-27
+P00199,Przystanek Pod Lipami,bus_stop,51.718455,19.429103,0.98,partner_feed,2026-03-13
+P00021,Apteka Na Rogu,pharmacy,0.0,0.0,0.8,user_report,2026-05-23
+P00447,Apteka Łąkowa,pharmacy,51.737631,19.513,0.95,field_survey,2026-02-22
+P00994,Przystanek Pod Lipami,bus_stop,51.794507,19.352934,0.8,import_2025,2026-02-18
+P00480,Paliwa Nowa,fuel_station,51.798899,19.353507,0.46,field_survey,2026-08-01
+P01085,Szkoła Podstawowa nr 29,school,51.800506,19.383931,0.98,user_report,2026-07-08
+P01154,Przystanek Centrum,bus_stop,51.794626,19.457239,0.67,partner_feed,2026-10-13
+P00241,Pierogarnia Dworcowa,restaurant,51.795353,19.550559,0.39,user_report,2026-07-20
+P00887,Restauracja Parkowa,restaurant,51.754978,19.451523,0.73,partner_feed,2026-01-14
+P00623,Apteka Na Rogu,pharmacy,51.761164,19.444515,0.53,import_2025,2026-08-27
+P00187,Pierogarnia Na Rogu,restaurant,51.704068,19.469102,0.96,partner_feed,2026-04-21
+P01074,Przystanek Łąkowa,bus_stop,51.738576,19.525638,0.39,partner_feed,2026-08-28
+P00215,Apteka Słoneczna,pharmacy,51.772961,19.56711,0.58,import_2025,2026-06-21
+P00100,Restauracja Zielona,restaurant,51.71481,19.397171,0.39,field_survey,2026-02-10
+P00984,Pierogarnia Zielona,restaurant,51.784157,19.461284,0.85,partner_feed,2026-03-11
+P01053,Parking Zielona,parking,51.761556,19.541682,0.47,partner_feed,2026-10-25
+P00741,Przystanek Dworcowa,bus_stop,51.816472,19.539814,0.72,field_survey,2026-04-14
+P00365,Przystanek Dworcowa,,51.748791,19.414066,0.74,user_report,2026-08-13
+P00831,Parking Nowa,parking,51.781726,19.505145,0.98,user_report,2026-08-12
+P00686,Apteka Parkowa,pharmacy,51.7357,19.366681,0.76,field_survey,2026-04-09
+P00154,Ładowarka Nowa,ev_charging,51.784171,19.353742,0.66,field_survey,2026-05-27
+P00183,Przystanek Zielona,bus_stop,51.769036,19.580801,0.46,import_2025,2026-07-10
+P01167,Stacja Parkowa,fuel_station,51.717074,19.591742,0.79,field_survey,2026-07-09
+P00128,Przystanek Łąkowa,bus_stop,51.733736,19.449082,0.76,import_2025,2026-05-08
+P00413,Ładowarka Na Rogu,ev_charging,51.7134,19.572916,0.37,partner_feed,2026-07-17
+P00202,Market Zielona,supermarket,51.746585,19.420438,0.69,import_2025,2026-06-22
+P00027,Parking Łąkowa,parking,51.816532,19.35989,0.55,partner_feed,2026-04-12
+P00369,Stacja Zielona,fuel_station,51.797416,19.413155,0.94,partner_feed,2026-03-09
+P00584,Przystanek Nowa,bus_stop,51.740885,19.496202,0.88,user_report,2026-10-17
+P00375,Palarnia Zielona,cafe,51.762365,19.571089,0.78,user_report,2026-04-08
+P00066,Palarnia Łąkowa,cafe,51.766471,19.591111,0.61,import_2025,2026-01-18
+P00113,Przystanek Zielona,bus_stop,51.790246,19.40283,0.76,partner_feed,2026-07-10
+P00377,Paliwa Łąkowa,fuel_station,51.711538,19.462364,0.4,import_2025,2026-03-27
+P00228,Trattoria Nowa,restaurant,51.776536,19.415597,0.86,import_2025,2026-05-01
+P01174,Palarnia Łąkowa,cafe,"51,811922",19.597882,0.59,field_survey,2026-07-02
+P01040,Apteka Pod Lipami,pharmacy,51.787268,19.457845,0.9,import_2025,2026-09-18
+P00433,Parking Pod Lipami,parking,51.790872,19.560625,0.97,user_report,2026-02-18
+P00341,Przystanek Łąkowa,bus_stop,51.803946,19.54216,0.71,import_2025,2026-03-18
+P00451,Przystanek Zielona,bus_stop,51.714756,19.535645,0.56,field_survey,2026-06-23
+P00658,Palarnia Zielona,cafe,51.819196,19.385555,0.66,partner_feed,2026-01-13
+P00652,Kawiarnia Na Rogu,cafe,51.78151,19.529334,0.76,user_report,2026-02-15
+P00669,Pierogarnia Łąkowa,restaurant,51.803538,19.3623,0.47,partner_feed,2026-08-15
+P00387,Trattoria Dworcowa,restaurant,51.745288,19.552839,0.43,partner_feed,2026-02-11
+P00515,Palarnia Kolejowa,cafe,51.736262,19.426132,0.46,partner_feed,2026-04-20
+P01109,Parking Pod Lipami,parking,51.774714,19.443063,0.62,field_survey,2026-01-21
+P00528,Paliwa Parkowa,fuel_station,51.785082,19.588384,0.57,partner_feed,2026-08-17
+P00279,Market Pod Lipami,supermarket,51.70891,19.416303,0.46,partner_feed,2026-10-20
+P00637,Parking Pod Lipami,parking,51.713341,19.577109,0.77,user_report,2026-07-02
+P01115,Parking Na Rogu,parking,91.4,19.573606,0.84,partner_feed,2026-04-07
+P01114,Liceum nr 11,school,51.820516,19.555323,0.68,import_2025,2026-03-17
+P00045,Restauracja Kolejowa,restaurant,51.787818,19.45929,0.37,import_2025,2026-02-08
+P00412,Market Łąkowa,supermarket,51.76356,19.540833,0.37,user_report,2026-03-11
+P01004,Szkoła Podstawowa nr 19,school,51.827319,19.57772,0.67,import_2025,2026-10-28
+P01080,Ładowarka Łąkowa,ev_charging,51.817439,19.374676,0.73,partner_feed,2026-08-27
+P00301,Szkoła Podstawowa nr 36,school,51.769127,19.443608,0.37,field_survey,2026-04-05
+P00935,Parking Dworcowa,parking,51.818941,19.445512,0.93,import_2025,2026-04-27
+P00231,Apteka Dworcowa,pharmacy,51.766493,19.502432,0.99,import_2025,2026-03-13
+P00028,Przystanek Nowa,bus_stop,51.824098,19.538574,0.88,import_2025,2026-01-03
+P00645,Café Centrum,cafe,51.775426,19.46617,0.92,user_report,2026-09-06
+P00468,Szkoła Podstawowa nr 24,school,51.780827,19.447559,0.96,import_2025,2026-07-19
+P00195,Szkoła Podstawowa nr 13,school,51.712232,19.421036,0.81,field_survey,2026-10-08
+P00303,Restauracja Centrum,restaurant,51.784547,19.508086,0.8,user_report,2026-09-13
+P00398,Hostel Łąkowa,hotel,51.790413,19.583612,0.52,field_survey,2026-09-28
+P00189,Przystanek Pod Lipami,bus_stop,51.75377,19.577569,0.48,field_survey,2026-01-19
+P00002,Szkoła Podstawowa nr 19,school,19.491991,51.783222,0.45,user_report,2026-06-27
+P00864,Przystanek Pod Lipami,bus_stop,51.790361,19.465345,0.4,partner_feed,2026-06-02
+P01021,Przystanek Pod Lipami,bus_stop,51.786121,19.564578,0.43,field_survey,2026-09-05
+P00099,Przystanek Kolejowa,bus_stop,51.735898,19.508909,0.49,partner_feed,2026-09-28
+P00418,Restauracja Zielona,restaurant,51.723624,19.507183,0.44,partner_feed,2026-01-17
+P01127,Przystanek Zielona,bus_stop,51.736727,19.356275,0.46,user_report,2026-05-04
+P00595,Przystanek Centrum,bus_stop,51.738286,19.596083,0.88,partner_feed,2026-05-26
+P00440,Przystanek Łąkowa,bus_stop,51.76615,19.47315,0.81,import_2025,2026-10-20
+P00147,Café Dworcowa,cafe,51.735634,19.578043,0.77,user_report,2026-02-12
+P00779,Przystanek Nowa,bus_stop,51.80883,19.573996,0.92,field_survey,2026-10-12
+P00724,Paliwa Parkowa,fuel_station,51.79744,19.561451,0.67,field_survey,2026-10-28
+P00706,Przystanek Na Rogu,bus_stop,51.790755,19.48284,0.76,partner_feed,2026-08-14
+P00101,Apteka Parkowa,pharmacy,51.812917,19.379745,0.96,partner_feed,2026-07-01
+P01201,Przystanek Zielona,bus_stop,51.714838,19.535473,0.56,user_report,2026-06-23
+P01097,Pierogarnia Dworcowa,restaurant,51.770764,19.423585,0.56,import_2025,2026-03-08
+P00589,Hotel Na Rogu,hotel,51.710616,19.456762,0.79,user_report,2026-07-24
+P01116,Przystanek Łąkowa,bus_stop,51.710294,19.476204,0.98,partner_feed,2026-06-10
+P00378,Przystanek Nowa,bus_stop,51.769909,19.556921,0.58,field_survey,2026-02-20
+P00322,Trattoria Słoneczna,restaurant,51.70977,19.477718,0.69,field_survey,2026-01-22
+P01215,Hostel Pod Lipami,hotel,51.804554,19.475396,0.79,import_2025,2026-04-19
+P01156,Sklep Centrum,supermarket,51.818178,19.430096,0.66,user_report,2026-07-20
+P00107,Palarnia Zielona,cafe,0.0,0.0,0.77,import_2025,2026-10-24
+P00514,Trattoria Pod Lipami,restaurant,51.718368,19.522932,0.77,partner_feed,2026-01-05
+P00389,Apteka Na Rogu,pharmacy,51.724639,19.416971,0.91,import_2025,2026-09-26
+P01168,Przystanek Na Rogu,bus_stop,51.820126,19.460282,0.37,import_2025,2026-01-18
+P00657,Apteka Parkowa,pharmacy,51.791717,19.393634,0.44,import_2025,2026-08-13
+P00485,Café Słoneczna,cafe,51.761716,19.522435,0.87,import_2025,2026-01-16
+P00902,Sklep Słoneczna,supermarket,51.739773,19.424392,0.54,partner_feed,2026-10-12
+P00246,Kawiarnia Parkowa,cafe,51.743496,19.439478,0.71,import_2025,2026-04-07
+P01058,Przystanek Łąkowa,bus_stop,51.717547,19.377655,0.9,field_survey,2026-01-15
+P00925,Przystanek Łąkowa,bus_stop,51.806452,19.54831,0.91,import_2025,2026-10-14
+P01082,Café Kolejowa,cafe,51.724673,19.583132,0.53,partner_feed,2026-07-20
+P00689,Parking Na Rogu,parking,51.738793,19.419366,0.71,user_report,2026-04-19
+P00622,Apteka Zielona,pharmacy,51.780895,19.569061,0.52,partner_feed,2026-04-22
+P01081,Pierogarnia Pod Lipami,restaurant,51.722648,19.589189,0.74,partner_feed,2026-03-04
+P00875,Bistro Na Rogu,restaurant,51.72717,19.484636,0.81,import_2025,2026-04-23
+P00527,Hotel Pod Lipami,hotel,51.760899,19.546195,0.42,partner_feed,2026-07-13
+P00977,Café Parkowa,cafe,51.725969,19.39108,0.92,field_survey,2026-07-15
+P00850,Pierogarnia Centrum,restaurant,51.82089,19.436556,0.42,field_survey,2026-07-08
+P00626,Palarnia Słoneczna,cafe,51.708473,19.575946,0.64,user_report,2026-07-03
+P01159,Parking Pod Lipami,parking,51.801955,19.517107,0.78,import_2025,2026-09-15
+P00615,Market Słoneczna,supermarket,51.771733,19.577558,0.7,partner_feed,2026-07-04
+P00873,Bistro Zielona,,51.758581,19.523275,0.36,field_survey,2026-10-14
+P00240,Parking Pod Lipami,parking,51.76045,19.576304,0.77,field_survey,2026-07-01
+P00261,Przystanek Parkowa,bus_stop,51.752937,19.385117,0.61,import_2025,2026-01-20
+P00596,Restauracja Nowa,restaurant,51.744368,19.434835,0.37,field_survey,2026-10-24
+P00833,Sklep Nowa,supermarket,0.0,0.0,0.38,field_survey,2026-04-05
+P00321,Ładowarka Kolejowa,ev_charging,51.756745,19.367712,0.66,import_2025,2026-06-15
+P00060,Restauracja Parkowa,restaurant,51.745468,19.428399,0.52,user_report,2026-08-11
+P00428,Hotel Centrum,hotel,51.792105,19.383622,0.9,user_report,2026-01-22
+P00530,Paliwa Nowa,fuel_station,51.741823,19.536047,0.71,field_survey,2026-09-11
+P00752,Café Kolejowa,cafe,51.821566,19.545625,0.87,user_report,2026-09-25
+P00313,Przystanek Parkowa,bus_stop,51.74399,19.556879,0.8,field_survey,2026-10-06
+P01134,Apteka Dworcowa,pharmacy,51.743145,19.386015,0.76,import_2025,2026-04-17
+P00017,Restauracja Dworcowa,restaurant,51.822863,19.502484,0.97,user_report,2026-08-05
+P00568,Przystanek Łąkowa,bus_stop,55.1,17.2,0.8,user_report,2026-05-20
+P00237,Palarnia Na Rogu,kawiarnia,51.796175,19.578172,0.82,import_2025,2026-10-13
+P00520,Przystanek Dworcowa,bus_stop,51.78835,19.3981,0.57,user_report,2026-03-24
+P00265,Ładowarka Nowa,ev_charging,51.760145,19.468896,0.72,import_2025,2026-01-01
+P00206,Parking Nowa,parking,51.789038,19.366572,0.72,user_report,2026-08-23
+P00294,Przystanek Nowa,bus_stop,19.517296,51.725995,0.91,field_survey,2026-08-05
+P00737,Przystanek Pod Lipami,bus_stop,51.752058,19.452568,0.92,import_2025,2026-06-24
+P00762,Bistro Na Rogu,restaurant,51.823508,19.379163,0.6,field_survey,2026-04-16
+P00162,Market Centrum,supermarket,51.718513,19.369134,12.0,field_survey,2026-05-01
+P00593,Przystanek Pod Lipami,bus_stop,51.814686,19.533907,0.6,partner_feed,2026-06-20
+P00634,Café Zielona,cafe,51.797099,19.488965,0.6,user_report,2026-01-01
+P00423,Stacja Na Rogu,fuel_station,51.729792,19.587999,0.92,field_survey,2026-01-11
+P00511,Szkoła Podstawowa nr 16,school,91.4,19.491642,0.39,field_survey,2026-05-24
+P00508,Palarnia Łąkowa,cafe,51.814705,19.367251,0.4,import_2025,2026-02-11
+P00180,Parking Nowa,parking,51.808851,19.500766,0.37,field_survey,2026-07-27
+P00431,Ładowarka Na Rogu,ev_charging,51.742126,19.446704,0.62,partner_feed,2026-08-14
+P00271,Kawiarnia Parkowa,cafe,51.735228,19.555247,0.62,user_report,2026-03-21
+P00954,Przystanek Centrum,bus_stop,51.80069,19.447913,0.43,partner_feed,2026-06-02
+P00531,Palarnia Centrum,cafe,51.749705,19.437237,0.69,partner_feed,2026-06-05
+P00244,Palarnia Pod Lipami,cafe,51.74818,19.482793,0.73,field_survey,2026-03-28
+P00735,Restauracja Kolejowa,restaurant,51.80609,19.39769,0.59,partner_feed,2026-06-25
+P00675,Stacja Dworcowa,fuel_station,51.824792,19.529091,0.38,partner_feed,2026-01-28
+P01182,Stacja Na Rogu,fuel_station,51.726299,19.384392,0.74,field_survey,2026-02-27
+P00581,Palarnia Słoneczna,cafe,51.824408,19.568957,0.87,partner_feed,2026-01-24
+P00914,Apteka Centrum,pharmacy,51.765893,19.448105,0.59,user_report,2026-06-11
+P00348,Kawiarnia Parkowa,cafe,51.805161,19.548163,0.81,partner_feed,2026-06-27
+P00005,Ładowarka Na Rogu,ev_charging,51.759766,19.475612,0.67,field_survey,2026-02-20
+P01223,Kawiarnia Pod Lipami,cafe,51.739116,19.556207,0.6,user_report,2026-01-04
+P00842,Ładowarka Kolejowa,ev_charging,51.758152,19.517148,0.51,partner_feed,2026-03-15
+P00692,Przystanek Łąkowa,bus_stop,51.709155,19.552082,0.43,import_2025,2026-01-06
+P00668,Restauracja Parkowa,restaurant,51.800086,19.43935,0.98,import_2025,2026-05-07
+P00903,Bistro Łąkowa,restaurant,51.810291,19.593402,0.9,field_survey,2026-07-05
+P00614,Przystanek Słoneczna,bus_stop,51.801651,19.363589,0.75,import_2025,2026-07-25
+P00482,Przystanek Pod Lipami,bus_stop,51.77455,19.407575,0.59,field_survey,2026-01-08
+P01218,Apteka Na Rogu,pharmacy,51.724657,19.417067,0.91,user_report,2026-09-26
+P00467,Przystanek Parkowa,bus_stop,51.714004,19.597836,0.85,partner_feed,2026-01-08
+P00432,Pierogarnia Na Rogu,restaurant,51.798293,19.377402,0.69,user_report,2026-08-15
+P00015,Parking Centrum,parking,51.760852,19.366294,0.63,user_report,2026-01-12
+P00510,Przystanek Parkowa,bus_stop,51.814965,19.500215,0.64,user_report,2026-07-01
+P01199,Liceum nr 22,school,51.761206,19.517362,0.75,partner_feed,2026-08-02
+P01225,Parking Zielona,parking,51.721914,19.535089,0.42,import_2025,2026-08-06
+P00477,Parking Dworcowa,parking,51.752085,19.53033,0.98,user_report,2026-05-14
+P00489,Przystanek Nowa,bus_stop,51.766934,19.492811,0.65,field_survey,2026-03-10
+P00036,Parking Zielona,parking,51.728585,19.47769,0.55,import_2025,2026-07-19
+P01227,Stacja Łąkowa,fuel_station,51.724457,19.473525,0.52,user_report,2026-01-09
+P00456,Liceum nr 23,school,51.79598,19.402312,0.96,partner_feed,2026-02-13
+P00983,Apteka Nowa,pharmacy,51.732602,19.585016,0.43,field_survey,2026-05-16
+P00118,Apteka Zielona,pharmacy,51.795936,19.542455,0.63,user_report,2026-05-06
+P01099,Pierogarnia Łąkowa,restaurant,51.790758,19.376204,0.59,import_2025,2026-08-07
+P00605,Paliwa Parkowa,fuel_station,51.769989,19.573773,0.45,field_survey,2026-06-17
+P00286,Sklep Nowa,supermarket,51.775029,19.377744,0.36,partner_feed,2026-03-15
+P00337,Apteka Nowa,pharmacy,19.515107,51.736478,0.38,field_survey,2026-01-25
+P00653,Market Zielona,supermarket,51.78946,19.527276,0.52,partner_feed,2026-10-11
+P00182,Bistro Pod Lipami,restaurant,51.738974,19.562035,0.43,import_2025,2026-01-10
+P00874,Przystanek Słoneczna,bus_stop,51.801007,19.576743,0.74,user_report,2026-02-23
+P00490,Café Pod Lipami,cafe,51.726047,19.535463,0.98,partner_feed,2026-07-09
+P00455,Market Parkowa,supermarket,51.827091,19.477355,0.94,import_2025,2026-06-11
+P01028,Liceum nr 15,school,51.760033,19.382862,0.47,field_survey,2026-02-08
+P00323,Café Łąkowa,,51.783827,19.369083,0.92,import_2025,2026-09-06
+P00256,Apteka Centrum,pharmacy,51.726187,19.472185,0.88,field_survey,2026-01-19
+P01205,Przystanek Kolejowa,bus_stop,51.70498,19.576318,0.69,partner_feed,2026-02-14
+P00704,Liceum nr 25,school,51.715329,19.519561,0.61,partner_feed,2026-04-16
+P00384,Parking Zielona,parking,51.746941,19.354848,0.57,import_2025,2026-04-06
+P01194,Ładowarka Na Rogu,ev_charging,51.794855,19.58318,0.75,field_survey,2026-01-17
+P00784,Palarnia Kolejowa,cafe,51.754809,19.393881,0.88,partner_feed,2026-04-16
+P00788,Restauracja Centrum,restaurant,51.780234,19.360375,0.69,partner_feed,2026-08-03
+P00203,Hostel Centrum,hotel,51.711938,19.59011,0.46,partner_feed,2026-07-01
+P00068,Przystanek Dworcowa,bus_stop,51.766205,19.541284,0.96,user_report,2026-08-27
+P00647,Apteka Dworcowa,pharmacy,51.768156,19.425519,0.5,partner_feed,2026-04-10
+P00916,Przystanek Słoneczna,bus_stop,51.8045,19.51812,0.98,import_2025,2026-04-25
+P01132,Restauracja Centrum,restaurant,51.797393,19.494889,0.57,user_report,2026-06-26
+P00529,Szkoła Podstawowa nr 49,school,51.711521,19.476369,0.92,partner_feed,2026-06-15
+P00915,Market Kolejowa,supermarket,51.744304,19.402523,0.89,user_report,2026-05-13
+P00572,Café Nowa,cafe,51.755711,19.373247,0.59,field_survey,2026-08-13
+P00464,Przystanek Kolejowa,bus_stop,51.789935,19.370971,0.91,import_2025,2026-04-20
+P00829,Przystanek Centrum,bus_stop,51.732341,19.563306,0.69,field_survey,2026-04-18
+P00567,Hotel Słoneczna,hotel,51.796765,19.41886,0.39,partner_feed,2026-07-08
+P00560,Palarnia Słoneczna,cafe,0.0,0.0,0.86,import_2025,2026-02-20
+P00328,Apteka Zielona,pharmacy,51.784115,19.597158,0.72,partner_feed,2026-10-13
+P01008,Restauracja Dworcowa,restaurant ,51.705866,19.471898,0.43,import_2025,2026-05-22
+P00309,Kawiarnia Słoneczna,cafe,51.717352,19.551965,0.83,partner_feed,2026-02-19
+P00185,Restauracja Parkowa,restaurant,51.76136,19.433911,0.59,import_2025,2026-02-03
+P00170,Trattoria Parkowa,restaurant,51.819256,19.390474,0.78,user_report,2026-05-01
+P01128,Parking Słoneczna,parking,"51,731754",19.417798,0.57,user_report,2026-02-17
+P00259,Trattoria Kolejowa,restaurant,51.742366,19.378374,0.58,import_2025,2026-09-14
+P00272,Bistro Parkowa,restaurant,51.738373,19.593222,0.78,field_survey,2026-06-09
+P00620,Ładowarka Nowa,ev_charging,51.736964,19.408808,0.73,partner_feed,2026-05-27
+P00886,Café Łąkowa,cafe,51.757505,19.356532,0.63,partner_feed,2026-06-08
+P00872,Ładowarka Pod Lipami,ev_charging,51.769715,19.361171,0.81,partner_feed,2026-06-23
+P01168,Przystanek Na Rogu,bus_stop,51.820126,19.460282,0.37,import_2025,2026-01-18
+P00899,Przystanek Pod Lipami,bus_stop,51.81422,19.585878,0.42,field_survey,2026-09-11
+P00708,Apteka Kolejowa,pharmacy,51.76158,19.37391,0.72,import_2025,2026-10-15
+P00582,Paliwa Kolejowa,fuel_station,51.77523,19.530174,0.83,field_survey,2026-10-20
+P00743,Parking Słoneczna,parking,51.812161,19.530271,0.42,partner_feed,2026-05-10
+P00947,Palarnia Łąkowa,cafe,51.792363,19.417405,0.55,partner_feed,2026-08-21
+P01192,Parking Zielona,parking,51.782708,19.510711,0.42,import_2025,2026-10-06
+P00525,Restauracja Łąkowa,restaurant,51.749315,19.390516,0.86,field_survey,2026-03-28
+P00840,Przystanek Pod Lipami,bus_stop,51.702463,19.424478,0.53,field_survey,2026-10-04
+P01104,Bistro Łąkowa,restaurant,51.714274,19.35311,1.7,user_report,2026-03-28
+P00324,Hostel Zielona,hotel,51.802735,19.511061,0.46,partner_feed,2026-02-24
+P00964,Parking Łąkowa,parking,51.750235,19.555734,0.37,partner_feed,2026-06-25
+P00388,Kawiarnia Dworcowa,cafe,51.825129,19.399361,0.67,field_survey,2026-06-15
+P00949,Przystanek Łąkowa,bus_stop,51.708131,19.496936,0.55,user_report,2026-02-03
+P01031,Sklep Nowa,,51.714058,19.501311,0.39,user_report,2026-08-04
+P00579,Restauracja Zielona,restaurant,51.712246,19.529779,0.7,field_survey,2026-06-25
+P00893,Pierogarnia Dworcowa,restaurant,51.789036,19.588929,0.73,partner_feed,2026-07-22
+P00333,Bistro Na Rogu,restaurant,51.772157,19.58067,0.41,user_report,2026-06-11
+P00220,Parking Na Rogu,parking,51.808499,19.575692,0.39,partner_feed,2026-02-18
+P00293,Café Na Rogu,cafe,51.744665,19.526138,0.89,user_report,2026-05-12
+P00713,Liceum nr 55,school,51.723393,19.427826,0.38,partner_feed,2026-09-09
+P00898,Przystanek Łąkowa,bus_stop,51.703463,19.527329,0.46,import_2025,2026-03-04
+P00257,Sklep Łąkowa,supermarket,51.742301,19.404853,0.93,user_report,2026-06-11
+P01216,Kawiarnia Dworcowa,cafe,51.803878,19.49077,0.82,partner_feed,2026-05-08
+P01029,Przystanek Centrum,bus_stop,51.798285,19.400898,0.9,field_survey,2026-04-10
+P00598,Bistro Na Rogu,restaurant,51.780071,19.399115,0.89,field_survey,2026-09-27
+P01073,Market Pod Lipami,supermarket,51.71557,19.493224,0.48,partner_feed,2026-06-25
+P00698,Market Kolejowa,supermarket,51.782836,19.357913,0.97,user_report,2026-06-20
+P00805,Paliwa Nowa,fuel_station,51.70299,19.480289,0.65,partner_feed,2026-02-20
+P00105,Market Zielona,supermarket,51.80856,19.356564,0.69,user_report,2026-04-25
+P00764,Apteka Dworcowa,pharmacy,51.758159,19.443616,0.94,import_2025,2026-09-01
+P01178,Bistro Parkowa,restaurant,51.821768,19.372774,0.6,field_survey,2026-09-24
+P00700,Kawiarnia Parkowa,cafe,51.807023,19.580555,0.82,user_report,2026-10-16
+P01060,Przystanek Dworcowa,bus_stop,51.703384,19.554827,0.76,user_report,2026-10-19
+P00018,Paliwa Parkowa,fuel_station,51.791534,19.492018,0.61,import_2025,2026-07-04
+P00725,Kawiarnia Centrum,cafe,51.736446,19.366305,0.41,partner_feed,2026-03-09
+P00408,Hotel Centrum,hotel,51.760715,19.433781,0.56,import_2025,2026-02-06
+P01091,Przystanek Dworcowa,bus_stop,51.70429,19.577437,0.59,field_survey,2026-04-11
+P00661,Trattoria Na Rogu,restaurant,51.753218,19.380971,0.67,import_2025,2026-01-26
+P00340,Restauracja Pod Lipami,restaurant,51.82132,19.566809,0.57,user_report,2026-01-04
+P00120,Sklep Parkowa,supermarket,51.756304,19.411916,0.45,partner_feed,2026-09-09
+P01001,Hostel Łąkowa,hotel,51.734206,19.59071,0.5,field_survey,2026-06-05
+P00959,Apteka Parkowa,pharmacy,0.0,0.0,0.73,field_survey,2026-07-13
+P00931,Przystanek Zielona,bus_stop,51.71344,19.573244,0.63,field_survey,2026-06-27
+P01144,Przystanek Parkowa,bus_stop,51.76741,19.500703,0.79,user_report,2026-08-18
+P00848,Restauracja Parkowa,restaurant,51.789732,19.458876,0.49,partner_feed,2026-04-20
+P00609,Parking Pod Lipami,parking,51.741649,19.45622,0.4,user_report,2026-04-26
+P00753,Sklep Centrum,supermarket,51.725829,19.422439,0.5,field_survey,2026-10-04
+P00694,Hotel Nowa,hotel,51.768756,19.521303,0.4,user_report,2026-10-09
+P00587,Parking Parkowa,parking,51.760811,19.375971,0.57,partner_feed,2026-02-08
+P00888,Hotel Zielona,hotel,51.826138,19.501916,0.95,import_2025,2026-01-20
+P00610,Przystanek Centrum,bus_stop,51.817576,19.445174,0.39,import_2025,2026-06-06
+P00962,Paliwa Parkowa,fuel_station,51.787574,19.594151,0.82,partner_feed,2026-05-16
+P00642,Ładowarka Pod Lipami,ev_charging,51.705399,19.475874,0.79,import_2025,2026-01-27
+P00823,Sklep Nowa,supermarket,51.748908,19.501199,0.83,partner_feed,2026-02-28
+P00940,Przystanek Na Rogu,bus_stop,51.73723,19.37612,0.36,field_survey,2026-08-06
+P00131,Market Centrum,supermarket,51.734572,19.437648,0.88,import_2025,2026-07-28
+P00618,Pierogarnia Zielona,restaurant,51.822698,19.462362,0.41,partner_feed,2026-05-04
+P00786,Przystanek Centrum,bus_stop,51.796075,19.438131,0.75,field_survey,2026-01-02
+P00862,Bistro Nowa,restaurant,51.762542,19.581994,0.9,user_report,2026-02-06
+P01071,Bistro Nowa,restaurant,51.765396,19.473786,0.7,import_2025,2026-02-02
+P00991,Trattoria Zielona,restaurant,51.756712,19.573044,0.37,partner_feed,2026-05-01
+P00119,Przystanek Kolejowa,bus_stop,51.703243,19.483831,0.71,import_2025,2026-03-02
+P00193,Trattoria Kolejowa,restaurant,51.716139,19.431736,0.82,field_survey,2026-10-04
+P00106,Sklep Kolejowa,supermarket,51.768118,19.546524,0.91,partner_feed,2026-05-21
+P00033,Hostel Słoneczna,hotel,51.808798,19.557175,0.67,import_2025,2026-03-11
+P00141,Pierogarnia Dworcowa,restaurant,51.704516,19.471425,0.56,field_survey,2026-06-05
+P00396,Pierogarnia Łąkowa,restaurant,51.820944,19.453286,0.74,partner_feed,2026-02-11
+P00885,Hostel Parkowa,hotel,51.755717,19.459461,0.48,partner_feed,2026-09-12
+P00837,Bistro Nowa,restaurant,51.819186,19.587331,0.51,field_survey,2026-09-24
+P00882,Przystanek Zielona,bus_stop,51.790659,19.477065,0.73,field_survey,2026-08-04
+P00599,Market Centrum,supermarket,51.807788,19.520868,0.63,import_2025,2026-05-23
+P00134,Parking Słoneczna,parking,51.752774,19.459883,0.39,partner_feed,2026-09-07
+P01113,Paliwa Parkowa,fuel_station,51.704867,19.354069,0.66,import_2025,2026-03-23
+P00676,Apteka Na Rogu,pharmacy,51.818675,19.583807,0.36,partner_feed,2026-01-02
+P00409,Restauracja Zielona,restaurant,51.723804,19.367285,0.38,partner_feed,2026-04-01
+P00749,Apteka Pod Lipami,pharmacy,51.790309,19.521518,0.93,field_survey,2026-02-23
+P00918,Przystanek Dworcowa,bus_stop,51.740911,19.516807,0.91,field_survey,2026-09-05
+P00233,Parking Łąkowa,parking,51.723608,19.518283,0.91,field_survey,2026-04-10
+P01006,Pierogarnia Na Rogu,restaurant,51.79371,19.590644,0.96,user_report,2026-05-06
+P01147,Restauracja Pod Lipami,restaurant,51.703156,19.434761,0.57,user_report,2026-10-23
+P00317,Pierogarnia Zielona,restaurant,51.792913,19.409176,0.6,user_report,2026-04-02
+P01034,Kawiarnia Zielona,cafe,51.77986,19.474328,0.91,field_survey,2026-10-09
+P00608,Hotel Dworcowa,hotel,51.823307,19.539079,0.99,import_2025,2026-06-01
+P00687,Pierogarnia Kolejowa,restaurant,51.769255,19.484892,0.42,partner_feed,2026-01-03
+P00058,Apteka Kolejowa,pharmacy,51.785746,19.530869,0.53,partner_feed,2026-01-08
+P00254,Hostel Centrum,hotel,0.0,0.0,0.79,user_report,2026-08-27
+P00808,Paliwa Parkowa,fuel_station,51.764711,19.404107,0.4,partner_feed,2026-04-17
+P00950,Szkoła Podstawowa nr 28,school,51.812332,19.55817,0.92,import_2025,2026-05-15
+P00161,Trattoria Kolejowa,restaurant ,51.712627,19.538475,0.66,user_report,2026-09-06
+P01190,Market Centrum,supermarket,51.705279,19.517079,0.7,user_report,2026-10-23
+P01042,Przystanek Zielona,bus_stop,51.820635,19.425122,0.78,field_survey,2026-06-22
+P01087,Café Pod Lipami,cafe,51.712064,19.511787,0.86,import_2025,2026-06-28
+P00004,Trattoria Kolejowa,restaurant,51.815864,19.417182,0.52,field_survey,2026-03-09
+P00251,Apteka Parkowa,pharmacy,51.704376,19.399976,0.57,user_report,2026-07-04
+P00164,Przystanek Słoneczna,bus_stop,51.750247,19.512982,0.61,user_report,2026-05-19
+P00503,Hostel Nowa,hotel,51.768251,19.36121,0.49,partner_feed,2026-04-09
+P00305,Przystanek Na Rogu,bus_stop,51.711001,19.530954,0.66,field_survey,2026-03-19
+P00923,Bistro Dworcowa,restaurant,51.769117,19.53847,0.49,field_survey,2026-09-03
+P01003,Przystanek Pod Lipami,bus_stop,51.706693,19.488933,0.64,user_report,2026-09-07
+P00606,Bistro Nowa,restaurant,51.720443,19.501604,0.88,user_report,2026-09-12
+P00273,Sklep Łąkowa,supermarket,51.82411,19.52239,0.64,import_2025,2026-10-09
+P00728,Kawiarnia Dworcowa,cafe,51.797937,19.393881,0.37,user_report,2026-09-17
+P01017,Palarnia Słoneczna,cafe,51.788323,19.531963,0.8,partner_feed,2026-10-23
+P00772,Pierogarnia Kolejowa,restaurant,51.784673,19.382949,0.78,partner_feed,2026-08-23
+P00986,Parking Kolejowa,parking,51.756169,19.547313,0.71,field_survey,2026-09-28
+P00526,Parking Słoneczna,parking,51.738303,19.429294,0.55,user_report,2026-10-11
+P01061,Parking Nowa,parking,51.764294,19.548732,0.35,partner_feed,2026-02-22
+P01086,Parking Centrum,parking,51.740606,19.453551,0.66,partner_feed,2026-01-23
+P00721,Parking Kolejowa,parking,51.74163,19.553332,0.39,user_report,2026-02-09
+P00769,Café Łąkowa,cafe,51.804158,19.439526,0.87,field_survey,2026-01-21
+P00071,Restauracja Słoneczna,restaurant,51.81677,19.39647,0.38,partner_feed,2026-06-23
+P00214,Parking Na Rogu,parking,51.735195,19.495485,0.79,partner_feed,2026-01-19
+P00382,Bistro Parkowa,restaurant,"51,767478",19.418374,0.86,field_survey,2026-01-12
+P00051,Café Centrum,cafe,51.7379,19.375771,0.38,import_2025,2026-05-04
+P00929,Przystanek Kolejowa,bus_stop,51.705834,19.5882,0.99,field_survey,2026-08-06
+P00667,Kawiarnia Słoneczna,cafe,51.744725,19.410447,0.8,user_report,2026-02-03
+P00921,Przystanek Na Rogu,bus_stop,51.814859,19.519379,0.37,field_survey,2026-01-19
+P00970,Café Na Rogu,cafe,51.8143,19.4855,0.47,import_2025,2026-08-17
+P00122,Ładowarka Dworcowa,ev_charging,51.750475,19.540912,0.81,partner_feed,2026-05-19
+P00625,Przystanek Dworcowa,bus_stop,51.771994,19.583973,0.38,field_survey,2026-09-20
+P00541,Bistro Pod Lipami,restaurant,51.703001,19.517029,0.97,field_survey,2026-04-08
+P00342,Bistro Słoneczna,restaurant,51.795814,19.582409,0.7,user_report,2026-05-16
+P00612,Hostel Łąkowa,hotel,51.826447,19.55879,0.89,user_report,2026-04-03
+P00678,Café Pod Lipami,cafe,51.770596,19.546221,0.89,partner_feed,2026-03-02
+P00488,Szkoła Podstawowa nr 17,school,51.803298,19.561338,0.78,field_survey,2026-07-24
+P00685,Stacja Łąkowa,fuel_station,51.724482,19.473391,0.52,import_2025,2026-01-09
+P00040,Przystanek Dworcowa,bus_stop,51.784836,19.468818,0.66,partner_feed,2026-04-23
+P00821,Trattoria Słoneczna,restaurant,51.81292,19.417641,0.94,user_report,2026-05-23
+P00127,Sklep Centrum,supermarket,51.816812,19.451761,0.86,field_survey,2026-03-12
+P00341,Przystanek Łąkowa,bus_stop,51.803946,19.54216,0.71,import_2025,2026-03-18
+P00426,Przystanek Zielona,bus_stop,51.723668,19.454345,0.36,partner_feed,2026-09-24
+P00177,Ładowarka Słoneczna,ev_charging,51.811377,19.366016,0.6,partner_feed,2026-10-10
+P01131,Parking Pod Lipami,parking,51.763906,19.353104,0.68,user_report,2026-06-12
+P01067,Restauracja Nowa,restaurant,51.72816,19.590533,0.54,field_survey,2026-07-07
+P00980,Market Słoneczna,supermarket,51.725572,19.577192,0.4,import_2025,2026-02-11
+P01150,Hotel Pod Lipami,hotel,51.796823,19.506411,0.98,user_report,2026-06-07
+P00709,Sklep Kolejowa,supermarket,51.771894,19.513675,0.74,field_survey,2026-03-21
+P00007,Pierogarnia Zielona,restaurant,51.739124,19.531848,0.69,import_2025,2026-10-22
+P00587,Parking Parkowa,parking,51.760811,19.375971,0.57,partner_feed,2026-02-08
+P00717,Przystanek Słoneczna,bus_stop,51.703248,19.356276,0.6,partner_feed,2026-09-20
+P01000,Bistro Centrum,restaurant,51.711922,19.512249,0.91,partner_feed,2026-04-11
+P00767,Szkoła Podstawowa nr 8,school,51.705968,19.508026,0.42,partner_feed,2026-04-03
+P00224,Paliwa Zielona,fuel_station,51.710853,19.42266,0.72,user_report,2026-07-19
+P00194,Parking Zielona,parking,51.822434,19.597664,0.36,import_2025,2026-04-23
+P00718,Sklep Dworcowa,supermarket,51.720828,19.515413,0.87,user_report,2026-10-17
+P01177,Szkoła Podstawowa nr 12,school,51.756586,19.561866,0.66,import_2025,2026-04-15
+P00437,Sklep Centrum,supermarket,51.825753,19.366512,0.63,field_survey,2026-05-25
+P01161,Przystanek Słoneczna,bus_stop,51.822128,19.485976,0.52,partner_feed,2026-02-26
+P00404,Kawiarnia Pod Lipami,cafe,51.764412,19.590745,0.64,partner_feed,2026-02-27
+P00076,Apteka Słoneczna,pharmacy,51.793312,19.4116,0.62,field_survey,2026-04-25
+P00473,Restauracja Na Rogu,restaurant,51.710266,19.525178,0.86,user_report,2026-09-13
+P00242,Ładowarka Na Rogu,,51.775125,19.44768,0.65,partner_feed,2026-06-12
+P00570,Parking Dworcowa,parking,51.762741,19.480043,0.67,import_2025,2026-10-02
+P01018,Hotel Na Rogu,hotel,51.820766,19.503832,0.73,field_survey,2026-08-06
+P00868,Kawiarnia Nowa,cafe,51.813105,19.37374,0.71,partner_feed,2026-01-28
+P00774,Ładowarka Na Rogu,ev_charging,51.770131,19.521194,0.81,user_report,2026-03-13
+P00945,Café Zielona,cafe,51.737663,19.579129,0.99,import_2025,2026-09-08
+P01022,Pierogarnia Na Rogu,restaurant,51.801256,19.590001,0.97,partner_feed,2026-07-06
+P00219,Apteka Nowa,pharmacy,19.411134,51.723335,0.69,user_report,2026-08-21
+P00124,Pierogarnia Słoneczna,restaurant,51.708891,19.465034,0.94,partner_feed,2026-09-24
+P00716,Bistro Kolejowa,restaurant,51.779146,19.593566,0.39,partner_feed,2026-02-01
+P00841,Ładowarka Nowa,ev_charging,51.772526,19.477081,0.82,user_report,2026-03-19
+P00186,Sklep Kolejowa,supermarket,51.777019,19.580992,0.41,partner_feed,2026-10-21
+P00804,Paliwa Pod Lipami,fuel_station,51.793814,19.54377,0.75,partner_feed,2026-07-11
+P01137,Apteka Na Rogu,pharmacy,51.824838,19.371949,0.86,user_report,2026-05-15
+P01023,Apteka Centrum,pharmacy,"51,775511",19.47997,0.66,field_survey,2026-01-25
+P00419,Hotel Pod Lipami,hotel,51.751242,19.388271,0.41,field_survey,2026-09-07
+P00077,Café Łąkowa,cafe,51.797198,19.538056,0.52,import_2025,2026-06-22
+P00104,Parking Parkowa,parking,51.823782,19.373733,0.6,field_survey,2026-07-03
+P00998,Palarnia Parkowa,cafe,51.818004,19.456372,0.37,partner_feed,2026-08-27
+P00239,Parking Pod Lipami,parking,51.780867,19.520451,0.42,import_2025,2026-06-01
+P00996,Przystanek Centrum,bus_stop,51.817751,19.507575,0.44,user_report,2026-08-08
+P00302,Przystanek Kolejowa,bus_stop,51.788179,19.497615,0.76,partner_feed,2026-09-17
+P00181,Parking Kolejowa,parking,51.81551,19.4495,0.78,import_2025,2026-04-07
+P00192,Trattoria Parkowa,restaurant,51.819897,19.457926,0.47,import_2025,2026-09-09
+P00521,Apteka Słoneczna,pharmacy,51.791598,19.436461,0.61,user_report,2026-03-15
+P00359,Hotel Pod Lipami,hotel,51.788026,19.519863,0.73,partner_feed,2026-07-13
+P00628,Restauracja Na Rogu,restaurant,51.812918,19.475083,0.56,field_survey,2026-08-22
+P01124,Ładowarka Nowa,ev_charging,51.77892,19.476501,0.99,import_2025,2026-03-18
+P00533,Przystanek Centrum,bus_stop,51.801466,19.595633,0.7,user_report,2026-02-13
+P00281,Hotel Kolejowa,hotel,51.729396,19.559284,0.41,user_report,2026-01-07
+P00976,Liceum nr 15,school,19.397352,51.82136,0.57,partner_feed,2026-10-03
+P00879,Szkoła Podstawowa nr 33,school,51.82107,19.396766,0.99,partner_feed,2026-07-13
+P00417,Kawiarnia Na Rogu,cafe,51.736304,19.368607,0.68,partner_feed,2026-09-21
+P00288,Palarnia Słoneczna,cafe,51.791894,19.464657,0.62,field_survey,2026-07-19
+P00650,Parking Słoneczna,parking,49.2,19.98,0.38,partner_feed,2026-05-13
+P00366,Hostel Zielona,hotel,51.741942,19.455422,0.78,user_report,2026-05-09
+P01102,Przystanek Łąkowa,bus_stop,51.782083,19.372051,0.89,user_report,2026-10-24
+P00583,Parking Łąkowa,parking,51.714875,19.474075,0.77,user_report,2026-03-26
+P00556,Apteka Centrum,pharmacy,51.748319,19.595151,0.93,field_survey,2026-07-26
+P01118,Stacja Dworcowa,fuel station,51.818798,19.538108,0.51,import_2025,2026-06-17
+P01145,Apteka Nowa,pharmacy,51.746516,19.491432,0.97,import_2025,2026-08-01
+P01059,Apteka Nowa,pharmacy,51.779478,19.558842,0.83,partner_feed,2026-10-01
+P01112,Paliwa Centrum,fuel_station,51.753559,19.510117,0.72,user_report,2026-10-16
+P00444,Ładowarka Nowa,ev_charging,,19.582396,0.88,partner_feed,2026-04-08
+P00573,Przystanek Słoneczna,bus_stop,51.720835,19.522224,0.46,partner_feed,2026-01-25
+P00047,Parking Słoneczna,parking,51.81115,19.496974,0.38,partner_feed,2026-09-09
+P00264,Przystanek Zielona,bus_stop,51.818855,19.353085,0.43,user_report,2026-07-15
+P00884,Przystanek Łąkowa,bus_stop,51.797487,19.442013,0.48,user_report,2026-05-15
+P00838,Sklep Kolejowa,supermarket,51.806961,19.594916,0.86,user_report,2026-06-03
+P00969,Szkoła Podstawowa nr 9,school,51.778583,19.409827,0.64,import_2025,2026-01-08
+P00958,Przystanek Łąkowa,bus_stop,51.794315,19.450638,0.46,partner_feed,2026-04-27
+P00682,Przystanek Na Rogu,bus_stop,51.734278,19.511363,0.87,user_report,2026-02-28
+P00939,Szkoła Podstawowa nr 52,school,51.756133,19.456384,0.85,partner_feed,2026-07-17
+P00159,Palarnia Słoneczna,cafe,51.796721,19.541575,0.8,field_survey,2026-06-13
+P01036,Przystanek Na Rogu,bus_stop,51.723384,19.532604,0.97,user_report,2026-05-14
+P00554,Parking Łąkowa,parking,51.731753,19.53605,0.95,import_2025,2026-04-14
+P00787,Przystanek Kolejowa,bus_stop,51.791815,19.380687,0.51,user_report,2026-01-10
+P00972,Hostel Zielona,hotel,51.712753,19.478804,0.55,import_2025,2026-06-17
+P00222,Sklep Nowa,supermarket,51.786774,19.569834,0.89,partner_feed,2026-07-20
+P00406,Market Kolejowa,supermarket,51.782292,19.389435,0.71,import_2025,2026-04-10
+P00574,Stacja Centrum,fuel_station,51.72415,19.433192,0.4,partner_feed,2026-05-21
+P01092,Przystanek Łąkowa,bus_stop,51.803858,19.367177,0.43,import_2025,2026-02-14
+P01084,Stacja Kolejowa,fuel_station,51.751237,19.548127,0.78,user_report,2026-05-14
+P00361,Przystanek Centrum,bus_stop,51.811479,19.486314,0.95,import_2025,2026-09-04
+P00900,Ładowarka Łąkowa,ev_charging,51.715743,19.370614,0.92,user_report,2026-02-04
+P00247,Sklep Na Rogu,supermarket,51.748393,19.460318,0.9,user_report,2026-06-11
+P00577,Market Pod Lipami,supermarket,51.712565,19.385599,0.93,partner_feed,2026-01-10
+P01200,Café Łąkowa,cafe,51.746394,19.464521,0.63,field_survey,2026-07-25
+P00919,Parking Kolejowa,parking,51.710202,19.48929,0.99,import_2025,2026-08-16
+P00023,Parking Pod Lipami,parking,51.729221,19.442653,0.41,field_survey,2026-08-22
+P00967,Przystanek Zielona,bus_stop,51.708686,19.566656,0.88,import_2025,2026-07-16
+P01044,Przystanek Dworcowa,bus_stop,51.730351,19.428157,0.56,field_survey,2026-08-14
+P00872,Ładowarka Pod Lipami,ev_charging,51.769715,19.361171,0.81,partner_feed,2026-06-23
+P00136,Parking Centrum,parking,51.706152,19.542458,0.57,field_survey,2026-04-19
+P01158,Sklep Słoneczna,supermarket,51.752214,19.359655,0.5,field_survey,2026-01-12
+P00494,Café Dworcowa,cafe,51.741509,19.415569,0.54,partner_feed,2026-01-08
+P00354,Parking Centrum,parking,51.809352,19.531839,0.55,user_report,2026-05-07
+P00289,Liceum nr 10,school,51.81872,19.472545,0.94,field_survey,2026-10-04
+P00492,Trattoria Na Rogu,restaurant,51.813198,19.581312,0.98,partner_feed,2026-09-15
+P00035,Przystanek Dworcowa,bus_stop,51.809613,19.428348,0.41,partner_feed,2026-02-01
+P00630,Przystanek Na Rogu,bus_stop,51.751943,19.558657,0.98,user_report,2026-02-12
+P00006,Restauracja Zielona,restaurant,51.724238,19.547386,0.8,partner_feed,2026-08-13
+P00070,Restauracja Centrum,restaurant,"51,746439",19.353851,0.56,import_2025,2026-02-26
+P00075,Przystanek Kolejowa,bus_stop,51.811985,19.524314,0.49,user_report,2026-06-19
+P00404,Kawiarnia Pod Lipami,cafe,51.764412,19.590745,0.64,partner_feed,2026-02-27
+P01169,Palarnia Pod Lipami,cafe,51.758867,19.410017,0.36,partner_feed,2026-04-10
+P01041,Café Na Rogu,cafe,51.707936,19.426819,0.96,import_2025,2026-04-14
+P01230,Trattoria Zielona,restaurant,51.756628,19.573024,0.37,import_2025,2026-05-01
+P01039,Restauracja Parkowa,restaurant,51.754229,19.555493,0.5,user_report,2026-04-21
+P00391,Sklep Na Rogu,supermarket,,19.495551,0.42,user_report,2026-05-07
+P00326,Liceum nr 49,school,51.749142,19.393399,0.52,user_report,2026-04-09
+P00430,Bistro Parkowa,restaurant,51.769394,19.504287,0.38,field_survey,2026-10-28
+P00042,Przystanek Zielona,bus_stop,,19.401398,0.84,field_survey,2026-10-10
+P01180,Trattoria Zielona,restaurant,51.798609,19.356646,0.96,import_2025,2026-05-11
+P00103,Trattoria Łąkowa,restaurant,51.745097,19.500261,0.4,field_survey,2026-02-02
+P00744,Szkoła Podstawowa nr 28,school,51.76421,19.400507,0.45,field_survey,2026-03-21
+P00292,Liceum nr 46,school,51.786474,19.504823,0.95,field_survey,2026-07-05
+P00664,Liceum nr 11,school,51.719031,19.564579,0.98,user_report,2026-07-14
+P00906,Apteka Parkowa,pharmacy,51.756235,19.377339,0.5,import_2025,2026-10-16
+P01005,Trattoria Na Rogu,restaurant,51.776379,19.456542,0.42,partner_feed,2026-05-04
+P00763,Pierogarnia Pod Lipami,restaurant,51.738978,19.571715,0.46,import_2025,2026-10-15
+P00746,Przystanek Dworcowa,bus_stop,51.714021,19.420998,0.53,import_2025,2026-04-19
+P00193,Trattoria Kolejowa,restaurant,51.716139,19.431736,0.82,field_survey,2026-10-04
+P00470,Sklep Na Rogu,supermarket,51.815396,19.579526,0.44,field_survey,2026-06-18
+P00655,Szkoła Podstawowa nr 30,school,51.811978,19.383459,0.86,import_2025,2026-06-09
+P00988,Palarnia Słoneczna,cafe,51.81359,19.46556,0.54,partner_feed,2026-02-14
+P00536,Paliwa Zielona,fuel_station,51.797007,19.551868,0.38,import_2025,2026-07-02
+P01120,Kawiarnia Dworcowa,cafe,51.803905,19.490954,0.82,partner_feed,2026-05-08
+P00965,Palarnia Parkowa,cafe,51.785605,19.497866,0.98,field_survey,2026-06-13
+P00597,Parking Pod Lipami,parking,51.709769,19.588088,0.5,import_2025,2026-07-09
+P00157,Przystanek Centrum,bus_stop,51.728841,19.360304,0.64,field_survey,2026-02-03
+P00544,Trattoria Nowa,restaurant,51.750402,19.542905,0.61,partner_feed,2026-07-11
+P00374,Kawiarnia Na Rogu,cafe,51.769147,19.403862,0.85,import_2025,2026-02-26
+P00699,Kawiarnia Parkowa,cafe,51.781378,19.55068,12.0,partner_feed,2026-08-24
+P01072,Pierogarnia Łąkowa,restaurant,51.777394,19.39194,0.93,import_2025,2026-09-26
+P00218,Ładowarka Centrum,ev_charging,51.703007,19.482005,0.47,partner_feed,2026-04-21
+P00236,Palarnia Łąkowa,cafe,51.791649,19.575738,0.74,import_2025,2026-02-03
+P00434,Parking Łąkowa,parking,51.787403,19.505709,0.48,partner_feed,2026-08-06
+P00631,Przystanek Słoneczna,bus_stop,51.711931,19.448225,0.47,field_survey,2026-04-20
+P00087,Bistro Słoneczna,restaurant,51.729901,19.428732,0.67,partner_feed,2026-02-10
+P00904,Liceum nr 41,school,51.823587,19.529253,0.71,partner_feed,2026-02-13
+P00981,Restauracja Pod Lipami,restaurant ,51.731549,19.355491,0.91,user_report,2026-03-13
+P01175,Przystanek Centrum,bus_stop,19.452841,51.782243,0.68,user_report,2026-05-22
+P00429,Bistro Na Rogu,restaurant,51.705394,19.41909,0.51,import_2025,2026-08-14
+P00785,Sklep Kolejowa,supermarket,51.787001,19.356575,0.66,import_2025,2026-06-17
+P00197,Bistro Łąkowa,restaurant,51.821424,19.436542,0.39,user_report,2026-05-28
+P00594,Restauracja Centrum,restaurant,51.748462,19.551964,0.96,import_2025,2026-09-23
+P00332,Trattoria Łąkowa,restaurant,51.81871,19.4341,0.85,partner_feed,2026-09-23
+P00121,Palarnia Dworcowa,cafe,51.784262,19.352105,0.38,field_survey,2026-04-11
+P00978,Apteka Pod Lipami,pharmacy,51.787401,19.41266,0.44,field_survey,2026-01-19
+P00339,Apteka Centrum,pharmacy,51.705986,19.357334,0.94,import_2025,2026-03-11
+P00897,Sklep Centrum,supermarket,51.73381,19.591446,0.79,field_survey,2026-09-22
+P00985,Café Parkowa,cafe,51.780085,19.477559,0.52,field_survey,2026-07-26
+P00747,Kawiarnia Słoneczna,cafe,51.801489,19.472329,0.48,import_2025,2026-05-06
+P00278,Parking Na Rogu,parking,51.742245,19.594116,0.76,import_2025,2026-06-25
+P00516,Przystanek Zielona,bus_stop,51.797149,19.419199,-0.2,import_2025,2026-05-21
+P00611,Liceum nr 13,school,51.775699,19.534996,0.56,import_2025,2026-05-06
+P00846,Przystanek Pod Lipami,bus_stop,51.757157,19.486645,0.41,partner_feed,2026-01-17
+P00895,Parking Parkowa,parking,"51,763276",19.512936,0.85,field_survey,2026-04-13
+P00591,Liceum nr 53,school,51.776785,19.584645,0.42,import_2025,2026-07-11
+P00703,Stacja Zielona,fuel_station,51.719756,19.588646,0.68,partner_feed,2026-09-24
+P00875,Bistro Na Rogu,restaurant,51.72717,19.484636,0.81,import_2025,2026-04-23
+P00088,Palarnia Słoneczna,cafe,51.74275,19.358105,0.54,import_2025,2026-07-11
+P00059,Paliwa Zielona,fuel_station,51.787432,19.413253,0.87,user_report,2026-05-20
+P00165,Przystanek Na Rogu,bus_stop,51.81506,19.531043,0.7,field_survey,2026-05-10
+P01045,Liceum nr 32,school,51.758984,19.450688,0.49,user_report,2026-07-21
+P00777,Apteka Słoneczna,pharmacy,51.714509,19.389579,0.39,partner_feed,2026-06-04
+P00589,Hotel Na Rogu,hotel,51.710616,19.456762,0.79,user_report,2026-07-24
+P00283,Hostel Słoneczna,hotel,51.702321,19.452974,0.74,field_survey,2026-05-11
+P00990,Parking Łąkowa,parking,51.749207,19.511284,0.54,user_report,2026-02-20
+P00055,Palarnia Dworcowa,cafe,51.818002,19.462573,0.39,user_report,2026-05-13
+P01013,Przystanek Dworcowa,bus_stop,51.706464,19.390672,0.92,import_2025,2026-10-12
+P00726,Hostel Dworcowa,hotel,51.816521,19.401441,0.75,partner_feed,2026-01-03
+P00358,Parking Na Rogu,parking,51.799492,19.425317,0.87,user_report,2026-03-09
+P00869,Szkoła Podstawowa nr 48,school,51.758434,19.429174,0.8,import_2025,2026-08-25
+P00768,Przystanek Parkowa,bus_stop,51.817147,19.517221,0.45,import_2025,2026-04-03
+P01110,Restauracja Dworcowa,restaurant,51.819022,19.494489,0.36,partner_feed,2026-09-15
+P00937,Parking Zielona,parking,51.73096,19.58854,0.85,user_report,2026-01-05
+P00014,Parking Na Rogu,parking,51.797756,19.421847,0.45,user_report,2026-04-24
+P00649,Sklep Pod Lipami,supermarket,51.71968,19.358306,0.38,import_2025,2026-02-15
+P00126,Stacja Pod Lipami,fuel_station,51.759007,19.463431,0.79,partner_feed,2026-05-07
+P00245,Restauracja Nowa,restaurant,51.724332,19.554673,0.81,user_report,2026-03-14
+P01210,Parking Kolejowa,parking,51.75396,19.566987,0.94,user_report,2026-07-17
+P00894,Paliwa Parkowa,fuel_station,51.820454,19.459308,0.83,user_report,2026-02-25
+P00335,Przystanek Parkowa,bus_stop,51.806632,19.368132,0.8,user_report,2026-02-28
+P00858,Przystanek Słoneczna,bus_stop,51.714112,19.428169,0.62,import_2025,2026-10-22
+P00901,Pierogarnia Zielona,restaurant,51.794016,19.535157,0.56,field_survey,2026-07-14
+P00601,Sklep Centrum,supermarket,51.743482,19.393714,0.72,partner_feed,2026-07-19
+P00715,Restauracja Łąkowa,restaurant,51.790883,19.373457,0.51,partner_feed,2026-02-17
+P00891,Liceum nr 52,school,51.820224,19.576435,0.95,import_2025,2026-07-13
+P00243,Hotel Kolejowa,hotel,51.77401,19.451427,0.78,user_report,2026-06-02
+P00232,Parking Dworcowa,parking,51.717056,19.384967,0.55,user_report,2026-07-20
+P00896,Hotel Kolejowa,hotel,51.704943,19.368846,0.92,partner_feed,2026-07-18
+P01107,Szkoła Podstawowa nr 33,school,51.712104,19.473991,0.83,field_survey,2026-01-10
+P00297,Liceum nr 46,school,51.783958,19.356235,0.92,user_report,2026-04-11
+P00229,Parking Na Rogu,parking,51.772726,,0.67,partner_feed,2026-10-04
+P00765,Hotel Nowa,hotel,51.738561,19.487106,0.4,user_report,2026-05-20
+P00064,Przystanek Kolejowa,bus_stop,51.702599,19.582736,0.83,user_report,2026-09-18
+P00546,Liceum nr 3,school,51.727909,19.547021,0.89,import_2025,2026-08-15
+P00424,Hostel Kolejowa,hotel,51.76442,19.434241,0.87,field_survey,2026-01-09
+P00223,Przystanek Centrum,bus_stop,51.734434,19.456414,0.35,import_2025,2026-05-18
+P01054,Bistro Słoneczna,restaurant,51.788192,19.540357,0.51,user_report,2026-02-04
+P00472,Hostel Łąkowa,hotel,51.768007,19.462345,0.39,field_survey,2026-02-12
+P00788,Restauracja Centrum,restaurant,51.780234,19.360375,0.69,partner_feed,2026-08-03
+P00010,Parking Centrum,parking,51.750121,19.506387,0.59,partner_feed,2026-01-03
+P00834,Pierogarnia Parkowa,restaurant,51.764671,,0.94,import_2025,2026-08-24
+P00811,Apteka Nowa,pharmacy,51.80321,19.400301,0.82,partner_feed,2026-01-26
+P00207,Apteka Dworcowa,pharmacy,51.750781,19.53092,0.74,user_report,2026-09-08
+P00086,Przystanek Zielona,bus_stop,,19.400772,0.5,field_survey,2026-09-20
+P00798,Stacja Parkowa,fuel_station,51.745512,19.581598,0.89,partner_feed,2026-03-09
+P00001,Bistro Nowa,restaurant,51.787431,19.57763,0.73,user_report,2026-10-17
+P00532,Restauracja Dworcowa,restaurant ,51.740065,19.580429,0.8,field_survey,2026-07-27
+P01025,Przystanek Pod Lipami,,51.742569,19.493686,0.37,field_survey,2026-06-21
+P00663,Kawiarnia Dworcowa,cafe,51.781004,19.493938,0.45,import_2025,2026-02-02
+P00832,Bistro Dworcowa,restaurant,19.466539,51.805333,0.51,partner_feed,2026-03-09
+P00178,Market Słoneczna,supermarket,51.758488,19.463867,0.69,import_2025,2026-02-21
+P00890,Przystanek Łąkowa,bus_stop,51.807542,19.410867,0.54,import_2025,2026-06-16
+P01130,Przystanek Nowa,bus_stop,51.78145,19.568392,0.58,user_report,2026-10-01
+P01098,Apteka Łąkowa,pharmacy,51.7311,19.495662,0.36,import_2025,2026-01-22
+P00973,Paliwa Nowa,fuel_station,51.716859,19.559394,0.61,user_report,2026-04-17
+P00907,Sklep Parkowa,supermarket,51.755871,19.573118,0.77,field_survey,2026-04-10
+P01165,Stacja Na Rogu,fuel_station,51.738669,19.50178,0.5,field_survey,2026-04-27
+P00401,Pierogarnia Nowa,restaurant,51.760056,19.468606,0.4,import_2025,2026-07-07
+P00395,Parking Pod Lipami,parking,51.791906,19.492831,0.84,partner_feed,2026-09-27
+P00351,Bistro Parkowa,restaurant,51.819227,19.485561,0.93,import_2025,2026-01-08
+P00338,Paliwa Parkowa,fuel_station,19.414533,51.827087,0.88,field_survey,2026-10-05

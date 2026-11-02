@@ -1,0 +1,425 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "properties": {
+    "district_id": "D01",
+    "name": "Stare Miasto",
+    "population": 25233
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       19.35,
+       51.7
+      ],
+      [
+       19.410535,
+       51.7
+      ],
+      [
+       19.414755,
+       51.738793
+      ],
+      [
+       19.35,
+       51.744132
+      ],
+      [
+       19.35,
+       51.7
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "district_id": "D02",
+    "name": "Bałuty Zachodnie",
+    "population": 29314
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       19.410535,
+       51.7
+      ],
+      [
+       19.481984,
+       51.7
+      ],
+      [
+       19.482927,
+       51.744736
+      ],
+      [
+       19.414755,
+       51.738793
+      ],
+      [
+       19.410535,
+       51.7
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "district_id": "D03",
+    "name": "Widzew Wschód",
+    "population": 31529
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       19.481984,
+       51.7
+      ],
+      [
+       19.539075,
+       51.7
+      ],
+      [
+       19.540757,
+       51.742223
+      ],
+      [
+       19.482927,
+       51.744736
+      ],
+      [
+       19.481984,
+       51.7
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "district_id": "D04",
+    "name": "Górna Polana",
+    "population": 27659
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       19.539075,
+       51.7
+      ],
+      [
+       19.6,
+       51.7
+      ],
+      [
+       19.6,
+       51.743889
+      ],
+      [
+       19.540757,
+       51.742223
+      ],
+      [
+       19.539075,
+       51.7
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "district_id": "D05",
+    "name": "Retkinia Nowa",
+    "population": 86986
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       19.35,
+       51.744132
+      ],
+      [
+       19.414755,
+       51.738793
+      ],
+      [
+       19.405215,
+       51.790734
+      ],
+      [
+       19.35,
+       51.792486
+      ],
+      [
+       19.35,
+       51.744132
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "district_id": "D06",
+    "name": "Chojny Park",
+    "population": 89109
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       19.414755,
+       51.738793
+      ],
+      [
+       19.482927,
+       51.744736
+      ],
+      [
+       19.482637,
+       51.790215
+      ],
+      [
+       19.405215,
+       51.790734
+      ],
+      [
+       19.414755,
+       51.738793
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "district_id": "D07",
+    "name": "Julianów",
+    "population": 18497
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       19.482927,
+       51.744736
+      ],
+      [
+       19.542282,
+       51.787776
+      ],
+      [
+       19.540757,
+       51.742223
+      ],
+      [
+       19.482637,
+       51.790215
+      ],
+      [
+       19.482927,
+       51.744736
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "district_id": "D08",
+    "name": "Teofilów",
+    "population": 20618
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       19.540757,
+       51.742223
+      ],
+      [
+       19.6,
+       51.743889
+      ],
+      [
+       19.6,
+       51.792631
+      ],
+      [
+       19.542282,
+       51.787776
+      ],
+      [
+       19.540757,
+       51.742223
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "district_id": "D09",
+    "name": "Olechów",
+    "population": 77777
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       19.35,
+       51.792486
+      ],
+      [
+       19.405215,
+       51.790734
+      ],
+      [
+       19.407747,
+       51.83
+      ],
+      [
+       19.35,
+       51.83
+      ],
+      [
+       19.35,
+       51.792486
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "district_id": "D10",
+    "name": "Radogoszcz",
+    "population": 65099
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       19.405215,
+       51.790734
+      ],
+      [
+       19.482637,
+       51.790215
+      ],
+      [
+       19.481385,
+       51.83
+      ],
+      [
+       19.407747,
+       51.83
+      ],
+      [
+       19.405215,
+       51.790734
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "district_id": "D11",
+    "name": "Złotno",
+    "population": 92352
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       19.482637,
+       51.790215
+      ],
+      [
+       19.542282,
+       51.787776
+      ],
+      [
+       19.542329,
+       51.83
+      ],
+      [
+       19.481385,
+       51.83
+      ],
+      [
+       19.482637,
+       51.790215
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "district_id": "D12",
+    "name": "Stoki",
+    "population": 89429
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       19.542282,
+       51.787776
+      ],
+      [
+       19.6,
+       51.792631
+      ],
+      [
+       19.6,
+       51.83
+      ],
+      [
+       19.542329,
+       51.83
+      ],
+      [
+       19.542282,
+       51.787776
+      ]
+     ]
+    ]
+   }
+  }
+ ]
+}
