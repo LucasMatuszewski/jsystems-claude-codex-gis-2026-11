@@ -79,9 +79,24 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
+      - name: Check review secret
+        id: secret
+        shell: bash
+        env:
+          OPENAI__KEY: ${{ secrets.AZURE_OPENAI_API_KEY }}
+        run: |
+          set -euo pipefail
+          if [[ -z "${OPENAI__KEY:-}" ]]; then
+            echo "::notice::skipped: secret not configured (AZURE_OPENAI_API_KEY)"
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          fi
+
       # No checkout, execution of PR code, or model call before validation.
       - name: Validate Azure configuration and PR
         id: validate
+        if: steps.secret.outputs.configured == 'true'
         shell: bash
         env:
           OPENAI__KEY: ${{ secrets.AZURE_OPENAI_API_KEY }}
@@ -111,7 +126,7 @@ jobs:
           echo "pr_url=https://github.com/$GITHUB_REPOSITORY/pull/$PR_NUMBER" >> "$GITHUB_OUTPUT"
 
       - name: Automatic review or maintainer comment command
-        if: github.event_name != 'workflow_dispatch'
+        if: steps.secret.outputs.configured == 'true' && github.event_name != 'workflow_dispatch'
         uses: docker://pragent/pr-agent:0.47.0-github_action@sha256:31b9aac6ab067bada9a0c1b001d30ebc500ea4487e00a93c18c59b9ef5fa66db
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -125,7 +140,7 @@ jobs:
 
       # v0.47.0's action runner has no workflow_dispatch handler; use its CLI.
       - name: Manually review the requested PR
-        if: github.event_name == 'workflow_dispatch'
+        if: steps.secret.outputs.configured == 'true' && github.event_name == 'workflow_dispatch'
         shell: bash
         env:
           PR_URL: ${{ steps.validate.outputs.pr_url }}

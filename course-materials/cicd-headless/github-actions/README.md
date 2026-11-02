@@ -26,7 +26,7 @@ Azure also offers a current v1 API with `/openai/v1` and no dated `api-version`.
 1. Fork the course repository and enable Actions in **your fork**. Secrets and variables are not inherited: add all four required values in the fork. GitHub's built-in `GITHUB_TOKEN` is supplied automatically for each job.
 2. If the active workflow is not already present, copy `pr-agent-azure-review.yml` to `.github/workflows/pr-agent-azure-review.yml` and commit it to the fork's default branch. Manual dispatch requires the workflow on that branch.
 3. Create an open, non-draft PR from a branch **inside your fork**, targeting its default branch. Use a small synthetic change with an intentional defect. PRs from another fork are skipped.
-4. Choose **Actions → Community PR-Agent Azure Review → Run workflow**, enter that PR's number, and select the default branch. The preflight fails with a named error if any required key/variable is missing, before a model call. It also rejects non-root endpoints, closed/draft PRs and foreign repository heads.
+4. Choose **Actions → Community PR-Agent Azure Review → Run workflow**, enter that PR's number, and select the default branch. Without `AZURE_OPENAI_API_KEY`, the job succeeds with a "skipped: secret not configured" notice and skips validation and review; with the secret present, missing required variables still fail before a model call. It also rejects non-root endpoints, closed/draft PRs and foreign repository heads.
 5. Check both the workflow conclusion and the actual review comment. A successful job alone does not prove the model gave useful feedback. Confirm the defect is identified, the run details show the configured model, and the reviewed commit is current.
 6. Fix the defect and push another commit. Confirm the automatic `synchronize` path updates the persistent review comment; then use `/review` with current write/maintain/admin repository permission to check the comment-command path. Existing comments should be updated, not multiplied.
 
@@ -39,11 +39,11 @@ For the Anthropic example, set secret `ANTHROPIC_API_KEY` and variable `PR_AGENT
 ## Checks and live evidence
 
 ```bash
-python3 -m unittest discover -s course-materials/cicd-headless/github-actions -p 'test_*.py' -v
+uv run --with pyyaml python -m unittest discover -s course-materials/cicd-headless/github-actions -p 'test_*.py' -v
 actionlint course-materials/cicd-headless/github-actions/pr-agent-azure-review.yml
 ```
 
-Offline contracts execute the actual preflight with a fake GitHub CLI and synthetic key. They verify missing credentials/variables, invalid endpoints/PR numbers, and rejection of closed/draft/fork PRs. Live pilot on **2 October 2026**, using an existing `gpt-6-luna` Azure deployment:
+Offline contracts execute the actual preflight with a fake GitHub CLI and synthetic key. They verify the missing-secret skip, the configured-secret gate, missing variables, invalid endpoints/PR numbers, and rejection of closed/draft/fork PRs. Live pilot on **2 October 2026**, using an existing `gpt-6-luna` Azure deployment:
 
 - Automatic PR-open run succeeded. The model identified the intentionally inverted owner check in a synthetic authorization fixture (1,634 input / 242 output tokens; one model call).
 - Manual dispatch succeeded against the course-material PR. Its 32,000-token budget excluded the long research handbook, and the published review explicitly reported that coverage limit.
@@ -51,7 +51,7 @@ Offline contracts execute the actual preflight with a fake GitHub CLI and synthe
 - Standalone corrected-push run succeeded through the `synchronize` path, with the corrected fixture and persistent review update.
 - Maintainer `/review` run succeeded after checking the caller's repository permission. The same review comment was updated after fixing the defect, and the earlier finding moved to resolved history.
 
-The synthetic validation PR is disposable and is not merged. No authenticated Bitbucket/Jira pilot is implied by these GitHub/Azure results. Missing-key failure and read/triage rejection are exercised offline with synthetic inputs; no real secret was removed to run those checks.
+The synthetic validation PR is disposable and is not merged. No authenticated Bitbucket/Jira pilot is implied by these GitHub/Azure results. Missing-key skip and read/triage rejection are exercised offline with synthetic inputs; no real secret was removed to run those checks.
 
 ## Primary sources
 

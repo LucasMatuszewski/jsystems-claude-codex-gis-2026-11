@@ -22,6 +22,8 @@ W bibliotece znajdują się również **archiwalne materiały z wcześniejszego 
 
 Wybierz materiał do zadania:
 
+- **Projekty na danych publicznych:** [cztery pomysły i pełne prompty PRD](course-materials/Prompt%20examples/PRD-ideas-overview.md), [skrypty pobierania realnych danych GIS](course-materials/exercise-data/real/).
+- **Syntetyczne dane GIS z celowo wprowadzonymi błędami:** [POI, drogi i dzielnice](course-materials/exercise-data/gis/).
 - **Prompty i planowanie:** [PRD](course-materials/Prompt%20examples/PRD-electronics-returns-complains-app.md), [ADR](course-materials/Prompt%20examples/ADR-generation-typescript-vercel-ai-sdk.md), [plan implementacji](course-materials/Prompt%20examples/Plan-SubAgents-matrix-dependency-map.md), [propozycja skilla planowania](https://github.com/EdukeyTeam/agent-toolbox/pull/28) (otwarty PR).
 - **Konfiguracje agentów:** [ustawienia, uprawnienia, profile i skróty Bash/PowerShell](course-materials/agent-configs/).
 - **Hooki i zgody:** [ochrona plików i przykłady hooków](course-materials/hooks-example/), [Context7](course-materials/hooks-example/context7/), [permissions a hooki](course-materials/hooks-example/context7/permissions-vs-hooks.md).
