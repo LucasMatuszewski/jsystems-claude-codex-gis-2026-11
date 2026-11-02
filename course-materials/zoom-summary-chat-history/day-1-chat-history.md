@@ -108,33 +108,6 @@ Wiadomości publiczne w kolejności chronologicznej. Reakcje oznaczają zliczeni
 
   ![Zrzut ekranu z komunikatem o braku dostępu do konta i przyciskiem zmiany konta.](https://raw.githubusercontent.com/LucasMatuszewski/jsystems-claude-codex-gis-2026-11/main/course-materials/zoom-summary-chat-history/day-1-08.png)
 
-- **11:52 — Łukasz Matuszewski:** [dane usunięte], [dane usunięte], [dane usunięte], [dane usunięte], [dane usunięte], [dane usunięte], [dane usunięte], [dane usunięte], [dane usunięte], [dane usunięte], [dane usunięte]
-
-- **11:53 — Łukasz Matuszewski:** [dane usunięte],  
-  [dane usunięte],  
-  [dane usunięte],  
-  [dane usunięte],  
-  [dane usunięte],  
-  [dane usunięte],  
-  [dane usunięte],  
-  [dane usunięte],  
-  [dane usunięte],  
-  [dane usunięte],  
-  [dane usunięte]
-
-- **11:55 — Łukasz Matuszewski:** [dane usunięte]  
-  [dane usunięte]  
-  [dane usunięte]  
-  [dane usunięte]  
-  [dane usunięte]  
-  [dane usunięte]  
-  [dane usunięte]  
-  [dane usunięte]  
-  [dane usunięte]  
-  [dane usunięte]  
-  [dane usunięte]  
-  *Wiadomość edytowana.*
-
 - **12:08 — Łukasz Matuszewski:** curl -fsSL https://claude.ai/install.sh | bash
 
 - **12:08 — Łukasz Matuszewski:** winget install Anthropic.ClaudeCode
@@ -191,14 +164,8 @@ Wiadomości publiczne w kolejności chronologicznej. Reakcje oznaczają zliczeni
 
 - **13:46 — D.:** do mnie jeszcze nie przyszlo zaproszenie ([dane usunięte])
 
-- **13:47 — Łukasz Matuszewski:** [dane usunięte]  
-  *Odpowiedź do D. (13:46).*
-
 - **13:48 — M.:** ja tez nie mam nadal zaproszenia (M.)  
   spam i wszystkie foldery sprawdzilam
-
-- **13:48 — Łukasz Matuszewski:** [dane usunięte]  
-  *Odpowiedź do M. (13:48).*
 
 - **13:48 — M.:** wlasnie mail doszedl  
   *Odpowiedź do M. (13:48).*
