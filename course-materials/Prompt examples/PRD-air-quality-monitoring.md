@@ -30,7 +30,7 @@ Jev by TypeSafe przez OpenRouter jest rozszerzeniem opcjonalnym, wyłączonym w 
 
 Choice ma stałe odpowiedzi `traffic`, `industrial`, `urban_background`, `rural_background`, `unknown`. Definicje klas i semantyka `unknown` muszą być zapisane; wynik to klasa i prawdopodobieństwa. Kod stosuje próg abstencji i nadaje stan `human_review` przy niepewności. Model nie diagnozuje czujnika, nie ustala progów zdrowotnych i nie wykonuje numerycznej detekcji anomalii.
 
-Jeśli rozszerzenie zostanie wybrane, etykiety referencyjne pochodzą z niezależnej oficjalnej klasyfikacji stacji (ukrytej przed modelem) lub ręcznej anotacji jawnych opisów. Podział walidacja/test jest po stacji, bez przecieku tej samej nazwy. Mierz accuracy per klasa, liczebności, macierz pomyłek i coverage po abstencji; oceniaj także przypadki z niepełnym tekstem. Bez opisów i etykiet pomiń moduł zamiast dorabiać dane. Awaria modelu nie przerywa raportu pomiarowego.
+Jeśli rozszerzenie zostanie wybrane, etykiety referencyjne pochodzą z niezależnej oficjalnej klasyfikacji stacji (ukrytej przed modelem) lub ręcznej anotacji jawnych opisów. Podział na walidację i test jest po stacji, bez przecieku tej samej nazwy. Mierz accuracy per klasę, liczebności, macierz pomyłek i coverage po abstencji; oceniaj także przypadki z niepełnym tekstem. Bez opisów i etykiet pomiń moduł zamiast dorabiać dane. Awaria modelu nie przerywa raportu pomiarowego.
 
 ## Kontrole i akceptacja
 
@@ -44,7 +44,7 @@ Porady zdrowotne, oficjalne alerty smogowe, predykcja pogody i stężeń, kalibr
 
 ## Wspólne ograniczenia
 
-- To lokalne MVP dla jednego obszaru, uruchamiane na Windows 11 i Linux przez Python 3.12 + uv, bez Docker, WSL i Hyper-V. Pipeline Python + DuckDB przygotowuje dane i agregaty; dashboard korzysta z jego wyników.
+- To lokalne MVP dla jednego obszaru, uruchamiane na Windows 11 i Linux przez Python 3.12 + uv, bez Dockera, WSL i Hyper-V. Pipeline Python + DuckDB przygotowuje dane i agregaty; dashboard korzysta z jego wyników.
 - Dashboard WWW ma mapę MapLibre GL JS z kaflami OpenFreeMap, bez klucza API (np. styl `https://tiles.openfreemap.org/styles/liberty`). Atrybucje "© OpenStreetMap contributors", OpenFreeMap i OpenMapTiles pozostają widoczne. Dodaj atrybucje warstw tematycznych.
 - Styl wizualny aplikacji weź z tokenów i zasobów utworzonych podczas kursu w `assets/`, a jeśli istnieje, także z `docs/design-guidelines.md`. Nie wymyślaj nowego brandingu; brak tokenów zgłoś jako pytanie.
 - Wejścia pozostają tylko do odczytu. Zapisuj oddzielnie wyniki, raport jakości i decyzje użytkownika. Błąd pobrania, pusty zbiór i brak wartości to różne stany, nigdy poprawne zera.
