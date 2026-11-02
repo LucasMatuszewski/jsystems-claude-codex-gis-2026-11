@@ -6,6 +6,10 @@ Wynik: powtarzalny pipeline Python + DuckDB oraz dashboard z mapą ładowarek OS
 
 Pracuj na Windows 11 lub Linux, z Pythonem 3.12 i uv, bez Dockera, WSL i Hyper-V. Używamy publicznych danych i klucza OpenRouter po stronie backendu. Nie używamy danych firmowych ani prywatnych. Trening na Modal jest osobnym, opcjonalnym rozszerzeniem.
 
+### Wariant bez klucza API
+
+Klucz OpenRouter jest osobną, opcjonalną konfiguracją; konta Claude Code i Codex nie dostarczają tego klucza. Jeśli go nie masz, wykonaj kroki 0-3 oraz samo generowanie kandydatów z kroku 6, bez wywołań Jev. Możesz pracować nad importem, DuckDB, testami, regułami CRS i kolejką ręcznej weryfikacji bez płatnego API. Etap z Jev uruchom dopiero z własnym lub udostępnionym do tego ćwiczenia kluczem i uzgodnionym limitem; nie zakładaj, że klucz został już zapewniony.
+
 ## Źródła i licencje
 
 - [OpenStreetMap](https://www.openstreetmap.org/copyright), pobierane przez [Overpass API](https://wiki.openstreetmap.org/wiki/Overpass_API): amenity=charging_station, pełne tagi i tożsamość (osm_type, osm_id). Licencja ODbL 1.0; pokaż atrybucję "© OpenStreetMap contributors" i sprawdź obowiązki przed udostępnieniem pochodnej bazy. Współrzędne środka way/relation nie są pełną geometrią.
@@ -13,7 +17,7 @@ Pracuj na Windows 11 lub Linux, z Pythonem 3.12 i uv, bez Dockera, WSL i Hyper-V
 - [Downloadery i ich instrukcja](../../exercise-data/real/README.md) dają punkt startowy dla tego samego bbox Łodzi. Nie pobierają dróg ani całego kontekstu sąsiadów. Kontekst wymaga także zwykłych POI, nie samego --ev-only.
 - [Jev: indeks dokumentacji](https://docs.typesafe.ai/llms.txt), [tutorial OpenRouter](https://openrouter.ai/docs/guides/community/jev-tutorial), [Choice](https://docs.typesafe.ai/primitives/choice), [Noul](https://docs.typesafe.ai/primitives/noul). Sprawdź aktualny kontrakt przed implementacją. Jev ma endpoint decyzji, a nie standardowe Chat Completions.
 
-Surowe pobrania zachowaj tylko do odczytu w ignorowanym katalogu danych. Zapisz źródło, zakres, czas pobrania, wydanie, licencje i sumy kontrolne. Publiczne nie oznacza pozbawione ograniczeń licencyjnych.
+Surowe pobrania zachowaj tylko do odczytu w ignorowanym katalogu danych. Zapisz źródło, zakres, czas pobrania, wydanie, licencje i sumy kontrolne. Publiczne nie znaczy wolne od ograniczeń licencyjnych.
 
 ## Co ocenia Jev, a co robi kod
 
@@ -29,7 +33,7 @@ Kod odpowiada za CRS i jednostki, dystans, przestrzenne ograniczenie kandydatów
 ## Budżet i zasady eksperymentu
 
 - Zacznij od 3 próbnych rekordów, potem od próby warstwowej do 60 rekordów oraz najwyżej 12 par Noul. Próbne wywołania też wchodzą do budżetu. Nie uruchamiaj płatnych wywołań podczas samego tworzenia PRD.
-- Limit całego eksperymentu OpenRouter: mniej niż 1 USD. Ustaw limit klucza/konta i niezależny licznik w wrapperze, z rezerwacją kosztu przed wywołaniem. Ogranicz długość wejścia, liczbę prób i współbieżność. Brak informacji o koszcie nie oznacza darmowego wywołania.
+- Limit całego eksperymentu OpenRouter: mniej niż 1 USD. Ustaw limit klucza/konta i niezależny licznik we wrapperze, z rezerwacją kosztu przed wywołaniem. Ogranicz długość wejścia, liczbę prób i współbieżność. Brak informacji o koszcie nie oznacza darmowego wywołania.
 - Zapisuj żądanie bez nagłówka autoryzacji, odpowiedź, model ze snapshotem, wersję pytania, tokeny, koszt, czas i błędy. Cache po skrócie wejścia oraz wersji pytania zapobiega ponownemu płaceniu przy ewaluacji progów.
 - Wysyłaj wyłącznie jawny zestaw cech. Access i etykieta nie mogą trafić do modelu przez JSON, nazwę pliku, opis, log włączony do kontekstu ani cechy pochodne. Klucza nie wypisuj i nie dodawaj do Git.
 - Nie uruchamiaj Overpass równolegle na wszystkich stanowiskach. Najpierw mały bbox; większe pobranie wykonuje jedna osoba i udostępnia lokalnie zgodnie z licencją. HTTP 429/502/504 wymaga ograniczonego retry z przerwą, a nie pętli bez limitu.
@@ -102,7 +106,7 @@ Pomiar z 2 listopada 2026, Overture 2026-10-21.0, Jev typesafe/jev-1.13-20260917
 
 | Pomiar | Wynik referencyjny |
 |---|---|
-| OSM, obszar administracyjny Polski | Około 3000 ładowarek; około 700 z access, około 680 z obsługiwanymi etykietami |
+| OSM, obszar administracyjny Polski (osobne zapytanie area, nie domyślny downloader bbox) | Około 3000 ładowarek; około 700 z access, około 680 z obsługiwanymi etykietami |
 | Obecność tagów OSM | operator około 2000, brand około 400, name około 350, fee około 950, dowolny socket:* około 800 |
 | Overture, bbox 14.07,49.0,24.15,54.85 | Około 1.6 mln wszystkich POI i 3100-3200 POI EV; bbox zawiera także fragmenty sąsiednich krajów |
 | Etykiety po mapowaniu | Około 410 public, 50 customers_only i 220 private |
@@ -125,7 +129,7 @@ Zwrócone 0 USD jest obserwacją konkretnej odpowiedzi API, nie obietnicą darmo
 To osobne zadanie: nazwa POI -> kategoria Overture, a nie dostępność ładowarki ani dopasowanie par. Nie porównuj jego accuracy bezpośrednio z accuracy Choice dostępności.
 
 1. Załóż konto na [modal.com](https://modal.com/) i wybierz Starter. [Cennik](https://modal.com/pricing) sprawdzony 2 listopada 2026 podaje brak opłaty miesięcznej i 30 USD miesięcznie na compute. Sprawdź aktualne warunki, pozostały limit oraz budżet workspace przed treningiem; kredyty nie oznaczają nieograniczonego użycia. Aktualna dokumentacja wymaga ważnej metody płatności do użycia GPU. Jeśli nie chcesz jej dodawać, pomiń uruchomienie treningu. Możesz przygotować i sprawdzić zbiór bez GPU; wynik treningu nie jest wymagany do ukończenia ćwiczenia.
-2. Zainstaluj CLI w PowerShell przy działającym uv i Pythonie 3.12. Nie potrzebujesz lokalnej karty NVIDIA. Logowanie otworzy przeglądarkę; nie wklejaj tokenu do promptu.
+2. Jeśli projekt ma już środowisko, najpierw uzgodnij z agentem dodanie zależności do jego konfiguracji; nie twórz ponownie istniejącej `.venv`. Poniższy blok jest przeznaczony dla osobnego, nowego katalogu eksperymentu. Zainstaluj CLI w PowerShell przy działającym uv i Pythonie 3.12. Nie potrzebujesz lokalnej karty NVIDIA. Logowanie otworzy przeglądarkę; nie wklejaj tokenu do promptu.
 
 ~~~powershell
 $env:PYTHONUTF8="1"
