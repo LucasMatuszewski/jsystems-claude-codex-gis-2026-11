@@ -12,7 +12,7 @@ Repozytorium uczestnika szkolenia JSystems (2-3.11 i 12-13.11.2026, online, 09:0
 
 Pracujemy w terminalu z dwoma agentami: **Claude Code** i **OpenAI Codex CLI**, na kontach szkoleniowych i maszynach wirtualnych. Claude Code pełni rolę agenta prowadzącego i recenzenta, Codex wykonuje zlecone zadania; porównujemy też, kiedy wystarczy tańszy model. Ćwiczenia piszemy w **Pythonie** (uv, pandas, GeoPandas, Shapely, DuckDB z rozszerzeniem spatial, pytest). Kod generują agenci, a Ty prowadzisz proces i sprawdzasz wyniki.
 
-Głównym projektem jest **pipeline kontroli jakości danych mapowych**: syntetyczne punkty POI, odcinki dróg i dzielnice z typowymi błędami. Dane wejściowe i opis ćwiczeń są w [`course-materials/exercise-data/gis/`](course-materials/exercise-data/gis/); kod pipeline'u powstaje w `app/` podczas zajęć. Wszystkie dane są syntetyczne: nie używamy danych ani środowisk firmowych.
+Głównym projektem jest **pipeline kontroli jakości danych mapowych**: syntetyczne punkty POI, odcinki dróg i dzielnice z typowymi błędami. Dane wejściowe i opis ćwiczeń są w [`course-materials/exercise-data/gis/`](course-materials/exercise-data/gis/); kod pipeline'u powstaje w `app/` podczas zajęć. Dane projektu bazowego są syntetyczne; opcjonalne ćwiczenia poniżej korzystają z jawnie wskazanych danych publicznych. Nie używamy danych ani środowisk firmowych.
 
 ## Biblioteka dodatkowa
 
@@ -22,6 +22,7 @@ W bibliotece znajdują się również **archiwalne materiały z wcześniejszego 
 
 Wybierz materiał do zadania:
 
+- **Rekomendowane ćwiczenie na danych publicznych:** [ładowarki EV + decyzje Jev + opcjonalny trening Modal](course-materials/exercises/ev-chargers-jev/). Prowadzisz agentów od pobrania danych do ewaluacji i dashboardu.
 - **Projekty na danych publicznych:** [cztery pomysły i pełne prompty PRD](course-materials/Prompt%20examples/PRD-ideas-overview.md), [skrypty pobierania realnych danych GIS](course-materials/exercise-data/real/).
 - **Syntetyczne dane GIS z celowo wprowadzonymi błędami:** [POI, drogi i dzielnice](course-materials/exercise-data/gis/).
 - **Prompty i planowanie:** [PRD](course-materials/Prompt%20examples/PRD-electronics-returns-complains-app.md), [ADR](course-materials/Prompt%20examples/ADR-generation-typescript-vercel-ai-sdk.md), [plan implementacji](course-materials/Prompt%20examples/Plan-SubAgents-matrix-dependency-map.md), [propozycja skilla planowania](https://github.com/EdukeyTeam/agent-toolbox/pull/28) (otwarty PR).
@@ -34,7 +35,7 @@ Przykłady są opcjonalne: skopiowanie repozytorium nie instaluje hooków ani pr
 
 ## Granice
 
-Używaj wyłącznie danych syntetycznych. Przed przekazaniem kontekstu agentowi sprawdź politykę organizacji i zakres dostępu. Przejrzyj każdy diff, wynik testów i uprawnienia proponowanych narzędzi. Testów nie zmieniaj po to, by ukryć nieukończone zachowanie.
+Używaj danych syntetycznych lub publicznych źródeł wskazanych w wybranym ćwiczeniu, z zachowaniem ich licencji. Przed przekazaniem kontekstu agentowi sprawdź politykę organizacji i zakres dostępu. Przejrzyj każdy diff, wynik testów i uprawnienia proponowanych narzędzi. Testów nie zmieniaj po to, by ukryć nieukończone zachowanie.
 
 Możliwość użycia agenta chmurowego, MCP, CLI i pul AI Credits zależy od planu oraz ustawień organizacji. Agent w IDE i agent chmurowy to osobne środowiska. Funkcje edytora mogą się różnić od CLI i od innych IDE. [Stan narzędzi i źródła](docs/tool-facts.md) wymagają ponownego sprawdzenia przed zajęciami.
 

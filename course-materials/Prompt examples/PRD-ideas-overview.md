@@ -1,5 +1,7 @@
 # Cztery pomysły na projekt GIS
 
+**Rekomendowana ścieżka:** [ładowarki EV + decyzje Jev + opcjonalny trening Modal](../exercises/ev-chargers-jev/README.md). Pełne prompty prowadzą od pobrania danych przez DuckDB, ukryte etykiety access, Choice/Noul i ewaluację progów do dashboardu. Rozwiązanie budujesz z agentami podczas kursu; poniższe cztery pomysły pozostają alternatywami.
+
 Wybierz jeden temat i użyj pełnego promptu z tabeli ze skillem `write-prd` (`claude` -> `/write-prd`). Wynikiem jest `docs/PRD.md`, z pytaniami o zakres, mierzalnymi kryteriami i decyzją o MVP. [Skrypty i instrukcje pobierania realnych danych](../exercise-data/real/) działają przez uv na Windows i Linux. Wielkości wycinków zależą od obszaru i daty; wyniki rzeczywistych pobrań są w ich README.
 
 | Pomysł i prompt | Publiczne źródła | Rozmiar MVP | Co ćwiczymy z agentami | Gdzie pasuje Jev by TypeSafe przez OpenRouter | Ryzyka |
