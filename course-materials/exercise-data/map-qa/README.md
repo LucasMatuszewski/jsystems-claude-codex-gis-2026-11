@@ -1,6 +1,6 @@
 # Rzeczywiste dane do kontroli mapy
 
-Dane wejściowe do [ćwiczenia M1-M7](../../exercises/map-qa-decisions/README.md): Kraków i najbliższe okolice, bbox WGS84 `19.80,49.95,20.15,50.15`. Wszystkie warstwy i zdjęcia dotyczą tego obszaru. Zachowane całe drogi przecinające bbox mogą wychodzić poza jego granice. Pliki wejściowe są tylko do odczytu; wyniki zapisuj w `reports/map-qa/` albo w ignorowanym `data/`.
+Dane wejściowe do [ćwiczenia M1-M7](../../exercises/map-qa-decisions/README.md): Kraków i najbliższe okolice, bbox WGS84 `19.80,49.95,20.15,50.15`. Wszystkie warstwy i zdjęcia dotyczą tego obszaru. Zachowane całe drogi przecinające bbox mogą wychodzić poza jego granice. Pliki wejściowe są tylko do odczytu; raporty zapisuj w `reports/map-qa/`, a pobrania i cache w `course-materials/exercise-data/map-qa/data/` (katalog ignorowany przez Git).
 
 | Źródło | Zawartość snapshotu | Data i licencja |
 |---|---|---|
@@ -94,7 +94,7 @@ uv run --python 3.12 refresh_mapillary_urls.py --out data/photos-refreshed.csv
 uv run --python 3.12 download_photos.py --manifest data/photos-refreshed.csv
 ```
 
-Odśwież drogi OSM i Overture do nowego katalogu. Skrypt pobiera aktualny PBF małopolskiego, konwertuje go przez pyosmium i GeoPandas oraz usuwa własny PBF po konwersji. DuckDB czyta przez HTTPS tylko partycje Overture przecinające obszar, z filtrem bbox. To ścieżka działająca przez uv bez WSL i conda; dołączone pliki pozwalają ją pominąć.
+Odśwież drogi OSM i Overture do nowego katalogu. Pobranie PBF to około 203 MB; odczyt Overture korzysta z żądań zakresowych do dwóch większych partycji. Zarezerwuj kilka minut i co najmniej 2 GB wolnego miejsca na konwersję; czas zależy od łącza i maszyny. Skrypt pobiera aktualny PBF małopolskiego, konwertuje go przez pyosmium i GeoPandas oraz usuwa własny PBF po konwersji. DuckDB czyta przez HTTPS tylko partycje Overture przecinające obszar, z filtrem bbox. To ścieżka działająca przez uv bez WSL i conda; dołączone pliki pozwalają ją pominąć.
 
 ```powershell
 uv run --python 3.12 refresh_sources.py --out data/refreshed
@@ -126,7 +126,7 @@ Set-Location ../../..
 | Chodnik | OSM `sidewalk*` | Brak tagu pozostaje nieznany. |
 | Oświetlenie | OSM `lit` | Widoczna lampa nie dowodzi działania instalacji. |
 
-`maxspeed` może być puste, tekstowe, wielokrotne albo z jednostką. Zachowaj surowe `maxspeed:*`, `when` i `between`; nie sprowadzaj ich do pierwszej liczby. Overture korzysta częściowo ze starszego OSM: w `sources` znajdziesz daty i wersje źródeł. Rozbieżność między snapshotami nie jest automatycznie błędem.
+`maxspeed` może być puste, tekstowe, wielokrotne albo z jednostką. Zachowaj surowe `maxspeed:*` w OSM oraz pola `when` i `between` reguł Overture; nie sprowadzaj ich do pierwszej liczby. Overture korzysta częściowo ze starszego OSM: w `sources` znajdziesz daty i wersje źródeł. Rozbieżność między snapshotami nie jest automatycznie błędem.
 
 ## Etykiety referencyjne do pomiaru jakości
 
