@@ -37,7 +37,7 @@ Wybierz materiał do zadania:
 - **CI/CD i code review:** [przegląd przykładów](course-materials/cicd-headless/), [agent review dla różnych CI](course-materials/cicd-headless/agent-review/), [PR-Agent i Qodo](course-materials/cicd-headless/PR-Agent-Qodo/), [Codex i Bitbucket](course-materials/cicd-headless/codex-bitbucket/).
 - **Ćwiczenia i dalsza lektura:** [dane syntetyczne](course-materials/exercise-data/), [workflow agentów i oszczędzanie tokenów](course-materials/Research/agent-workflows-and-token-budget-2026-10-24.md).
 
-Przykłady są opcjonalne: skopiowanie repozytorium nie instaluje hooków ani profili. Przed uruchomieniem sprawdź instrukcję danego materiału, wersję narzędzia i politykę organizacji.
+Przykłady z biblioteki są opcjonalne i nie instalują się globalnie. Po zaufaniu repozytorium agenty mogą wczytać jego konfigurację projektową, więc przeczytaj ją przed pracą. Przykładowe [hooki do zależności Maven](course-materials/hooks-example/maven-agent-hooks.example.json) pozostają nieaktywne w starterze GIS; własny hook ochrony danych zbudujesz w ćwiczeniu. Przed użyciem przykładu sprawdź jego instrukcję, wersję narzędzia i politykę organizacji.
 
 ## Granice
 
