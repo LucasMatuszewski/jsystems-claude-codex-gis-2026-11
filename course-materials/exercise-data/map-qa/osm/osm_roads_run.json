@@ -1,0 +1,29 @@
+{
+  "accessed_at": "2026-11-02T22:19:24.441352+00:00",
+  "seconds": 2.146,
+  "counts": {
+    "ways": 1638,
+    "with_maxspeed": 209,
+    "mapped_sign_nodes": 2
+  },
+  "bytes": {
+    "osm_api_converted.json": 1353734,
+    "osm_roads.geojson": 1777241,
+    "osm_signs.geojson": 699,
+    "osm_roads.csv": 244899,
+    "osm_api_raw.xml": 7567811
+  },
+  "bbox": [
+    19.445,
+    51.775,
+    19.455,
+    51.785
+  ],
+  "endpoint": "https://api.openstreetmap.org/api/0.6/map?bbox=19.445%2C51.775%2C19.455%2C51.785",
+  "source": "osm-api",
+  "query": null,
+  "osm_base": {
+    "source": "https://api.openstreetmap.org/api/0.6/map?bbox=19.445%2C51.775%2C19.455%2C51.785",
+    "generator": "openstreetmap-cgimap 2.1.0 (2413842 spike-08.openstreetmap.org)"
+  }
+}
