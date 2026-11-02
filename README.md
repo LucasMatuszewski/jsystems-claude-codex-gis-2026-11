@@ -1,14 +1,14 @@
-# COURSE-NAME (COURSE-ORGANIZER)
+# AI dla programistów: agenci AI w pracy z danymi GIS (Claude Code i Codex) (JSystems)
 
-**Materiały szkoleniowe: [devpowers.com/szkolenia/COURSE-SITE](https://devpowers.com/szkolenia/COURSE-SITE/)**
+**Materiały szkoleniowe: [devpowers.com/szkolenia/jsystems/claude-codex-gis-2026-11](https://devpowers.com/szkolenia/jsystems/claude-codex-gis-2026-11/)**
 
-- [Zakres i wszystkie materiały](https://devpowers.com/szkolenia/COURSE-SITE/index.html#prezentacje)
-- [Slajdy](https://devpowers.com/szkolenia/COURSE-SITE/index.html#prezentacje)
-- [Biblioteka promptów](https://devpowers.com/szkolenia/COURSE-SITE/prompty.html) · [Ćwiczenia](https://devpowers.com/szkolenia/COURSE-SITE/cwiczenia.html) · [Checklisty](https://devpowers.com/szkolenia/COURSE-SITE/checklisty.html) · [Słownik AI](https://devpowers.com/szkolenia/COURSE-SITE/slownik-ai.html)
-- [Wyniki ankiety przed szkoleniem](https://devpowers.com/szkolenia/COURSE-SITE/raport-przed.html) · [Odpowiedzi na pytania z kursu](https://devpowers.com/szkolenia/COURSE-SITE/pytania.html) (uzupełniamy po każdym dniu)
+- [Zakres i wszystkie materiały](https://devpowers.com/szkolenia/jsystems/claude-codex-gis-2026-11/index.html#prezentacje)
+- [Slajdy](https://devpowers.com/szkolenia/jsystems/claude-codex-gis-2026-11/index.html#prezentacje)
+- [Biblioteka promptów](https://devpowers.com/szkolenia/jsystems/claude-codex-gis-2026-11/prompty.html) · [Ćwiczenia](https://devpowers.com/szkolenia/jsystems/claude-codex-gis-2026-11/cwiczenia.html) · [Checklisty](https://devpowers.com/szkolenia/jsystems/claude-codex-gis-2026-11/checklisty.html) · [Słownik AI](https://devpowers.com/szkolenia/jsystems/claude-codex-gis-2026-11/slownik-ai.html)
+- [Wyniki ankiety przed szkoleniem](https://devpowers.com/szkolenia/jsystems/claude-codex-gis-2026-11/raport-przed.html) · [Odpowiedzi na pytania z kursu](https://devpowers.com/szkolenia/jsystems/claude-codex-gis-2026-11/pytania.html) (uzupełniamy po każdym dniu)
 
 
-Repozytorium uczestnika szkolenia COURSE-ORGANIZER (COURSE-DATES, online, 09:00-16:00). W czasie szkolenia (COURSE-DURATION) przechodzimy pełny cykl wytwarzania oprogramowania z agentami AI: od pomysłu i wymagań (PRD), przez decyzje architektoniczne (ADR), plan, implementację i testy, po code review, bezpieczeństwo i CI/CD.
+Repozytorium uczestnika szkolenia JSystems (2-3.11 i 12-13.11.2026, online, 09:00-16:00). W czasie szkolenia (4 dni w dwóch blokach po 2 dni) przechodzimy pełny cykl wytwarzania oprogramowania z agentami AI: od pomysłu i wymagań (PRD), przez decyzje architektoniczne (ADR), plan, implementację i testy, po code review, bezpieczeństwo i CI/CD.
 
 Głównym agentem warsztatu jest **OpenAI Codex CLI**, a te same koncepcje pokazujemy także w **Claude Code** i **GitHub Copilot**. Możesz pracować w swoim stosie (np. C# / .NET, Java, Python); przykład prowadzącego powstaje w TypeScript.
 

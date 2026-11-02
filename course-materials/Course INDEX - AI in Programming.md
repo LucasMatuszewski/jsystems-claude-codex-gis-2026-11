@@ -314,7 +314,7 @@ How AI changes developer careers - key insights from the 2026 future-of-work res
     - VS Code harnesses: **Local** (Extension Host, default chat) vs **Agent Host** (separate process running Copilot SDK, Claude and Codex harnesses; needed for Assisted permissions, shared sessions, remote hosts). Connected to WSL/SSH, the agent runs inside that environment: [Agent Host](https://code.visualstudio.com/docs/agents/concepts/agent-host), [Agent harnesses](https://code.visualstudio.com/docs/agents/run/agent-harnesses)
     - For a Windows-native Agent Host, a trusted Dev Drive is the storage alternative to WSL; it improves the Windows filesystem path, while WSL provides a Linux runtime. [Dev Drive details](Research/codex-cli-desktop-projects-wsl-2026-10-14.md#native-windows-performance-alternative-dev-drive).
     - Session history synced to your GitHub account: enable from the Copilot status bar icon (bottom right) > `Session Sync: Enable`: [Session history](https://code.visualstudio.com/docs/agents/run/sessions/session-history)
-    - Answers to participants' Copilot questions (rewind, permissions, Autopilot, skills in JetBrains, nested AGENTS.md, hooks, CI/CD): [Copilot Q&A page](https://devpowers.com/szkolenia/COURSE-SITE/pytania.html)
+    - Answers to participants' Copilot questions (rewind, permissions, Autopilot, skills in JetBrains, nested AGENTS.md, hooks, CI/CD): [Copilot Q&A page](https://devpowers.com/szkolenia/jsystems/claude-codex-gis-2026-11/pytania.html)
   - [Google Antigravity IDE](https://antigravity.google/product/antigravity-ide)
   - [Junie | IntelliJ IDEA Documentation](https://www.jetbrains.com/help/idea/junie.html)
   - [Cline - AI Coding, Open Source and Uncompromised](https://cline.bot/)

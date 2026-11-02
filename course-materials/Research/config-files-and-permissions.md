@@ -63,7 +63,7 @@ prefix_rule(
 - Command matching is literal except a trailing `:*` prefix (`git:*` matches `git status`, `git push`; `git*` matches nothing special); no regex
 - URLs: **`allowedUrls` / `deniedUrls`** in `~/.copilot/settings.json` (JSONC), supports `*.github.com` wildcards; `deniedUrls` always wins; repo `.github/copilot/settings.json` can add `deniedUrls` (union, can never remove)
 - Session commands: `/permissions [default|assisted|allow-all|show]`, `/permissions reset`, `/yolo`; enterprise policy `permissions.disableBypassPermissionsMode`: `"disable"` blocks everything, `"allow-auto-only"` still permits `/permissions assisted`
-- UNCONFIRMED: `defaultPermissionMode: 'assisted'` in settings.json (reported experimental in CLI 1.0.88 on the [Copilot Q&A page](https://devpowers.com/szkolenia/COURSE-SITE/pytania.html)) - absent from the current settings schema (checked 2026-10-01, CLI v1.0.91)
+- UNCONFIRMED: `defaultPermissionMode: 'assisted'` in settings.json (reported experimental in CLI 1.0.88 on the [Copilot Q&A page](https://devpowers.com/szkolenia/jsystems/claude-codex-gis-2026-11/pytania.html)) - absent from the current settings schema (checked 2026-10-01, CLI v1.0.91)
 
 ### Example files in this repo
 

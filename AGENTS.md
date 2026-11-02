@@ -2,7 +2,7 @@
 
 ## Project
 
-This is a **course project** for the "COURSE-NAME" training organized by COURSE-ORGANIZER, COURSE-DURATION (COURSE-DATES), remote on cloud VMs. The primary taught agent is OpenAI Codex CLI, with Claude Code and GitHub Copilot as covered alternatives. The group selects the actual application and change. Greenfield work starts from the empty scaffold and defines the product live; legacy work uses a separate clone of the original application. Its domain, stack and architecture come from the real task and inspected sources, not historical course examples: research → application or feature PRD → ADR → implementation with agents.
+This is a **course project** for the "AI dla programistów: agenci AI w pracy z danymi GIS (Claude Code i Codex)" training organized by JSystems, 4 dni w dwóch blokach po 2 dni (2-3.11 i 12-13.11.2026), remote on cloud VMs. The primary taught agent is OpenAI Codex CLI, with Claude Code and GitHub Copilot as covered alternatives. The group selects the actual application and change. Greenfield work starts from the empty scaffold and defines the product live; legacy work uses a separate clone of the original application. Its domain, stack and architecture come from the real task and inspected sources, not historical course examples: research → application or feature PRD → ADR → implementation with agents.
 
 This is only the **base starting repository** for the course; concrete decisions are made live with the group.
 
