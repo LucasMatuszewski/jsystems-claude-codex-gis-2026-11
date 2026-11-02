@@ -1,10 +1,10 @@
 # Ładowarki EV: dane przestrzenne, decyzje Jev i ocena jakości
 
-To rekomendowane ćwiczenie dla osób pracujących z danymi GIS. Budujesz aplikację z Claude Code i Codexem: rozpoznajesz dane, uzgadniasz PRD, zlecasz implementację z testami, sprawdzasz wyniki i robisz review. W repozytorium są instrukcje i prompty, a rozwiązanie piszecie podczas zajęć.
+To rekomendowane ćwiczenie dla osób pracujących z danymi GIS. Budujesz aplikację z Claude Code i Codexem: rozpoznajesz dane, uzgadniasz PRD, zlecasz implementację z testami, sprawdzasz wyniki i robisz review. W repozytorium są instrukcje i prompty, a rozwiązanie piszesz podczas zajęć.
 
 Wynik: powtarzalny pipeline Python + DuckDB oraz dashboard z mapą ładowarek OSM i Overture, tabelą kandydatów do scalenia, wynikami Jev i kolejką ręcznej weryfikacji. Model ocenia semantykę; kod oblicza odległości, stosuje progi i zapisuje decyzje.
 
-Pracuj na Windows 11 lub Linux, z Pythonem 3.12 i uv, bez Docker, WSL i Hyper-V. Używamy publicznych danych i klucza OpenRouter po stronie backendu. Nie używamy danych firmowych ani prywatnych. Trening na Modal jest osobnym, opcjonalnym rozszerzeniem.
+Pracuj na Windows 11 lub Linux, z Pythonem 3.12 i uv, bez Dockera, WSL i Hyper-V. Używamy publicznych danych i klucza OpenRouter po stronie backendu. Nie używamy danych firmowych ani prywatnych. Trening na Modal jest osobnym, opcjonalnym rozszerzeniem.
 
 ## Źródła i licencje
 
@@ -112,7 +112,7 @@ Pomiar z 2 listopada 2026, Overture 2026-10-21.0, Jev typesafe/jev-1.13-20260917
 | Próg 0.7 na zapisanych rozkładach | Walidacja: około 57% coverage i 24% selective accuracy; test: około 77% i 30% |
 | Próg 0.9 | Walidacja: około 30% coverage i 11% selective accuracy; test: około 47% i 21% |
 | Pary Noul | Około 1200 kandydatur dla całego OSM i 19 dla próby 60 OSM w 150 m; 12 przykładów, prawdopodobieństwa około 0.3-0.9, bez zweryfikowanej prawdy wzorcowej |
-| Czas i koszt OpenRouter | Ewaluacja około 25 s; 71 rzeczywistych żądań łącznie z próbą kontrolną, około 42 tys. tokenów wejścia; API zwróciło koszt 0 USD, konserwatywna rezerwacja 0.71 USD |
+| Czas i koszt OpenRouter | Ewaluacja około 25 s; 71 rzeczywistych żądań: 59 Choice łącznie z próbą kontrolną i 12 Noul; powtarzające się stany korzystały z cache; około 42 tys. tokenów wejścia; API zwróciło koszt 0 USD, konserwatywna rezerwacja 0.71 USD |
 
 **Wniosek do ćwiczenia:** z tych cech często nie da się ustalić prawa dostępu. Żaden z badanych progów na walidacji nie osiągnął celu 80% selective accuracy przy minimum 25% coverage. Nie włączaj automatycznego przypisywania dostępności. Wyższy próg nie poprawił automatycznie jakości, bo model bywa pewny odpowiedzi unknown. To użyteczny wynik negatywny: zmierz ograniczenia, pokaż kolejkę weryfikacji i zdecyduj, jakie dodatkowe dowody są potrzebne. Nie poprawiaj raportu przez usunięcie trudnych rekordów.
 
@@ -122,9 +122,9 @@ Zwrócone 0 USD jest obserwacją konkretnej odpowiedzi API, nie obietnicą darmo
 
 ## 8. Opcjonalnie: wytrenuj mały klasyfikator na Modal
 
-To osobne zadanie: nazwa POI -> kategoria Overture, a nie dostępność ładowarki i nie dopasowanie par. Nie porównuj jego accuracy bezpośrednio z accuracy Choice dostępności.
+To osobne zadanie: nazwa POI -> kategoria Overture, a nie dostępność ładowarki ani dopasowanie par. Nie porównuj jego accuracy bezpośrednio z accuracy Choice dostępności.
 
-1. Załóż konto na [modal.com](https://modal.com/) i wybierz Starter. [Cennik](https://modal.com/pricing) sprawdzony 2 listopada 2026 podaje brak opłaty miesięcznej i 30 USD miesięcznie na compute. Sprawdź aktualne warunki, pozostały limit oraz budżet workspace przed treningiem; kredyty nie oznaczają nieograniczonego użycia. Aktualna dokumentacja wymaga ważnej metody płatności do użycia GPU. Jeśli nie chcesz jej dodawać, pomiń uruchomienie treningu.
+1. Załóż konto na [modal.com](https://modal.com/) i wybierz Starter. [Cennik](https://modal.com/pricing) sprawdzony 2 listopada 2026 podaje brak opłaty miesięcznej i 30 USD miesięcznie na compute. Sprawdź aktualne warunki, pozostały limit oraz budżet workspace przed treningiem; kredyty nie oznaczają nieograniczonego użycia. Aktualna dokumentacja wymaga ważnej metody płatności do użycia GPU. Jeśli nie chcesz jej dodawać, pomiń uruchomienie treningu. Możesz przygotować i sprawdzić zbiór bez GPU; wynik treningu nie jest wymagany do ukończenia ćwiczenia.
 2. Zainstaluj CLI w PowerShell przy działającym uv i Pythonie 3.12. Nie potrzebujesz lokalnej karty NVIDIA. Logowanie otworzy przeglądarkę; nie wklejaj tokenu do promptu.
 
 ~~~powershell
@@ -135,7 +135,7 @@ uv run modal setup
 uv run modal profile current
 ~~~
 
-3. Jeśli projekt ma już środowisko, uzgodnij z agentem instalację w jego zależnościach zamiast zastępować konfigurację. Sprawdź modal --help i [instrukcję instalacji](https://modal.com/docs/guide).
+3. Jeśli projekt ma już środowisko, uzgodnij z agentem instalację w jego zależnościach zamiast zastępować konfigurację. Sprawdź uv run modal --help i [instrukcję instalacji](https://modal.com/docs/guide).
 4. Ustal limit pojedynczego treningu, np. 900 sekund na L4, i limit wydatków workspace. GPU L4 w sprawdzonym cenniku kosztuje 0.000222 USD/s, czyli około 0.13 USD za 10 minut samego GPU; CPU, RAM, przechowywanie i pozostałe zasoby są dodatkowo płatne. Pomiar czasu treningu nie jest rachunkiem końcowym.
 
 Prompt przygotowania danych:
@@ -147,7 +147,7 @@ Dodaj opcjonalny eksperyment nazwa POI -> główna kategoria Overture, oddzielon
 Prompt treningu:
 
 ~~~text
-Najpierw przeczytaj bieżące oficjalne dokumenty Modal o funkcjach GPU, Image i Volume oraz dokumentację użytej wersji Transformers. Sprawdź modal --help i modal profile current bez wypisywania tokenów. Po testach przygotuj modal_train_classifier.py: mały wielojęzyczny encoder, np. distilbert/distilbert-base-multilingual-cased, z głowicą kategorii; jeden trening na L4, jedna epoka, timeout najwyżej 900 s, stały seed i przypięte zależności. Użyj Volume na dane i checkpoint, local_entrypoint do uploadu publicznego zestawu i wywołania funkcji. Nie deployuj endpointu. Podaj komendę uruchomienia oraz oszacowanie GPU, CPU i RAM; trening uruchom tylko na skonfigurowanym profilu w uzgodnionym budżecie. Walidacja służy do strojenia, test tylko do końcowej oceny. Zapisz accuracy, macro-F1, liczby klas, macierz pomyłek, czas, model, wersje i szacunek kosztu oddzielnie od kosztu z panelu. Po zakończeniu sprawdź, że aplikacja nie działa dalej. Jeśli profil jest niedostępny lub build/trening zawiedzie, zachowaj log i oznacz eksperyment jako nieprzetestowany lub nieudany, bez wymyślania metryk. Porównanie z Jev ma sens wyłącznie na identycznym zadaniu nazwa -> kategoria i tym samym holdoucie, w ramach pozostałego budżetu.
+Najpierw przeczytaj bieżące oficjalne dokumenty Modal o funkcjach GPU, Image i Volume oraz dokumentację użytej wersji Transformers. Sprawdź uv run modal --help i uv run modal profile current bez wypisywania tokenów. Po testach przygotuj modal_train_classifier.py: mały wielojęzyczny encoder, np. distilbert/distilbert-base-multilingual-cased, z głowicą kategorii; jeden trening na L4, jedna epoka, timeout najwyżej 900 s, stały seed i przypięte zależności. Użyj Volume na dane i checkpoint, local_entrypoint do uploadu publicznego zestawu i wywołania funkcji. Nie deployuj endpointu. Podaj komendę uruchomienia oraz oszacowanie GPU, CPU i RAM; trening uruchom tylko na skonfigurowanym profilu w uzgodnionym budżecie. Walidacja służy do strojenia, test tylko do końcowej oceny. Zapisz accuracy, macro-F1, liczby klas, macierz pomyłek, czas, model, wersje i szacunek kosztu oddzielnie od kosztu z panelu. Po zakończeniu sprawdź, że aplikacja nie działa dalej. Jeśli profil jest niedostępny lub build/trening zawiedzie, zachowaj log i oznacz eksperyment jako nieprzetestowany lub nieudany, bez wymyślania metryk. Porównanie z Jev ma sens wyłącznie na identycznym zadaniu nazwa -> kategoria i tym samym holdoucie, w ramach pozostałego budżetu.
 ~~~
 
 ## Co oddajesz
