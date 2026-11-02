@@ -30,7 +30,11 @@ Wejścia są opisane w [README danych](../../exercise-data/map-qa/README.md): `s
 
 **Cel:** opisać wynik pracy analityka i sprawdzalne wymagania przed wyborem implementacji. **Agent: Claude Code.**
 
-W Claude Code sprawdź `/skills`; jeśli ta wersja nie ma tej komendy, wpisz `/`, aby zobaczyć dostępne komendy i skille. Obejrzyj instrukcję `write-prd`; wywołaj `/write-prd` lub poproś o użycie skilla po nazwie. W Codexie odpowiednikiem jest `/skills` lub wybór po wpisaniu `$`, np. `$write-prd`. Na przygotowanych VM skille są zainstalowane lokalnie w `.agents/skills`; zwykły klon Git ich nie zawiera. Jeśli ich nie ma na liście, sprawdź katalog projektu i poproś o przywrócenie przygotowanej konfiguracji, zamiast wymyślać treść skilla.
+W Claude Code sprawdź `/skills`; jeśli ta wersja nie ma tej komendy, wpisz `/`, aby zobaczyć dostępne komendy i skille. Obejrzyj instrukcję `write-prd`; wywołaj `/write-prd` lub poproś o użycie skilla po nazwie. W Codexie odpowiednikiem jest `/skills` lub wybór po wpisaniu `$`, np. `$write-prd`. Skille instalowane w projekcie trafiają do `.agents/skills`; zwykły klon Git ich nie zawiera. Jeśli `write-prd` nie ma na liście, uruchom w katalogu repozytorium poniższe polecenie i otwórz agenta ponownie. Nie pozwalaj agentowi wymyślać treści skilla.
+
+```powershell
+npx --yes skills@latest add EdukeyTeam/agent-toolbox --skill '*'
+```
 
 **Prompt do skopiowania:**
 
