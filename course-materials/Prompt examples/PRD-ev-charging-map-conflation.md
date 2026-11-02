@@ -10,7 +10,7 @@ Przygotuj PRD produktu "Mapa ładowarek i luk pokrycia". Analityk GIS porównuje
 
 - Analityk GIS/ETL chce porównać kompletność źródeł i odtworzyć każdą transformację.
 - Redaktor danych rozstrzyga niepewne pary i koryguje klasy dostępności.
-- Osoba planująca infrastrukturę ogląda pokrycie dróg i jakość danych, bez obietnicy dostępności ładowarki teraz.
+- Osoba planująca infrastrukturę ogląda pokrycie dróg i jakość danych, bez obietnicy bieżącej dostępności ładowarki.
 - Obszar: województwo łódzkie; MVP zaczyna od bbox Łodzi `19.25,51.65,19.65,51.90` (west,south,east,north), identycznego dla obu źródeł. Rozszerzenie granic wymaga świadomego pobrania danych.
 - OSM przez [Overpass](https://wiki.openstreetmap.org/wiki/Overpass_API): wszystkie typy obiektów z `amenity=charging_station`, pełne tagi, identyfikator typu i obiektu. Główne drogi pobierz osobnym zapytaniem `highway=motorway|trunk|primary` w tym samym obszarze; zachowaj geometrię linii.
 - [Overture Places](https://docs.overturemaps.org/getting-data/duckdb/): najnowsze wydanie z katalogu STAC, z zapisaną wersją, bbox i kategoriami ładowania. Nie zakładaj identycznej taksonomii ani jednego rekordu na fizyczne miejsce.
@@ -34,10 +34,10 @@ Przygotuj PRD produktu "Mapa ładowarek i luk pokrycia". Analityk GIS porównuje
 ## Ewaluacja i jakość
 
 - Zbiór etykiet dostępności to rekordy OSM MAJĄCE tag `access`. Ukryj tag przed Jev, zachowaj go oddzielnie do oceny. Jawna mapa etykiet: `yes` -> `public`, `customers` -> `customers_only`, `private`/`no` -> `private`; pozostałe wartości do ręcznej interpretacji lub osobno jako nieobsługiwane, bez automatycznej etykiety `unknown`.
-- Podziel dane na zbiór do doboru progu i testowy według fizycznych lokalizacji. Sąsiadujące duplikaty nie mogą trafić do obu części. Raportuj accuracy ogółem i per klasa, liczebności, macierz pomyłek, coverage po abstencji i błędy na odrzuconych przypadkach. Mała lub nieobecna klasa nie daje wiarygodnej oceny: pokaż jej licznik i ograniczenie.
+- Podziel dane na zbiór do doboru progu i testowy według fizycznych lokalizacji. Sąsiadujące duplikaty nie mogą trafić do obu części. Raportuj accuracy ogółem i per klasę, liczebności, macierz pomyłek, coverage po abstencji i błędy na odrzuconych przypadkach. Mała lub nieobecna klasa nie daje wiarygodnej oceny: pokaż jej licznik i ograniczenie.
 - Dobierz próg abstencji na zbiorze walidacyjnym, pokaż zależność jakości od pokrycia. Etykiety OSM mogą być błędne lub nieaktualne; ręcznie sprawdź próbkę. Dopasowania Noul oceniaj na osobno oznaczonych pozytywnych i negatywnych parach, mierząc precision/recall i błędne scalenia.
 - Kontrole kodu: unikalność `(osm_type, osm_id)` i ID Overture, CRS i poprawność geometrii, bbox, brak współrzędnych, puste nazwy/adresy, nieznane jednostki mocy, sprzeczne tagi, zachowanie pełnych tagów i identyfikatorów po scaleniu.
-- Kryteria akceptacji mają objąć: to samo miejsce w dwóch źródłach, różne stacje obok siebie, brak nazwy, sprzecznego operatora, brak `access`, niejednoznaczny model, zerowy wynik pobrania i niedostępne API. Uzgodnij cel jakości zamiast deklarować niezmierzone 95%.
+- Kryteria akceptacji mają objąć: to samo miejsce w dwóch źródłach, różne stacje obok siebie, brak nazwy, sprzeczny operator, brak `access`, niejednoznaczny model, zerowy wynik pobrania i niedostępne API. Uzgodnij cel jakości zamiast deklarować niezmierzone 95%.
 
 ## Poza zakresem
 
@@ -45,7 +45,7 @@ Status ładowarki na żywo, płatności, nawigacja, optymalizacja tras, prognoza
 
 ## Wspólne ograniczenia
 
-- To lokalne MVP dla jednego obszaru, uruchamiane na Windows 11 i Linux przez Python 3.12 + uv, bez Docker, WSL i Hyper-V. Pipeline Python + DuckDB przygotowuje dane i agregaty; dashboard korzysta z jego wyników.
+- To lokalne MVP dla jednego obszaru, uruchamiane na Windows 11 i Linux przez Python 3.12 + uv, bez Dockera, WSL i Hyper-V. Pipeline Python + DuckDB przygotowuje dane i agregaty; dashboard korzysta z jego wyników.
 - Dashboard WWW ma mapę MapLibre GL JS z kaflami OpenFreeMap, bez klucza API (np. styl `https://tiles.openfreemap.org/styles/liberty`). Atrybucje "© OpenStreetMap contributors", OpenFreeMap i OpenMapTiles pozostają widoczne. Dodaj atrybucje warstw tematycznych.
 - Styl wizualny aplikacji weź z tokenów i zasobów utworzonych podczas kursu w `assets/`, a jeśli istnieje, także z `docs/design-guidelines.md`. Nie wymyślaj nowego brandingu; brak tokenów zgłoś jako pytanie.
 - Wejścia pozostają tylko do odczytu. Zapisuj oddzielnie wyniki, raport jakości i decyzje użytkownika. Błąd pobrania, pusty zbiór i brak wartości to różne stany, nigdy poprawne zera.

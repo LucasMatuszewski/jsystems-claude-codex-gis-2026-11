@@ -30,7 +30,7 @@ Jev by TypeSafe przez OpenRouter jest opcjonalnym ćwiczeniem semantycznym, wył
 
 Pytanie Choice: "Jaką funkcję lokalizacji wskazuje nazwa/opis przystanku?" Stałe odpowiedzi: `rail_interchange`, `education`, `healthcare`, `airport`, `other`, `unknown`. Opisz granice klas i sposób obsługi nazwy zawierającej kilka funkcji. Kod stosuje próg abstencji i kieruje niepewne przypadki do `human_review`. Ta etykieta służy do filtrowania mapy, nigdy do obliczeń dostępności.
 
-Jeśli rozszerzenie wejdzie do zakresu, przygotuj ręcznie oznaczone nazwy z każdej klasy, przypadki wieloznaczne i `unknown`, osobny zbiór do progów i testowy. Raportuj accuracy per klasa, macierz pomyłek, liczebności i coverage po abstencji. Bez etykiet nie deklaruj jakości. Awaria OpenRouter nie blokuje mapy ani SQL; żadna część podstawowego pipeline'u nie wymaga AI.
+Jeśli rozszerzenie wejdzie do zakresu, przygotuj ręcznie oznaczone nazwy z każdej klasy, przypadki wieloznaczne i `unknown`, osobny zbiór do progów i testowy. Raportuj accuracy per klasę, macierz pomyłek, liczebności i coverage po abstencji. Bez etykiet nie deklaruj jakości. Awaria OpenRouter nie blokuje mapy ani SQL; żadna część podstawowego pipeline'u nie wymaga AI.
 
 ## Jakość i akceptacja
 
@@ -44,7 +44,7 @@ GTFS-Realtime, prognozy opóźnień, planowanie tras i izochron pieszych, ocena 
 
 ## Wspólne ograniczenia
 
-- To lokalne MVP dla jednego obszaru, uruchamiane na Windows 11 i Linux przez Python 3.12 + uv, bez Docker, WSL i Hyper-V. Pipeline Python + DuckDB przygotowuje dane i agregaty; dashboard korzysta z jego wyników.
+- To lokalne MVP dla jednego obszaru, uruchamiane na Windows 11 i Linux przez Python 3.12 + uv, bez Dockera, WSL i Hyper-V. Pipeline Python + DuckDB przygotowuje dane i agregaty; dashboard korzysta z jego wyników.
 - Dashboard WWW ma mapę MapLibre GL JS z kaflami OpenFreeMap, bez klucza API (np. styl `https://tiles.openfreemap.org/styles/liberty`). Atrybucje "© OpenStreetMap contributors", OpenFreeMap i OpenMapTiles pozostają widoczne. Dodaj atrybucje warstw tematycznych.
 - Styl wizualny aplikacji weź z tokenów i zasobów utworzonych podczas kursu w `assets/`, a jeśli istnieje, także z `docs/design-guidelines.md`. Nie wymyślaj nowego brandingu; brak tokenów zgłoś jako pytanie.
 - Wejścia pozostają tylko do odczytu. Zapisuj oddzielnie wyniki, raport jakości i decyzje użytkownika. Błąd pobrania, pusty zbiór i brak wartości to różne stany, nigdy poprawne zera.

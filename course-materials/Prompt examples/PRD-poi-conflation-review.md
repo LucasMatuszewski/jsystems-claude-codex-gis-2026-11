@@ -34,7 +34,7 @@ Przygotuj PRD produktu "Przegląd jakości POI" dla jednego miasta, Łodzi. Zesp
 
 - Przygotuj słabo etykietowany zbiór rekordów, dla których OSM i Overture zgadzają się co do kategorii po niezależnym deterministycznym crosswalku. Połącz je najpierw po silnych przesłankach, np. zgodnym adresie i publicznym identyfikatorze, z kontrolą odległości; nie używaj oceny badanego Jev do tworzenia etykiet.
 - Ręcznie sprawdź próbkę zgodności oraz osobno pary niezgodne, różne i niepewne. Sama zgodność źródeł faworyzuje łatwe przypadki i nie jest dowodem poprawności. Nie ucz i nie oceniaj na tej samej lokalizacji; wydziel walidację progów oraz test.
-- Dla kategorii raportuj accuracy per klasa i ogółem, macro-F1, macierz pomyłek i liczebności. Dla Noul raportuj precision/recall dla prawdziwych i fałszywych par, koszt fałszywego scalenia oraz coverage i jakość po abstencji. Wskaż klasy bez wystarczających etykiet.
+- Dla kategorii raportuj accuracy per klasę i ogółem, macro-F1, macierz pomyłek i liczebności. Dla Noul raportuj precision/recall dla prawdziwych i fałszywych par, koszt fałszywego scalenia oraz coverage i jakość po abstencji. Wskaż klasy bez wystarczających etykiet.
 - Kod sprawdza: ID i ich powtarzalność, geometrię/CRS/bbox, kolejność współrzędnych, brak nazwy, nieznane kategorie, duplikaty w ramach jednego źródła i rekordy spoza obszaru. Raport ma rozliczać każde wejście jako poprawne, odrzucone albo do weryfikacji.
 - Scenariusze akceptacji: ta sama placówka z inną pisownią, oddziały jednej sieci na sąsiednich ulicach, dwa podmioty pod jednym adresem, POI bez kategorii, konflikt człowieka z modelem, pusty zbiór, ponowny import i niedostępność OpenRouter. Cele liczbowe jakości i limit rozmiaru MVP ustal po policzeniu danych.
 
@@ -44,7 +44,7 @@ Edycja źródeł publicznych, globalna taksonomia, trenowanie modelu, automatycz
 
 ## Wspólne ograniczenia
 
-- To lokalne MVP dla jednego obszaru, uruchamiane na Windows 11 i Linux przez Python 3.12 + uv, bez Docker, WSL i Hyper-V. Pipeline Python + DuckDB przygotowuje dane i agregaty; dashboard korzysta z jego wyników.
+- To lokalne MVP dla jednego obszaru, uruchamiane na Windows 11 i Linux przez Python 3.12 + uv, bez Dockera, WSL i Hyper-V. Pipeline Python + DuckDB przygotowuje dane i agregaty; dashboard korzysta z jego wyników.
 - Dashboard WWW ma mapę MapLibre GL JS z kaflami OpenFreeMap, bez klucza API (np. styl `https://tiles.openfreemap.org/styles/liberty`). Atrybucje "© OpenStreetMap contributors", OpenFreeMap i OpenMapTiles pozostają widoczne. Dodaj atrybucje warstw tematycznych.
 - Styl wizualny aplikacji weź z tokenów i zasobów utworzonych podczas kursu w `assets/`, a jeśli istnieje, także z `docs/design-guidelines.md`. Nie wymyślaj nowego brandingu; brak tokenów zgłoś jako pytanie.
 - Wejścia pozostają tylko do odczytu. Zapisuj oddzielnie wyniki, raport jakości i decyzje użytkownika. Błąd pobrania, pusty zbiór i brak wartości to różne stany, nigdy poprawne zera.
