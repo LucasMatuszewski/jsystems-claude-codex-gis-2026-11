@@ -6,7 +6,7 @@ This is a **course project** for the "AI dla programistów: agenci AI w pracy z 
 
 This is only the **base starting repository** for the course; concrete decisions are made live with the group.
 
-Chat in Polish unless the user asks for another language. Repository documentation uses English unless another project language is agreed. The trainer chooses the teaching language separately. This is a greenfield scaffold, not an agreed product specification. For a legacy-led course, keep materials separate and work in the original application clone; adapt these instructions to its actual stack and verification commands.
+Chat in Polish unless the user asks for another language. Course PRD/ADR exercises and participant-facing project documentation use Polish. Keep filenames and code identifiers in English. The optional teaching library retains its source languages. This is a greenfield scaffold, not an agreed product specification. For a legacy-led course, keep materials separate and work in the original application clone; adapt these instructions to its actual stack and verification commands.
 
 **Key docs** (created during the course — load only when in doubt):
 - `docs/PRD.md` — product requirements and acceptance criteria
@@ -84,7 +84,7 @@ Verify only the scope relevant to your change. If the change affects runtime beh
 
 **Verification:** For runtime changes, start the real application and finish with Manual QA. Record compilation/build, test execution and startup as separate checks, including discovery counts and skips. A successful build or E2E run alone does not establish that the app works. Documentation-only changes use diff, link and consistency checks and do not require application startup. Fix errors and warnings introduced by the change; report pre-existing failures without hiding them.
 
-**Env Vars:** See `.env.example` (OPENROUTER_API_KEY required)
+**Env Vars:** No model API key is required for the synthetic GIS starter, PRD or normal Claude Code/Codex CLI use on the provided accounts. `.env.example` contains optional settings for an explicitly selected API exercise; `OPENROUTER_API_KEY` is needed only when that exercise actually calls OpenRouter.
 
 ### Commit Rules
 - Commit only after verification passes and the changed scope is in a working state.

@@ -14,6 +14,12 @@ Pracujemy w terminalu z dwoma agentami: **Claude Code** i **OpenAI Codex CLI**, 
 
 Głównym projektem jest **pipeline kontroli jakości danych mapowych**: syntetyczne punkty POI, odcinki dróg i dzielnice z typowymi błędami. Dane wejściowe i opis ćwiczeń są w [`course-materials/exercise-data/gis/`](course-materials/exercise-data/gis/); kod pipeline'u powstaje w `app/` podczas zajęć. Dane projektu bazowego są syntetyczne; opcjonalne ćwiczenia poniżej korzystają z jawnie wskazanych danych publicznych. Nie używamy danych ani środowisk firmowych.
 
+## Stan początkowy i pierwsze uruchomienie
+
+To celowo nierozwiązany starter: aplikacja i jej zestaw testów powstaną podczas ćwiczeń. Nie ma jeszcze jednej komendy testów aplikacji do uruchomienia. Na start poproś agenta o przeczytanie `AGENTS.md`, tego README i opisu danych GIS, wskazanie dostępnych plików oraz oddzielenie ustalonych zasad od brakujących decyzji. Nie dopisuj testów ani reguł CRS na podstawie domysłów.
+
+Do zwykłej pracy w Claude Code i Codexie wystarczą konta szkoleniowe. Klucz API OpenRouter i dodatkowe serwery MCP nie są wymagane na start. `.mcp.json` jest pusty; `.mcp.example.json` zachowuje przykłady integracji dla Windows do jawnego skonfigurowania w ćwiczeniu MCP. Logowanie OAuth Context7 jest opisane w [oficjalnej instrukcji](https://context7.com/docs/clients/claude-code). Nie kopiuj całej konfiguracji bez sprawdzenia jej narzędzi i uprawnień.
+
 ## Biblioteka dodatkowa
 
 `course-materials/` zawiera szeroką bibliotekę pełnych promptów, danych syntetycznych, checklist, przykładów konfiguracji i materiałów o innych agentach. To zasób do późniejszego czytania, nie lista narzędzi wymaganych na warsztacie. [Pełne prompty historyczne](course-materials/Prompt%20examples/) zachowano bez skracania; starsze twierdzenia o produktach, licencjach i komendach wymagają ponownego sprawdzenia. Podczas pracy z wybraną aplikacją agent nie powinien sam przeszukiwać `course-materials/`: zawarte tam PRD, ADR i instrukcje są przykładami, a nie wymaganiami tego projektu. Otwórz konkretny materiał dopiero wtedy, gdy go o to poprosisz.
