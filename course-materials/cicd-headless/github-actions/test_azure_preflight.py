@@ -9,13 +9,38 @@ import unittest
 WORKFLOW = Path(__file__).with_name('pr-agent-azure-review.yml')
 
 
-def preflight_script():
-    lines = WORKFLOW.read_text().splitlines()
-    start = lines.index('        run: |') + 1
+def workflow_script(step_id, workflow=WORKFLOW):
+    lines = workflow.read_text().splitlines()
+    step = lines.index(f'        id: {step_id}')
+    start = lines.index('        run: |', step) + 1
     end = start
     while end < len(lines) and (not lines[end].strip() or lines[end].startswith('          ')):
         end += 1
     return textwrap.dedent('\n'.join(lines[start:end]))
+
+
+class SecretGateContracts(unittest.TestCase):
+    def test_missing_secret_skips_and_present_secret_enables_without_disclosure(self):
+        for key, expected in (('', 'false'), ('synthetic-never-log-this-key', 'true')):
+            with self.subTest(configured=bool(key)), tempfile.TemporaryDirectory() as folder:
+                output = Path(folder) / 'output'
+                env = {'PATH': os.defpath, 'OPENAI__KEY': key, 'GITHUB_OUTPUT': str(output)}
+                result = subprocess.run(['bash', '-c', workflow_script('secret')],
+                                        env=env, text=True, capture_output=True)
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertEqual(output.read_text(), f'configured={expected}\n')
+                self.assertNotIn('synthetic-never-log-this-key', result.stdout + result.stderr)
+                if not key:
+                    self.assertIn('skipped: secret not configured', result.stdout)
+
+    def test_active_and_copy_match_and_every_later_step_is_gated(self):
+        import yaml
+        active = WORKFLOW.parents[3] / '.github/workflows/pr-agent-azure-review.yml'
+        self.assertEqual(active.read_text(), WORKFLOW.read_text())
+        steps = yaml.safe_load(WORKFLOW.read_text())['jobs']['review']['steps']
+        self.assertEqual(steps[0]['id'], 'secret')
+        for step in steps[1:]:
+            self.assertIn("steps.secret.outputs.configured == 'true'", step['if'])
 
 
 class AzurePreflightContracts(unittest.TestCase):
@@ -35,7 +60,7 @@ class AzurePreflightContracts(unittest.TestCase):
                    'FAKE_GH_CALLED': str(root / 'called'), 'FAKE_PERMISSION': 'write',
                    'GITHUB_EVENT_NAME': 'workflow_dispatch', 'COMMENT_LOGIN': 'reviewer'}
             env.update(overrides or {})
-            result = subprocess.run(['bash', '-c', preflight_script()], env=env,
+            result = subprocess.run(['bash', '-c', workflow_script('validate')], env=env,
                                     text=True, capture_output=True)
             called = (root / 'called').exists()
             output = (root / 'output').read_text() if (root / 'output').exists() else ''
