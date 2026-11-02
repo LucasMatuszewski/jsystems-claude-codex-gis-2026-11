@@ -72,6 +72,18 @@ class DownloadContracts(unittest.TestCase):
             extract_feed(archive, root / 'good')
             self.assertTrue((root / 'good/stops.txt').is_file())
 
+    def test_new_feed_replaces_previous_files(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            first, second = root / 'a.zip', root / 'b.zip'
+            with zipfile.ZipFile(first, 'w') as z:
+                z.writestr('stops.txt', 'stop_id\n1\n'); z.writestr('calendar.txt', 'service_id\nx\n')
+            with zipfile.ZipFile(second, 'w') as z:
+                z.writestr('stops.txt', 'stop_id\n2\n'); z.writestr('calendar_dates.txt', 'service_id\ny\n')
+            extract_feed(first, root / 'feed')
+            extract_feed(second, root / 'feed')
+            self.assertEqual(sorted(f.name for f in (root / 'feed').iterdir()), ['calendar_dates.txt', 'stops.txt'])
+
 
 if __name__ == '__main__':
     unittest.main()
