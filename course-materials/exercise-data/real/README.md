@@ -4,6 +4,8 @@ Cztery downloadery pobierają małe wycinki prawdziwych, publicznych danych do p
 
 Wyniki trafiają do `course-materials/exercise-data/real/data/`, niezależnie od bieżącego katalogu. Folder jest ignorowany przez Git; pobranych danych nie dodawaj do commita. Każdy skrypt wypisuje liczby rekordów, czas i rozmiary plików oraz zapisuje te same informacje w `*_run.json`. `--out` zmienia katalog wynikowy, a `--timeout` ustawia czas oczekiwania HTTP w sekundach. Ponowne uruchomienie zastępuje pliki danego źródła.
 
+Zdjęcia znaków, drogi i wejścia offline do kontroli atrybutów znajdziesz w [pakiecie map QA](../map-qa/).
+
 ## Polecenia PowerShell
 
 Skrypty OSM i GIOŚ używają biblioteki standardowej Pythona. Overture i GTFS wymagają DuckDB; poniżej wersja użyta w sprawdzeniu.
