@@ -9,10 +9,12 @@ import argparse
 import csv
 import hashlib
 import io
+import os
 from pathlib import Path, PureWindowsPath
 import re
 import shutil
 import sys
+import tempfile
 import time
 from urllib.parse import urlparse
 from urllib.request import Request, urlopen
@@ -114,10 +116,15 @@ def main() -> int:
         content = raw if row["source"] == "Mapillary" else prepare_image(raw)
         if digest(content) != row["sha256"]:
             raise ValueError(f"Niezgodny hash po przeskalowaniu: {row['photo_id']}; zachowaj Pillow 12.0.0 i sprawdź wersję JPEG")
-        temporary = target.with_suffix(".part")
-        with temporary.open("xb") as handle:
-            handle.write(content)
-        temporary.replace(target)
+        # Unique temp file in the target folder: an interrupted run leaves nothing that blocks a retry.
+        fd, temp_name = tempfile.mkstemp(dir=target.parent, prefix=target.name + ".", suffix=".part")
+        temporary = Path(temp_name)
+        try:
+            with os.fdopen(fd, "wb") as handle:
+                handle.write(content)
+            temporary.replace(target)
+        finally:
+            temporary.unlink(missing_ok=True)
         counts["downloaded"] += 1
         print(f"Pobrano {row['photo_id']}", flush=True)
         time.sleep(0.1)

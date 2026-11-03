@@ -9,8 +9,10 @@ import argparse
 from datetime import datetime, timezone
 import hashlib
 import json
+import os
 from pathlib import Path
 import shutil
+import tempfile
 from urllib.request import Request, urlopen
 
 BASE = Path(__file__).resolve().parent
@@ -33,10 +35,15 @@ def osm(args: argparse.Namespace) -> dict:
     if not source.exists():
         if shutil.disk_usage(args.out).free < 2 * 1024**3:
             raise RuntimeError("Potrzebne co najmniej 2 GB wolnego miejsca")
-        temporary = source.with_suffix(".part")
-        with urlopen(url, timeout=90) as response, temporary.open("xb") as target:
-            shutil.copyfileobj(response, target, length=1024 * 1024)
-        temporary.replace(source)
+        # Unique temp file next to the target: an interrupted download leaves nothing that blocks a retry.
+        fd, temp_name = tempfile.mkstemp(dir=source.parent, prefix=source.name + ".", suffix=".part")
+        temporary = Path(temp_name)
+        try:
+            with urlopen(url, timeout=90) as response, os.fdopen(fd, "wb") as target:
+                shutil.copyfileobj(response, target, length=1024 * 1024)
+            temporary.replace(source)
+        finally:
+            temporary.unlink(missing_ok=True)
     with osmium.io.Reader(str(source)) as reader:
         extract_date = reader.header().get("osmosis_replication_timestamp")
     area = box(*args.bbox)

@@ -63,8 +63,18 @@ def main() -> None:
             raise SystemExit(3)
         time.sleep(2)
         result = api("/api/2.0/sql/statements/" + statement_id)
+    # INLINE results may come in several chunks: follow next_chunk_internal_link until all rows are read.
+    chunk = result.get("result") or {}
+    rows = list(chunk.get("data_array") or [])
+    while chunk.get("next_chunk_internal_link"):
+        chunk = api(chunk["next_chunk_internal_link"])
+        rows.extend(chunk.get("data_array") or [])
+    manifest = result.get("manifest", {})
+    expected = manifest.get("total_row_count")
+    if result["status"]["state"] == "SUCCEEDED" and expected is not None and expected != len(rows):
+        raise ValueError(f"Odczytano {len(rows)} z {expected} wierszy")
     # Print only result/schema/status. Never request or print authentication config.
-    print(json.dumps({"statement_id": statement_id, "state": result["status"]["state"], "schema": result.get("manifest", {}).get("schema"), "rows": result.get("result", {}).get("data_array"), "truncated": result.get("manifest", {}).get("truncated")}, ensure_ascii=False, indent=2))
+    print(json.dumps({"statement_id": statement_id, "state": result["status"]["state"], "schema": manifest.get("schema"), "rows": rows, "row_count": len(rows), "chunks": manifest.get("total_chunk_count"), "truncated": manifest.get("truncated")}, ensure_ascii=False, indent=2))
     if result["status"]["state"] != "SUCCEEDED":
         raise SystemExit(2)
 
