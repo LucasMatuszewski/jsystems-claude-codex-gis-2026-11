@@ -13,12 +13,12 @@ To wycinek roboczy, a nie pełna inwentaryzacja miasta. Zdjęcia obejmują róż
 
 ## Trzy sposoby dostępu do danych
 
-W M2 wykonaj odczyt każdą drogą, jak przy pracy z eksportami, hurtownią i zewnętrznymi usługami. Pliki są punktem odniesienia i pozwalają kontynuować bez dostępu do chmury. Polecenia wykonuj w PowerShell z katalogu głównego repozytorium, chyba że sekcja podaje inaczej.
+W M2 obowiązkowo odczytaj pliki i Databricks; Mapillary, Panoramax i Overture przez sieć sprawdź, jeśli masz czas. Pliki są punktem odniesienia i pozwalają kontynuować bez dostępu do chmury. Polecenia wykonuj w PowerShell z katalogu głównego repozytorium, chyba że sekcja podaje inaczej.
 
 | Dostęp | Co odczytasz | Co jest potrzebne |
 |---|---|---|
 | Pliki | GeoParquet OSM/Overture, manifest, zdjęcia i ich atrybucje | Klon repozytorium i uv |
-| Databricks | Te same dane w pięciu tabelach `workspace.map_qa` | Wspólny token SQL, host i warehouse z czatu |
+| Databricks | Te same dane w pięciu tabelach `workspace.map_qa` | Wspólny token SQL i host z czatu; identyfikator warehouse w [DATABRICKS.md](DATABRICKS.md) |
 | API / publiczny bucket | Metadane zdjęć Mapillary i Panoramax, segmenty Overture | Token Mapillary; Panoramax i Overture bez logowania |
 
 ### 1. Pliki: eksport gotowy do analizy
@@ -33,11 +33,11 @@ Obejrzyj manifest `photos.csv` i jedno zdjęcie z `offline/`. Polecenie pokazuje
 
 ### 2. Databricks: wspólne tabele
 
-Prowadzący podaje w czacie Zoom jeden wspólny token z zakresem `sql` (BI Tools), host i identyfikator SQL warehouse. Osobiste konto Free Edition jest opcjonalne i nie jest potrzebne. W [instrukcji Databricks](DATABRICKS.md#odczytaj-pięć-wierszy-przez-cli) zainstaluj CLI, ustaw zmienne i odczytaj pięć wierszy `workspace.map_qa.photos` przez SQL Statement Execution API. Następnie porównaj liczności tabel z profilem plików.
+Prowadzący podaje w czacie Zoom jeden wspólny token z zakresem `sql` (BI Tools) i host. Identyfikator SQL warehouse znajdziesz w [DATABRICKS.md](DATABRICKS.md). Osobiste konto Free Edition jest opcjonalne i nie jest potrzebne. W [instrukcji Databricks](DATABRICKS.md#odczytaj-pięć-wierszy-przez-cli) zainstaluj CLI, ustaw zmienne i odczytaj pięć wierszy `workspace.map_qa.photos` przez SQL Statement Execution API. Następnie porównaj liczności tabel z profilem plików.
 
 Jeśli Databricks jest niedostępny, wykonaj te same kontrole na lokalnych GeoParquet i CSV.
 
-### 3. API: mały odczyt źródłowy
+### 3. API: mały odczyt źródłowy (jeśli masz czas)
 
 **Mapillary.** Prowadzący udostępnia w czacie wspólny token odczytu. Ustaw go sam w terminalu, nie w rozmowie z agentem ani w pliku repozytorium:
 
@@ -102,6 +102,8 @@ Dostarczone połączenia wybierają kandydatów w promieniu 25 m od aparatu. Ran
 Dopasowanie Overture najpierw korzysta z rzeczywistej referencji do OSM z pola `record_id` w liście `sources` segmentu Overture, np. `w123@4`, oraz dystansu. Gdy jej brak, możliwe jest dopasowanie przestrzenne oznaczone `spatial_fallback`. Sprawdź `candidate_flags`: alternatywne drogi, dostęp ograniczony, droga serwisowa, dokładność GPS, nieznany kierunek lub panorama mogą wymagać abstencji. `is_panorama` jest jedynie heurystyką proporcji obrazu; pełny kadr panoramy nie przedstawia jednego kierunku.
 
 Nie przyjmuj tych połączeń jako wzorca. Bliski dojazd, przeciwna jezdnia, wiadukt lub błędna pozycja aparatu mogą dać zły wynik. Pozycja aparatu nie jest pozycją znaku. Brak dopasowania jest stanem danych, nie dowodem błędu mapy.
+
+`heading=0.0` jest poprawną wartością kierunku północnego, nie znacznikiem braku. W sprawdzonych rekordach Panoramax źródłowe `view:azimuth` także wynosi 0. Brak kierunku w `photos.csv` jest zapisany jako puste pole (po wczytaniu może być NULL/NaN); nie zamieniaj go na zero. Kierunek pochodzi z metadanych źródła, a jego zgodność z kadrem wymaga kontroli.
 
 `node_ids` odpowiadają kolejnym wierzchołkom geometrii OSM. Zachowano całe źródłowe ways, aby nie tworzyć sztucznych końców sieci. `boundary_crossing` oznacza wyjście geometrii poza bbox. Nawet wtedy stopień węzła liczony w wycinku może pomijać drogę leżącą poza obszarem; most/tunel wymaga osobnego rozpatrzenia.
 
@@ -190,6 +192,8 @@ Set-Location ../../..
 `maxspeed` może być puste, tekstowe, wielokrotne albo z jednostką. Zachowaj surowe `maxspeed:*` w OSM oraz pola `when` i `between` reguł Overture; nie sprowadzaj ich do pierwszej liczby. Overture korzysta częściowo ze starszego OSM: w `sources` znajdziesz daty i wersje źródeł. Rozbieżność między snapshotami nie jest automatycznie błędem.
 
 ## Etykiety referencyjne do pomiaru jakości
+
+Etykiety przygotował agent AI Codex na podstawie oglądu zdjęć; nie są w całości zweryfikowane przez człowieka. Traktuj je jako roboczą referencję. Każda niezgodność wymaga ręcznego obejrzenia zdjęcia przez człowieka.
 
 `reference_labels.csv` opisuje widoczne cechy 100 obejrzanych zdjęć, bez werdyktów o mapie. Dla 80 zdjęć Panoramax oceniono nawierzchnię, widoczne skrzyżowanie i lampy uliczne. Dla 20 zdjęć Mapillary oceniono te same trzy pytania oraz odczyt wartości znaku. Nie każde zdjęcie ma pewną etykietę każdego pytania. Rodzina drogi, pasy, chodnik i osobne pytanie o samą widoczność znaku nie mają tu etykiet do accuracy; ich rozkłady i decyzje można przeglądać ręcznie, bez wymyślania wyników jakości.
 
