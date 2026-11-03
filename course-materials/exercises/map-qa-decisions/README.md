@@ -159,7 +159,7 @@ Zacznij od małej próbki. Zapisz ochronę kosztu: limit wszystkich prób, brak 
 
 **Jeśli utkniesz:** pierwszy etap ogranicz do kontraktu jednego wejścia i jego testów.
 
-**Rozszerzenie:** zamień tę sprawdzoną sesję w skill projektu, np. `.agents/skills/plan-pipeline/SKILL.md`. Z `skill-creator` wyodrębnij powtarzalne reguły, podaj wejścia, wynik i ograniczenia; fakty projektu pozostaw w PRD. Sprawdź skill w świeżej sesji na innym małym zadaniu, porównując otrzymany plan z kryteriami powyżej.
+**Rozszerzenie:** zamień tę sprawdzoną sesję w skill projektu, np. `.agents/skills/plan-pipeline/SKILL.md`. Poproś agenta (albo skill `skill-creator`, jeśli masz go zainstalowanego), aby wyodrębnił powtarzalne reguły, wejścia, wynik i ograniczenia; fakty projektu pozostaw w PRD. Sprawdź skill w świeżej sesji na innym małym zadaniu, porównując otrzymany plan z kryteriami powyżej.
 
 ## M5. Zbuduj pierwszy etap z testami
 
