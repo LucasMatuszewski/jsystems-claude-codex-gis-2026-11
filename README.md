@@ -1,7 +1,5 @@
 # UPDATES !!!
 
-**[Odpowiedzi na pytania z kursu](https://devpowers.com/szkolenia/jsystems/tomtom-ai-2026-11/pytania.html)**
-
 ## Po pierwszych dwóch dniach (2-3.11)
 
 **Podsumowania i historia czatu** (wszystkie linki, komendy i konfiguracje z zajęć):
