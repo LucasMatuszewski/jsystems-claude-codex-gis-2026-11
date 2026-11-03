@@ -56,6 +56,8 @@ Potrzebujemy narzędzia dla analityka map QA. Wejścia: drogi OSM, segmenty Over
 Najpierw zapytaj o brakujące decyzje: użytkowników, działanie po raporcie, zakres i progi, wynik, niepewność, limit kosztu i elementy poza zakresem. Poczekaj na odpowiedzi. Potem zapisz krótki docs/PRD.md po polsku, z mierzalnymi kryteriami akceptacji. Nie pisz ADR ani kodu. Nie czytaj sekretów i nie uruchamiaj płatnego API. Zatrzymaj się do mojego przeglądu.
 ~~~
 
+**Własny pomysł:** pełniejszy przykład opisu produktu jest w [PRD-map-qa-street-photos.md](../../Prompt%20examples/PRD-map-qa-street-photos.md). Możesz go wkleić zamiast promptu powyżej albo potraktować jako wzór i opisać narzędzie z własnej pracy: inny atrybut, inne źródło, inny odbiorca raportu.
+
 **Sprawdź sam:**
 
 - Agent zadał pytania i poczekał na Twoje odpowiedzi.
@@ -136,6 +138,8 @@ Sprawdź dokumentacje przez Context7 lub u źródła, nie zgaduj API. Zadaj najw
 
 Ustal normalizację bez gubienia tagów i reguł when/between, EPSG:2180 dla metrów, dopasowanie z kierunkiem, remisami, service/access, poziomem i datami. Dostarczone połączenia są kandydatami, nie prawdą terenową. Oddziel odczyt zdjęcia od mapy i etykiet; zachowaj niepewność, licencje i atrybucje. Ustal progi przed pomiarem, limit wszystkich prób HTTP i kosztu, timeout, cache po hashu obrazu/modelu/pytań i brak automatycznych retry. Testy przed kodem, mock API dopiero z bezpiecznego rzeczywistego capture; etap kończy rzeczywisty CLI. Nie odczytuj sekretów ani nie uruchamiaj płatnego API. Zatrzymaj się do przeglądu ADR.
 ~~~
+
+**Własny pomysł:** przykład promptu ADR z linkami do dokumentacji jest w [ADR-generation-python-gis-map-qa.md](../../Prompt%20examples/ADR-generation-python-gis-map-qa.md); dopisz do niego biblioteki, których używasz w pracy.
 
 **Sprawdź sam:** wybrałeś biblioteki po porównaniu; ADR ma linki, powody i Twoje decyzje, a nie domysły agenta.
 
