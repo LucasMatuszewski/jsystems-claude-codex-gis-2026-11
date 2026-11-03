@@ -31,3 +31,11 @@ Metadane pochodne znaków i detekcji w `traffic_signs.geojson` oraz `mapillary_d
 ## Pozostałe dane
 
 `photo_road_links.csv` i `reference_labels.csv` są udostępnione jako **ODbL 1.0**, z zachowaniem atrybucji powiązanych źródeł. Połączenia opisują kandydatów przestrzennych; etykiety referencyjne opisują oglądane kadry. Żaden z tych plików nie zawiera werdyktów o poprawności mapy.
+
+## Dodatkowy zestaw `signs/`
+
+Fotografie Mapillary w `signs/photos/` i ich wycinki w `signs/crops/`: **CC BY-SA 4.0**. Autor (`creator`), sekwencja, data zdjęcia i trwały link `source_url` są zapisane dla każdego obrazu w [signs/signs.csv](signs/signs.csv). Atrybucja pojedynczego zdjęcia obejmuje autora z tego wiersza, identyfikator Mapillary, link do źródła, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) i informację o przekształceniu. Zastosowano wyłącznie wycięcie prostokąta z marginesem, skalowanie pełnego kadru do 1600 px i zapis JPEG; zachowano istniejące rozmycie twarzy i tablic pochodzące od dostawcy. Wycięcie nie usuwa obowiązku atrybucji.
+
+`signs/nearest_osm.csv`: **OpenStreetMap contributors, ODbL 1.0**, [OSM copyright](https://www.openstreetmap.org/copyright). W Krakowie źródłem jest przypięty ekstrakt `osm_roads.parquet`; poza jego zakresem oficjalne API OSM (`osm_api`), użyte po błędach i timeoutach Overpass. Wersja drogi i data źródłowego snapshotu są w osobnych kolumnach. Kandydat został wybrany obliczeniem odległości i podobieństwa kierunku, nie potwierdzony terenowo.
+
+Metadane pochodne Mapillary w `signs/signs.csv`, etykiety w `signs/labels.csv` oraz powiązania OSM udostępniamy jako **ODbL 1.0**, z zachowaniem atrybucji Mapillary i OpenStreetMap. Podstawą publikacji metadanych Mapillary pozostaje wyżej wskazane zezwolenie na pochodne metadane dla społeczności. Licencja metadanych nie zmienia CC BY-SA 4.0 fotografii. Etykiety są roboczym odczytem agentowym, sprawdzonym drugim modelem, nie ground truth.

@@ -1,6 +1,6 @@
 # Rzeczywiste dane do kontroli mapy
 
-Dane wejściowe do [ćwiczenia M1-M7](../../exercises/map-qa-decisions/README.md): Kraków i najbliższe okolice, bbox WGS84 `19.80,49.95,20.15,50.15`. Wszystkie warstwy i zdjęcia dotyczą tego obszaru. Zachowane całe drogi przecinające bbox mogą wychodzić poza jego granice. Pliki wejściowe są tylko do odczytu; raporty zapisuj w `reports/map-qa/`, a pobrania i cache w `course-materials/exercise-data/map-qa/data/` (katalog ignorowany przez Git).
+Dane wejściowe do [ćwiczenia M1-M7](../../exercises/map-qa-decisions/README.md): Kraków i najbliższe okolice, bbox WGS84 `19.80,49.95,20.15,50.15`. Podstawowe warstwy i manifest `photos.csv` dotyczą tego obszaru. Dodatkowy zestaw `signs/` może obejmować inne obszary Polski; sprawdź pole `area` w jego manifeście. Zachowane całe drogi przecinające bbox mogą wychodzić poza jego granice. Pliki wejściowe są tylko do odczytu; raporty zapisuj w `reports/map-qa/`, a pobrania i cache w `course-materials/exercise-data/map-qa/data/` (katalog ignorowany przez Git).
 
 | Źródło | Zawartość snapshotu | Data i licencja |
 |---|---|---|
@@ -205,3 +205,36 @@ To mała próbka z nierównym rozkładem klas, bez gwarancji każdej nawierzchni
 [Licencje i atrybucja](ATTRIBUTION.md) obowiązują także w raportach, miniaturach i eksportach.
 
 Dostęp do tych samych danych w chmurze opisuje [instrukcja Databricks](DATABRICKS.md). Osobiste konto nie jest wymagane.
+
+## Zdjęcia znaków do M5 i M6: `signs/`
+
+To osobny, celowo dobrany zestaw prawdziwych zdjęć z Polski, z przewagą Krakowa. Obejmuje czytelne okrągłe znaki ograniczenia prędkości B-33 oraz trudne negatywy: inne znaki zakazu, koniec ograniczenia, strefę i kadry bez widocznego ograniczenia. Rozkład nie reprezentuje częstości znaków na drogach. Nie zastępuje podstawowego manifestu `photos.csv` ani tabel Databricks.
+
+| Plik | Znaczenie |
+|---|---|
+| `signs/signs.csv` | Identyfikator zdjęcia, obszar, współrzędne aparatu, data, kierunek aparatu, autor, sekwencja, licencja, link do źródła, detekcja Mapillary i hashe |
+| `signs/photos/<photo_id>.jpg` | Pełny kadr, najdłuższy bok do 1600 px |
+| `signs/crops/<photo_id>.jpg` | Wycinek prawdziwego zdjęcia wokół detekcji z marginesem; dla kadru bez znaku cały obraz |
+| `signs/labels.csv` | Roboczy odczyt wycinka, status, metoda, oceniający i uwagi; wejście wyłącznie dla ewaluatora |
+| `signs/nearest_osm.csv` | Kandydat drogi OSM, dystans, różnica kierunku, surowe tagi prędkości, daty, źródło i flagi dopasowania |
+| `signs/build_signs.py` | Weryfikacja offline oraz odtworzenie brakujących zdjęć i wycinków z Mapillary |
+
+Etykiety powstały przez odczyt agenta i niezależny odczyt ponumerowanych wycinków przez drugi model, GLM-5.3-Flash. To **robocza referencja, nie ground truth**. `certain` oznacza zgodność obu odczytów, a nie pewność terenową. Rozbieżności pozostają `uncertain` z uwagą. Wartość liczbowa dotyczy widocznego B-33 w wycinku; `none` oznacza brak takiego znaku, również przy widocznej liczbie na znaku strefy lub końca ograniczenia. `unreadable` oznacza, że wartości nie da się wiarygodnie odczytać. Negatyw dotyczy wycinka, więc w innym miejscu pełnego kadru może występować znak prędkości. `mapillary_value` jest wynikiem detektora dostawcy, a nie etykietą referencyjną. `mapillary_feature_id` wskazuje obiekt użyty do znalezienia zdjęcia, a `mapillary_detection_id` wybraną detekcję w obrazie. Wycinek obejmuje największą detekcję zgodnej klasy w kadrze; nie potwierdza tożsamości konkretnego znaku w 3D. Puste identyfikatory obiektu są poprawne dla kadrów pobranych z sekwencji i negatywów znalezionych bezpośrednio w detekcjach.
+
+Do modelu w M6 wysyłaj tylko neutralny tekst pytania i bajty wycinka. Etykiety, identyfikatory, nazwy plików, wartości Mapillary i atrybuty OSM pozostają poza `state`. Porównanie z mapą następuje po odczycie. Zgodność liczby na zdjęciu z `maxspeed` nie rozstrzyga poprawności mapy: daty mogą się różnić, znak może dotyczyć innej jezdni, a kierunek aparatu nie jest kierunkiem jazdy.
+
+Dopasowanie OSM używa metrycznego EPSG:2180 i metody z `photo_road_links.csv`: lokalny kierunek drogi w otoczeniu +/-5 m od rzutu aparatu, odległość kątowa względem obu kierunków drogi oraz ranking `distance_m + heading_diff_deg/9`. Przy braku kierunku składnik kierunkowy wynosi 5 m; remisy rozstrzyga dystans i identyfikator OSM. Podstawowy promień to 25 m, awaryjny 100 m; kandydat spoza 25 m ma flagę. Poza wycinkiem Krakowa źródłem jest oficjalne API OSM (`source=osm_api`): pobrano mały bbox i wybrano kandydatów do 150 m. Overpass zwracał HTTP 502 lub przekraczał timeout; nie podstawiano pustych odpowiedzi ani wymyślonych tagów. Alternatywy o wyniku różniącym się o mniej niż 2 m oznaczono jako niejednoznaczne. To kandydaci do przeglądu. Daty `osm_timestamp` dotyczą wersji drogi, a `osm_snapshot_timestamp` daty źródłowego snapshotu. API OSM nie podaje daty repliki: dla `osm_api` pole snapshotu jest puste, a czas pobrania zapisano osobno w `context_retrieved_at`. Tagi kierunkowe są względem kolejności węzłów OSM.
+
+Weryfikacja wszystkich hashy, spójności identyfikatorów i limitu rozmiaru, bez tokenu i bez sieci:
+
+```powershell
+uv run --python 3.12 course-materials/exercise-data/map-qa/signs/build_signs.py --verify-only
+```
+
+Odtworzenie brakujących plików wymaga `MAPILLARY_TOKEN` w środowisku; skrypt odświeża `thumb_2048_url` przez Graph API. Nie wypisuj tokenu ani nie zapisuj go w repozytorium.
+
+```powershell
+uv run --python 3.12 course-materials/exercise-data/map-qa/signs/build_signs.py
+```
+
+`source_sha256` identyfikuje pobraną miniaturę przed transformacją, `sha256` pełny kadr po skalowaniu, a `crop_sha256` wycinek. `crop_bbox_px` to `[left, top, right, bottom]` w pikselach miniatury źródłowej, z początkiem w lewym górnym rogu, prawą i dolną granicą wyłączną. Detekcje są zdekodowane z base64/MVT z zachowaniem osi Y obrazu. Kadry zapisano jako JPEG quality 82, wycinki quality 92, Pillow 12.0.0. Zmianami są wyłącznie skalowanie, wycięcie i ponowny zapis JPEG. Zmiana miniatury u dostawcy lub biblioteki JPEG zatrzyma odtwarzanie na niezgodnym hashu; istniejące niespójne pliki nie są nadpisywane. Etykiety i kontekst OSM są przypiętym snapshotem, skrypt nie przelicza ich przy odtwarzaniu zdjęć.

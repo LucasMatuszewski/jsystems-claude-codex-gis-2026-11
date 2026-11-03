@@ -188,7 +188,7 @@ git rev-parse HEAD
 **Prompt:**
 
 ~~~text
-Przeczytaj AGENTS.md, docs/PRD.md, docs/ADR/, docs/plan.md i reports/map-qa/profile.md. Wykonaj tylko pierwszy zatwierdzony etap w app/. Najpierw pytest z wymagań: uruchom i pokaż oczekiwane Red, potem minimum kodu, Green i Refactor. Nie zmieniaj wejść, nie wywołuj modelu, nie odczytuj sekretów. Do testów wybierz kilka prawdziwych rekordów z plików map-qa; wykonaj też rzeczywisty CLI na pełnych plikach map-qa.
+Przeczytaj AGENTS.md, docs/PRD.md, docs/ADR/, docs/plan.md i reports/map-qa/profile.md. Wykonaj tylko pierwszy zatwierdzony etap w app/. Najpierw pytest z wymagań: uruchom i pokaż oczekiwane Red, potem minimum kodu, Green i Refactor. Nie zmieniaj wejść, nie wywołuj modelu, nie odczytuj sekretów. Do testów wybierz kilka prawdziwych wierszy z signs/signs.csv i signs/nearest_osm.csv, połączonych przez photo_id; wykonaj też rzeczywisty CLI na plikach map-qa. signs/ jest w course-materials/exercise-data/map-qa/.
 
 Wybierz najwyżej 6 przypadków testowych dla tego etapu. Dobierz je do zakresu: brak/tekst/jednostki/PL:urban/none/wiele wartości maxspeed, tagi kierunkowe i warunkowe; wszystkie reguły Overture z when/between. Przy łączeniu: obie warstwy w EPSG:2180, znany dystans, dwa bliskie odcinki, heading 359/1, odwrotna geometria i oneway=-1, brak kierunku, remis, service/access i most/tunel. Aparat nie wyznacza kierunku jazdy. Sprawdź wejściowe photo_road_links i odróżnij referencję OSM od joinu przestrzennego. Rozróżniaj brak, nieporównywalność i rozbieżność; zachowuj surowe wartości, daty, identyfikatory i liczniki wyłączeń. Topologię, jeśli jest w zakresie, sprawdzaj przez node_ids; granica wycinka nie dowodzi błędu sieci.
 
@@ -214,16 +214,16 @@ Pokaż osobno wyniki testów i uruchomienia CLI oraz ręcznie sprawdzony przykł
 **Prompt:**
 
 ~~~text
-Przeczytaj AGENTS.md, docs/PRD.md, docs/ADR/, docs/plan.md, app/ i README danych map-qa. Zrealizuj tylko etap Decisions: openai/gpt-6-luna-decisions i typesafe/jev-1.14 przez transport OpenRouter z ADR, nie natywny klient OpenAI. Sprawdź aktualną dokumentację i przypnij wersję SDK. Pytania wyłącznie z PRD. Do state trafia tylko neutralny tekst i obraz jako data URL; nigdy etykiety, nazwy plików, atrybuty mapy ani detekcje. Nie loguj base64 ani sekretów.
+Przeczytaj AGENTS.md, docs/PRD.md, docs/ADR/, docs/plan.md, app/ i README danych map-qa. Zrealizuj etap Decisions: openai/gpt-6-luna-decisions i typesafe/jev-1.14 przez OpenRouter z ADR, nie klient OpenAI. Sprawdź dokumentację i przypnij SDK. Z signs/crops/ odczytuj wartość okrągłego B-33; inne znaki, strefy i końce ograniczeń to none, nieczytelne - unreadable. Brakujące pytanie najpierw uzgodnij w PRD. State: wyłącznie neutralny tekst + obraz jako data URL, bez nazw plików, etykiet, mapy i detekcji. Nie loguj base64 ani sekretów.
 
-Najpierw testy walidacji, limitu, cache i abstencji. Pokaż manifest próbki i maksymalną liczbę żądań, poczekaj na moją zgodę i przydział budżetu przed pierwszym wywołaniem. Limit obejmuje pierwszą próbę i błędy: najwyżej 25 Luna + te same 5 zdjęć Jev, mniej według przydziału. Zero automatycznych retry, także w SDK; timeout 40 s. Po błędzie przerwij płatną pętlę. Pierwszy rzeczywisty request w limicie wykonaj przed mockiem i zachowaj bezpieczny capture: status, nagłówki bez sekretów, pełna odpowiedź, data, endpoint, wersja SDK. Bez dostępu zgłoś brak pomiaru. Cache: hash obrazu + model + wersja pytań, w ignorowanym course-materials/exercise-data/map-qa/data/.
+Najpierw testy walidacji, limitu, cache i abstencji. Pokaż manifest próbki i limit żądań; przed pierwszym wywołaniem poczekaj na moją zgodę i budżet. Limit obejmuje pierwszą próbę i błędy: najwyżej 25 Luna + te same 5 zdjęć Jev, mniej według przydziału. Zero automatycznych retry, także w SDK; timeout 40 s. Po błędzie przerwij płatną pętlę. Pierwszy request z limitu wykonaj przed mockiem. Zachowaj bezpieczny capture: status, nagłówki bez sekretów, pełna odpowiedź, data, endpoint, wersja SDK. Bez dostępu zgłoś brak pomiaru. Cache: hash obrazu + model + wersja pytań, w ignorowanym course-materials/exercise-data/map-qa/data/.
 
-Etykiety reference_labels.csv czyta wyłącznie ewaluator. Accuracy przed abstencją i po niej licz tylko dla etykiet certain danego pytania, z jawnymi mianownikami; pustych nie zamieniaj na none. Pokaż coverage, abstencje, błędy i licznik żądań dla każdego modelu i pytania. Podziel próbkę po sequence; progi ustal przed pomiarem. Porównuj te same obrazy i pytania. Uruchom testy i CLI, pokaż niezgodności do ręcznego przeglądu. Nie edytuj mapy ani nie twórz UI.
+Etykiety signs/labels.csv czyta wyłącznie ewaluator. Robocza referencja: agent + drugi model, nie ground truth. Po odczycie porównaj wynik z signs/signs.csv (mapillary_value) i signs/nearest_osm.csv (surowe maxspeed i tagi kierunkowe). Kierunek aparatu nie oznacza kierunku jazdy; najbliższa droga nie dowodzi obowiązywania znaku. Poniżej progu wstrzymaj ocenę. Accuracy przed abstencją i po niej licz tylko dla certain, z jawnymi mianownikami; pustych nie zamieniaj na none. Pokaż coverage, abstencje, błędy i licznik żądań dla każdego modelu i pytania. Podziel próbkę po sequence; progi ustal przed pomiarem. Porównuj te same obrazy i pytania. Uruchom testy i CLI, pokaż niezgodności do ręcznego przeglądu. Nie edytuj mapy ani nie twórz UI.
 ~~~
 
 **Sprawdź sam:**
 
-- Obejrzyj zdjęcie, pełny rozkład i decyzję kodu; model nie otrzymał mapy ani etykiety.
+- Obejrzyj wycinek, pełny kadr, rozkład i decyzję kodu; model nie otrzymał mapy, detekcji ani etykiety.
 - Licznik obejmuje pierwszą próbę i błędy, ponowne uruchomienie korzysta z cache.
 - Modele porównujesz na tej samej piątce, a metryki mają jawne mianowniki.
 
