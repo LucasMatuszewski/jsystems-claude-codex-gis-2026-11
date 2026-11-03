@@ -1,5 +1,17 @@
 # AI dla programistów: agenci AI w pracy z danymi GIS (Claude Code i Codex) (JSystems)
 
+Wybierz materiał do zadania:
+
+- **Główne ćwiczenie:** [kontrola mapy: od danych do raportu](course-materials/exercises/map-qa-decisions/README.md). PRD, ADR, plan, pipeline z testami i model decyzyjny na [danych OSM, Overture i zdjęciach Krakowa](course-materials/exercise-data/map-qa/README.md).
+- **Rekomendowane ćwiczenie na danych publicznych:** [ładowarki EV + decyzje Jev + opcjonalny trening Modal](course-materials/exercises/ev-chargers-jev/). Prowadzisz agentów od pobrania danych do ewaluacji i dashboardu.
+- **Projekty na danych publicznych:** [cztery pomysły i pełne prompty PRD](course-materials/Prompt%20examples/PRD-ideas-overview.md), [skrypty pobierania realnych danych GIS](course-materials/exercise-data/real/).
+- **Syntetyczne dane GIS z celowo wprowadzonymi błędami:** [POI, drogi i dzielnice](course-materials/exercise-data/gis/).
+- **Prompty i planowanie:** [PRD](course-materials/Prompt%20examples/PRD-electronics-returns-complains-app.md), [ADR](course-materials/Prompt%20examples/ADR-generation-typescript-vercel-ai-sdk.md), [plan implementacji](course-materials/Prompt%20examples/Plan-SubAgents-matrix-dependency-map.md), [propozycja skilla planowania](https://github.com/EdukeyTeam/agent-toolbox/pull/28) (otwarty PR).
+- **Konfiguracje agentów:** [ustawienia, uprawnienia, profile i skróty Bash/PowerShell](course-materials/agent-configs/).
+- **Hooki i zgody:** [ochrona plików i przykłady hooków](course-materials/hooks-example/), [Context7](course-materials/hooks-example/context7/), [permissions a hooki](course-materials/hooks-example/context7/permissions-vs-hooks.md).
+- **CI/CD i code review:** [przegląd przykładów](course-materials/cicd-headless/), [agent review dla różnych CI](course-materials/cicd-headless/agent-review/), [PR-Agent i Qodo](course-materials/cicd-headless/PR-Agent-Qodo/), [Codex i Bitbucket](course-materials/cicd-headless/codex-bitbucket/).
+- **Ćwiczenia i dalsza lektura:** [dane syntetyczne](course-materials/exercise-data/), [workflow agentów i oszczędzanie tokenów](course-materials/Research/agent-workflows-and-token-budget-2026-10-24.md).
+
 **Materiały szkoleniowe: [devpowers.com/szkolenia/jsystems/tomtom-ai-2026-11](https://devpowers.com/szkolenia/jsystems/tomtom-ai-2026-11/)**
 
 - [Zakres i wszystkie materiały](https://devpowers.com/szkolenia/jsystems/tomtom-ai-2026-11/index.html#prezentacje)
@@ -26,17 +38,6 @@ Do zwykłej pracy w Claude Code i Codexie wystarczą konta szkoleniowe. Klucz AP
 
 W bibliotece znajdują się również **archiwalne materiały z wcześniejszego kursu o Claude Code**: [notatki](course-materials/Course%20INDEX%20-%20AI%20in%20Programming.md), [quiz](course-materials/quizzes/day-1-anonymous-ai-basics-quiz.md), [przykłady konfiguracji](course-materials/agent-configs/claude/) i [słownik PDF](course-materials/AI%20dla%20Programist%C3%B3w%20-%20S%C5%82ownik%20przed%20szkoleniem.pdf). Zachowano je jako źródła do ponownego wykorzystania, **nie jako aktualną konfigurację tego warsztatu**. Przykłady ustawień i skrypty należy dostosować i sprawdzić przed użyciem. `course-materials/exercise-data/hidden-patterns.md` jest archiwalnym kluczem trenerskim do danych syntetycznych.
 
-Wybierz materiał do zadania:
-
-- **Główne ćwiczenie:** [kontrola atrybutów mapy ze zdjęć: Luna Decisions + pipeline](course-materials/exercises/map-qa-decisions/). PRD, dane, zasady agentów, TDD i raport kandydatów na konflikt.
-- **Rekomendowane ćwiczenie na danych publicznych:** [ładowarki EV + decyzje Jev + opcjonalny trening Modal](course-materials/exercises/ev-chargers-jev/). Prowadzisz agentów od pobrania danych do ewaluacji i dashboardu.
-- **Projekty na danych publicznych:** [cztery pomysły i pełne prompty PRD](course-materials/Prompt%20examples/PRD-ideas-overview.md), [skrypty pobierania realnych danych GIS](course-materials/exercise-data/real/).
-- **Syntetyczne dane GIS z celowo wprowadzonymi błędami:** [POI, drogi i dzielnice](course-materials/exercise-data/gis/).
-- **Prompty i planowanie:** [PRD](course-materials/Prompt%20examples/PRD-electronics-returns-complains-app.md), [ADR](course-materials/Prompt%20examples/ADR-generation-typescript-vercel-ai-sdk.md), [plan implementacji](course-materials/Prompt%20examples/Plan-SubAgents-matrix-dependency-map.md), [propozycja skilla planowania](https://github.com/EdukeyTeam/agent-toolbox/pull/28) (otwarty PR).
-- **Konfiguracje agentów:** [ustawienia, uprawnienia, profile i skróty Bash/PowerShell](course-materials/agent-configs/).
-- **Hooki i zgody:** [ochrona plików i przykłady hooków](course-materials/hooks-example/), [Context7](course-materials/hooks-example/context7/), [permissions a hooki](course-materials/hooks-example/context7/permissions-vs-hooks.md).
-- **CI/CD i code review:** [przegląd przykładów](course-materials/cicd-headless/), [agent review dla różnych CI](course-materials/cicd-headless/agent-review/), [PR-Agent i Qodo](course-materials/cicd-headless/PR-Agent-Qodo/), [Codex i Bitbucket](course-materials/cicd-headless/codex-bitbucket/).
-- **Ćwiczenia i dalsza lektura:** [dane syntetyczne](course-materials/exercise-data/), [workflow agentów i oszczędzanie tokenów](course-materials/Research/agent-workflows-and-token-budget-2026-10-24.md).
 
 Przykłady z biblioteki są opcjonalne i nie instalują się globalnie. Po zaufaniu repozytorium agenty mogą wczytać jego konfigurację projektową, więc przeczytaj ją przed pracą. Przykładowe [hooki do zależności Maven](course-materials/hooks-example/maven-agent-hooks.example.json) pozostają nieaktywne w starterze GIS; własny hook ochrony danych zbudujesz w ćwiczeniu. Przed użyciem przykładu sprawdź jego instrukcję, wersję narzędzia i politykę organizacji.
 
