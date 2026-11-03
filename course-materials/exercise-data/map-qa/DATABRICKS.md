@@ -48,7 +48,7 @@ databricks version
 databricks current-user me
 ```
 
-Sukces potwierdza uwierzytelnienie wspólnego tokenu, nie osobiste konto uczestnika. Nie przekazuj agentowi pełnej odpowiedzi tożsamości. Sprawdzaj tylko obecność zmiennych, nigdy ich wartości; nie uruchamiaj `databricks auth env`.
+Sukces potwierdza uwierzytelnienie wspólnego tokenu, nie osobiste konto uczestnika. Nie przekazuj agentowi pełnej odpowiedzi z danymi tożsamości. Sprawdzaj tylko obecność zmiennych, nigdy ich wartości; nie uruchamiaj `databricks auth env`.
 
 Przygotuj plik żądania bez sekretów. Kodowanie ASCII wystarcza dla tego zapytania i omija różnicę BOM między Windows PowerShell a PowerShell 7:
 
@@ -82,11 +82,13 @@ $statement = databricks api get "/api/2.0/sql/statements/$($statement.statement_
 
 Powtórz odczyt statusu, a po `SUCCEEDED` pokaż wiersze. `FAILED` lub `CANCELED` to błąd, nie pusty wynik. Nie ponawiaj automatycznie zapytania, które może nadal działać. Pierwszy odczyt może uruchomić zatrzymany warehouse; stan oczekiwania nie jest sam w sobie błędem.
 
-**Alternatywa Python:** `query_databricks.py` używa REST API i biblioteki standardowej, więc nie wymaga osobnej instalacji `databricks-sql-connector` ani `requests`:
+**Alternatywa Python z `requests`:** zamiast `databricks api post` wyślij ten sam plik JSON przez REST. Nie uruchamiaj tego POST ponownie tylko po to, aby odebrać poprzedni wynik.
 
 ```powershell
-uv run --python 3.12 course-materials/exercise-data/map-qa/query_databricks.py --statement "SELECT photo_id, source, heading FROM workspace.map_qa.photos ORDER BY photo_id LIMIT 5"
+uv run --python 3.12 --with requests python -c "import json,os,requests; body=json.load(open('course-materials/exercise-data/map-qa/data/databricks-five.json')); r=requests.post(os.environ['DATABRICKS_HOST'].rstrip('/')+'/api/2.0/sql/statements',headers={'Authorization':'Bearer '+os.environ['DATABRICKS_TOKEN']},json=body,timeout=40); r.raise_for_status(); print(json.dumps(r.json()))"
 ```
+
+Jeśli wynik Pythona ma stan `PENDING` lub `RUNNING`, wykonaj GET dla zwróconego `statement_id`; nie wysyłaj SQL ponownie. Do dalszych kontroli służy też gotowy `query_databricks.py`, który korzysta z REST i biblioteki standardowej oraz sam odpytuje ten sam identyfikator.
 
 **Sprawdź liczności:** tym samym klientem odczytaj pięć tabel i porównaj wynik z profilem plików:
 

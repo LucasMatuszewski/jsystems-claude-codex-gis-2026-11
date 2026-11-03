@@ -4,7 +4,7 @@ Zbudujesz narzędzie dla analityka map QA: połączysz drogi OSM i Overture ze z
 
 ## Szybki start
 
-Na przygotowanej VM Windows otwórz PowerShell. Potrzebne narzędzia: Git, uv, Python 3.12, Claude Code i Codex CLI. Nie potrzebujesz WSL ani Dockera. Poniższe cztery polecenia sprawdzają repozytorium i lokalne dane:
+Na przygotowanej VM Windows otwórz PowerShell. Potrzebne narzędzia: Git, uv, Python 3.12, Claude Code i Codex CLI. Nie potrzebujesz WSL ani Dockera. Pierwsza instalacja Pythona, bibliotek i rozszerzenia spatial wymaga internetu. Poniższe cztery polecenia sprawdzają repozytorium i lokalne dane; pierwsze 10 zdjęć downloader odtwarza z `offline/`:
 
 ```powershell
 Set-Location D:\jsystems-claude-codex-gis-2026-11
@@ -34,7 +34,7 @@ Zostajesz w katalogu głównym repozytorium. [README danych](../../exercise-data
 | M6 | Claude Code | Mała próba modelu decyzyjnego |
 | M7 | Codex i Claude Code | Raport i dwa przeglądy |
 
-Przed zmianą agenta sprawdź diff i zakończ jego narzędzia. Jeden agent edytuje dany plik w danej chwili. Zachowaj istniejący PRD i wcześniejszą pracę. M1-M5 nie wymagają płatnego modelu API; zapytania SQL mogą uruchomić współdzielony warehouse. M6 wymaga przydziału ze wspólnego limitu przez prowadzącego.
+Przed zmianą agenta sprawdź diff i zakończ sesję agenta. Jeden agent edytuje dany plik w danej chwili. Zachowaj istniejący PRD i wcześniejszą pracę. M1-M5 nie wymagają płatnego modelu API; zapytania SQL mogą uruchomić współdzielony warehouse. M6 wymaga przydziału ze wspólnego limitu przez prowadzącego.
 
 ## M1. Uzgodnij PRD
 
@@ -70,7 +70,7 @@ Najpierw zapytaj o brakujące decyzje: użytkowników, działanie po raporcie, z
 
 **Cel:** wykonać odczyt z plików, Databricks i API przed projektem pipeline'u. **Agent: Codex.**
 
-W [instrukcji źródeł](../../exercise-data/map-qa/README.md#trzy-sposoby-dostępu-do-danych) wykonaj: lokalny profil i kontrolę GeoPandas, odczyt pięciu wierszy Databricks oraz po jednym odczycie Mapillary, Panoramax i Overture. Tokeny wprowadzasz sam w PowerShell; do agenta trafiają tylko nazwy zmiennych. Przy niedostępnym źródle zanotuj brak i użyj plików, bez blokowania ćwiczenia.
+Najpierw sam sprawdź dostęp. W [instrukcji źródeł](../../exercise-data/map-qa/README.md#trzy-sposoby-dostępu-do-danych) wykonaj: lokalny profil i kontrolę GeoPandas, odczyt pięciu wierszy Databricks oraz po jednym odczycie Mapillary, Panoramax i Overture. Tokeny wprowadzasz sam w PowerShell; do agenta trafiają tylko nazwy zmiennych. Przy niedostępnym źródle zanotuj brak i użyj plików, bez blokowania ćwiczenia. Potem agent wykona własne małe odczyty do powtarzalnego profilu.
 
 **Prompt:**
 
@@ -124,7 +124,7 @@ Pokaż diff i kolizje zasad; nie usuwaj ich po cichu. Zakończ bez implementacji
 **Prompt:**
 
 ~~~text
-Użyj skilla write-adr. Przeczytaj AGENTS.md, docs/PRD.md i reports/map-qa/profile.md oraz schematy wskazanych danych map-qa. Nie pisz kodu. Zanim zapiszesz ADR, przedstaw kandydatów z linkami do aktualnej oficjalnej dokumentacji i krótkimi kompromisami:
+Użyj skilla write-adr. Przeczytaj AGENTS.md, docs/PRD.md i reports/map-qa/profile.md oraz schematy danych map-qa wskazane w profilu. Nie pisz kodu. Zanim zapiszesz ADR, przedstaw kandydatów z linkami do aktualnej oficjalnej dokumentacji i krótkimi kompromisami:
 - DuckDB spatial kontra GeoPandas/Shapely/pyproj dla obliczeń przestrzennych;
 - lokalne GeoParquet kontra tabele Databricks przez CLI/REST, MCP opcjonalnie;
 - OpenRouter SDK client.alpha.decisions.create kontra surowy POST /api/alpha/decisions;
@@ -137,7 +137,7 @@ Ustal normalizację bez gubienia tagów i reguł when/between, EPSG:2180 dla met
 
 **Sprawdź sam:** wybrałeś biblioteki po porównaniu; ADR ma linki, powody i Twoje decyzje, a nie domysły agenta.
 
-**Jeśli utkniesz:** wybierz lokalne GeoParquet i CLI, dashboard pozostaw poza pierwszą wersją.
+**Jeśli utkniesz:** przy braku `write-adr` powtórz instalację z M1 i zrestartuj Codexa; przy trudnościach z wyborem zacznij od lokalnych GeoParquet i CLI.
 
 ### M4b. Plan z promptu
 
@@ -170,7 +170,7 @@ Zacznij od małej próbki. Zapisz ochronę kosztu: limit wszystkich prób, brak 
 ~~~text
 Przeczytaj AGENTS.md, docs/PRD.md, docs/ADR/, docs/plan.md i reports/map-qa/profile.md. Wykonaj tylko pierwszy zatwierdzony etap w app/. Najpierw pytest z wymagań: uruchom i pokaż oczekiwane Red, potem minimum kodu, Green i Refactor. Nie zmieniaj wejść, nie wywołuj modelu, nie odczytuj sekretów. Dane syntetyczne są tylko do małych testów; wykonaj też rzeczywisty CLI na plikach map-qa.
 
-Dobierz przypadki do etapu: brak/tekst/jednostki/PL:urban/none/wiele wartości maxspeed, tagi kierunkowe i warunkowe; wszystkie reguły Overture z when/between. Przy łączeniu: obie warstwy w EPSG:2180, znany dystans, dwa bliskie odcinki, heading 359/1, odwrotna geometria i oneway=-1, brak kierunku, remis, service/access i most/tunel. Aparat nie wyznacza kierunku jazdy. Sprawdź wejściowe photo_road_links i odróżnij referencję OSM od joinu przestrzennego. Rozróżniaj brak, nieporównywalność i rozbieżność; zachowuj surowe wartości, daty, identyfikatory i liczniki wyłączeń. Dla topologii, tylko jeśli w zakresie, użyj node_ids; granica wycinka nie dowodzi błędu sieci.
+Dobierz przypadki do etapu: brak/tekst/jednostki/PL:urban/none/wiele wartości maxspeed, tagi kierunkowe i warunkowe; wszystkie reguły Overture z when/between. Przy łączeniu: obie warstwy w EPSG:2180, znany dystans, dwa bliskie odcinki, heading 359/1, odwrotna geometria i oneway=-1, brak kierunku, remis, service/access i most/tunel. Aparat nie wyznacza kierunku jazdy. Sprawdź wejściowe photo_road_links i odróżnij referencję OSM od joinu przestrzennego. Rozróżniaj brak, nieporównywalność i rozbieżność; zachowuj surowe wartości, daty, identyfikatory i liczniki wyłączeń. Topologię, jeśli jest w zakresie, sprawdzaj przez node_ids; granica wycinka nie dowodzi błędu sieci.
 
 Pokaż osobno wyniki testów i uruchomienia CLI oraz ręcznie sprawdzony przykład. Nie osłabiaj testów pod implementację. Zakończ po tym etapie, pokaż diff i poczekaj na przegląd.
 ~~~
@@ -194,13 +194,13 @@ Pokaż osobno wyniki testów i uruchomienia CLI oraz ręcznie sprawdzony przykł
 **Prompt:**
 
 ~~~text
-Przeczytaj AGENTS.md, PRD, ADR, docs/plan.md, dotychczasowy kod i README danych map-qa. Zrealizuj tylko uzgodniony etap Decisions przez OpenRouter: openai/gpt-6-luna-decisions i porównanie typesafe/jev-1.14. Użyj transportu z ADR: client.alpha.decisions.create w OpenRouter SDK lub surowy POST https://openrouter.ai/api/alpha/decisions. Nie używaj natywnego OpenAI client.decisions.create, bo ma inny kontrakt. Sprawdź aktualną dokumentację, przypnij wersję. Body ma model, state i questions jako obiekt; Choice zwraca mapę probabilities, Noul pole noul, Score pole score, które nie jest prawdopodobieństwem.
+Przeczytaj AGENTS.md, PRD, ADR, docs/plan.md, dotychczasowy kod i README danych map-qa. Zrealizuj tylko uzgodniony etap Decisions przez OpenRouter: openai/gpt-6-luna-decisions i porównanie typesafe/jev-1.14. Użyj transportu z ADR: client.alpha.decisions.create w OpenRouter SDK lub surowy POST https://openrouter.ai/api/alpha/decisions. Nie używaj natywnego OpenAI client.decisions.create, bo ma inny kontrakt. Sprawdź aktualną dokumentację, przypnij wersję. Body ma model, state i questions jako obiekt; Choice zwraca mapę probabilities, typ Noul zwraca pole noul, a typ Score pole score, które nie jest prawdopodobieństwem.
 
 Wybierz tylko pytania z PRD: rodzina drogi, paved/unpaved/unknown, widoczne skrzyżowanie, znak i jego wartość, pasy w kierunku patrzenia, chodnik, lampy. Listę wartości znaku uzgodnij na podstawie profilu, nie ograniczaj jej arbitralnie do kilku liczb. none to brak widocznego znaku liczbowego, unknown to brak pewnego odczytu, abstain to decyzja kodu, model_unavailable to błąd API. Brak widoczności nie dowodzi nieobecności. Do state trafia tylko neutralny tekst i obraz jako image_url z base64 data URL, z MIME zgodnym z bajtami i poprawną orientacją/rozmiarem. Nigdy etykiety, nazwy plików, kategorie, atrybuty mapy, traffic_signs ani detekcje. Nie loguj base64, sekretów ani Authorization; nie czytaj .env.
 
-Najpierw testy lokalnej walidacji, limitu, cache i abstencji. Przed mockiem endpointu wykonaj jeden rzeczywisty request w przydzielonym limicie i zachowaj bezpieczny capture: status, nagłówki bez sekretów, pełna odpowiedź, data, endpoint i wersja SDK. Bez dostępu oznacz brak pomiaru, nie wymyślaj odpowiedzi. Pokaż manifest próbki i maksymalną liczbę żądań. Bez ustalonego budżetu zapytaj i poczekaj. Pierwsza próba oraz błędy też liczą się do limitu: najwyżej 25 Luna i te same 5 zdjęć Jev, łącznie 30 albo mniej według przydziału. Wyłącz automatyczne retry również w SDK, ustaw timeout 40 s; po błędzie przerwij płatną pętlę. Cache: hash obrazu + model + wersja pytań, w ignorowanym course-materials/exercise-data/map-qa/data/. Progi ustala kod przed końcowym testem.
+Najpierw testy lokalnej walidacji, limitu, cache i abstencji. Przed mockiem endpointu wykonaj jeden rzeczywisty request w przydzielonym limicie i zachowaj bezpieczny capture: status, nagłówki bez sekretów, pełna odpowiedź, data, endpoint i wersja SDK. Bez dostępu oznacz brak pomiaru, nie wymyślaj odpowiedzi. Pokaż manifest próbki i maksymalną liczbę żądań. Bez ustalonego budżetu zapytaj i poczekaj. Pierwsza próba oraz błędy też liczą się do limitu: najwyżej 25 Luna i te same 5 zdjęć Jev, łącznie 30 albo mniej według przydziału. To do 25 unikalnych zdjęć na Luna i wspólna piątka na Jev, bez zapasu na automatyczne ponowienia. Wyłącz automatyczne retry również w SDK, ustaw timeout 40 s; po błędzie przerwij płatną pętlę. Cache: hash obrazu + model + wersja pytań, w ignorowanym course-materials/exercise-data/map-qa/data/. Progi ustal przed końcowym testem; stosuje je kod.
 
-Etykiety reference_labels.csv odczytaj wyłącznie w ewaluatorze. Wspólna piątka ma zawierać pewne etykiety każdego mierzonego pytania; brak klasy zgłoś. Dziel po sequence, nie sąsiednich klatkach. Nie zmieniaj pytań ani obrazów między modelami. Zapisz zwrócony model, latencję, tokeny, raportowany koszt OpenRouter/upstream BYOK; brak kosztu nie jest zerem. Podaj osobno accuracy przed abstencją, accuracy przyjętych odpowiedzi, coverage, abstencje i błędy API, z mianownikami dla każdego pytania. Wyłącz uncertain tylko dla danego pytania, nie utożsamiaj pustej etykiety z none. Nie mieszaj syntetycznych rysunków z oceną zdjęć. Mała piątka nie dowodzi kalibracji ani przewagi modelu. Uruchom testy i CLI, pokaż niezgodności i próbkę zgodności do ręcznego przeglądu. Nie edytuj mapy ani nie twórz UI.
+Etykiety reference_labels.csv odczytaj wyłącznie w ewaluatorze. Accuracy przed abstencją i na przyjętych odpowiedziach mierz tylko dla pytań z pewnymi etykietami: surface, junction_visible, street_lighting_visible i speed_limit_value. Dla pozostałych pokaż rozkłady, decyzje, coverage i liczniki prób bez accuracy; dodatkowe etykietowanie wymaga osobnego uzgodnienia. Wspólna piątka ma zawierać pewne etykiety każdego pytania z pomiarem accuracy; brak klasy zgłoś. Dziel po sequence, nie sąsiednich klatkach. Nie zmieniaj pytań ani obrazów między modelami. Zapisz zwrócony model, latencję, tokeny, raportowany koszt OpenRouter/upstream BYOK; brak kosztu nie jest zerem. Coverage, abstencje i błędy API pokaż dla każdego pytania i modelu, z jawnymi mianownikami. Wyłącz uncertain tylko dla danego pytania, nie utożsamiaj pustej etykiety z none. Nie mieszaj syntetycznych rysunków z oceną zdjęć. Mała piątka nie dowodzi kalibracji ani przewagi modelu. Uruchom testy i CLI, pokaż niezgodności i próbkę zgodności do ręcznego przeglądu. Nie edytuj mapy ani nie twórz UI.
 ~~~
 
 **Sprawdź sam:**
@@ -224,15 +224,15 @@ Przeczytaj AGENTS.md, docs/PRD.md, docs/ADR/, docs/plan.md i reports/map-qa/. Na
 
 Oddziel źródła mapowe, obserwacje, etykiety i predykcje, dane syntetyczne, abstencję i brak modelu. Opisz ograniczenia pozycji aparatu, kierunku, czasu, service road i reguł warunkowych. HTML ma działać lokalnie bez serwera, z względnymi ścieżkami obrazów i bez base64/sekretów. Escapuj niezaufane tagi, nazwy i autorów. Nie odczytuj sekretów ani nie edytuj mapy.
 
-Uruchom testy i rzeczywisty CLI. Otwórz HTML, sprawdź obrazy, linki, atrybucje, polskie znaki oraz zgodność liczników z Markdown i wejściami. Podaj komendę, ścieżki i zrzut raportu. Pokaż diff, zakończ edycję i poczekaj na review.
+Uruchom testy i rzeczywisty CLI. Otwórz HTML, sprawdź obrazy, linki, atrybucje, polskie znaki oraz zgodność liczników z Markdown i wejściami. Podaj komendę, ścieżki i zrzut raportu. Pokaż diff i jeden wspólny brief dla obu recenzentów: bazowy commit i zakres diffu, PRD/ADR/plan, pliki i listę kontroli: CRS, normalizacja, liczniki, przeciek etykiet, kontrakt Decisions, retry/cache/budżet, abstencja, licencje i escape HTML; wynik review ma wskazywać plik i linię, skutek, dowód i sposób sprawdzenia. Zakończ edycję i poczekaj na review.
 ~~~
 
 Po zapisaniu raportu wstrzymaj edycje. Zapisz bazowy commit sprzed M5 i zakres diffu. **Ten sam zakres** sprawdź w dwóch niezależnych sesjach:
 
 1. W Claude Code zleć jednemu subagentowi wyłącznie odczyt i review kodu względem PRD, ADR i planu. Bez subagentów użyj świeżej sesji Claude Code.
-2. W Codexie użyj `/review`, wskazując ten sam zakres zmian. Dla niezapisanych w commicie zmian wybierz odpowiednią opcję menu.
+2. W Codexie użyj `/review`, wskazując ten sam zakres zmian. Jeśli zmiany nie są jeszcze zapisane w commicie, wybierz odpowiednią opcję menu.
 
-Obu recenzentom wskaż: CRS, normalizację, liczniki, przeciek etykiet, kontrakt Decisions, retry/cache/budżet, abstencję, licencje i escape HTML. Wymagaj pliku i linii, skutku, dowodu oraz sposobu sprawdzenia; bez edycji i płatnego API. Porównaj uwagi w tabeli: problem, agent, dowód, Twoja decyzja, poprawka i ponowny test. Zużycie tokenów porównuj tylko przy tej samej metodzie pomiaru; brak metryki zapisz jako brak.
+Przekaż obu recenzentom brief przygotowany przez agenta i wskaż: CRS, normalizację, liczniki, przeciek etykiet, kontrakt Decisions, retry/cache/budżet, abstencję, licencje i escape HTML. Wymagaj pliku i linii, skutku, dowodu oraz sposobu sprawdzenia; bez edycji i płatnego API. Porównaj uwagi w tabeli: problem, agent, dowód, Twoja decyzja, poprawka i ponowny test. Zużycie tokenów porównuj tylko przy tej samej metodzie pomiaru; brak metryki zapisz jako brak.
 
 **Sprawdź sam:**
 

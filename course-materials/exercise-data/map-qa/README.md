@@ -9,7 +9,7 @@ Dane wejściowe do [ćwiczenia M1-M7](../../exercises/map-qa-decisions/README.md
 | Panoramax i Mapillary | 561 zdjęć: 461 Panoramax i 100 Mapillary, współrzędne aparatu, heading, data, autor, licencja i hashe | Daty poszczególnych zdjęć w manifeście, CC BY-SA 4.0 |
 | Mapillary, metadane pochodne | 1730 obiektów ograniczeń prędkości oraz detekcje dla 20 zdjęć | Daty `first_seen_at` i `last_seen_at` w danych, publikacja metadanych jako ODbL 1.0 |
 
-To wycinek roboczy, a nie pełna inwentaryzacja miasta. Panoramax wybrano z pomiaru 1792 dostępnych zdjęć w 72 sekwencjach, rozpraszając próbkę po obszarze i sekwencjach. Zdjęcia Mapillary pochodzą z powiązań ze znakami ograniczeń, więc ta część próbki jest obciążona wyborem. W danych są drogi szybkiego ruchu, ulice miejskie i lokalne, dojazdy, parkingi, nieutwardzony dojazd do skrzyżowania oraz kadry terenów zielonych. Profil zdjęć wykonaj samodzielnie; bliska droga z tagiem `track` nie dowodzi, że kadr przedstawia drogę gruntową.
+To wycinek roboczy, a nie pełna inwentaryzacja miasta. Zdjęcia obejmują różne części obszaru i różne sekwencje. Zdjęcia Mapillary pochodzą z powiązań ze znakami ograniczeń, więc ta część próbki jest obciążona wyborem. W danych są drogi szybkiego ruchu, ulice miejskie i lokalne, dojazdy, parkingi, nieutwardzony dojazd do skrzyżowania oraz kadry terenów zielonych. Profil zdjęć wykonaj samodzielnie; bliska droga z tagiem `track` nie dowodzi, że kadr przedstawia drogę gruntową.
 
 ## Trzy sposoby dostępu do danych
 
@@ -91,7 +91,7 @@ Dokumentacja: [Panoramax API](https://api.panoramax.xyz/api/docs/swagger), [Mapi
 | `refresh_sources.py`, `refresh_mapillary_urls.py` | Nowe wycinki map i odświeżenie wygasających adresów obrazów. |
 | `synthetic/` | Trzy rysunki z małym dopasowanym fixture dróg do testów jednostkowych, CC0. Nie są obserwacjami terenowymi. |
 
-OSM zawiera `motorway`, `trunk`, `primary`, `secondary`, `tertiary` i ich `*_link`, `residential`, `living_street`, `unclassified`, `service`, `track`, `road`, `busway`. To filtr potencjalnych dróg, a nie potwierdzenie dostępu dla samochodu. `access` i `motor_vehicle` pozostają do sprawdzenia. Overture ma filtr `subtype=road`, bez klas pieszych i rowerowych wymienionych w `sources.json`. Różna segmentacja i filtry oznaczają, że same liczby obiektów nie mierzą zgodności źródeł.
+OSM zawiera `motorway`, `trunk`, `primary`, `secondary`, `tertiary` i ich `*_link`, `residential`, `living_street`, `unclassified`, `service`, `track`, `road`, `busway`. To filtr potencjalnych dróg, a nie potwierdzenie dostępu dla samochodu. `access` i `motor_vehicle` pozostają do sprawdzenia. Dane Overture są przefiltrowane do `subtype=road`; listę wykluczonych klas pieszych i rowerowych znajdziesz w `sources.json`. Różna segmentacja i filtry oznaczają, że same liczby obiektów nie mierzą zgodności źródeł.
 
 ## Połączenia i układy współrzędnych
 
@@ -99,7 +99,7 @@ OSM ma EPSG:4326, a Overture OGC:CRS84. W obu plikach współrzędne geometrii t
 
 Dostarczone połączenia wybierają kandydatów w promieniu 25 m od aparatu. Ranking uwzględnia dystans i zgodność heading z lokalną styczną drogi; pełna reguła i rozstrzygnięcie remisów są w `sources.json`. `bearing_diff` ma zakres 0-90 stopni, bo uwzględnia oba kierunki geometrii. `directed_bearing_diff` zachowuje różnicę względem kolejności węzłów. Kierunek patrzenia nie musi być kierunkiem jazdy.
 
-Dopasowanie Overture najpierw korzysta z rzeczywistej referencji `sources.record_id` do OSM, np. `w123@4`, oraz dystansu. Gdy jej brak, możliwe jest dopasowanie przestrzenne oznaczone `spatial_fallback`. Sprawdź `candidate_flags`: alternatywne drogi, dostęp ograniczony, droga serwisowa, dokładność GPS, nieznany kierunek lub panorama mogą wymagać abstencji. `is_panorama` jest jedynie heurystyką proporcji obrazu; pełny kadr panoramy nie przedstawia jednego kierunku.
+Dopasowanie Overture najpierw korzysta z rzeczywistej referencji do OSM z pola `record_id` w liście `sources` segmentu Overture, np. `w123@4`, oraz dystansu. Gdy jej brak, możliwe jest dopasowanie przestrzenne oznaczone `spatial_fallback`. Sprawdź `candidate_flags`: alternatywne drogi, dostęp ograniczony, droga serwisowa, dokładność GPS, nieznany kierunek lub panorama mogą wymagać abstencji. `is_panorama` jest jedynie heurystyką proporcji obrazu; pełny kadr panoramy nie przedstawia jednego kierunku.
 
 Nie przyjmuj tych połączeń jako wzorca. Bliski dojazd, przeciwna jezdnia, wiadukt lub błędna pozycja aparatu mogą dać zły wynik. Pozycja aparatu nie jest pozycją znaku. Brak dopasowania jest stanem danych, nie dowodem błędu mapy.
 
@@ -177,21 +177,21 @@ Set-Location ../../..
 
 ## Pytania o zdjęcie i dane mapowe
 
-| Pytanie | Co porównujesz po stronie mapy | Ograniczenie |
-|---|---|---|
-| Rodzina klasy drogi | OSM `highway`, Overture `class` | Wygląd drogi sam nie ustala jej klasy funkcjonalnej. |
-| Paved/unpaved | OSM `surface`, Overture `road_surface` | Reguły mogą dotyczyć tylko części segmentu. |
-| Skrzyżowanie widoczne | Topologia `node_ids`, Overture `connectors` | Węzeł nie dowodzi widoczności; liczy się poziom i kadr. |
-| Znak ograniczenia i wartość | OSM `maxspeed:*`, Overture `speed_limits`, Mapillary `object_value` | Kierunek, odcinek obowiązywania, strefa i data wymagają kontroli. |
-| Pasy w kierunku patrzenia | OSM `lanes`, `lanes:forward`, `lanes:backward` | `lanes` często oznacza sumę obu kierunków; panorama wymaga wyboru perspektywy. |
-| Chodnik | OSM `sidewalk*` | Brak tagu pozostaje nieznany. |
-| Oświetlenie | OSM `lit` | Widoczna lampa nie dowodzi działania instalacji. |
+| Pytanie | Co porównujesz po stronie mapy | Ograniczenie | Etykiety do accuracy |
+|---|---|---|---|
+| Rodzina klasy drogi | OSM `highway`, Overture `class` | Wygląd drogi sam nie ustala jej klasy funkcjonalnej. | Brak |
+| Paved/unpaved | OSM `surface`, Overture `road_surface` | Reguły mogą dotyczyć tylko części segmentu. | `surface` |
+| Skrzyżowanie widoczne | Topologia `node_ids`, Overture `connectors` | Węzeł nie dowodzi widoczności; liczy się poziom i kadr. | `junction_visible` |
+| Znak ograniczenia i wartość | OSM `maxspeed:*`, Overture `speed_limits`, Mapillary `object_value` | Kierunek, odcinek obowiązywania, strefa i data wymagają kontroli. | Tylko wartość: `speed_limit_value` |
+| Pasy w kierunku patrzenia | OSM `lanes`, `lanes:forward`, `lanes:backward` | `lanes` często oznacza sumę obu kierunków; panorama wymaga wyboru perspektywy. | Brak |
+| Chodnik | OSM `sidewalk*` | Brak tagu pozostaje nieznany. | Brak |
+| Oświetlenie | OSM `lit` | Widoczna lampa nie dowodzi działania instalacji. | `street_lighting_visible` |
 
 `maxspeed` może być puste, tekstowe, wielokrotne albo z jednostką. Zachowaj surowe `maxspeed:*` w OSM oraz pola `when` i `between` reguł Overture; nie sprowadzaj ich do pierwszej liczby. Overture korzysta częściowo ze starszego OSM: w `sources` znajdziesz daty i wersje źródeł. Rozbieżność między snapshotami nie jest automatycznie błędem.
 
 ## Etykiety referencyjne do pomiaru jakości
 
-`reference_labels.csv` opisuje widoczne cechy 100 obejrzanych zdjęć, bez werdyktów o mapie. Dla 80 zdjęć Panoramax oceniono nawierzchnię, widoczne skrzyżowanie i lampy uliczne. Dla 20 zdjęć Mapillary dodano odczyt wartości znaku. Nie każde zdjęcie ma etykietę każdego pytania.
+`reference_labels.csv` opisuje widoczne cechy 100 obejrzanych zdjęć, bez werdyktów o mapie. Dla 80 zdjęć Panoramax oceniono nawierzchnię, widoczne skrzyżowanie i lampy uliczne. Dla 20 zdjęć Mapillary oceniono te same trzy pytania oraz odczyt wartości znaku. Nie każde zdjęcie ma pewną etykietę każdego pytania. Rodzina drogi, pasy, chodnik i osobne pytanie o samą widoczność znaku nie mają tu etykiet do accuracy; ich rozkłady i decyzje można przeglądać ręcznie, bez wymyślania wyników jakości.
 
 Każdy wiersz zawiera `question`, `label`, `status`, metodę, osobę lub narzędzie oceniające i datę. `certain` dopuszcza wiersz do pomiaru danego pytania, `uncertain` oznacza wyłączenie z jawnym licznikiem. Pustej lub niepewnej etykiety nie zamieniaj na `no` ani `none`. W odczycie prędkości `none` oznacza brak widocznego znaku liczbowego, `unknown` niepewny odczyt. Nie przekazuj tych etykiet, detekcji ani atrybutów mapy do modelu oceniającego obraz.
 
