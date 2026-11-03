@@ -1,0 +1,120 @@
+photo_id,osm_way_id,distance_m,heading_diff_deg,highway,maxspeed,maxspeed_forward,maxspeed_backward,osm_timestamp,source,osm_snapshot_timestamp,search_radius_m,candidate_count,match_flags,maxspeed_conditional,oneway,overpass_endpoint,context_endpoint,context_retrieved_at
+mapillary_1931009810597411,187014751,7.844,1.225,residential,40,,,2026-06-07 17:20:26+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,1,,,,,,
+mapillary_1428012997566511,735276532,2.182,27.425,unclassified,,,,2024-08-19 06:28:53+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,12,ambiguous_candidates,,,,,
+mapillary_224324516912032,93576413,1.139,6.528,unclassified,,,,2026-07-30 15:40:48+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,2,,,no,,,
+mapillary_33018340037809750,189431358,2.035,87.556,service,,,,2020-03-01 19:49:19+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,2,ambiguous_candidates;poor_heading_alignment;service_way,,,,,
+mapillary_285946226570638,617486126,7.102,7.248,residential,,,,2018-08-16 20:30:53+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,2,,,,,,
+mapillary_2686895158170465,345738504,3.143,18.435,tertiary,20,,,2026-07-07 20:30:59+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,5,,,no,,,
+mapillary_5559575854122815,345738507,1.378,0.733,tertiary,30,,,2026-07-11 14:31:58+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,2,ambiguous_candidates,,no,,,
+mapillary_569972475263954,198978058,2.428,41.176,residential,,,,2025-05-16 18:13:03+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,1,,,,,,
+mapillary_1133546124627551,520310867,3.746,8.124,residential,30,,,2025-03-29 09:27:34+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,1,,,no,,,
+mapillary_1151124080420934,24390913,1.823,25.041,residential,30,,,2024-10-20 19:32:28+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,2,,,,,,
+mapillary_1984641881926449,475556402,6.763,4.932,tertiary,50,,,2026-06-12 19:05:58+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,3,,,,,,
+mapillary_149632027129116,376494964,2.241,0.256,tertiary,30,,,2026-04-06 14:25:33+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,3,,,,,,
+mapillary_1260388961590378,1153502313,6.072,25.064,trunk,50,,,2026-10-31 20:04:41+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,4,,,no,,,
+mapillary_570194073959117,26300412,0.351,3.084,tertiary,50,,,2026-07-23 18:47:07+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,2,,,,,,
+mapillary_1782969188930208,29598138,12.101,10.887,residential,,,,2025-08-11 05:39:02+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,3,ambiguous_candidates,,,,,
+mapillary_292608016882263,642551190,0.949,15.352,unclassified,30,,,2025-06-18 17:42:09+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,6,ambiguous_candidates,,,,,
+mapillary_1022418992130552,612268589,2.652,15.748,residential,30,,,2026-03-14 16:24:26+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,2,,,,,,
+mapillary_323649839338344,1443525545,10.452,2.078,primary,40,,,2026-06-05 23:29:34+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,3,,,no,,,
+mapillary_171687302073097,1317429124,4.184,0.606,tertiary,40,,,2024-09-22 18:08:51+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,3,,,,,,
+mapillary_2034881636950707,206880047,1.359,1.688,secondary,50,,,2026-08-29 21:25:00+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,7,,,yes,,,
+mapillary_302638901421783,985226497,0.013,51.698,service,,,,2022-06-30 22:31:23+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,4,ambiguous_candidates;poor_heading_alignment;service_way,,,,,
+mapillary_953140509273371,279021117,1.076,0.196,tertiary,50,,,2026-08-19 07:22:22+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,6,ambiguous_candidates,,yes,,,
+mapillary_512030746965559,1094088847,0.137,28.251,unclassified,,,,2026-10-20 19:20:22+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,10,,,yes,,,
+mapillary_480979553013781,26276921,4.925,40.466,tertiary,50,,,2023-10-21 08:44:31+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,7,,,,,,
+mapillary_387110321093549,658151046,12.296,20.249,trunk_link,,,,2026-10-31 20:04:41+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,2,,,yes,,,
+mapillary_1109576507471869,26302267,5.275,0.692,primary,70,,,2026-01-22 16:38:01+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,6,ambiguous_candidates,,yes,,,
+mapillary_459870555316766,680308767,9.466,0.499,secondary,,50,70,2024-07-16 15:27:50+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,2,ambiguous_candidates,,no,,,
+mapillary_4209128845989554,74867020,2.201,2.765,primary,50,,,2026-06-24 18:00:23+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,4,,,,,,
+mapillary_1237130608489136,557114409,1.316,0.914,secondary,,50,70,2025-08-25 09:03:53+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,3,,,,,,
+mapillary_1114562969067116,5095979,1.284,1.061,primary,70,,,2025-07-11 16:04:23+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,5,,,yes,,,
+mapillary_555232039787307,645042637,2.488,0.093,primary,70,,,2026-06-23 18:29:00+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,1,,,,,,
+mapillary_1602686671072776,1416953488,26.025,1.209,trunk,100,,,2026-08-01 12:45:08+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,100,5,outside_standard_25m,,no,,,
+mapillary_1029602998981114,157868807,10.391,2.454,secondary,50,,,2023-10-25 07:46:51+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,4,,,,,,
+mapillary_2333300853497166,422547255,7.97,10.616,unclassified,,,,2024-11-26 18:07:11+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,3,ambiguous_candidates,,,,,
+mapillary_903570910374814,1096510287,2.463,78.353,trunk,70,,,2026-09-27 11:46:13+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,5,poor_heading_alignment,,yes,,,
+mapillary_814538865934775,1374619607,3.661,10.753,motorway_link,90,,,2025-04-04 04:48:14+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,2,,,yes,,,
+mapillary_621829392725281,157868823,8.683,3.409,primary,70,,,2026-09-13 12:10:37+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,5,,,yes,,,
+mapillary_3891016664466510,863552400,2.106,2.965,secondary,60,,,2025-08-14 15:18:33+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,7,,,yes,,,
+mapillary_862531472561909,1411974229,5.062,0.259,trunk,70,,,2026-09-27 11:46:13+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,7,ambiguous_candidates,,yes,,,
+mapillary_1085990166108790,332916668,11.086,29.735,primary,50,,,2026-04-16 04:49:59+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,1,,,yes,,,
+mapillary_1032959014995687,1266239200,0.592,36.166,trunk_link,,,,2026-08-01 12:48:03+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,8,,,yes,,,
+mapillary_189565834167234,157868823,1.068,0.468,primary,70,,,2026-09-13 12:10:37+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,6,ambiguous_candidates,,yes,,,
+mapillary_4033430586734735,28804181,0.153,1.656,primary,70,,,2026-09-06 16:00:28+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,5,,,yes,,,
+mapillary_940500342204329,258017468,0.175,4.375,motorway,120,,,2025-12-26T00:02:20Z,osm_api,,150,26,,,yes,,https://api.openstreetmap.org/api/0.6/map,2026-11-03T08:26:30.125791+00:00
+mapillary_482638789734160,1364317400,4.452,6.711,trunk,70,,,2026-08-01 12:46:55+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,7,,,yes,,,
+mapillary_1977538709578359,1442834377,3.309,2.407,primary,50,,,2026-09-04 11:30:16+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,3,ambiguous_candidates,,yes,,,
+mapillary_28570693659190204,71942576,28.549,11.779,motorway_link,70,,,2024-02-11 08:26:35+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,100,4,outside_standard_25m,,yes,,,
+mapillary_854476352770447,173034925,5.077,2.893,primary,70,,,2025-08-26 17:20:24+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,9,,,yes,,,
+mapillary_2002304336912532,741685829,10.626,15.594,residential,20,,,2025-02-10 20:20:24+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,3,,,,,,
+mapillary_259475556607205,552844890,2.293,4.254,primary,70,,,2026-06-01 13:52:48+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,3,,,yes,,,
+mapillary_787792948506940,913838151,0.637,1.038,primary,50,,,2025-12-10 08:32:32+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,10,,,yes,,,
+mapillary_496393961805379,1368414681,4.054,1.111,trunk,50,,,2026-04-19 18:24:14+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,8,,,yes,,,
+mapillary_1457182224701431,27090946,4.75,3.923,primary,70,,,2025-07-11 16:04:23+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,11,ambiguous_candidates,,yes,,,
+mapillary_848094790603316,239557449,11.117,0.955,trunk,70,,,2026-08-01 12:47:33+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,3,ambiguous_candidates,,yes,,,
+mapillary_209594164118865,1213619991,5.193,0.43,motorway,,,,2026-08-24 13:33:07+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,7,ambiguous_candidates,,yes,,,
+mapillary_798642295112149,25486681,12.925,25.609,unclassified,,,,2026-10-31 15:20:44+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,8,ambiguous_candidates,,yes,,,
+mapillary_1564141630593128,216130158,2.185,0.404,primary,80,,,2026-01-22 16:38:09+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,7,,,yes,,,
+mapillary_183021920263074,1213619991,3.857,2.802,motorway,,,,2026-08-24 13:33:07+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,7,,,yes,,,
+mapillary_467724300978488,1476336063,0.879,55.796,primary,70,,,2026-02-11 01:01:52+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,6,poor_heading_alignment,,yes,,,
+mapillary_465613424741762,22716716,13.632,10.799,unclassified,50,,,2023-07-03 13:48:03+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,5,ambiguous_candidates,,,,,
+mapillary_374349654072798,224814475,2.766,0.972,motorway,140,,,2026-03-09 09:37:47+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,2,,110 @ (Mo-Fr 06:00-18:00),yes,,,
+mapillary_842629040724538,85224435,5.17,2.893,motorway,120,,,2026-08-24 13:33:11+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,3,,,yes,,,
+mapillary_915915556657317,1324840336,102.857,10.22,service,,,,2024-10-17T18:58:03Z,osm_api,,150,4,ambiguous_candidates;outside_standard_25m;service_way,,,,https://api.openstreetmap.org/api/0.6/map,2026-11-03T08:26:32.332584+00:00
+mapillary_1563727322052984,140745342,5.876,0.761,motorway,100,,,2025-09-10 21:16:09+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,4,ambiguous_candidates,,yes,,,
+mapillary_575481873855936,378869518,2.987,38.004,motorway,90,,,2026-08-24 13:33:02+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,5,,,yes,,,
+mapillary_1071696194278486,236759780,16.144,0.315,motorway,120,,,2026-11-02T11:40:38Z,osm_api,,150,9,,,yes,,https://api.openstreetmap.org/api/0.6/map,2026-11-03T08:26:34.368773+00:00
+mapillary_24020295030975796,90158100,1.527,0.013,motorway_link,70,,,2026-03-16T19:36:46Z,osm_api,,150,33,,,yes,,https://api.openstreetmap.org/api/0.6/map,2026-11-03T08:26:38.284328+00:00
+mapillary_151856883580148,262572761,1.028,1.741,motorway,90,,,2026-10-03T14:29:09Z,osm_api,,150,37,,,yes,,https://api.openstreetmap.org/api/0.6/map,2026-11-03T08:26:40.815273+00:00
+mapillary_853265020917524,787815706,86.699,50.704,service,,,,2025-05-11T20:17:01Z,osm_api,,150,15,outside_standard_25m;poor_heading_alignment;service_way,,,,https://api.openstreetmap.org/api/0.6/map,2026-11-03T08:26:42.667093+00:00
+mapillary_1080348134786584,372302396,3.379,2.793,motorway_link,90,,,2026-06-16T06:27:55Z,osm_api,,150,37,ambiguous_candidates,,yes,,https://api.openstreetmap.org/api/0.6/map,2026-11-03T08:26:45.185914+00:00
+mapillary_2547645098874962,295495115,1.342,56.216,motorway,120,,,2026-10-21T15:04:46Z,osm_api,,150,11,poor_heading_alignment,,yes,,https://api.openstreetmap.org/api/0.6/map,2026-11-03T08:27:50.268228+00:00
+mapillary_491666962263649,295495115,0.175,0.197,motorway,120,,,2026-10-21T15:04:46Z,osm_api,,150,11,,,yes,,https://api.openstreetmap.org/api/0.6/map,2026-11-03T08:27:52.763875+00:00
+mapillary_939269400232566,469659065,1.494,4.349,motorway,100,,,2025-05-16T21:34:55Z,osm_api,,150,21,,,yes,,https://api.openstreetmap.org/api/0.6/map,2026-11-03T08:27:55.391135+00:00
+mapillary_734214217275599,295495115,3.576,4.654,motorway,120,,,2026-10-21T15:04:46Z,osm_api,,150,11,,,yes,,https://api.openstreetmap.org/api/0.6/map,2026-11-03T08:27:57.747055+00:00
+mapillary_925019171782943,272609266,1.119,3.707,motorway_link,40,,,2025-07-15T15:48:46Z,osm_api,,150,48,,,yes,,https://api.openstreetmap.org/api/0.6/map,2026-11-03T08:28:00.520118+00:00
+mapillary_739425621560444,236759780,16.723,0.315,motorway,120,,,2026-11-02T11:40:38Z,osm_api,,150,9,ambiguous_candidates,,yes,,https://api.openstreetmap.org/api/0.6/map,2026-11-03T08:28:02.125448+00:00
+mapillary_487198522897957,431783000,0.704,0.376,motorway,140,,,2026-03-09 09:34:45+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,3,,110 @ (Mo-Fr 06:00-18:00),yes,,,
+mapillary_296303752048526,888827766,1.191,2.911,motorway,140,,,2026-03-09 09:36:22+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,6,ambiguous_candidates,110 @ (Mo-Fr 06:00-18:00),yes,,,
+mapillary_2041435102902376,560831470,4.532,3.171,motorway,140,,,2026-03-09 09:37:47+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,8,,110 @ (Mo-Fr 06:00-18:00),yes,,,
+mapillary_1598504208160620,560831470,3.295,0.377,motorway,140,,,2026-03-09 09:37:47+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,7,,110 @ (Mo-Fr 06:00-18:00),yes,,,
+mapillary_1152877773579493,184234823,2.845,2.231,motorway,140,,,2026-03-09 09:37:47+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,2,,110 @ (Mo-Fr 06:00-18:00),yes,,,
+mapillary_1137624551550984,560831470,5.243,0.031,motorway,140,,,2026-03-09 09:37:47+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,8,ambiguous_candidates,110 @ (Mo-Fr 06:00-18:00),yes,,,
+mapillary_2601761200243412,224815238,4.461,0.461,motorway,140,,,2026-03-09 09:34:45+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,4,,110 @ (Mo-Fr 06:00-18:00),yes,,,
+mapillary_920472670704657,23012741,4.924,0.346,motorway,120,,,2025-07-15T15:48:46Z,osm_api,,150,13,ambiguous_candidates,,yes,,https://api.openstreetmap.org/api/0.6/map,2026-11-03T08:28:03.980393+00:00
+mapillary_652877470687571,1239616052,4.973,0.01,motorway,120,,,2026-06-23T15:33:23Z,osm_api,,150,23,ambiguous_candidates,,yes,,https://api.openstreetmap.org/api/0.6/map,2026-11-03T08:28:05.838322+00:00
+mapillary_2413300392429744,677643361,1.949,0.496,motorway,120,,,2025-07-15T15:48:46Z,osm_api,,150,18,,,yes,,https://api.openstreetmap.org/api/0.6/map,2026-11-03T08:28:07.712098+00:00
+mapillary_9791796900842672,1239616052,4.97,0.01,motorway,120,,,2026-06-23T15:33:23Z,osm_api,,150,23,ambiguous_candidates,,yes,,https://api.openstreetmap.org/api/0.6/map,2026-11-03T08:28:09.389186+00:00
+mapillary_312786497041250,1239616057,0.881,13.982,motorway,120,,,2026-06-23T15:33:23Z,osm_api,,150,13,,,yes,,https://api.openstreetmap.org/api/0.6/map,2026-11-03T08:28:11.123525+00:00
+mapillary_557443477317070,1239616052,4.772,60.268,motorway,120,,,2026-06-23T15:33:23Z,osm_api,,150,13,poor_heading_alignment,,yes,,https://api.openstreetmap.org/api/0.6/map,2026-11-03T08:28:12.799181+00:00
+mapillary_1543264237143674,164843389,3.573,2.696,tertiary,,,,2023-02-12T20:52:37Z,osm_api,,150,14,,,,,https://api.openstreetmap.org/api/0.6/map,2026-11-03T08:28:14.697499+00:00
+mapillary_318047947631010,279021117,1.017,0.642,tertiary,50,,,2026-08-19 07:22:22+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,5,,,yes,,,
+mapillary_6004827139614640,4937134,2.437,0.716,primary,50,,,2026-02-26T00:46:23Z,osm_api,,150,33,,,yes,,https://api.openstreetmap.org/api/0.6/map,2026-11-03T08:28:16.826286+00:00
+mapillary_506414974046536,222182728,0.455,5.572,primary,50,,,2026-04-05 17:11:10+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,4,,,yes,,,
+mapillary_306110717590874,216565686,11.297,23.418,tertiary,50,,,2026-11-01 17:48:18+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,2,,,yes,,,
+mapillary_2311254286295539,1153502311,4.308,0.497,trunk_link,60,,,2026-10-31 20:04:41+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,3,ambiguous_candidates,,yes,,,
+mapillary_277146712086961,29332732,9.479,1.584,residential,50,,,2025-01-08 11:52:19+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,7,ambiguous_candidates,,,,,
+mapillary_644918825149359,759630702,4.958,87.861,residential,30,,,2025-04-17 08:22:19+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,2,poor_heading_alignment,,,,,
+mapillary_751315475556083,309966411,1.495,19.112,service,,,,2022-08-15 18:06:00+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,4,service_way,,,,,
+mapillary_227382599193004,34629282,7.289,17.805,residential,30,,,2025-10-13 11:29:13+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,6,,,,,,
+mapillary_818103389121553,867688532,10.571,2.824,service,,,,2020-11-06 11:03:23+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,3,ambiguous_candidates;service_way,,,,,
+mapillary_1035052394661534,868979697,2.654,3.224,secondary,60,,,2025-11-28 16:10:25+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,8,,,yes,,,
+mapillary_498023141629374,1443525545,10.557,0.884,primary,40,,,2026-06-05 23:29:34+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,3,ambiguous_candidates,,no,,,
+mapillary_962672327639677,633145349,4.931,10.087,unclassified,,,,2024-08-19 06:28:53+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,12,ambiguous_candidates,,,,,
+mapillary_684780516477650,204377108,4.915,3.62,secondary,50,,,2026-06-15T15:41:20Z,osm_api,,150,54,,,yes,,https://api.openstreetmap.org/api/0.6/map,2026-11-03T08:28:19.550434+00:00
+mapillary_864545154275935,1360410632,15.272,20.911,residential,30,,,2025-02-27 21:46:42+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,4,ambiguous_candidates,,no,,,
+mapillary_145218401387882,443958455,0.67,4.942,tertiary,30,,,2026-07-06T12:29:20Z,osm_api,,150,41,,,no,,https://api.openstreetmap.org/api/0.6/map,2026-11-03T08:28:22.172317+00:00
+mapillary_733412486232666,424283061,0.951,0.285,primary,50,,,2026-06-24 18:00:31+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,4,,,,,,
+mapillary_214561095075157,279021117,0.997,2.073,tertiary,50,,,2026-08-19 07:22:22+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,5,,,yes,,,
+mapillary_305451881039193,1156788934,1.175,5.441,primary,50,,,2026-02-21 10:25:47+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,4,,,yes,,,
+mapillary_563509287949410,25031295,1.36,76.583,tertiary,50,,,2026-07-16 18:30:48+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,3,ambiguous_candidates;poor_heading_alignment,,,,,
+mapillary_137982605041578,22766069,0.353,1.665,motorway,140,,,2026-03-09 09:37:47+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,3,,110 @ (Mo-Fr 06:00-18:00),yes,,,
+mapillary_286653834319478,183426100,2.284,5.621,residential,30,,,2024-06-27 22:47:28+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,5,,,yes,,,
+mapillary_493318355211393,1109712111,11.097,3.783,tertiary,50,,,2026-06-30T14:30:21Z,osm_api,,150,60,ambiguous_candidates,,yes,,https://api.openstreetmap.org/api/0.6/map,2026-11-03T08:28:24.698046+00:00
+mapillary_902030810904848,24390915,5.55,0.204,residential,40,,,2026-06-07 17:17:59+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,1,,,,,,
+mapillary_3501212013437933,332506799,0.158,1.004,residential,20,,,2025-06-30 23:16:59+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,1,,,,,,
+mapillary_924782818339099,315178119,3.515,0.479,tertiary,50,,,2026-02-05 00:26:27+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,2,,,,,,
+mapillary_398424662448911,913991337,1.005,6.033,residential,30,,,2025-04-04 17:22:20+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,2,,,yes,,,
+mapillary_3314466162175775,154078451,2.518,1.493,residential,30,,,2022-09-17 13:14:20+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,4,,,,,,
+mapillary_1473295640951806,1112403152,7.616,0.864,tertiary,40,,,2026-09-10 20:48:53+00:00,osm_roads.parquet,2026-11-01T21:21:36Z,25,4,,,,,,
