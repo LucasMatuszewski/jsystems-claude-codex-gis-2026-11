@@ -11,6 +11,66 @@ Dane wejściowe do [ćwiczenia M1-M7](../../exercises/map-qa-decisions/README.md
 
 To wycinek roboczy, a nie pełna inwentaryzacja miasta. Panoramax wybrano z pomiaru 1792 dostępnych zdjęć w 72 sekwencjach, rozpraszając próbkę po obszarze i sekwencjach. Zdjęcia Mapillary pochodzą z powiązań ze znakami ograniczeń, więc ta część próbki jest obciążona wyborem. W danych są drogi szybkiego ruchu, ulice miejskie i lokalne, dojazdy, parkingi, nieutwardzony dojazd do skrzyżowania oraz kadry terenów zielonych. Profil zdjęć wykonaj samodzielnie; bliska droga z tagiem `track` nie dowodzi, że kadr przedstawia drogę gruntową.
 
+## Trzy sposoby dostępu do danych
+
+W M2 wykonaj odczyt każdą drogą, jak przy pracy z eksportami, hurtownią i zewnętrznymi usługami. Pliki są punktem odniesienia i pozwalają kontynuować bez dostępu do chmury. Polecenia wykonuj w PowerShell z katalogu głównego repozytorium, chyba że sekcja podaje inaczej.
+
+| Dostęp | Co odczytasz | Co jest potrzebne |
+|---|---|---|
+| Pliki | GeoParquet OSM/Overture, manifest, zdjęcia i ich atrybucje | Klon repozytorium i uv |
+| Databricks | Te same dane w pięciu tabelach `workspace.map_qa` | Wspólny token SQL, host i warehouse z czatu |
+| API / publiczny bucket | Metadane zdjęć Mapillary i Panoramax, segmenty Overture | Token Mapillary; Panoramax i Overture bez logowania |
+
+### 1. Pliki: eksport gotowy do analizy
+
+Uruchom profil z [Szybkiego startu](../../exercises/map-qa-decisions/README.md#szybki-start), a następnie sprawdź GeoPandas i transformację do metrów:
+
+```powershell
+uv run --python 3.12 --with geopandas==1.2.0 --with pyarrow==23.0.1 python -c "import geopandas as gpd; r=gpd.read_parquet('course-materials/exercise-data/map-qa/osm_roads.parquet'); print(len(r), r.crs, r.geometry.is_valid.all(), r.to_crs(2180).crs)"
+```
+
+Obejrzyj manifest `photos.csv` i jedno zdjęcie z `offline/`. Polecenie pokazuje liczność, CRS, poprawność geometrii i docelowy EPSG:2180. Nie zmienia wejść.
+
+### 2. Databricks: wspólne tabele
+
+Prowadzący podaje w czacie Zoom jeden wspólny token z zakresem `sql` (BI Tools), host i identyfikator SQL warehouse. Osobiste konto Free Edition jest opcjonalne i nie jest potrzebne. W [instrukcji Databricks](DATABRICKS.md#odczytaj-pięć-wierszy-przez-cli) zainstaluj CLI, ustaw zmienne i odczytaj pięć wierszy `workspace.map_qa.photos` przez SQL Statement Execution API. Następnie porównaj liczności tabel z profilem plików.
+
+Jeśli Databricks jest niedostępny, wykonaj te same kontrole na lokalnych GeoParquet i CSV.
+
+### 3. API: mały odczyt źródłowy
+
+**Mapillary.** Prowadzący udostępnia w czacie wspólny token odczytu. Ustaw go sam w terminalu, nie w rozmowie z agentem ani w pliku repozytorium:
+
+```powershell
+$env:MAPILLARY_TOKEN="<z czatu>"
+```
+
+Odczytaj metadane jednego obrazu obecnego w manifeście; token jest w nagłówku, nie w URL:
+
+```powershell
+Invoke-RestMethod -Uri 'https://graph.mapillary.com/134880168567523?fields=id,captured_at,computed_geometry' -Headers @{Authorization="OAuth $env:MAPILLARY_TOKEN"} | Select-Object id,captured_at,computed_geometry
+```
+
+Jeśli Mapillary jest niedostępne albo adresy zdjęć wygasły, użyj manifestu i fotografii z `offline/`.
+
+**Panoramax.** Bez konta pobierz pięć metadanych fotografii z obszaru ćwiczenia:
+
+```powershell
+Invoke-RestMethod -Uri 'https://api.panoramax.xyz/api/search?bbox=19.80,49.95,20.15,50.15&limit=5' | Select-Object -ExpandProperty features | Select-Object id,geometry
+```
+
+To świeży odczyt API, więc lista może różnić się od przypiętego manifestu. Nie podmieniaj nim wejść ćwiczenia.
+
+**Overture przez DuckDB.** Odczytaj pięć dróg z publicznego bucketu, używając adresów dwóch partycji z `sources.json` i filtra obszaru. Bez konta AWS i bez klucza:
+
+```powershell
+uv run --python 3.12 --with duckdb==1.5.6 python -c "import duckdb,json; c=duckdb.connect(); c.execute('INSTALL spatial; LOAD spatial; INSTALL httpfs; LOAD httpfs'); urls=json.load(open('course-materials/exercise-data/map-qa/sources.json'))['overture']['source_urls']; print(c.execute('SELECT id, class FROM read_parquet(?) WHERE subtype=? AND bbox.xmin<=? AND bbox.xmax>=? AND bbox.ymin<=? AND bbox.ymax>=? LIMIT 5', [urls,'road',20.15,19.80,50.15,49.95]).fetchall())"
+```
+
+DuckDB wykonuje odczyty zakresowe; limit wierszy nie oznacza limitu pięciu żądań sieciowych. Nie pobieraj całego globalnego zbioru. Przy awarii publicznego źródła użyj `overture_segments.parquet`.
+
+Dokumentacja: [Panoramax API](https://api.panoramax.xyz/api/docs/swagger), [Mapillary API](https://www.mapillary.com/developer/api-documentation/), [Overture i DuckDB](https://docs.overturemaps.org/getting-data/duckdb/).
+
 ## Pliki
 
 | Plik | Rola |
@@ -25,7 +85,7 @@ To wycinek roboczy, a nie pełna inwentaryzacja miasta. Panoramax wybrano z pomi
 | `offline/` | 40 obejrzanych miniatur do rozpoczęcia pracy bez pobierania zdjęć; `ATTRIBUTION.csv` zawiera atrybucje. |
 | `reference_labels.csv` | Etykiety referencyjne do pomiaru jakości odczytu obrazu. 100 obejrzanych zdjęć, opis zasad poniżej. |
 | `sources.json` | Obszar, daty, filtry, reguły przygotowania połączeń, dokładne rozmiary i hashe danych. |
-| `DATABRICKS.md`, `query_databricks.py` | Opcjonalny dostęp do tych samych tabel przez CLI, REST i MCP. |
+| `DATABRICKS.md`, `query_databricks.py` | Odczyt tabel przez CLI/REST w M2; MCP jako rozszerzenie. |
 | `profile.sql`, `profile_data.py` | Zapytania profilujące, bez rozwiązania ćwiczenia. |
 | `download_photos.py` | Odtwarzanie zdjęć z manifestu, wznowienie i kontrola dwóch hashy. |
 | `refresh_sources.py`, `refresh_mapillary_urls.py` | Nowe wycinki map i odświeżenie wygasających adresów obrazów. |
@@ -45,7 +105,7 @@ Nie przyjmuj tych połączeń jako wzorca. Bliski dojazd, przeciwna jezdnia, wia
 
 `node_ids` odpowiadają kolejnym wierzchołkom geometrii OSM. Zachowano całe źródłowe ways, aby nie tworzyć sztucznych końców sieci. `boundary_crossing` oznacza wyjście geometrii poza bbox. Nawet wtedy stopień węzła liczony w wycinku może pomijać drogę leżącą poza obszarem; most/tunel wymaga osobnego rozpatrzenia.
 
-## Polecenia PowerShell
+## Dalsza praca z plikami (opcjonalnie)
 
 Z katalogu głównego repozytorium przejdź do danych:
 
@@ -85,7 +145,7 @@ uv run --python 3.12 download_photos.py --verify-only
 
 Ponowne pobranie pomija pliki z poprawnym SHA-256. Niezgodny istniejący plik zatrzymuje pracę; przenieś go do osobnego katalogu do sprawdzenia. Nie zastępuj przypiętego hasha nowym bez ponownej oceny źródła. Panoramax jest pobierany jako SD i skalowany do maksymalnie 1024 px z Pillow 12.0.0; źródło i wynik mają osobne hashe. Mapillary używa niezmodyfikowanej `thumb_1024_url`. Zachowaj wersję Pillow; inna biblioteka JPEG może zmienić bajty przeskalowanego obrazu. Windows nie wymaga narzędzi konwersji OSM do pracy z dołączonym GeoParquet.
 
-Adresy miniatur Mapillary mogą wygasnąć. Jeśli masz własny dostęp API, ustaw `MAPILLARY_TOKEN` w środowisku poza repozytorium i odśwież adresy do osobnego manifestu. Nie wklejaj wartości tokenu do agenta ani komendy. Brak własnego konta nie blokuje części offline.
+Adresy miniatur Mapillary mogą wygasnąć. Użyj wspólnego `MAPILLARY_TOKEN` ustawionego wcześniej w terminalu i odśwież adresy do osobnego manifestu. Nie wklejaj wartości tokenu do agenta ani pliku. Brak dostępu nie blokuje części offline.
 
 ```powershell
 uv run --python 3.12 refresh_mapillary_urls.py --out data/photos-refreshed.csv
@@ -141,4 +201,4 @@ To mała próbka z nierównym rozkładem klas, bez gwarancji każdej nawierzchni
 
 [Licencje i atrybucja](ATTRIBUTION.md) obowiązują także w raportach, miniaturach i eksportach.
 
-Dostęp do tych samych danych w chmurze opisuje [opcjonalny wariant Databricks](DATABRICKS.md). Osobiste konto nie jest wymagane do ćwiczenia lokalnego.
+Dostęp do tych samych danych w chmurze opisuje [instrukcja Databricks](DATABRICKS.md). Osobiste konto nie jest wymagane.
