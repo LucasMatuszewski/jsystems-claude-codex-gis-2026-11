@@ -1,4 +1,6 @@
-# AI dla programistów: agenci AI w pracy z danymi GIS (Claude Code i Codex) (JSystems)
+# UPDATES !!!
+
+**[Odpowiedzi na pytania z kursu](https://devpowers.com/szkolenia/jsystems/tomtom-ai-2026-11/pytania.html)**
 
 ## Po pierwszych dwóch dniach (2-3.11)
 
@@ -33,7 +35,7 @@
 
 ---
 
-## O kursie i materiałach
+# AI dla programistów: agenci AI w pracy z danymi GIS (Claude Code i Codex) (JSystems)
 
 Wybierz materiał do zadania:
 
