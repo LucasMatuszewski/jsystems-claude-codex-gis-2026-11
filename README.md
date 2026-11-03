@@ -2,6 +2,11 @@
 
 ## Po pierwszych dwóch dniach (2-3.11)
 
+**Projekt z zajęć:**
+
+- Praca nad aplikacją (PRD, ADR, plan) jest w [PR #6](https://github.com/LucasMatuszewski/jsystems-claude-codex-gis-2026-11/pull/6), gałąź `worktree-prototype-a`.
+- Gałąź `main` zostaje bazą startową kursu z materiałami i aktualizacjami.
+
 **Podsumowania i historia czatu** (wszystkie linki, komendy i konfiguracje z zajęć):
 
 - Dzień 1: [podsumowanie](course-materials/zoom-summary-chat-history/day-1-summary.md), [historia czatu](course-materials/zoom-summary-chat-history/day-1-chat-history.md)
