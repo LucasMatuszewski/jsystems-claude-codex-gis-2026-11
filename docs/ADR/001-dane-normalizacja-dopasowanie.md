@@ -43,7 +43,7 @@ Struktura reguł Overture opisana w §4.2 jest zgodna z dokumentacją schematu; 
 - Zakaz: liczenie dystansu w stopniach; DuckDB `ST_Transform` bez `always_xy := true` (tylko profil).
 
 ### 3.3. Para porównania
-- Jednostka wyniku: para (droga OSM `osm_id`, atrybut). Odpowiednik Overture to segment, którego `sources` zawiera `record_id` w formacie `w<osm_id>@<wersja>`.
+- Jednostka wyniku: para (droga OSM `osm_id`, atrybut). Odpowiednik Overture to segment, którego `sources` zawiera `record_id` w formacie `w<osm_id>@<wersja>`; parser toleruje brak `@wersja` (4 przypadki w snapshocie). Profil 0b: 99 416 z 99 768 dróg ma odpowiednik.
 - Jedna droga OSM ma 0..n segmentów Overture. 0 → porównanie OSM–Overture niemożliwe. n > 1 i różne znormalizowane wartości między segmentami → `not_comparable` (wartość dotyczy części drogi). n > 1 i jednakowe → jedna wartość.
 - Dopasowanie Overture wyłącznie przestrzenne (bez `record_id`) nie tworzy pary OSM–Overture; jest tylko kandydatem zdjęcia i flagą niepewności.
 
@@ -103,7 +103,7 @@ Porównywalna jest para tylko wtedy, gdy segment ma dokładnie jedną regułę z
 
 ### 4.3. Nawierzchnia
 - OSM `surface` → `paved` dla {asphalt, concrete, concrete:plates, concrete:lanes, paved, paving_stones, sett, cobblestone, unhewn_cobblestone, chipseal, metal, wood}; `unpaved` dla {unpaved, gravel, fine_gravel, compacted, dirt, earth, ground, grass, mud, sand, pebblestone, rock, woodchips, grass_paver}. Inne wartości → `not_comparable`. Lista w `thresholds.toml`, wersjonowana.
-- Overture `road_surface`: zachowane w `road_surface_raw`; porównywalna jedna reguła bez `between`; wartości Overture mapowane tą samą tabelą.
+- Overture `road_surface`: zachowane w `road_surface_raw`; porównywalna jedna reguła bez `between`. Wartości w snapshocie (profil 0b): `paved`, `paving_stones`, `metal` → paved; `unpaved`, `gravel`, `dirt` → unpaved; `unknown` → `not_comparable`.
 - Odczyt zdjęcia: `paved` / `unpaved` / `unknown` (ADR-002).
 
 ### 4.4. Oświetlenie i skrzyżowanie (etap 2)

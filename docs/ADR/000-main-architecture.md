@@ -3,7 +3,7 @@
 **Data:** 2026-11-03
 **Status:** Accepted
 **PRD:** [docs/PRD.md](../PRD.md)
-**Profil danych:** `reports/map-qa/profile.md` nie istnieje (M2 nie został wykonany w tym worktree). Fakty o danych w tym ADR pochodzą z `sources.json`, README danych i odczytu plików CSV/GeoJSON z 2026-11-03 (sekcja 5.1). Przed etapem 1 profil M2 należy uzupełnić; rozbieżność z liczbami tutaj jest wyzwalaczem przeglądu.
+**Profil danych:** [reports/map-qa/profile.md](../../reports/map-qa/profile.md) (krok 0b, 2026-11-03) potwierdza liczby z sekcji 5.1 i schemat Overture. Otwarta sprawa z profilu: hashe plików tekstowych a CRLF na Windows (sekcja 11).
 
 Pliki szczegółowe:
 
@@ -336,5 +336,6 @@ TDD dla każdego etapu planu: test z kryterium PRD → uruchomienie i oczekiwane
 ---
 
 ## 11. Otwarte kwestie
-- Uzupełnić `reports/map-qa/profile.md` (M2) i porównać z sekcją 5.1.
+- **Hash a CRLF (blokuje krok 1):** przy `core.autocrlf=true` pliki CSV/GeoJSON w kopii roboczej mają CRLF i SHA-256 niezgodny z `sources.json` (blob w Git jest zgodny). Decyzja: reguła `.gitattributes` dla danych albo normalizacja końców linii w `ingest` — profil 0b, „Decyzje do podjęcia” pkt 1.
+- Porównanie liczności z Databricks — do wykonania z tokenem.
 - Potwierdzić w SDK `timeout_ms` dla `decisions.create` i nazwy argumentów klienta (D-03).
