@@ -1,5 +1,17 @@
 # AI dla programistów: agenci AI w pracy z danymi GIS (Claude Code i Codex) (JSystems)
 
+## Po pierwszych dwóch dniach (2-3.11)
+
+**Podsumowania i historia czatu:** dzień 1: [podsumowanie](course-materials/zoom-summary-chat-history/day-1-summary.md), [czat](course-materials/zoom-summary-chat-history/day-1-chat-history.md); dzień 2: [podsumowanie](course-materials/zoom-summary-chat-history/day-2-summary.md), [czat](course-materials/zoom-summary-chat-history/day-2-chat-history.md). Znajdziecie tam wszystkie linki, komendy i konfiguracje z zajęć.
+
+**Konta szkoleniowe działają do 29 listopada.** Do OpenAI (ChatGPT, Codex) logujecie się prywatnym adresem e-mail, a do Anthropic (Claude Code) adresem w domenie devpowers.com, który ode mnie dostaliście. Korzystajcie z nich jak najwięcej.
+
+**Zadanie na dwa tygodnie przerwy:** dokończcie po swojemu ćwiczenie z planem (PRD, ADR, plan, realizacja) albo zbudujcie własną aplikację, używając jak najwięcej z tego, co przerobiliśmy: skills, MCP i Context7, uprawnień, Git Worktree, GitHub CLI. 12 listopada wrócimy do tego razem i dokończymy wspólnie. Pójdzie szybciej, bo prawie wszystko dla agentów jest już zainstalowane.
+
+**`/goal` w Codex:** ustawia cel, do którego agent dąży przez wiele kolejnych tur, aż uzna go za osiągnięty, np. `/goal zrealizuj plan z pliku @plik-z-planem.md`. Cel można wstrzymać i wznowić (`/goal pause`, `/goal resume`) albo usunąć (`/goal clear`). Długie cele zużywają dużo tokenów. Więcej 12 listopada.
+
+**Spec-Driven Development:** PRD, ADR i plan, nad którymi pracowaliśmy, to moja wersja SDD. Najważniejsze, żeby dać agentom kompletne środowisko informacji i dobrze skonfigurowany harness, tak aby mogli samodzielnie przejść cały proces. Najlepiej dopasować go do swojego projektu i zespołu. Inne podejścia: [GitHub Spec Kit](https://github.com/github/spec-kit), [specs.md](https://specs.md/) z przepływem [FIRE](https://specs.md/fire-flow/overview.md). Skills: [write-prd](https://github.com/EdukeyTeam/agent-toolbox/tree/main/skills/write-prd), [write-adr](https://github.com/EdukeyTeam/agent-toolbox/tree/main/skills/write-adr), [skill planowania](https://github.com/EdukeyTeam/agent-toolbox/pull/28) (otwarty PR).
+
 Wybierz materiał do zadania:
 
 - **Główne ćwiczenie:** [kontrola mapy: od danych do raportu](course-materials/exercises/map-qa-decisions/README.md). PRD, ADR, plan, pipeline z testami i model decyzyjny na [danych OSM, Overture i zdjęciach Krakowa](course-materials/exercise-data/map-qa/README.md).
