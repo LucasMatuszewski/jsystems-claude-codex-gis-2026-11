@@ -1,6 +1,6 @@
 # Ten sam snapshot w Databricks
 
-W M2 odczytasz tabele we wspólnym workspace prowadzącego, podobnie jak dane w hurtowni. Prowadzący przekazuje host, token SQL i warehouse w czacie Zoom. Osobiste konto Databricks Free Edition jest opcjonalne i nie jest potrzebne; samo założenie konta nie kopiuje tabel. Przy awarii Databricks kontynuuj na [lokalnych plikach](README.md).
+W M2 odczytasz tabele we wspólnym workspace prowadzącego, podobnie jak dane w hurtowni. Prowadzący przekazuje host i token SQL w czacie Zoom; identyfikator warehouse znajdziesz poniżej. Osobiste konto Databricks Free Edition jest opcjonalne i nie jest potrzebne; samo założenie konta nie kopiuje tabel. Przy awarii Databricks kontynuuj na [lokalnych plikach](README.md).
 
 ## Tabele i geometria
 
@@ -21,7 +21,7 @@ Licencje, daty i zasady atrybucji są takie same jak w [pakiecie lokalnym](READM
 Pracuj w PowerShell w katalogu głównym repozytorium. Zainstaluj aktualny CLI (nie stary pakiet Python `databricks-cli`):
 
 ```powershell
-winget install Databricks.DatabricksCLI
+winget install Databricks.DatabricksCLI --accept-source-agreements --accept-package-agreements
 ```
 
 Po instalacji otwórz nowy PowerShell w katalogu repozytorium. Ustaw dane z czatu samodzielnie w terminalu; nie wklejaj tokenu do rozmowy z agentem, pliku ani Git. Host to adres HTTPS bez końcowego `/`.
