@@ -31,5 +31,3 @@ Metadane pochodne znaków i detekcji w `traffic_signs.geojson` oraz `mapillary_d
 ## Pozostałe dane
 
 `photo_road_links.csv` i `reference_labels.csv` są udostępnione jako **ODbL 1.0**, z zachowaniem atrybucji powiązanych źródeł. Połączenia opisują kandydatów przestrzennych; etykiety referencyjne opisują oglądane kadry. Żaden z tych plików nie zawiera werdyktów o poprawności mapy.
-
-Trzy oryginalne rysunki i odpowiadające im wymyślone drogi w `synthetic/`: **CC0 1.0**, autor generatora wskazany w `synthetic/labels.csv`. [CC0](https://creativecommons.org/publicdomain/zero/1.0/). Nie przenoś tej licencji na rzeczywiste drogi lub fotografie.

@@ -89,7 +89,6 @@ Dokumentacja: [Panoramax API](https://api.panoramax.xyz/api/docs/swagger), [Mapi
 | `profile.sql`, `profile_data.py` | Zapytania profilujące, bez rozwiązania ćwiczenia. |
 | `download_photos.py` | Odtwarzanie zdjęć z manifestu, wznowienie i kontrola dwóch hashy. |
 | `refresh_sources.py`, `refresh_mapillary_urls.py` | Nowe wycinki map i odświeżenie wygasających adresów obrazów. |
-| `synthetic/` | Trzy rysunki z małym dopasowanym fixture dróg do testów jednostkowych, CC0. Nie są obserwacjami terenowymi. |
 
 OSM zawiera `motorway`, `trunk`, `primary`, `secondary`, `tertiary` i ich `*_link`, `residential`, `living_street`, `unclassified`, `service`, `track`, `road`, `busway`. To filtr potencjalnych dróg, a nie potwierdzenie dostępu dla samochodu. `access` i `motor_vehicle` pozostają do sprawdzenia. Dane Overture są przefiltrowane do `subtype=road`; listę wykluczonych klas pieszych i rowerowych znajdziesz w `sources.json`. Różna segmentacja i filtry oznaczają, że same liczby obiektów nie mierzą zgodności źródeł.
 

@@ -184,7 +184,7 @@ git rev-parse HEAD
 **Prompt:**
 
 ~~~text
-Przeczytaj AGENTS.md, docs/PRD.md, docs/ADR/, docs/plan.md i reports/map-qa/profile.md. Wykonaj tylko pierwszy zatwierdzony etap w app/. Najpierw pytest z wymagań: uruchom i pokaż oczekiwane Red, potem minimum kodu, Green i Refactor. Nie zmieniaj wejść, nie wywołuj modelu, nie odczytuj sekretów. Dane syntetyczne są tylko do małych testów; wykonaj też rzeczywisty CLI na plikach map-qa.
+Przeczytaj AGENTS.md, docs/PRD.md, docs/ADR/, docs/plan.md i reports/map-qa/profile.md. Wykonaj tylko pierwszy zatwierdzony etap w app/. Najpierw pytest z wymagań: uruchom i pokaż oczekiwane Red, potem minimum kodu, Green i Refactor. Nie zmieniaj wejść, nie wywołuj modelu, nie odczytuj sekretów. Do testów wybierz kilka prawdziwych rekordów z plików map-qa; wykonaj też rzeczywisty CLI na pełnych plikach map-qa.
 
 Wybierz najwyżej 6 przypadków testowych dla tego etapu. Dobierz je do zakresu: brak/tekst/jednostki/PL:urban/none/wiele wartości maxspeed, tagi kierunkowe i warunkowe; wszystkie reguły Overture z when/between. Przy łączeniu: obie warstwy w EPSG:2180, znany dystans, dwa bliskie odcinki, heading 359/1, odwrotna geometria i oneway=-1, brak kierunku, remis, service/access i most/tunel. Aparat nie wyznacza kierunku jazdy. Sprawdź wejściowe photo_road_links i odróżnij referencję OSM od joinu przestrzennego. Rozróżniaj brak, nieporównywalność i rozbieżność; zachowuj surowe wartości, daty, identyfikatory i liczniki wyłączeń. Topologię, jeśli jest w zakresie, sprawdzaj przez node_ids; granica wycinka nie dowodzi błędu sieci.
 
