@@ -9,7 +9,7 @@ Dane wejściowe do [ćwiczenia M1-M7](../../exercises/map-qa-decisions/README.md
 | Panoramax i Mapillary | 561 zdjęć: 461 Panoramax i 100 Mapillary, współrzędne aparatu, heading, data, autor, licencja i hashe | Daty poszczególnych zdjęć w manifeście, CC BY-SA 4.0 |
 | Mapillary, metadane pochodne | 1730 obiektów ograniczeń prędkości oraz detekcje dla 20 zdjęć | Daty `first_seen_at` i `last_seen_at` w danych, publikacja metadanych jako ODbL 1.0 |
 
-To wycinek roboczy, a nie pełna inwentaryzacja miasta. Panoramax wybrano z pomiaru 1792 dostępnych zdjęć w 72 sekwencjach, rozpraszając próbkę po obszarze i sekwencjach. Zdjęcia Mapillary pochodzą z powiązań ze znakami ograniczeń, więc ta część próbki jest obciążona wyborem. W danych są drogi szybkiego ruchu, ulice miejskie i lokalne, dojazdy, parkingi oraz kadry terenów zielonych. Profil zdjęć wykonaj samodzielnie; bliska droga z tagiem `track` nie dowodzi, że kadr przedstawia drogę gruntową.
+To wycinek roboczy, a nie pełna inwentaryzacja miasta. Panoramax wybrano z pomiaru 1792 dostępnych zdjęć w 72 sekwencjach, rozpraszając próbkę po obszarze i sekwencjach. Zdjęcia Mapillary pochodzą z powiązań ze znakami ograniczeń, więc ta część próbki jest obciążona wyborem. W danych są drogi szybkiego ruchu, ulice miejskie i lokalne, dojazdy, parkingi, nieutwardzony dojazd do skrzyżowania oraz kadry terenów zielonych. Profil zdjęć wykonaj samodzielnie; bliska droga z tagiem `track` nie dowodzi, że kadr przedstawia drogę gruntową.
 
 ## Pliki
 
@@ -25,6 +25,7 @@ To wycinek roboczy, a nie pełna inwentaryzacja miasta. Panoramax wybrano z pomi
 | `offline/` | 40 obejrzanych miniatur do rozpoczęcia pracy bez pobierania zdjęć; `ATTRIBUTION.csv` zawiera atrybucje. |
 | `reference_labels.csv` | Etykiety referencyjne do pomiaru jakości odczytu obrazu. 100 obejrzanych zdjęć, opis zasad poniżej. |
 | `sources.json` | Obszar, daty, filtry, reguły przygotowania połączeń, dokładne rozmiary i hashe danych. |
+| `DATABRICKS.md`, `query_databricks.py` | Opcjonalny dostęp do tych samych tabel przez CLI, REST i MCP. |
 | `profile.sql`, `profile_data.py` | Zapytania profilujące, bez rozwiązania ćwiczenia. |
 | `download_photos.py` | Odtwarzanie zdjęć z manifestu, wznowienie i kontrola dwóch hashy. |
 | `refresh_sources.py`, `refresh_mapillary_urls.py` | Nowe wycinki map i odświeżenie wygasających adresów obrazów. |
@@ -139,3 +140,5 @@ Paved obejmuje asfalt, beton i kostkę. Skrzyżowanie oznacza widoczne połącze
 To mała próbka z nierównym rozkładem klas, bez gwarancji każdej nawierzchni i sceny. Dziel ją po `sequence`, nie po sąsiednich klatkach. Progi ustal przed końcową próbą. Nie wyciągaj wniosków o kalibracji lub przewadze modelu z kilku zdjęć.
 
 [Licencje i atrybucja](ATTRIBUTION.md) obowiązują także w raportach, miniaturach i eksportach.
+
+Dostęp do tych samych danych w chmurze opisuje [opcjonalny wariant Databricks](DATABRICKS.md). Osobiste konto nie jest wymagane do ćwiczenia lokalnego.

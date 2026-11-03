@@ -64,6 +64,12 @@ Obejrzyj rozproszoną próbkę zdjęć: miasto, skrzyżowania, drogi lokalne, se
 
 **Twoja kontrola:** policz samodzielnie kilka wierszy przez DuckDB; sprawdź na obrazie jeden niepewny join. **Jeśli utkniesz:** zacznij od gotowych GeoParquet i części offline. **Rozszerzenie:** zapisz profil jako powtarzalne polecenie z testem niezmienności wejść.
 
+**Opcjonalnie, Databricks:** osobiste konto Free Edition nie jest wymagane. Jeśli masz dostęp do przygotowanego workspace, skorzystaj z [instrukcji CLI, REST i MCP](../../exercise-data/map-qa/DATABRICKS.md) i wyślij agentowi dodatkowy prompt:
+
+~~~text
+Przeczytaj course-materials/exercise-data/map-qa/DATABRICKS.md. Sprawdź wersję dostępnego CLI i obecność zmiennych dostępowych bez wyświetlania wartości. Odczytaj tabele workspace.map_qa.osm_roads, overture_segments, photos, photo_road_links i traffic_signs przez databricks api lub query_databricks.py. Porównaj liczności i typy z lokalnym snapshotem oraz wykonaj trzy opisane kontrole ST_*. Zapisz wyniki i dokładne polecenia w reports/map-qa/profile.md. Nie zapisuj tokenów, nie zmieniaj danych i nie twórz schematów. Jeśli nie masz dostępu, jawnie opisz brak i pozostań przy plikach lokalnych.
+~~~
+
 ## M3. AGENTS.md
 
 **Cel:** sprawić, żeby świeża sesja przestrzegała zasad bez ponownego dyktowania. **Agent: Claude Code.**

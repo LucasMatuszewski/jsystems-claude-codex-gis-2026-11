@@ -67,7 +67,7 @@
     "panoramax_discovery_images": 1792,
     "panoramax_discovery_sequences": 72,
     "panoramax_discovery_url": "https://api.panoramax.xyz/api/search",
-    "sampling": "Spatial tiles, interleaved sequences and spaced frames; reviewed non-road images and identical SHA-256 duplicates removed. Mapillary photographs are associated with selected speed-limit map features, not a random city sample.",
+    "sampling": "Spatial tiles, interleaved sequences and spaced frames; reviewed non-road images and identical SHA-256 duplicates removed. Mapillary photographs are associated with selected speed-limit map features, not a random city sample. One unreviewed Mapillary frame was replaced by a visually verified loose-gravel approach to a paved junction, without changing the reference or offline subsets.",
     "width_height": "Manifest records final thumbnail dimensions; is_panorama is an aspect-ratio heuristic (>2.5), not an authoritative projection type."
   },
   "mapillary": {
@@ -102,7 +102,23 @@
   },
   "databricks": {
     "required": false,
-    "snapshot_access": "local files"
+    "catalog": "workspace",
+    "schema": "map_qa",
+    "volume": "/Volumes/workspace/map_qa/inputs/",
+    "tables": [
+      "osm_roads",
+      "overture_segments",
+      "photos",
+      "photo_road_links",
+      "traffic_signs"
+    ],
+    "geometry_encoding": "BINARY WKB; construct GEOMETRY with explicit SRID 4326 in queries",
+    "cli_version": "1.23.0",
+    "sql_transport": "SQL Statement Execution REST API 2.0",
+    "managed_mcp_path": "/ai-gateway/mcp-services/system.ai.dbsql",
+    "legacy_mcp_path_status": "JSON-RPC NOT_FOUND: feature not enabled on tested workspace",
+    "verified_at": "2026-11-03T00:13:43.423622+00:00",
+    "snapshot_access": "local files or authorized Databricks workspace"
   },
   "files": {
     "osm_roads.parquet": {
@@ -118,12 +134,12 @@
       "sha256": "cf4ee780992cfab94eeda799ef6aa6ee67c86539d14aef572e937b35b8259760"
     },
     "photos.csv": {
-      "bytes": 419578,
-      "sha256": "3eb43bb087d35515ac61bbb879fcfb20b980344285a83d0c93d0eab4de8e3f28"
+      "bytes": 419605,
+      "sha256": "93157c4798c20434bca70a426c2bd64c5f6d0b5a3ad865f690d1ee9e634d0ed3"
     },
     "photo_road_links.csv": {
-      "bytes": 86302,
-      "sha256": "2667114337b1ee8ac6003051162144f170430867a16bd8ce7692b82898064e53"
+      "bytes": 86305,
+      "sha256": "1b89a2ee61069fa153707c60aea63127b9e8dc8e05ac39d7e11891a585566878"
     },
     "reference_labels.csv": {
       "bytes": 93923,
