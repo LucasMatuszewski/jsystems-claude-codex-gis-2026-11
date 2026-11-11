@@ -1,5 +1,12 @@
 # UPDATES !!!
 
+## Przed blokiem 2 (12-13.11)
+
+- [Codex czy Claude Code: stan na listopad 2026 i moja rekomendacja](course-materials/Research/codex-vs-claude-2026-11.md), w tym sandbox, zgody i pytania interaktywne.
+- [Ctrl+G: długi prompt w edytorze](course-materials/agent-configs/README.md#ctrlg-długi-prompt-w-edytorze), przyda się przy promptach planu.
+- [Sandbox Codex na Windows: profile uprawnień, gh i Playwright](course-materials/agent-configs/codex/WINDOWS-QUICKSTART-PL.md).
+- [Review PR z forka](course-materials/Research/github-fork-pr-review-workshop-2026-11-05.md).
+
 ## Po pierwszych dwóch dniach (2-3.11)
 
 **Projekt z zajęć:**
