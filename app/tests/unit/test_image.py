@@ -64,3 +64,10 @@ def test_all_real_sign_crops_and_offline_photos_are_accepted(data_dir):
     for path in paths:
         w, h = prepare_file(path).size
         assert min(w, h) >= 256 and 78_400 <= w * h <= 2_458_624, path.name
+
+
+@pytest.mark.parametrize("w,h", [(100, 1000), (4000, 500)])
+def test_side_limits_enforced_for_elongated_images(w, h):
+    """Review finding (T51): both sides must stay within 256-1568 px (Jev contract, ADR-003 §2)."""
+    with pytest.raises(ImageOutOfBounds):
+        prepare_bytes(jpeg(w, h))

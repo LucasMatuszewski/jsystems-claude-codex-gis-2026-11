@@ -7,6 +7,7 @@ from pathlib import Path
 
 import duckdb
 
+from map_qa.core.errors import SourceUnavailable
 from map_qa.core.models import FileHash, InputManifest, TableInfo
 from map_qa.core.paths import sha256_bytes, sha256_file
 from map_qa.sources import MAP_VIEWS, sql_literal
@@ -72,6 +73,9 @@ class FilesSource:
         self.data_dir = Path(data_dir)
 
     def load(self, con: duckdb.DuckDBPyConnection) -> InputManifest:
+        missing = [rel for rel in ("sources.json", *FILES.values()) if not (self.data_dir / rel).is_file()]
+        if missing:
+            raise SourceUnavailable(f"Brak pliku wejściowego {missing[0]} w katalogu {self.data_dir}.")
         sources = read_sources_json(self.data_dir)
         expected = sources.get("files", {})
         register_views(con, self.data_dir, tuple(FILES))

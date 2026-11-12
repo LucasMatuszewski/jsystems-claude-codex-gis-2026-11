@@ -43,8 +43,8 @@ def prepare_bytes(raw: bytes) -> PreparedImage:
         if not (MIN_PIXELS <= w * h <= MAX_PIXELS):
             raise ImageOutOfBounds(f"{w}x{h}")
         img = img.resize((w, h), Image.Resampling.LANCZOS)
-    if not (MIN_PIXELS <= w * h <= MAX_PIXELS):
-        raise ImageOutOfBounds(f"{w}x{h}")
+    if not (MIN_PIXELS <= w * h <= MAX_PIXELS) or not (MIN_SIDE <= min(w, h) and max(w, h) <= MAX_SIDE):
+        raise ImageOutOfBounds(f"{w}x{h}")  # both sides must fit 256-1568 px (Jev contract)
     buf = io.BytesIO()
     img.save(buf, "JPEG", quality=JPEG_QUALITY)  # no exif= argument: metadata (incl. GPS) dropped
     data = buf.getvalue()

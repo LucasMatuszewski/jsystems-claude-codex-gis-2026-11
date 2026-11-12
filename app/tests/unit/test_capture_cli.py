@@ -64,3 +64,10 @@ def test_missing_key_exit_3(cfg, tmp_path):
     with pytest.raises(MissingCredential):
         run_model_capture(cfg, {}, kind="decisions-luna", yes=True, image=None, name=None,
                           captures_dir=tmp_path / "c", out=io.StringIO(), ask=lambda _: "y")
+
+
+def test_capture_respects_zero_request_limit(tmp_path, data_dir):
+    """Review finding (T51): a confirmed capture must not bypass max_requests = 0."""
+    cfg0 = load_config({"work_dir": tmp_path / "work", "data_dir": data_dir, "max_requests": 0}, {})
+    code, client, out = run(cfg0, tmp_path, "decisions-luna", "y")
+    assert code == 0 and client.calls == [] and "max_requests" in out

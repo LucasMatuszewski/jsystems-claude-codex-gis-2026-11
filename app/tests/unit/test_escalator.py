@@ -228,3 +228,19 @@ def test_validate_chat_rules():
     broken["choices"][0]["message"]["content"] = "not json"
     with pytest.raises(InvalidResponse):
         validate_chat(broken, PHOTO_QS)
+
+
+@pytest.mark.parametrize("failure", [ApiResult(500, {"error": {"message": "x"}}, {}, 5.0, "http"),
+                                     ApiResult(None, None, {}, 40000.0, "timeout")])
+def test_tier2_failure_is_attributed_to_tier2_model(tmp_path, failure):
+    """Review finding (T51): a failed escalation belongs to tier 2 (evaluation denominators)."""
+    e, _, _ = make(tmp_path, [cap("decisions-luna-photo-200"), failure], t1=0.96)
+    r = by_q(e.read("p1", "photo", IMG, PHOTO_QS))["street_lighting_visible"]
+    assert (r.decision, r.tier, r.model) == ("model_unavailable", 2, "openai/gpt-6-luna")
+    assert r.tier1_answer == "no"
+
+
+def test_tier2_budget_refusal_is_attributed_to_tier2(tmp_path):
+    e, _, _ = make(tmp_path, [cap("decisions-luna-photo-200")], t1=0.96, max_requests=1)
+    r = by_q(e.read("p1", "photo", IMG, PHOTO_QS))["street_lighting_visible"]
+    assert (r.decision, r.tier) == ("not_run_budget_or_error", 2)

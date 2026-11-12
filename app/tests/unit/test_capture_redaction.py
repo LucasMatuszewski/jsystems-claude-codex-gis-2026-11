@@ -62,3 +62,11 @@ def test_missing_key_is_error_without_request():
 
 def test_prepare_bytes_used():  # keep import used for linters
     assert prepare_bytes
+
+
+def test_response_cost_tolerates_malformed_usage():
+    """Review finding (T51): non-dict usage/cost_details must not raise."""
+    from map_qa.photo_reading.clients import response_cost
+    assert response_cost({"usage": "oops"}) is None
+    assert response_cost({"usage": {"cost": 0.001, "cost_details": "x"}}) == 0.001
+    assert response_cost({"usage": [1, 2]}) is None

@@ -67,7 +67,7 @@ def run_model_capture(cfg: RunConfig, env: dict[str, str], *, kind: str, yes: bo
     payload = (chat_payload if kind == "chat-tier2" else decisions_payload)(model, img_kind, prepared, qids)
     ledger = BudgetLedger(Path(cfg.work_dir) / "ledger.jsonl",
                           run_id="capture-" + datetime.now(UTC).strftime("%Y%m%dT%H%M%S%fZ"),
-                          max_requests=1, max_cost_usd=cfg.max_cost_usd)
+                          max_requests=min(1, cfg.max_requests), max_cost_usd=cfg.max_cost_usd)
     res = ledger.reserve(model, tier, reserve)
     if res is None:
         out.write(f"Limit budżetu nie pozwala na wywołanie ({ledger.refusal_reason}).\n")

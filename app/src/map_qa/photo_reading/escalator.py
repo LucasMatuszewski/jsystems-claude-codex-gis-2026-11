@@ -199,9 +199,10 @@ class Escalator:
                 r.decision = str(Decision.ABSTAIN)
                 r.reason = "tier2_unknown" if entry["answer"] == "unknown" else f"tier2_certainty_{entry['certainty']}"
 
-    @staticmethod
-    def _fail(r: PhotoReading, decision: Decision, reason: str | None) -> None:
+    def _fail(self, r: PhotoReading, decision: Decision, reason: str | None) -> None:
+        """Failed or refused escalation: attributed to tier 2 (it is the tier that was attempted)."""
         r.decision, r.reason = str(decision), reason
+        r.model, r.tier, r.probability = self.s.tier2_model, 2, None
 
     def read_compare(self, photo_id: str, kind: str, image: PreparedImage, qids: list[str]) -> list[PhotoReading]:
         """Comparison model: same image and questions, tier 1 only, no escalation (ADR-003 §5.9)."""

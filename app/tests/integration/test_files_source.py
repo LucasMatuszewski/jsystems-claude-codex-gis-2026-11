@@ -88,3 +88,12 @@ def test_removed_column_raises_schema_mismatch(tmp_path, data_dir):
     with pytest.raises(SchemaMismatch) as exc:
         check_schema(con, "photo_road_links")
     assert exc.value.exit_code == 4 and exc.value.column == "candidate_flags"
+
+
+def test_missing_data_dir_is_source_unavailable(tmp_path):
+    """Review finding (T51): missing local inputs -> exit 3 with one Polish line, not a traceback."""
+    from map_qa.core.errors import SourceUnavailable
+    con = duckdb.connect()
+    with pytest.raises(SourceUnavailable) as exc:
+        FilesSource(tmp_path / "nope").load(con)
+    assert exc.value.exit_code == 3 and "\n" not in str(exc.value)

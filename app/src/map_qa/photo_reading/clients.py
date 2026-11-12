@@ -35,8 +35,11 @@ def response_cost(body: Any) -> float | None:
     With BYOK keys OpenRouter reports usage.cost = 0 and the provider charge in cost_details (T43 captures)."""
     if not isinstance(body, dict):
         return None
-    usage = body.get("usage") or {}
-    values = [usage.get("cost"), (usage.get("cost_details") or {}).get("upstream_inference_cost")]
+    usage = body.get("usage")
+    if not isinstance(usage, dict):
+        return None
+    details = usage.get("cost_details")
+    values = [usage.get("cost"), details.get("upstream_inference_cost") if isinstance(details, dict) else None]
     nums = [float(v) for v in values if isinstance(v, (int, float)) and not isinstance(v, bool) and v >= 0]
     return max(nums) if nums else None
 
