@@ -155,6 +155,8 @@ class ReadingRow(BaseModel):
     tier1_answer: str | None = None
     tier1_probability: float | None = None
     reason: str | None = None
+    label: str | None = None          # reference label (Evaluator), shown in its own column (AC-24)
+    label_status: str | None = None
 
 
 class ModelSection(BaseModel):

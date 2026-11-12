@@ -228,7 +228,7 @@ def run(ctx: RunContext) -> int:
         shows_mapillary = False
         sample_manifest = None
         if cfg.model_reading:
-            from map_qa.photo_reading.runner import run_photo_reading
+            from map_qa.model_reading import run_photo_reading
             outcome = run_photo_reading(con, ctx)
             model_section = outcome.section
             readings_by_photo = outcome.readings_by_photo

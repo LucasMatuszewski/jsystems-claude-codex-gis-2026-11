@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
 <title>Raport kontroli mapy – Kraków</title>
 <style>
   body { font-family: system-ui, "Segoe UI", Roboto, Arial, sans-serif; margin: 0 auto; max-width: 1200px; padding: 16px; color: #1b1f24; background: #fff; line-height: 1.45; }
@@ -160,10 +161,10 @@
 {% if m.model.run %}
 <p>Progi (zamrożone przy potwierdzeniu): {% for k, v in m.model.thresholds.items() %}{{ k }}={{ v }}{{ "; " if not loop.last }}{% endfor %}. Wersja pytań: <code>{{ m.model.question_set_version }}</code>. Pewność tier 2 to samoocena modelu, nie skalibrowane prawdopodobieństwo.</p>
 <p>Próbka: {% for k, v in m.model.sample.items() %}{{ k }}={{ v }}{{ "; " if not loop.last }}{% endfor %}.</p>
-<h3>Predykcje (osobno: odpowiedzi, abstencje, <code>model_unavailable</code>)</h3>
+<h3>Predykcje (osobno: odpowiedzi, abstencje, etykiety, <code>model_unavailable</code>)</h3>
 {% if m.model.readings %}
-<table><thead><tr><th>Zdjęcie</th><th>Rodzaj</th><th>Pytanie</th><th>Decyzja</th><th>Predykcja</th><th>Tier</th><th>Model</th><th>p (tier 1)</th><th>Pewność (tier 2)</th><th>Tier 1 przed eskalacją</th><th>Powód</th></tr></thead><tbody>
-{% for r in m.model.readings %}<tr><td><code>{{ r.photo_id }}</code></td><td>{{ r.kind }}</td><td><code>{{ r.question }}</code></td><td><code>{{ r.decision }}</code></td><td>{{ r.answer or "–" }}</td><td class="n">{{ r.tier or "–" }}</td><td>{{ r.model or "–" }}</td><td class="n">{{ r.probability | num }}</td><td>{{ r.certainty or "–" }}</td><td>{{ r.tier1_answer or "–" }} ({{ r.tier1_probability | num }})</td><td>{{ r.reason or "–" }}</td></tr>
+<table><thead><tr><th>Zdjęcie</th><th>Rodzaj</th><th>Pytanie</th><th>Decyzja</th><th>Predykcja</th><th>Tier</th><th>Model</th><th>p (tier 1)</th><th>Pewność (tier 2)</th><th>Tier 1 przed eskalacją</th><th>Powód</th><th>Etykieta referencyjna</th></tr></thead><tbody>
+{% for r in m.model.readings %}<tr><td><code>{{ r.photo_id }}</code></td><td>{{ r.kind }}</td><td><code>{{ r.question }}</code></td><td><code>{{ r.decision }}</code></td><td>{{ r.answer or "–" }}</td><td class="n">{{ r.tier or "–" }}</td><td>{{ r.model or "–" }}</td><td class="n">{{ r.probability | num }}</td><td>{{ r.certainty or "–" }}</td><td>{{ r.tier1_answer or "–" }} ({{ r.tier1_probability | num }})</td><td>{{ r.reason or "–" }}</td><td>{{ r.label or "–" }} ({{ r.label_status or "brak" }})</td></tr>
 {% endfor %}</tbody></table>
 {% else %}<p class="empty">Brak pozycji (0).</p>{% endif %}
 <h3>Metryki względem etykiet referencyjnych (tylko <code>certain</code>)</h3>

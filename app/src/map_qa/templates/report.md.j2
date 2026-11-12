@@ -180,13 +180,13 @@ Progi (zamrożone przy potwierdzeniu): {% for k, v in m.model.thresholds.items()
 
 Próbka: {% for k, v in m.model.sample.items() %}{{ k }}={{ v }}{{ "; " if not loop.last }}{% endfor %}.
 
-#### Predykcje (osobno: odpowiedzi, abstencje, `model_unavailable`)
+#### Predykcje (osobno: odpowiedzi, abstencje, etykiety, `model_unavailable`)
 
 {% if m.model.readings %}
-| Zdjęcie | Rodzaj | Pytanie | Decyzja | Predykcja | Tier | Model | p (tier 1) | Pewność (tier 2) | Tier 1 przed eskalacją | Powód |
-|---|---|---|---|---|---:|---|---:|---|---|---|
+| Zdjęcie | Rodzaj | Pytanie | Decyzja | Predykcja | Tier | Model | p (tier 1) | Pewność (tier 2) | Tier 1 przed eskalacją | Powód | Etykieta referencyjna |
+|---|---|---|---|---|---:|---|---:|---|---|---|---|
 {% for r in m.model.readings %}
-| {{ r.photo_id }} | {{ r.kind }} | `{{ r.question }}` | `{{ r.decision }}` | {{ r.answer or "–" }} | {{ r.tier or "–" }} | {{ r.model or "–" }} | {{ r.probability | num }} | {{ r.certainty or "–" }} | {{ r.tier1_answer or "–" }} ({{ r.tier1_probability | num }}) | {{ r.reason or "–" }} |
+| {{ r.photo_id }} | {{ r.kind }} | `{{ r.question }}` | `{{ r.decision }}` | {{ r.answer or "–" }} | {{ r.tier or "–" }} | {{ r.model or "–" }} | {{ r.probability | num }} | {{ r.certainty or "–" }} | {{ r.tier1_answer or "–" }} ({{ r.tier1_probability | num }}) | {{ r.reason or "–" }} | {{ r.label or "–" }} ({{ r.label_status or "brak" }}) |
 {% endfor %}
 {% else %}
 Brak pozycji (0).
