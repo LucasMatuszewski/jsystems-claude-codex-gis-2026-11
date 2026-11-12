@@ -1,0 +1,212 @@
+{
+ "captured_at": "2026-11-12T15:41:19+00:00",
+ "target": "databricks",
+ "endpoint": "/api/2.0/sql/statements",
+ "method": "POST",
+ "model_sent": null,
+ "model_returned": null,
+ "client_version": "httpx 0.28.1; Databricks SQL Statement Execution API 2.0",
+ "request_meta": {
+  "host": "*.cloud.databricks.com",
+  "statement": "SELECT * FROM workspace.map_qa.photos LIMIT 5",
+  "body": {
+   "warehouse_id": "<warehouse_id>",
+   "statement": "SELECT * FROM workspace.map_qa.photos LIMIT 5",
+   "format": "ARROW_STREAM",
+   "disposition": "EXTERNAL_LINKS",
+   "wait_timeout": "30s",
+   "on_wait_timeout": "CONTINUE"
+  },
+  "polls": 0
+ },
+ "status": 200,
+ "response_headers": {
+  "date": "Thu, 12 Nov 2026 15:41:19 GMT",
+  "access-control-allow-headers": "Authorization, X-Databricks-Azure-Workspace-Resource-Id, X-Databricks-Org-Id, Content-Type, X-Databricks-Attribution-Tags",
+  "access-control-allow-origin": "*",
+  "cache-control": "no-cache, no-store, must-revalidate",
+  "expires": "0",
+  "pragma": "no-cache",
+  "content-type": "application/json",
+  "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+  "x-content-type-options": "nosniff",
+  "x-request-id": "0d44308e-b174-420c-bcfa-06ea4634e2e7",
+  "content-encoding": "gzip",
+  "vary": "Accept-Encoding",
+  "server": "databricks",
+  "alt-svc": "clear",
+  "server-timing": "request_id;dur=0;desc=\"0d44308e-b174-420c-bcfa-06ea4634e2e7\", client_protocol;dur=0;desc=\"HTTP/1.1\", request_ttfb_msec;dur=11403",
+  "transfer-encoding": "chunked"
+ },
+ "response_body": {
+  "statement_id": "01f1deaf-7a7d-191d-90e4-643c03fe2788",
+  "status": {
+   "state": "SUCCEEDED"
+  },
+  "manifest": {
+   "format": "ARROW_STREAM",
+   "schema": {
+    "column_count": 22,
+    "columns": [
+     {
+      "name": "photo_id",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 0
+     },
+     {
+      "name": "filename",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 1
+     },
+     {
+      "name": "source",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 2
+     },
+     {
+      "name": "url",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 3
+     },
+     {
+      "name": "source_url",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 4
+     },
+     {
+      "name": "longitude",
+      "type_text": "DOUBLE",
+      "type_name": "DOUBLE",
+      "position": 5
+     },
+     {
+      "name": "latitude",
+      "type_text": "DOUBLE",
+      "type_name": "DOUBLE",
+      "position": 6
+     },
+     {
+      "name": "heading",
+      "type_text": "DOUBLE",
+      "type_name": "DOUBLE",
+      "position": 7
+     },
+     {
+      "name": "captured_at",
+      "type_text": "TIMESTAMP",
+      "type_name": "TIMESTAMP",
+      "position": 8
+     },
+     {
+      "name": "sequence",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 9
+     },
+     {
+      "name": "license",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 10
+     },
+     {
+      "name": "license_url",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 11
+     },
+     {
+      "name": "author",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 12
+     },
+     {
+      "name": "source_sha256",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 13
+     },
+     {
+      "name": "sha256",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 14
+     },
+     {
+      "name": "bytes",
+      "type_text": "INT",
+      "type_name": "INT",
+      "position": 15
+     },
+     {
+      "name": "transformation",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 16
+     },
+     {
+      "name": "horizontal_accuracy_m",
+      "type_text": "DOUBLE",
+      "type_name": "DOUBLE",
+      "position": 17
+     },
+     {
+      "name": "is_panorama",
+      "type_text": "BOOLEAN",
+      "type_name": "BOOLEAN",
+      "position": 18
+     },
+     {
+      "name": "width",
+      "type_text": "INT",
+      "type_name": "INT",
+      "position": 19
+     },
+     {
+      "name": "height",
+      "type_text": "INT",
+      "type_name": "INT",
+      "position": 20
+     },
+     {
+      "name": "_rescued_data",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 21
+     }
+    ]
+   },
+   "total_chunk_count": 1,
+   "chunks": [
+    {
+     "chunk_index": 0,
+     "row_offset": 0,
+     "row_count": 5,
+     "byte_count": 6632
+    }
+   ],
+   "total_row_count": 5,
+   "total_byte_count": 6632,
+   "truncated": false
+  },
+  "result": {
+   "external_links": [
+    {
+     "chunk_index": 0,
+     "row_offset": 0,
+     "row_count": 5,
+     "byte_count": 6632,
+     "external_link": "https://us-east-2.storage.cloud.databricks.com/api/2.0/fs/files/WorkspaceInternal/Jobs/sql/extended/results_2026-11-13T16:41:18Z_7f548e96-a8a8-47f9-aa4c-7bc88bbd064f?<redacted-presigned-query>",
+     "expiration": "2026-11-12T15:56:19.177Z"
+    }
+   ]
+  }
+ },
+ "elapsed_ms": 11969.0
+}

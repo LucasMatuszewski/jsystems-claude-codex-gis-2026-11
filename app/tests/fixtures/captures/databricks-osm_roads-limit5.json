@@ -1,0 +1,242 @@
+{
+ "captured_at": "2026-11-12T15:41:24+00:00",
+ "target": "databricks",
+ "endpoint": "/api/2.0/sql/statements",
+ "method": "POST",
+ "model_sent": null,
+ "model_returned": null,
+ "client_version": "httpx 0.28.1; Databricks SQL Statement Execution API 2.0",
+ "request_meta": {
+  "host": "*.cloud.databricks.com",
+  "statement": "SELECT * FROM workspace.map_qa.osm_roads LIMIT 5",
+  "body": {
+   "warehouse_id": "<warehouse_id>",
+   "statement": "SELECT * FROM workspace.map_qa.osm_roads LIMIT 5",
+   "format": "ARROW_STREAM",
+   "disposition": "EXTERNAL_LINKS",
+   "wait_timeout": "30s",
+   "on_wait_timeout": "CONTINUE"
+  },
+  "polls": 0
+ },
+ "status": 200,
+ "response_headers": {
+  "date": "Thu, 12 Nov 2026 15:41:23 GMT",
+  "access-control-allow-headers": "Authorization, X-Databricks-Azure-Workspace-Resource-Id, X-Databricks-Org-Id, Content-Type, X-Databricks-Attribution-Tags",
+  "access-control-allow-origin": "*",
+  "cache-control": "no-cache, no-store, must-revalidate",
+  "expires": "0",
+  "pragma": "no-cache",
+  "content-type": "application/json",
+  "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+  "x-content-type-options": "nosniff",
+  "x-request-id": "77f22b3d-2e34-46c2-bc2f-8bf2c74ef630",
+  "content-encoding": "gzip",
+  "vary": "Accept-Encoding",
+  "server": "databricks",
+  "alt-svc": "clear",
+  "server-timing": "request_id;dur=0;desc=\"77f22b3d-2e34-46c2-bc2f-8bf2c74ef630\", client_protocol;dur=0;desc=\"HTTP/1.1\", request_ttfb_msec;dur=1484",
+  "transfer-encoding": "chunked"
+ },
+ "response_body": {
+  "statement_id": "01f1deaf-82cc-120d-8735-e740c1615239",
+  "status": {
+   "state": "SUCCEEDED"
+  },
+  "manifest": {
+   "format": "ARROW_STREAM",
+   "schema": {
+    "column_count": 27,
+    "columns": [
+     {
+      "name": "osm_id",
+      "type_text": "BIGINT",
+      "type_name": "LONG",
+      "position": 0
+     },
+     {
+      "name": "osm_version",
+      "type_text": "BIGINT",
+      "type_name": "LONG",
+      "position": 1
+     },
+     {
+      "name": "osm_timestamp",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 2
+     },
+     {
+      "name": "node_ids",
+      "type_text": "ARRAY<BIGINT>",
+      "type_name": "ARRAY",
+      "position": 3
+     },
+     {
+      "name": "start_node",
+      "type_text": "BIGINT",
+      "type_name": "LONG",
+      "position": 4
+     },
+     {
+      "name": "end_node",
+      "type_text": "BIGINT",
+      "type_name": "LONG",
+      "position": 5
+     },
+     {
+      "name": "boundary_crossing",
+      "type_text": "BOOLEAN",
+      "type_name": "BOOLEAN",
+      "position": 6
+     },
+     {
+      "name": "tags",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 7
+     },
+     {
+      "name": "highway",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 8
+     },
+     {
+      "name": "maxspeed",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 9
+     },
+     {
+      "name": "surface",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 10
+     },
+     {
+      "name": "lanes",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 11
+     },
+     {
+      "name": "oneway",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 12
+     },
+     {
+      "name": "lit",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 13
+     },
+     {
+      "name": "sidewalk",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 14
+     },
+     {
+      "name": "sidewalk:left",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 15
+     },
+     {
+      "name": "sidewalk:right",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 16
+     },
+     {
+      "name": "junction",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 17
+     },
+     {
+      "name": "ref",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 18
+     },
+     {
+      "name": "name",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 19
+     },
+     {
+      "name": "access",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 20
+     },
+     {
+      "name": "motor_vehicle",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 21
+     },
+     {
+      "name": "bridge",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 22
+     },
+     {
+      "name": "tunnel",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 23
+     },
+     {
+      "name": "layer",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 24
+     },
+     {
+      "name": "geometry",
+      "type_text": "BINARY",
+      "type_name": "BINARY",
+      "position": 25
+     },
+     {
+      "name": "_rescued_data",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 26
+     }
+    ]
+   },
+   "total_chunk_count": 1,
+   "chunks": [
+    {
+     "chunk_index": 0,
+     "row_offset": 0,
+     "row_count": 5,
+     "byte_count": 6840
+    }
+   ],
+   "total_row_count": 5,
+   "total_byte_count": 6840,
+   "truncated": false
+  },
+  "result": {
+   "external_links": [
+    {
+     "chunk_index": 0,
+     "row_offset": 0,
+     "row_count": 5,
+     "byte_count": 6840,
+     "external_link": "https://us-east-2.storage.cloud.databricks.com/api/2.0/fs/files/WorkspaceInternal/Jobs/sql/extended/results_2026-11-13T16:41:23Z_a9b7b472-53ee-4aad-8541-99fedb10a55e?<redacted-presigned-query>",
+     "expiration": "2026-11-12T15:56:23.411Z"
+    }
+   ]
+  }
+ },
+ "elapsed_ms": 2063.0
+}

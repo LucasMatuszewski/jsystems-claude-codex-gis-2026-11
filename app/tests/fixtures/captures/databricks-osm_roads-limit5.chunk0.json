@@ -1,0 +1,34 @@
+{
+ "captured_at": "2026-11-12T15:41:24+00:00",
+ "target": "databricks",
+ "endpoint": "<presigned external_link>",
+ "method": "GET",
+ "model_sent": null,
+ "model_returned": null,
+ "client_version": "httpx 0.28.1; Databricks SQL Statement Execution API 2.0",
+ "request_meta": {
+  "chunk_index": 0,
+  "statement": "SELECT * FROM workspace.map_qa.osm_roads LIMIT 5"
+ },
+ "status": 200,
+ "response_headers": {
+  "accept-ranges": "bytes",
+  "content-disposition": "attachment",
+  "content-length": "6840",
+  "content-security-policy": "sandbox",
+  "content-type": "binary/octet-stream",
+  "etag": "\"2236fc60f0d94948b165d7ad8304cdc9\"",
+  "last-modified": "Thu, 12 Nov 2026 15:41:24 GMT",
+  "x-content-security-policy": "sandbox",
+  "x-content-type-options": "nosniff",
+  "x-frame-options": "DENY",
+  "x-webkit-cs": "sandbox",
+  "x-request-id": "4ea90f54-bac7-4671-9adc-1a680493cb07",
+  "date": "Thu, 12 Nov 2026 15:41:24 GMT",
+  "server": "databricks"
+ },
+ "response_body": null,
+ "elapsed_ms": 797.0,
+ "body_file": "databricks-osm_roads-limit5.chunk0.arrow",
+ "body_sha256": "d1a6862f7472e474c77914d6c9aaa41a872d43d41bd64b4a2b0532e50a79117e"
+}
