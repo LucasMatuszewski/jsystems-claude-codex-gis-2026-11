@@ -1,0 +1,4680 @@
+{
+  "expand": "schema,names",
+  "startAt": 0,
+  "maxResults": 100,
+  "total": 36,
+  "issues": [
+    {
+      "id": "20101",
+      "key": "MAPJOB-101",
+      "fields": {
+        "summary": "ingest: roads / Sektor R-01",
+        "description": {
+          "version": 1,
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "country_code: PL"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "region_code: PL-14"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "admin_area: Sektor R-01"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "layer: roads"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "data_release: 2026.11"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "processing_step: ingest"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "output_format: GeoParquet"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "deadline: 2026-11-16"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "requester_team: Zespół jakości danych"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Po przygotowaniu parametrów czeka na ręczne uruchomienie."
+                }
+              ]
+            }
+          ]
+        },
+        "status": {
+          "name": "To Do"
+        },
+        "labels": [
+          "map-data",
+          "roads"
+        ],
+        "created": "2026-11-02T09:00:00.000+0000",
+        "issuelinks": [],
+        "comment": {
+          "startAt": 0,
+          "maxResults": 100,
+          "total": 0,
+          "comments": []
+        }
+      }
+    },
+    {
+      "id": "20102",
+      "key": "MAPJOB-102",
+      "fields": {
+        "summary": "ingest: poi / Sektor R-02",
+        "description": {
+          "version": 1,
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "country_code: PL"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "regoin: PL-MZ"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "admin_area: Sektor R-02"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "layer: poi"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "data_release: 26.11"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "processing_step: ingest"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "output_format: GeoJSON"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "deadline: 2026-11-17"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "requester_team: Zespół dróg"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Po przygotowaniu parametrów czeka na ręczne uruchomienie."
+                }
+              ]
+            }
+          ]
+        },
+        "status": {
+          "name": "In Progress"
+        },
+        "labels": [
+          "map-data",
+          "poi"
+        ],
+        "created": "2026-11-02T09:00:00.000+0000",
+        "issuelinks": [],
+        "comment": {
+          "startAt": 0,
+          "maxResults": 100,
+          "total": 1,
+          "comments": [
+            {
+              "id": "10201",
+              "author": {
+                "displayName": "Zespół jakości danych"
+              },
+              "created": "2026-11-04T10:00:00.000+0000",
+              "updated": "2026-11-04T10:00:00.000+0000",
+              "body": {
+                "version": 1,
+                "type": "doc",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Potwierdzenie parametrów: regoin oznacza region_code. PL-MZ to tutaj PL-14; release 26.11 oznacza 2026.11."
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "20103",
+      "key": "MAPJOB-103",
+      "fields": {
+        "summary": "ingest: speed_limits / Sektor R-03",
+        "description": {
+          "version": 1,
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "country_code: PL"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "region_code: PL-02"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "admin_area: Sektor R-03"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "layer: speed_limits"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "data_release: 2026.11"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "processing_step: ingest"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "output_format: CSV"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "deadline: 2026-11-18"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "requester_team: Zespół adresów"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Po przygotowaniu parametrów czeka na ręczne uruchomienie."
+                }
+              ]
+            }
+          ]
+        },
+        "status": {
+          "name": "Done"
+        },
+        "labels": [
+          "map-data",
+          "speed_limits"
+        ],
+        "created": "2026-11-02T09:00:00.000+0000",
+        "issuelinks": [],
+        "comment": {
+          "startAt": 0,
+          "maxResults": 100,
+          "total": 0,
+          "comments": []
+        }
+      }
+    },
+    {
+      "id": "20104",
+      "key": "MAPJOB-104",
+      "fields": {
+        "summary": "Ponownie: speed limits / Sektor R-03",
+        "description": {
+          "version": 1,
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "country_code: PL"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "region_code: PL-02"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "admin_area: Sektor R-03"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "warstwa: speed_limits"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "data_release: 2026.11"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "processing_step: ingest"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "output_format: CSV"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "deadline: 2026-11-18"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "requester_team: Zespół adresów"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Po przygotowaniu parametrów czeka na ręczne uruchomienie."
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Zgłoszenie przez drugi formularz, sprawdź czy nie zdublowane."
+                }
+              ]
+            }
+          ]
+        },
+        "status": {
+          "name": "To Do"
+        },
+        "labels": [
+          "map-data",
+          "speed_limits"
+        ],
+        "created": "2026-11-02T09:00:00.000+0000",
+        "issuelinks": [],
+        "comment": {
+          "startAt": 0,
+          "maxResults": 100,
+          "total": 1,
+          "comments": [
+            {
+              "id": "10401",
+              "author": {
+                "displayName": "Zespół jakości danych"
+              },
+              "created": "2026-11-04T10:00:00.000+0000",
+              "updated": "2026-11-04T10:00:00.000+0000",
+              "body": {
+                "version": 1,
+                "type": "doc",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Ten sam zakres i ten sam termin co MAPJOB-103; nie zamawiam drugiego przebiegu."
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "20105",
+      "key": "MAPJOB-105",
+      "fields": {
+        "summary": "conflation: roads / Sektor R-05",
+        "description": {
+          "version": 1,
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Pilot-zefir: przygotować paczkę do kontroli; szczegóły dopisze zespół w komentarzu."
+                }
+              ]
+            }
+          ]
+        },
+        "status": {
+          "name": "In Progress"
+        },
+        "labels": [
+          "map-data",
+          "roads"
+        ],
+        "created": "2026-11-02T09:00:00.000+0000",
+        "issuelinks": [],
+        "comment": {
+          "startAt": 0,
+          "maxResults": 100,
+          "total": 1,
+          "comments": [
+            {
+              "id": "10501",
+              "author": {
+                "displayName": "Zespół jakości danych"
+              },
+              "created": "2026-11-04T10:00:00.000+0000",
+              "updated": "2026-11-04T10:00:00.000+0000",
+              "body": {
+                "version": 1,
+                "type": "doc",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "country_code: DE"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "region_code: DE-BY"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "admin_area: Sektor R-05"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "layer: roads"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "data_release: 2026.11"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "processing_step: conflation"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "output_format: GeoParquet"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "deadline: 2026-11-20"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "requester_team: Zespół jakości danych"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Po przygotowaniu parametrów czeka na ręczne uruchomienie."
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "20106",
+      "key": "MAPJOB-106",
+      "fields": {
+        "summary": "conflation: poi / Sektor R-06",
+        "description": {
+          "version": 1,
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "country_code: CZ"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "region_code: CZ-10"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "admin_area: Sektor R-06"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "layer: poi"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "data_release: 2026.09"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "processing_step: conflation"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "output_format: GeoJSON"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "deadline: 2026-11-21"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "requester_team: Zespół dróg"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Po przygotowaniu parametrów czeka na ręczne uruchomienie."
+                }
+              ]
+            }
+          ]
+        },
+        "status": {
+          "name": "Done"
+        },
+        "labels": [
+          "map-data",
+          "poi"
+        ],
+        "created": "2026-11-02T09:00:00.000+0000",
+        "issuelinks": [],
+        "comment": {
+          "startAt": 0,
+          "maxResults": 100,
+          "total": 2,
+          "comments": [
+            {
+              "id": "10601",
+              "author": {
+                "displayName": "Zespół jakości danych"
+              },
+              "created": "2026-11-04T10:00:00.000+0000",
+              "updated": "2026-11-04T10:00:00.000+0000",
+              "body": {
+                "version": 1,
+                "type": "doc",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Aktualizacja: data_release = 2026.10."
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "id": "10602",
+              "author": {
+                "displayName": "Zespół wydań"
+              },
+              "created": "2026-11-05T12:00:00.000+0000",
+              "updated": "2026-11-05T12:00:00.000+0000",
+              "body": {
+                "version": 1,
+                "type": "doc",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Ostateczne potwierdzenie: data_release = 2026.11. Poprzednie wydania wycofane."
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "20107",
+      "key": "MAPJOB-107",
+      "fields": {
+        "summary": "conflation: speed_limits / Sektor R-07",
+        "description": {
+          "version": 1,
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "country_code: PL"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "region_code: PL-14"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "admin_area: Sektor R-07"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "layer: speed_limits"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "data_release: 2026.11"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "processing_step: conflation"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "output_format: CSV"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "deadline: 2026-11-22"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "requester_team: Zespół adresów"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Po przygotowaniu parametrów czeka na ręczne uruchomienie."
+                }
+              ]
+            }
+          ]
+        },
+        "status": {
+          "name": "To Do"
+        },
+        "labels": [
+          "map-data",
+          "speed_limits"
+        ],
+        "created": "2026-11-02T09:00:00.000+0000",
+        "issuelinks": [
+          {
+            "id": "5001",
+            "type": {
+              "id": "10003",
+              "name": "Relates",
+              "inward": "relates to",
+              "outward": "relates to"
+            },
+            "outwardIssue": {
+              "id": "20108",
+              "key": "MAPJOB-108",
+              "fields": {
+                "summary": "conflation: addresses / Sektor R-08",
+                "status": {
+                  "name": "In Progress"
+                }
+              }
+            }
+          }
+        ],
+        "comment": {
+          "startAt": 0,
+          "maxResults": 100,
+          "total": 0,
+          "comments": []
+        }
+      }
+    },
+    {
+      "id": "20108",
+      "key": "MAPJOB-108",
+      "fields": {
+        "summary": "conflation: addresses / Sektor R-08",
+        "description": {
+          "version": 1,
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "country_code: PL"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "region_code: PL-12"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "admin_area: Sektor R-08"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "layer: addresses"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "data_release: 2026.11"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "processing_step: conflation"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "output_format: GPKG"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "deadline: 2026-11-23"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "requester_team: Zespół wydań"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Po przygotowaniu parametrów czeka na ręczne uruchomienie."
+                }
+              ]
+            }
+          ]
+        },
+        "status": {
+          "name": "In Progress"
+        },
+        "labels": [
+          "map-data",
+          "addresses"
+        ],
+        "created": "2026-11-02T09:00:00.000+0000",
+        "issuelinks": [],
+        "comment": {
+          "startAt": 0,
+          "maxResults": 100,
+          "total": 0,
+          "comments": []
+        }
+      }
+    },
+    {
+      "id": "20109",
+      "key": "MAPJOB-109",
+      "fields": {
+        "summary": "validation: roads / Sektor R-09",
+        "description": {
+          "version": 1,
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "country_code: PL"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "region_code: PL-02"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "admin_area: Sektor R-09"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "layer: roads"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "data_release: 2026.11"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "processing_step: validation"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "output_format: GeoParquet"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "deadline: 2026-11-24"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "requester_team: Zespół jakości danych"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Po przygotowaniu parametrów czeka na ręczne uruchomienie."
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Wynik wykorzysta MAPJOB-110; zależność tylko w tekście, proszę uzupełnić powiązanie ręcznie."
+                }
+              ]
+            }
+          ]
+        },
+        "status": {
+          "name": "Done"
+        },
+        "labels": [
+          "map-data",
+          "roads"
+        ],
+        "created": "2026-11-02T09:00:00.000+0000",
+        "issuelinks": [],
+        "comment": {
+          "startAt": 0,
+          "maxResults": 100,
+          "total": 0,
+          "comments": []
+        }
+      }
+    },
+    {
+      "id": "20110",
+      "key": "MAPJOB-110",
+      "fields": {
+        "summary": "validation: poi / Sektor R-10",
+        "description": {
+          "version": 1,
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "country_code: DE"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "region_code: DE-BE"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "admin_area: Sektor R-10"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "layer: poi"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "data_release: 2026.11"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "processing_step: validation"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "output_format: GeoJSON"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "deadline: 2026-11-25"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "requester_team: Zespół dróg"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Po przygotowaniu parametrów czeka na ręczne uruchomienie."
+                }
+              ]
+            }
+          ]
+        },
+        "status": {
+          "name": "To Do"
+        },
+        "labels": [
+          "map-data",
+          "poi"
+        ],
+        "created": "2026-11-02T09:00:00.000+0000",
+        "issuelinks": [],
+        "comment": {
+          "startAt": 0,
+          "maxResults": 100,
+          "total": 0,
+          "comments": []
+        }
+      }
+    },
+    {
+      "id": "20111",
+      "key": "MAPJOB-111",
+      "fields": {
+        "summary": "validation: speed_limits / Sektor R-11",
+        "description": {
+          "version": 1,
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "country_code: DE"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "region_code: DE-BY"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "admin_area: Sektor R-11"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "layer: speed_limits"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "processing_step: validation"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "output_format: CSV"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "deadline: 2026-11-16"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "requester_team: Zespół adresów"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Po przygotowaniu parametrów czeka na ręczne uruchomienie."
+                }
+              ]
+            }
+          ]
+        },
+        "status": {
+          "name": "In Progress"
+        },
+        "labels": [
+          "map-data",
+          "speed_limits"
+        ],
+        "created": "2026-11-02T09:00:00.000+0000",
+        "issuelinks": [],
+        "comment": {
+          "startAt": 0,
+          "maxResults": 100,
+          "total": 0,
+          "comments": []
+        }
+      }
+    },
+    {
+      "id": "20112",
+      "key": "MAPJOB-112",
+      "fields": {
+        "summary": "validation: addresses / Sektor R-12",
+        "description": {
+          "version": 1,
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "country_code: PL"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "region_code: PL-14"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "layer: addresses"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "data_release: 2026.11"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "processing_step: validation"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "output_format: GPKG"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "deadline: 2026-11-17"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "requester_team: Zespół wydań"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Po przygotowaniu parametrów czeka na ręczne uruchomienie."
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "bbox (EPSG:4326, west,south,east,north): [51.8,20.8,52.4,21.4]"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Obszar powinien obejmować wycinek w Polsce."
+                }
+              ]
+            }
+          ]
+        },
+        "status": {
+          "name": "Done"
+        },
+        "labels": [
+          "map-data",
+          "addresses"
+        ],
+        "created": "2026-11-02T09:00:00.000+0000",
+        "issuelinks": [],
+        "comment": {
+          "startAt": 0,
+          "maxResults": 100,
+          "total": 1,
+          "comments": [
+            {
+              "id": "11201",
+              "author": {
+                "displayName": "Zespół jakości danych"
+              },
+              "created": "2026-11-04T10:00:00.000+0000",
+              "updated": "2026-11-04T10:00:00.000+0000",
+              "body": {
+                "version": 1,
+                "type": "doc",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "W formularzu zamieniono lat/lon. Poprawny bbox [west,south,east,north] = [20.8,51.8,21.4,52.4], EPSG:4326."
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "20113",
+      "key": "MAPJOB-113",
+      "fields": {
+        "summary": "Kontrola Centrum",
+        "description": {
+          "version": 1,
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "country_code: PL"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "region_code: PL-14"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "admin_area: Centrum"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "layer: roads"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "data_release: 2026.11"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "processing_step: export"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "output_format: GeoParquet"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "deadline: 2026-11-18"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "requester_team: Zespół jakości danych"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Po przygotowaniu parametrów czeka na ręczne uruchomienie."
+                }
+              ]
+            }
+          ]
+        },
+        "status": {
+          "name": "To Do"
+        },
+        "labels": [
+          "map-data",
+          "roads"
+        ],
+        "created": "2026-11-02T09:00:00.000+0000",
+        "issuelinks": [],
+        "comment": {
+          "startAt": 0,
+          "maxResults": 100,
+          "total": 0,
+          "comments": []
+        }
+      }
+    },
+    {
+      "id": "20114",
+      "key": "MAPJOB-114",
+      "fields": {
+        "summary": "Kontrola Centrum",
+        "description": {
+          "version": 1,
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "country_code: PL"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "region_code: PL-12"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "admin_area: Centrum"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "layer: roads"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "data_release: 2026.11"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "processing_step: export"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "output_format: GeoJSON"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "deadline: 2026-11-19"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "requester_team: Zespół dróg"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Po przygotowaniu parametrów czeka na ręczne uruchomienie."
+                }
+              ]
+            }
+          ]
+        },
+        "status": {
+          "name": "In Progress"
+        },
+        "labels": [
+          "map-data",
+          "roads"
+        ],
+        "created": "2026-11-02T09:00:00.000+0000",
+        "issuelinks": [],
+        "comment": {
+          "startAt": 0,
+          "maxResults": 100,
+          "total": 0,
+          "comments": []
+        }
+      }
+    },
+    {
+      "id": "20115",
+      "key": "MAPJOB-115",
+      "fields": {
+        "summary": "Kontrola Nadbrzeże",
+        "description": {
+          "version": 1,
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "country_code: PL"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "region_code: PL-02"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "admin_area: Nadbrzeże"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "layer: roads"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "data_release: 2026.11"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "processing_step: validation"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "output_format: CSV"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "deadline: 2026-11-20"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "requester_team: Zespół adresów"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Po przygotowaniu parametrów czeka na ręczne uruchomienie."
+                }
+              ]
+            }
+          ]
+        },
+        "status": {
+          "name": "Done"
+        },
+        "labels": [
+          "map-data",
+          "roads"
+        ],
+        "created": "2026-11-02T09:00:00.000+0000",
+        "issuelinks": [],
+        "comment": {
+          "startAt": 0,
+          "maxResults": 100,
+          "total": 0,
+          "comments": []
+        }
+      }
+    },
+    {
+      "id": "20116",
+      "key": "MAPJOB-116",
+      "fields": {
+        "summary": "Kontrola Nadbrzeże",
+        "description": {
+          "version": 1,
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "country_code: PL"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "region_code: PL-02"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "admin_area: Nadbrzeże"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "layer: poi"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "data_release: 2026.11"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "processing_step: validation"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "output_format: GPKG"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "deadline: 2026-11-21"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "requester_team: Zespół wydań"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Po przygotowaniu parametrów czeka na ręczne uruchomienie."
+                }
+              ]
+            }
+          ]
+        },
+        "status": {
+          "name": "To Do"
+        },
+        "labels": [
+          "map-data",
+          "poi"
+        ],
+        "created": "2026-11-02T09:00:00.000+0000",
+        "issuelinks": [],
+        "comment": {
+          "startAt": 0,
+          "maxResults": 100,
+          "total": 0,
+          "comments": []
+        }
+      }
+    },
+    {
+      "id": "20117",
+      "key": "MAPJOB-117",
+      "fields": {
+        "summary": "ingest: roads / Sektor R-17",
+        "description": {
+          "version": 1,
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "country_code: DE"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "region_code: DE-BY"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "admin_area: Sektor R-17"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "layer: roads"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "data_release: 2026.11"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "processing_step: ingest"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "output_format: GeoParquet"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "deadline: do uzgodnienia"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "requester_team: Zespół jakości danych"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Po przygotowaniu parametrów czeka na ręczne uruchomienie."
+                }
+              ]
+            }
+          ]
+        },
+        "status": {
+          "name": "In Progress"
+        },
+        "labels": [
+          "map-data",
+          "roads"
+        ],
+        "created": "2026-11-02T09:00:00.000+0000",
+        "issuelinks": [],
+        "comment": {
+          "startAt": 0,
+          "maxResults": 100,
+          "total": 2,
+          "comments": [
+            {
+              "id": "11701",
+              "author": {
+                "displayName": "Zespół dróg"
+              },
+              "created": "2026-11-04T10:00:00.000+0000",
+              "updated": "2026-11-04T10:00:00.000+0000",
+              "body": {
+                "version": 1,
+                "type": "doc",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Proponowany deadline: 2026-11-20. Wymaga akceptacji."
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "id": "11702",
+              "author": {
+                "displayName": "Zespół wydań"
+              },
+              "created": "2026-11-04T10:00:00.000+0000",
+              "updated": "2026-11-04T10:00:00.000+0000",
+              "body": {
+                "version": 1,
+                "type": "doc",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Proponowany deadline: 2026-11-23. Nie uzgodniono terminu."
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "20118",
+      "key": "MAPJOB-118",
+      "fields": {
+        "summary": "ingest: poi / Sektor R-18",
+        "description": {
+          "version": 1,
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "country_code: CZ"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "region_code: CZ-10"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "admin_area: Sektor R-18"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "layer: roadz"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "data_release: 2026.11"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "processing_step: ingest"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "output_format: GeoJSON"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "deadline: 2026-11-23"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "requester_team: Zespół dróg"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Po przygotowaniu parametrów czeka na ręczne uruchomienie."
+                }
+              ]
+            }
+          ]
+        },
+        "status": {
+          "name": "Done"
+        },
+        "labels": [
+          "map-data",
+          "poi"
+        ],
+        "created": "2026-11-02T09:00:00.000+0000",
+        "issuelinks": [],
+        "comment": {
+          "startAt": 0,
+          "maxResults": 100,
+          "total": 1,
+          "comments": [
+            {
+              "id": "11801",
+              "author": {
+                "displayName": "Zespół jakości danych"
+              },
+              "created": "2026-11-04T10:00:00.000+0000",
+              "updated": "2026-11-04T10:00:00.000+0000",
+              "body": {
+                "version": 1,
+                "type": "doc",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Literówka w layer: roadz ma oznaczać roads (drogi), proszę nie przetwarzać POI."
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "20119",
+      "key": "MAPJOB-119",
+      "fields": {
+        "summary": "ingest: speed_limits / Sektor R-19",
+        "description": {
+          "version": 1,
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "country_code: PL"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "region_code: PL-14"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "admin_area: Sektor R-19"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "layer: speed_limits"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "data_release: 26.11"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "processing_step: ingest"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "output_format: CSV"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "deadline: 2026-11-24"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "requester_team: Zespół adresów"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Po przygotowaniu parametrów czeka na ręczne uruchomienie."
+                }
+              ]
+            }
+          ]
+        },
+        "status": {
+          "name": "To Do"
+        },
+        "labels": [
+          "map-data",
+          "speed_limits"
+        ],
+        "created": "2026-11-02T09:00:00.000+0000",
+        "issuelinks": [],
+        "comment": {
+          "startAt": 0,
+          "maxResults": 100,
+          "total": 0,
+          "comments": []
+        }
+      }
+    },
+    {
+      "id": "20120",
+      "key": "MAPJOB-120",
+      "fields": {
+        "summary": "ingest: addresses / Sektor R-20",
+        "description": {
+          "version": 1,
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "country_code: PL"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "region_code: PL-MZ"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "admin_area: Sektor R-20"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "layer: addresses"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "data_release: 2026.11"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "processing_step: ingest"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "output_format: GPKG"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "deadline: 2026-11-25"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "requester_team: Zespół wydań"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Po przygotowaniu parametrów czeka na ręczne uruchomienie."
+                }
+              ]
+            }
+          ]
+        },
+        "status": {
+          "name": "In Progress"
+        },
+        "labels": [
+          "map-data",
+          "addresses"
+        ],
+        "created": "2026-11-02T09:00:00.000+0000",
+        "issuelinks": [],
+        "comment": {
+          "startAt": 0,
+          "maxResults": 100,
+          "total": 1,
+          "comments": [
+            {
+              "id": "12001",
+              "author": {
+                "displayName": "Zespół jakości danych"
+              },
+              "created": "2026-11-04T10:00:00.000+0000",
+              "updated": "2026-11-04T10:00:00.000+0000",
+              "body": {
+                "version": 1,
+                "type": "doc",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Potwierdzamy region_code: PL-14, country_code: PL. Skrót PL-MZ z formularza jest nieaktualny."
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "20121",
+      "key": "MAPJOB-121",
+      "fields": {
+        "summary": "conflation: roads / Sektor R-21",
+        "description": {
+          "version": 1,
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "country_code: PL"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "region_code: PL-14"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "layer: roads"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "data_release: 2026.11"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "processing_step: conflation"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "output_format: GeoParquet"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "deadline: 2026-11-16"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "requester_team: Zespół jakości danych"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Po przygotowaniu parametrów czeka na ręczne uruchomienie."
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "bbox (EPSG:4326, west,south,east,north): [51.8,20.8,52.4,21.4]"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Obszar powinien obejmować wycinek w Polsce."
+                }
+              ]
+            }
+          ]
+        },
+        "status": {
+          "name": "Done"
+        },
+        "labels": [
+          "map-data",
+          "roads"
+        ],
+        "created": "2026-11-02T09:00:00.000+0000",
+        "issuelinks": [],
+        "comment": {
+          "startAt": 0,
+          "maxResults": 100,
+          "total": 0,
+          "comments": []
+        }
+      }
+    },
+    {
+      "id": "20122",
+      "key": "MAPJOB-122",
+      "fields": {
+        "summary": "conflation: poi / Sektor R-22",
+        "description": {
+          "version": 1,
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "country_code: DE"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "region_code: DE-BE"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "admin_area: Sektor R-22"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "layer: poi"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "data_release: 2026.11"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "processing_step: conflation"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "output_format: GeoJSON"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "deadline: 2026-11-17"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "requester_team: Zespół dróg"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Po przygotowaniu parametrów czeka na ręczne uruchomienie."
+                }
+              ]
+            }
+          ]
+        },
+        "status": {
+          "name": "To Do"
+        },
+        "labels": [
+          "map-data",
+          "poi"
+        ],
+        "created": "2026-11-02T09:00:00.000+0000",
+        "issuelinks": [],
+        "comment": {
+          "startAt": 0,
+          "maxResults": 100,
+          "total": 0,
+          "comments": []
+        }
+      }
+    },
+    {
+      "id": "20123",
+      "key": "MAPJOB-123",
+      "fields": {
+        "summary": "conflation: speed_limits / Sektor R-23",
+        "description": {
+          "version": 1,
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "country_code: DE"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "region_code: DE-BY"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "admin_area: Sektor R-23"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "layer: speed_limits"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "data_release: 2026.11"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "processing_step: conflation"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "output_format: CSV"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "deadline: 2026-11-18"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Po przygotowaniu parametrów czeka na ręczne uruchomienie."
+                }
+              ]
+            }
+          ]
+        },
+        "status": {
+          "name": "In Progress"
+        },
+        "labels": [
+          "map-data",
+          "speed_limits"
+        ],
+        "created": "2026-11-02T09:00:00.000+0000",
+        "issuelinks": [],
+        "comment": {
+          "startAt": 0,
+          "maxResults": 100,
+          "total": 1,
+          "comments": [
+            {
+              "id": "12301",
+              "author": {
+                "displayName": "Zespół jakości danych"
+              },
+              "created": "2026-11-04T10:00:00.000+0000",
+              "updated": "2026-11-04T10:00:00.000+0000",
+              "body": {
+                "version": 1,
+                "type": "doc",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Dopisuję jedynie uwagę: sprawdzić kompletność adresów. Zespół zamawiający nadal nieznany."
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "20124",
+      "key": "MAPJOB-124",
+      "fields": {
+        "summary": "conflation: addresses / Sektor R-24",
+        "description": {
+          "version": 1,
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "country_code: DE"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "region_code: DE-BE"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "layer: addresses"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "data_release: 2026.11"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "processing_step: conflation"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "output_format: GPKG"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "deadline: 2026-11-19"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "requester_team: Zespół wydań"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Po przygotowaniu parametrów czeka na ręczne uruchomienie."
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "bbox [west,south,east,north]: [13.1,52.3,13.7,52.7]; CRS EPSG:4326"
+                }
+              ]
+            }
+          ]
+        },
+        "status": {
+          "name": "Done"
+        },
+        "labels": [
+          "map-data",
+          "addresses"
+        ],
+        "created": "2026-11-02T09:00:00.000+0000",
+        "issuelinks": [],
+        "comment": {
+          "startAt": 0,
+          "maxResults": 100,
+          "total": 0,
+          "comments": []
+        }
+      }
+    },
+    {
+      "id": "20125",
+      "key": "MAPJOB-125",
+      "fields": {
+        "summary": "validation: roads / Sektor R-25",
+        "description": {
+          "version": 1,
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "country_code: PL"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "region_code: PL-14"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "admin_area: Sektor R-25"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "layer: roads"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "data_release: 2026.11"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "deadline: 2026-11-20"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "requester_team: Zespół jakości danych"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Po przygotowaniu parametrów czeka na ręczne uruchomienie."
+                }
+              ]
+            }
+          ]
+        },
+        "status": {
+          "name": "To Do"
+        },
+        "labels": [
+          "map-data",
+          "roads"
+        ],
+        "created": "2026-11-02T09:00:00.000+0000",
+        "issuelinks": [],
+        "comment": {
+          "startAt": 0,
+          "maxResults": 100,
+          "total": 1,
+          "comments": [
+            {
+              "id": "12501",
+              "author": {
+                "displayName": "Zespół jakości danych"
+              },
+              "created": "2026-11-04T10:00:00.000+0000",
+              "updated": "2026-11-04T10:00:00.000+0000",
+              "body": {
+                "version": 1,
+                "type": "doc",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "processing_step: validation; output_format: GeoParquet. Pozostałe wartości zgodnie z opisem."
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "20126",
+      "key": "MAPJOB-126",
+      "fields": {
+        "summary": "validation: poi / Sektor R-26",
+        "description": {
+          "version": 1,
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "country_code: PL"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "region_code: PL-12"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "admin_area: Sektor R-26"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "layer: poi"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "data_release: 2026.11"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "processing_step: validation"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "output_format: GeoJSON"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "deadline: 2026-11-21"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "requester_team: Zespół dróg"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Po przygotowaniu parametrów czeka na ręczne uruchomienie."
+                }
+              ]
+            }
+          ]
+        },
+        "status": {
+          "name": "In Progress"
+        },
+        "labels": [
+          "map-data",
+          "poi"
+        ],
+        "created": "2026-11-02T09:00:00.000+0000",
+        "issuelinks": [],
+        "comment": {
+          "startAt": 0,
+          "maxResults": 100,
+          "total": 0,
+          "comments": []
+        }
+      }
+    },
+    {
+      "id": "20127",
+      "key": "MAPJOB-127",
+      "fields": {
+        "summary": "validation: poi / Sektor R-26",
+        "description": {
+          "version": 1,
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "country_code: PL"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "region_code: PL-12"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "admin_area: Sektor R-26"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "layer: poi"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "data_release: 2026.10"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "processing_step: validation"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "output_format: GeoJSON"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "deadline: 2026-11-21"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "requester_team: Zespół dróg"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Po przygotowaniu parametrów czeka na ręczne uruchomienie."
+                }
+              ]
+            }
+          ]
+        },
+        "status": {
+          "name": "Done"
+        },
+        "labels": [
+          "map-data",
+          "poi"
+        ],
+        "created": "2026-11-02T09:00:00.000+0000",
+        "issuelinks": [],
+        "comment": {
+          "startAt": 0,
+          "maxResults": 100,
+          "total": 0,
+          "comments": []
+        }
+      }
+    },
+    {
+      "id": "20128",
+      "key": "MAPJOB-128",
+      "fields": {
+        "summary": "validation: addresses / Sektor R-28",
+        "description": {
+          "version": 1,
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "country_code: DE"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "region_code: DE-BE"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "admin_area: Sektor R-28"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "layer: addresses"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "data_release: 2026.11"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "processing_step: validation"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "output_format: GPKG"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "deadline: 2026-11-23"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "requester_team: Zespół wydań"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Po przygotowaniu parametrów czeka na ręczne uruchomienie."
+                }
+              ]
+            }
+          ]
+        },
+        "status": {
+          "name": "To Do"
+        },
+        "labels": [
+          "map-data",
+          "addresses"
+        ],
+        "created": "2026-11-02T09:00:00.000+0000",
+        "issuelinks": [],
+        "comment": {
+          "startAt": 0,
+          "maxResults": 100,
+          "total": 2,
+          "comments": [
+            {
+              "id": "12801",
+              "author": {
+                "displayName": "Zespół jakości danych"
+              },
+              "created": "2026-11-04T10:00:00.000+0000",
+              "updated": "2026-11-04T10:00:00.000+0000",
+              "body": {
+                "version": 1,
+                "type": "doc",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Zmiana output_format na CSV."
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "id": "12802",
+              "author": {
+                "displayName": "Zespół jakości danych"
+              },
+              "created": "2026-11-06T10:00:00.000+0000",
+              "updated": "2026-11-06T10:00:00.000+0000",
+              "body": {
+                "version": 1,
+                "type": "doc",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Ostatecznie output_format: GeoJSON; CSV anulowany, reszta bez zmian."
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "20129",
+      "key": "MAPJOB-129",
+      "fields": {
+        "summary": "export: roads / Sektor R-29",
+        "description": {
+          "version": 1,
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "country_code: DE"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "region_code: DE-BY"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "admin_area: Sektor R-29"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "layer: roads"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "data_release: 2026.11"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "processing_step: export"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "output_format: GeoParquet"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "deadline: 2026-11-24"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "requester_team: Zespół jakości danych"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Po przygotowaniu parametrów czeka na ręczne uruchomienie."
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Please keep the requested release frozen. No change of scope requested."
+                }
+              ]
+            }
+          ]
+        },
+        "status": {
+          "name": "In Progress"
+        },
+        "labels": [
+          "map-data",
+          "roads"
+        ],
+        "created": "2026-11-02T09:00:00.000+0000",
+        "issuelinks": [],
+        "comment": {
+          "startAt": 0,
+          "maxResults": 100,
+          "total": 0,
+          "comments": []
+        }
+      }
+    },
+    {
+      "id": "20130",
+      "key": "MAPJOB-130",
+      "fields": {
+        "summary": "export: poi / Sektor R-30",
+        "description": {
+          "version": 1,
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "country_code: CZ"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "region_code: CZ-10"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "admin_area: Sektor R-30"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "layer: poi"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "data_release: 2026.11"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "processing_step: export"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "output_format: GeoJSON"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "deadline: 2026-11-25"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "requester_team: Zespół dróg"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Po przygotowaniu parametrów czeka na ręczne uruchomienie."
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Nie uruchamiać zadania automatycznie; to tylko przygotowanie parametrów."
+                }
+              ]
+            }
+          ]
+        },
+        "status": {
+          "name": "Done"
+        },
+        "labels": [
+          "map-data",
+          "poi"
+        ],
+        "created": "2026-11-02T09:00:00.000+0000",
+        "issuelinks": [],
+        "comment": {
+          "startAt": 0,
+          "maxResults": 100,
+          "total": 0,
+          "comments": []
+        }
+      }
+    },
+    {
+      "id": "20131",
+      "key": "MAPJOB-131",
+      "fields": {
+        "summary": "export: speed_limits / Sektor R-31",
+        "description": {
+          "version": 1,
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "country_code: PL"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "region_code: PL-14"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "admin_area: Sektor R-31"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "layer: speed_limits"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "data_release: 2026.11"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "processing_step: export"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "output_format: csv"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "deadline: 2026-11-16"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "requester_team: Zespół adresów"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Po przygotowaniu parametrów czeka na ręczne uruchomienie."
+                }
+              ]
+            }
+          ]
+        },
+        "status": {
+          "name": "To Do"
+        },
+        "labels": [
+          "map-data",
+          "speed_limits"
+        ],
+        "created": "2026-11-02T09:00:00.000+0000",
+        "issuelinks": [],
+        "comment": {
+          "startAt": 0,
+          "maxResults": 100,
+          "total": 0,
+          "comments": []
+        }
+      }
+    },
+    {
+      "id": "20132",
+      "key": "MAPJOB-132",
+      "fields": {
+        "summary": "export: addresses / Sektor R-32",
+        "description": {
+          "version": 1,
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "country_code: PL"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "region_code: PL-14"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "layer: addresses"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "data_release: 2026.11"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "processing_step: export"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "output_format: GPKG"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "deadline: 2026-11-17"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "requester_team: Zespół wydań"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Po przygotowaniu parametrów czeka na ręczne uruchomienie."
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "bbox: 20,8;51,8;21,4;52,4; format liczb z formularza PL"
+                }
+              ]
+            }
+          ]
+        },
+        "status": {
+          "name": "In Progress"
+        },
+        "labels": [
+          "map-data",
+          "addresses"
+        ],
+        "created": "2026-11-02T09:00:00.000+0000",
+        "issuelinks": [],
+        "comment": {
+          "startAt": 0,
+          "maxResults": 100,
+          "total": 1,
+          "comments": [
+            {
+              "id": "13201",
+              "author": {
+                "displayName": "Zespół jakości danych"
+              },
+              "created": "2026-11-04T10:00:00.000+0000",
+              "updated": "2026-11-04T10:00:00.000+0000",
+              "body": {
+                "version": 1,
+                "type": "doc",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Potwierdzony bbox EPSG:4326 [west,south,east,north]: [20.8,51.8,21.4,52.4]."
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "20133",
+      "key": "MAPJOB-133",
+      "fields": {
+        "summary": "ingest: roads / Sektor R-33",
+        "description": {
+          "version": 1,
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "country_code: PL"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "region_code: PL-02"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "admin_area: Sektor R-33"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "layer: roads"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "data_release: 2026.11"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "processing_step: ingest"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "output_format: GeoParquet"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "deadline: 18 listopada 2026"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "requester_team: Zespół jakości danych"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Po przygotowaniu parametrów czeka na ręczne uruchomienie."
+                }
+              ]
+            }
+          ]
+        },
+        "status": {
+          "name": "Done"
+        },
+        "labels": [
+          "map-data",
+          "roads"
+        ],
+        "created": "2026-11-02T09:00:00.000+0000",
+        "issuelinks": [],
+        "comment": {
+          "startAt": 0,
+          "maxResults": 100,
+          "total": 0,
+          "comments": []
+        }
+      }
+    },
+    {
+      "id": "20134",
+      "key": "MAPJOB-134",
+      "fields": {
+        "summary": "ingest: poi / Sektor R-34",
+        "description": {
+          "version": 1,
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "country_code: DE"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "region_code: DE-BE"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "admin_area: Sektor R-34"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "layer: poi"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "data_release: 2026.11"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "processing_step: ingest"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "output_format: GeoJSON"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "deadline: 2026-11-19"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "requester_team: Zespół dróg"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Po przygotowaniu parametrów czeka na ręczne uruchomienie."
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Uwaga organizacyjna: słowo export w tytule listy kontrolnej nie zmienia processing_step z tego opisu."
+                }
+              ]
+            }
+          ]
+        },
+        "status": {
+          "name": "To Do"
+        },
+        "labels": [
+          "map-data",
+          "poi"
+        ],
+        "created": "2026-11-02T09:00:00.000+0000",
+        "issuelinks": [],
+        "comment": {
+          "startAt": 0,
+          "maxResults": 100,
+          "total": 0,
+          "comments": []
+        }
+      }
+    },
+    {
+      "id": "20135",
+      "key": "MAPJOB-135",
+      "fields": {
+        "summary": "ingest: speed_limits / Sektor R-35",
+        "description": {
+          "version": 1,
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "country_code: DE"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "region_code: DE-BY"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "admin_area: Sektor R-35"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "layer: speed_limits"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "data_release: 2026.11"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "processing_step: ingest"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "output_format: CSV"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "deadline: 2026-11-20"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "requester_team: Zespół adresów"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Po przygotowaniu parametrów czeka na ręczne uruchomienie."
+                }
+              ]
+            }
+          ]
+        },
+        "status": {
+          "name": "In Progress"
+        },
+        "labels": [
+          "map-data",
+          "speed_limits"
+        ],
+        "created": "2026-11-02T09:00:00.000+0000",
+        "issuelinks": [
+          {
+            "id": "5002",
+            "type": {
+              "id": "10000",
+              "name": "Blocks",
+              "inward": "is blocked by",
+              "outward": "blocks"
+            },
+            "inwardIssue": {
+              "id": "20130",
+              "key": "MAPJOB-130",
+              "fields": {
+                "summary": "export: poi / Sektor R-30",
+                "status": {
+                  "name": "Done"
+                }
+              }
+            }
+          }
+        ],
+        "comment": {
+          "startAt": 0,
+          "maxResults": 100,
+          "total": 0,
+          "comments": []
+        }
+      }
+    },
+    {
+      "id": "20136",
+      "key": "MAPJOB-136",
+      "fields": {
+        "summary": "ingest: addresses / Sektor R-36",
+        "description": {
+          "version": 1,
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "country_code: CZ"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "region_code: CZ-10"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "admin_area: Sektor R-36"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "layer: addresses"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "data_release: 2026.11"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "processing_step: ingest"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "output_format: GPKG"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "deadline: 2026-11-21"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "requester_team: Zespół wydań"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Po przygotowaniu parametrów czeka na ręczne uruchomienie."
+                }
+              ]
+            }
+          ]
+        },
+        "status": {
+          "name": "Done"
+        },
+        "labels": [
+          "map-data",
+          "addresses"
+        ],
+        "created": "2026-11-02T09:00:00.000+0000",
+        "issuelinks": [],
+        "comment": {
+          "startAt": 0,
+          "maxResults": 100,
+          "total": 0,
+          "comments": []
+        }
+      }
+    }
+  ]
+}
