@@ -2,7 +2,7 @@
 
 **Data:** 2026-11-03
 **Status:** Accepted
-**Aktualizacja:** 2026-11-12 – rzeczywiste nazwy flag i fakty o połączeniach z [`reports/map-qa/profile.md`](../../reports/map-qa/profile.md) (§3.1, §3.4)
+**Aktualizacja:** 2026-11-12 – rzeczywiste nazwy flag i fakty o połączeniach z [`reports/map-qa/profile.md`](../../reports/map-qa/profile.md) (§3.1, §3.4); decyzja o `poor_heading_alignment` i kolejność statusów `missing_*` (§3.4)
 **Dotyczy:** [000-main-architecture.md](000-main-architecture.md)
 
 ---
@@ -79,7 +79,7 @@ Test charakteryzujący sprawdza na 10 losowych (seed 42) zdjęciach z alternatyw
 | Droga `service` lub `access`/`motor_vehicle` ∈ {`private`, `no`, `destination`} | `ok` + flaga `service_or_restricted` | Porównanie wykonywane, flaga widoczna w raporcie |
 | `bridge`, `tunnel` lub `layer ≠ 0` w tagach OSM, albo `level_rules` w Overture | `ok` + flaga `grade_separated` | jw. Kadr może pokazywać inny poziom |
 | Overture dopasowane przez `spatial_fallback` | `ok` + flaga `overture_spatial_fallback` | Porównanie OSM–Overture wykonywane, oznaczone jako słabsze |
-| Brak kandydata Overture | `ok` | Statusy Overture = `missing_overture`, z powodem `no_overture_candidate` |
+| Brak kandydata Overture | `ok` | Status `missing_overture`, z powodem `no_overture_candidate`, chyba że wcześniejsza reguła z kolejności ADR-001 §3.3 dała już `missing_osm` |
 | Pozostałe | `ok` | – |
 
 **Uwaga do implementacji.** Dokładne nazwy flag w `candidate_flags` (separator, pisownia) potwierdza test kontraktu na rzeczywistym `photo_road_links.csv` (`SELECT DISTINCT` po rozbiciu). Tabela powyżej zostanie zaktualizowana do rzeczywistych nazw przed implementacją reguł.
@@ -91,7 +91,7 @@ Test charakteryzujący sprawdza na 10 losowych (seed 42) zdjęciach z alternatyw
 | `ambiguous_candidates` | 65 | `ambiguous` (bez zmian) |
 | `camera_against_way_direction` | 35 | tylko informacja (§3.3) |
 | `panorama_heading_ambiguous` | 31 | odpowiednik `panorama`; `ambiguous` tylko przy braku kierunku |
-| `poor_heading_alignment` | 27 | **nieprzypisana – do decyzji** (propozycja: flaga informacyjna, bo kandydata wybrano mimo to po dystansie) |
+| `poor_heading_alignment` | 27 | tylko informacja; `link_status` bez zmian (decyzja 2026-11-12: kandydata wybrano po dystansie, a kierunek kamery nie jest kierunkiem jazdy, §3.3) |
 | `boundary_crossing` | 27 | tylko informacja |
 | `missing_heading` | 15 | tylko informacja; w połączeniu z panoramą → `ambiguous` |
 | `service_way` | 14 | odpowiednik `service_or_restricted` |
@@ -103,7 +103,7 @@ Test charakteryzujący sprawdza na 10 losowych (seed 42) zdjęciach z alternatyw
 - **Dystanse.** Maksymalny `distance_m` to 22,17 m, mediana 2,43 m. W snapshocie nie ma kandydatów spoza 25 m, a reguła `distance_m > 25` pozostaje zabezpieczeniem na nowy snapshot.
 - **Kandydaci.** 558 zdjęć ma kandydata OSM i Overture. `match_method`: `osm_source_reference` 557, `spatial_fallback` 1, `none` 3.
 - **Podejrzane metadane.** 3 zdjęcia Panoramax mają identyczną pozycję i czas `2021-11-27 12:00:00` oraz brak kierunku (`profile.md` §6). Dostają flagę `suspect_position`. Ich `link_status` wynika z reguł powyżej, a flaga jest widoczna w raporcie.
-- **Skupienie zdjęć.** Zdjęcia nie są niezależną próbą sieci: 112 dróg ma więcej niż jedno zdjęcie, a najwięcej 55. Raport liczy statusy zarówno per zdjęcie, jak i per droga (`osm_way_id`).
+- **Skupienie zdjęć.** Zdjęcia nie są niezależną próbą sieci: 112 dróg ma więcej niż jedno zdjęcie, a najwięcej 55. Raport liczy statusy zarówno per zdjęcie, jak i per droga (`osm_way_id`). Pola dla raportu są w ADR-004 §4.
 
 ### 3.5 Przypisanie statusów porównania
 

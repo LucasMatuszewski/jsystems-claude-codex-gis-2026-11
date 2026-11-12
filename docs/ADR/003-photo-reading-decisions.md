@@ -2,6 +2,7 @@
 
 **Data:** 2026-11-03
 **Status:** Accepted
+**Aktualizacja:** 2026-11-12 – spójność dokumentów: cache tier 2 per pytanie i skutki zmiany progów (§5.4, §5.6), nazwy progów (§5.7), koszt w najgorszym przypadku (§5.5), jeden schemat capture (§5.8), wartości B-33 5/15/25 km/h (§4.1; `qs-v1` nie było jeszcze użyte, więc wersja bez zmian)
 **Dotyczy:** [000-main-architecture.md](000-main-architecture.md), PRD §4.2, §11
 
 ---
@@ -94,7 +95,7 @@ Pytania są po angielsku, neutralne i stałe. Każda zmiana treści podnosi wers
 | `surface` | zdjęcie ulicy | `choice` | "What is the surface of the main road visible in the photo?" | `paved`: asphalt, concrete or paving stones/sett; `unpaved`: gravel, dirt, grass, sand or compacted earth; `unknown`: the road surface is not visible or cannot be determined |
 | `junction_visible` | zdjęcie ulicy | `choice` | "Is a junction of roads for vehicles visible in the photo?" | `yes`: two or more roads for vehicles visibly join or split; `no`: no such junction is visible (a pedestrian crossing or an overpass alone is not a junction); `unknown`: cannot be determined |
 | `street_lighting_visible` | zdjęcie ulicy | `choice` | "Is a street lamp fitting visible in the photo?" | `yes`: a recognizable street lamp fitting is visible; `no`: no street lamp fitting is visible (a utility pole alone does not count); `unknown`: cannot be determined |
-| `speed_limit_value` | wycinek znaku | `choice` | "What maximum speed value is shown on a round speed limit sign with a red border (Polish B-33) in the image?" | `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, `100`, `110`, `120`, `130`, `140`: the value on a B-33 sign; `none`: no B-33 sign is visible (zone signs, end-of-limit signs and other signs count as none); `unreadable`: a B-33 sign is visible but its value cannot be read |
+| `speed_limit_value` | wycinek znaku | `choice` | "What maximum speed value is shown on a round speed limit sign with a red border (Polish B-33) in the image?" | `5`, `10`, `15`, `20`, `25`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, `100`, `110`, `120`, `130`, `140`: the value on a B-33 sign; `none`: no B-33 sign is visible (zone signs, end-of-limit signs and other signs count as none); `unreadable`: a B-33 sign is visible but its value cannot be read |
 
 Jeden request = jeden obraz + wszystkie pytania dla jego typu. Zdjęcie ulicy ma 3 pytania, wycinek 1.
 
@@ -156,7 +157,7 @@ Po OPEN pozostałe elementy dostają `not_run_budget_or_error`. Pipeline kończy
 - `messages`: jedna wiadomość `user` z dwiema częściami: tekst (pytania niepewne z §4.1, ich opcje i definicje, prośba o wybór jednej opcji i ocenę pewności) oraz `image_url` z tym samym przygotowanym obrazem. Tier 2 nie dostaje odpowiedzi ani prawdopodobieństw tier 1, żeby nie zakotwiczać.
 - `response_format`: `json_schema`, `strict: true`. Schemat ma obiekt z kluczem na każde pytanie, wartość `{answer: enum(opcje), certainty: enum(high, medium, low)}` i `additionalProperties: false`.
 - Walidacja: JSON parsowalny, zgodny ze schematem i z opcjami. Niezgodność → `model_unavailable` (`invalid_response`).
-- Tier 2 wysyłamy **raz na obraz**, ze wszystkimi pytaniami, które w tier 1 były niepewne.
+- Tier 2 wysyłamy **raz na obraz**, ze wszystkimi pytaniami, które w tier 1 były niepewne i nie mają jeszcze odpowiedzi tier 2 w cache (§5.6). Odpowiedź dzielimy i zapisujemy w cache osobno dla każdego pytania.
 
 ### 5.5 Budżet i ledger (AC-13)
 
@@ -168,18 +169,21 @@ Po OPEN pozostałe elementy dostają `not_run_budget_or_error`. Pipeline kończy
 - Po odpowiedzi: `actual_usd = usage.cost`, gdy jest liczbą. W przeciwnym razie zostaje pełna rezerwacja. Błąd i timeout: pełna rezerwacja.
 - `ledger.jsonl` (append-only, `course-materials/exercise-data/map-qa/data/ledger.jsonl`) jest sumowany przy starcie **per `run_id`**. Limity dotyczą uruchomienia, a raport pokazuje też sumę historyczną.
 - Oczekiwane zużycie domyślnej próbki: 25 (tier 1) + 5 (Jev) + ≤ 25 (tier 2) = maks. 55 żądań.
+- **Koszt w najgorszym przypadku (dopisane 2026-11-12).** Gdyby każde wywołanie rozliczało pełną rezerwację, wyszłoby 25 × 0,02 + 5 × 0,02 + 25 × 0,04 = **1,60 USD**, więcej niż limit 1,00 USD. Limit może więc zatrzymać próbkę (`not_run_budget_or_error`), zanim przejdzie całą. Po pomiarze kosztu w T43 (§9) rezerwacje ustawiamy na zmierzony koszt z zapasem, a oczekiwany koszt próbki wpisujemy tutaj przed płatnym uruchomieniem.
 
 ### 5.6 Cache (AC-18, PRD §4.4)
 
-- Klucz: `sha256(image_sha256 | model | question_set_version | tier | sorted(question_ids))`.
+- Klucz (doprecyzowane 2026-11-12):
+  - tier 1 i model porównawczy: `sha256(image_sha256 | model | question_set_version | tier | sorted(question_ids))`. Zbiór pytań zależy tylko od typu obrazu, więc jest stały;
+  - tier 2: **osobny wpis dla każdego pytania**, `sha256(image_sha256 | model | question_set_version | tier2 | question_id)`. Zbiór pytań w żądaniu tier 2 zależy od progu T1, więc klucz od zbioru psułby trafienia w cache po zmianie progu.
 - Lokalizacja: `course-materials/exercise-data/map-qa/data/cache/decisions/<klucz>.json`. Zawartość: odpowiedź (body), `captured_at`, `model` zwrócony, koszt, czas. **Bez** base64 i bez nagłówków żądania.
 - Cache jest sprawdzany **przed** budżetem. Hit nie zużywa limitu i nie wymaga potwierdzenia.
 - Błędy nie są cache'owane. Kolejne uruchomienie, po świadomej decyzji użytkownika i w ramach budżetu, może spróbować ponownie.
-- Zmiana progów T1 i T2 przelicza decyzje z cache bez sieci.
+- Zmiana progów przelicza decyzje z cache bez sieci, o ile wszystkie potrzebne odpowiedzi są w cache. Dotyczy to obniżenia T1 i każdej zmiany `tier2_accept`. **Podniesienie T1** może sprawić, że pytanie, które wcześniej nie trafiło do tier 2, teraz tam trafi. Takie pytania CLI wylicza przed uruchomieniem jako „wymagające nowych wywołań”. Wywołania podlegają potwierdzeniu i budżetowi, a raport podaje ich liczbę (PRD §4.4).
 
 ### 5.7 Progi (AC-16)
 
-- `T1 = 0.80` dla Luna, `T1_jev = 0.80` dla Jev (osobny parametr, bo prawdopodobieństwa różnych modeli nie są porównywalne).
+- `t1_threshold = 0.80` dla Luna, `t1_threshold_compare = 0.80` dla Jev (osobny parametr, bo prawdopodobieństwa różnych modeli nie są porównywalne; nazwy kluczy zgodne z ADR-004 §3.2).
 - Tier 2 akceptuje tylko `certainty = high`.
 - Wartości są w configu, zapisywane w `run_manifest.json` i raporcie, i zamrażane w momencie potwierdzenia płatnego uruchomienia. Zmiana progu po pomiarze to nowe uruchomienie z cache, opisane w raporcie jako analiza po fakcie.
 
@@ -188,13 +192,23 @@ Po OPEN pozostałe elementy dostają `not_run_budget_or_error`. Pipeline kończy
 Dla każdego typu interakcji (Decisions Luna, Decisions Jev, Chat tier 2, każdy zaobserwowany błąd):
 
 1. Pierwsze **rzeczywiste** żądanie (wliczone do budżetu) wykonujemy przed napisaniem mocka.
-2. `CaptureRecorder` zapisuje `app/tests/fixtures/captures/<nazwa>.json`:
-   - `captured_at` (UTC), `endpoint`, `method`, `model` (wysłany i zwrócony);
-   - wersję httpx, status, nagłówki odpowiedzi bez `set-cookie`, pełne body;
-   - opis żądania z obrazem zastąpionym `{"image_sha256": …, "bytes": …}`;
-   - czas odpowiedzi.
+2. `CaptureRecorder` zapisuje `app/tests/fixtures/captures/<nazwa>.json`. **Schemat capture** (jedyny obowiązujący, także dla Databricks; ADR-000 TAC-05 odwołuje się do niego):
+
+   | Pole | Zawartość |
+   |---|---|
+   | `captured_at` | UTC, ISO 8601 |
+   | `target` | usługa: `openrouter` / `databricks` |
+   | `endpoint`, `method` | ścieżka bez hosta (host Databricks zamaskowany do domeny), metoda HTTP |
+   | `model_sent`, `model_returned` | ID modelu (NULL dla Databricks) |
+   | `client_version` | wersja httpx i, gdy dotyczy, wersja API/CLI usługi |
+   | `request_meta` | opis żądania bez sekretów; obraz zastąpiony `{"image_sha256": …, "bytes": …}`; SQL zapytania dla Databricks |
+   | `status` | kod HTTP |
+   | `response_headers` | bez `set-cookie` i `authorization` |
+   | `response_body` | pełne body (JSON) albo, dla danych binarnych, plik obok z `body_file` i `body_sha256` |
+   | `elapsed_ms` | czas odpowiedzi |
 3. Testy integracyjne odtwarzają capture przez respx. Fixture zmyślony lub przepisany z dokumentacji jest zakazany. Test meta sprawdza obecność pól z pkt 2.
 4. Gdy capture nie da się uzyskać (brak klucza lub budżetu), test oznaczamy `skip` z powodem `missing_capture`, a raport etapu zgłasza brak prerekwizytu.
+5. **Najpierw rzeczywiste endpointy (zasada użytkownika, 2026-11-12).** Każdy kontrakt (żądanie, dane żądania, odpowiedź, błędy) ustalamy rzeczywistymi wywołaniami przed napisaniem mocka. Ponieważ wywołania są tanie, wykonujemy ich tyle, ile trzeba, żeby poznać rzeczywistą strukturę: także warianty pytań, typy obrazów (zdjęcie i wycinek) i zaobserwowane błędy. E2E i testy ręczne nigdy nie używają mocków (ADR-000 §10).
 
 ### 5.9 Ewaluacja (AC-19)
 
@@ -369,12 +383,12 @@ sequenceDiagram
 | Limit kosztu | Unit | `max_cost_usd=0.05`, rezerwacja 0,02 | Maks. 2 żądania | Koszt zwrócony 0 → rezerwacja zwolniona |
 | Brak retry | Integration | respx: 1. odpowiedź 429, kolejne 200 | Wykonane dokładnie 1 żądanie | 524 i timeout identycznie |
 | Timeout | Unit | Transport z opóźnieniem > 40 s (zegar wstrzyknięty) | model_unavailable, OPEN | – |
-| Cache | Integration | Dwa uruchomienia, respx z capture | 2. uruchomienie: 0 POST, identyczne predykcje | Zmiana `question_set_version` → miss |
+| Cache | Integration | Dwa uruchomienia, respx z capture | 2. uruchomienie: 0 POST, identyczne predykcje | Zmiana `question_set_version` → miss; obniżenie T1 → 0 POST; podniesienie T1 → POST tier 2 tylko dla pytań bez wpisu w cache, wyliczonych przed potwierdzeniem |
 | Przygotowanie obrazu | Unit | Wycinek 120×140 px, zdjęcie 4000×3000, PNG z EXIF rotate | 256 px krótszy bok; 1568 px dłuższy; poprawna orientacja | Obraz poza zakresem pikseli → not_run |
 | Próbka | Unit | Etykiety z fixture | 15+10, maks. 2 na sekwencję, deterministyczna dla seed 42 | Brak pliku obrazu → zastępstwo + licznik |
 | Ewaluacja | Unit | Predykcje + etykiety `certain`/`uncertain`/puste | Mianowniki jawne; uncertain wykluczone; puste ≠ no | `answered=0` → selective „nieokreślone” |
 | Kontrakt Decisions | Integration | respx z `decisions-luna-200.json` (capture) | Parsowanie wszystkich pól zgodnie z §5.2 | Capture 4xx, jeśli zaobserwowany |
-| Rzeczywisty odczyt | E2E (płatny, ręcznie potwierdzony) | Domyślna próbka | ≤ 100 żądań, < 1 USD, raport z metrykami | Drugie uruchomienie: 0 żądań |
+| Rzeczywisty odczyt | E2E (rzeczywiste endpointy, bez mocków, `--yes`; ADR-000 §10) | Domyślna próbka | ≤ 100 żądań, < 1 USD, raport z metrykami | Drugie uruchomienie: 0 żądań |
 
 ### Techniczne kryteria akceptacji
 

@@ -2,7 +2,7 @@
 
 **Data:** 2026-11-03
 **Status:** Accepted
-**Aktualizacja:** 2026-11-12 – dostępny profil danych [`reports/map-qa/profile.md`](../../reports/map-qa/profile.md) i zweryfikowany dostęp do Databricks
+**Aktualizacja:** 2026-11-12 – dostępny profil danych [`reports/map-qa/profile.md`](../../reports/map-qa/profile.md) i zweryfikowany dostęp do Databricks; spójność dokumentów: §3 (raporty w Git), §5 (modele), §10 (strategia testów, TAC-03, TAC-05)
 **PRD:** [docs/PRD.md](../PRD.md)
 
 Szczegóły poszczególnych obszarów opisują osobne ADR:
@@ -91,7 +91,7 @@ Monolityczny pakiet Pythona z CLI i potokiem etapów (pipeline). Każdy etap ma 
 | `app/tests/fixtures/rows/` | Wybrane prawdziwe wiersze z danych map-qa (kopie, nie modyfikacje) |
 | `app/map_qa.example.toml` | Przykładowa konfiguracja |
 | `app/AGENTS.md` | Zasady specyficzne dla stacku (zagnieżdżone, krótkie) |
-| `reports/map-qa/` | Wyniki uruchomień (ignorowane przez Git poza `.gitkeep`) |
+| `reports/map-qa/` | Wyniki uruchomień. Pliki generowane (`report.md`, `report.html`, `results.json`, `run_manifest.json`, `sample_manifest.json`, `thumbs/`) są ignorowane przez Git. Ręcznie przygotowany `profile.md` jest wersjonowany (decyzja 2026-11-12) |
 | `course-materials/exercise-data/map-qa/data/` | Cache, ledger, rozszerzenia DuckDB, materializacja Databricks (ignorowane) |
 
 Polecenia uruchamiamy z katalogu głównego repo: `uv run --project app map-qa …` oraz `uv run --project app pytest app/tests`.
@@ -135,10 +135,10 @@ Kierunek zależności: `cli → pipeline → (sources, normalize, matching, phot
 |---|---|---|---|
 | `RunConfig` | `source` (`files`/`databricks`), ścieżki wejść, `output_dir`, `model_reading` (bool), limity, progi, ID modeli, `question_set_version`, `seed` | – | Plik TOML + env; kopia w `run_manifest.json` |
 | `InputManifest` | źródło, tabela, liczba wierszy, sha256 pliku (pliki), `statement_id` (Databricks), daty snapshotów | 1 na uruchomienie | `run_manifest.json` |
-| `SpeedRule` | `source` (osm/overture), `value_kmh` (float?), `unit_raw`, `kind`, `direction`, `condition_raw`, `between`, `raw` | N na drogę | W pamięci + `results.json` |
+| `SpeedRule` | `source` (osm/overture), `value_kmh` (float?), `unit_raw`, `kind`, `direction`, `condition_raw`, `between`, `raw`, `tag_key`; na poziomie drogi także `context_tags`. Definicja nadrzędna: ADR-001 §3.3 | N na drogę | W pamięci + `results.json` |
 | `SurfaceValue` | `source`, `class` (paved/unpaved/unknown_value/missing), `raw`, `between` | N na drogę | jw. |
-| `PhotoRoadPair` | `photo_id`, `osm_id`, `overture_id`, `distance_m`, `distance_m_recomputed`, `bearing_diff`, `match_method`, `flags[]`, `link_status` | 1 na zdjęcie z kandydatem | `results.json` |
-| `AttributeComparison` | `pair`, `attribute` (speed/surface/lit), `status`, `osm_rules[]`, `overture_rules[]`, `reason` | N na parę | `results.json` |
+| `PhotoRoadPair` | `photo_id`, `osm_way_id`, `overture_id`, `distance_m`, `distance_m_recomputed`, `bearing_diff`, `directed_bearing_diff`, `heading`, `match_method`, `candidate_flags[]`, `flags[]`, `reasons[]`, `link_status`. Definicja nadrzędna: ADR-002 §4 | 1 na zdjęcie z kandydatem | `results.json` |
+| `AttributeComparison` | `pair`, `attribute` (`speed`/`surface`; `lit` nie ma porównania OSM–Overture, ADR-001 §3.4), `status`, `osm_rules[]`, `overture_rules[]`, `reason` | 2 na parę | `results.json` |
 | `PhotoReading` | `image_sha256`, `question_id`, `tier`, `model`, `answer`, `probabilities`, `decision` (answered/answered_tier2/abstain/model_unavailable/not_run_budget_or_error), `request_ids[]`, `cost_usd` | N na obraz | Cache + `results.json` |
 | `LedgerEntry` | `run_id`, `ts`, `model`, `tier`, `reserved_usd`, `actual_usd`, `status_code`, `outcome` | dopisywane | `data/ledger.jsonl` (append-only) |
 | `Capture` | data, endpoint, metoda, status, nagłówki odpowiedzi (bez `Authorization`/cookies), pełne body, wersje (httpx, model zwrócony), opis żądania bez obrazu (hash zamiast base64) | 1 na scenariusz | `app/tests/fixtures/captures/*.json` |
@@ -150,7 +150,7 @@ Kierunek zależności: `cli → pipeline → (sources, normalize, matching, phot
 
 | Granica | Wejście | Wyjście | Błędy |
 |---|---|---|---|
-| CLI `map-qa run` / `capture` / `report` (ADR-004 §3.1) | `--config`, `--source`, `--output-dir`, `--model-reading`, `--yes`, `--max-requests`, `--max-cost-usd`, `--compare-sources` | Pliki w `output_dir`, podsumowanie na stdout, kod 0 | 2: błąd konfiguracji; 3: źródło niedostępne lub brak zmiennej; 4: niezgodność schematu wejścia; 5: wejście zmienione w trakcie uruchomienia. Płatne wywołanie przerwane błędem daje kod 0 i oznaczenie w raporcie |
+| CLI `map-qa run` / `capture` / `report` (ADR-004 §3.1) | `--config`, `--source`, `--output-dir`, `--model-reading`, `--yes`, `--max-requests`, `--max-cost-usd`, `--compare-sources`, flagi progów (pełna lista: ADR-004 §3.2) | Pliki w `output_dir`, podsumowanie na stdout, kod 0 | 2: błąd konfiguracji; 3: źródło niedostępne lub brak zmiennej; 4: niezgodność schematu wejścia; 5: wejście zmienione w trakcie uruchomienia. Płatne wywołanie przerwane błędem daje kod 0 i oznaczenie w raporcie |
 | `DataSource.load(con)` | połączenie DuckDB | Zarejestrowane widoki `osm_roads`, `overture_segments`, `photos`, `photo_road_links` + `InputManifest` | `SourceUnavailable`, `MissingCredential(name)`, `SchemaMismatch(table, column)` |
 | OpenRouter Decisions | ADR-003 §5.1 | ADR-003 §5.2 | ADR-003 §5.3 |
 | OpenRouter Chat (tier 2) | ADR-003 §5.4 | ADR-003 §5.4 | jw. |
@@ -356,13 +356,27 @@ TDD jest obowiązkowe. Każdy etap zaczyna się testem napisanym na podstawie PR
 
 Mocki API powstają **wyłącznie z zapisanego rzeczywistego capture**. Najpierw wykonujemy jedno prawdziwe żądanie (wliczone do budżetu), zapisujemy capture zgodnie z §5 i dopiero na jego podstawie tworzymy fixture. Brak capture oznacza, że testu integracyjnego API nie piszemy, a brak prerekwizytu zgłaszamy w raporcie etapu.
 
+### Doprecyzowanie tabeli strategii testów z AGENTS.md (2026-11-12)
+
+AGENTS.md mówi „Integration: mocks only external LLM API” i każe tworzyć capture z danych syntetycznych. Ten projekt świadomie odchodzi od tego w dwóch punktach:
+
+- **Databricks.** W testach integracyjnych mockujemy też zewnętrzne HTTP Databricks (respx). Robimy to wyłącznie na podstawie rzeczywistego capture, tak samo jak dla OpenRouter. Lokalne zależności (DuckDB, pliki) nie są mockowane.
+- **Dane w capture.** Capture zawierają rzeczywiste wiersze i zdjęcia z publicznego snapshotu (ODbL, CC BY-SA). Nie ma ich syntetycznego odpowiednika z tym samym schematem. Capture nie zawierają sekretów ani danych osobowych poza atrybucją autora, wymaganą licencją.
+
+E2E nie mockuje niczego. Ponowne uruchomienie „z cache” używa wyłącznie cache zapisanego z rzeczywistych odpowiedzi, nigdy cache spreparowanego ręcznie.
+
+**Zasada użytkownika: rzeczywiste modele w testach E2E i ręcznych (2026-11-12).**
+- Testy ręczne i E2E z odczytem modelem **zawsze** wywołują rzeczywiste endpointy: OpenRouter Decisions (`openai/gpt-6-luna-decisions`, `typesafe/jev-1.14`) i Chat Completions (`openai/gpt-6-luna`). Nie używają mocków, spreparowanych odpowiedzi ani wyłącznie cache. Test cache jest **drugim** przebiegiem tego samego testu, po rzeczywistych wywołaniach.
+- Mocki są dozwolone tylko w testach unit i integracyjnych. Powstają **po** rzeczywistym wywołaniu, które ustala zaakceptowany format żądania, dane żądania i rzeczywistą strukturę odpowiedzi (capture, ADR-003 §5.8).
+- Koszt wywołań tych trzech modeli w testach jest pomijalny (łącznie < 1 USD), więc testy nie oszczędzają na rzeczywistych wywołaniach. Limity budżetu w aplikacji (PRD AC-13, ADR-003 §5.5) pozostają wymaganiem produktu i są testowane jak każda inna funkcja.
+
 ### Warstwy testów
 
 | Warstwa | Zakres | Mocki | Narzędzia |
 |---|---|---|---|
 | Unit | Parsery `maxspeed`/`speed_limits`/`surface`, reguły statusów, różnica kątów, budżet/ledger, klucz cache, filtr sekretów, budowa payloadu (bez wycieku), modele odpowiedzi | Wszystkie zależności | pytest |
 | Integration | DuckDB na prawdziwych wierszach (fixtures z `signs/*.csv`, wybrane `osm_id`/`id` z GeoParquet), transformacja CRS kontra pyproj, adapter Databricks i klient OpenRouter z respx odtwarzającym capture | Tylko HTTP (z capture) | pytest, respx, geopandas/pyproj jako wyrocznia |
-| E2E | Rzeczywiste CLI na plikach map-qa bez modelu; z modelem wyłącznie z cache (0 nowych żądań) | Nic | pytest + `subprocess`, ręczna kontrola HTML |
+| E2E | Rzeczywiste CLI na plikach map-qa. Z odczytem modelem: rzeczywiste wywołania Luna Decisions, Jev i GPT-6 Luna, a potem drugi przebieg z cache (0 nowych żądań) | Nic | pytest + `subprocess`, ręczna kontrola HTML |
 
 ### Kluczowe scenariusze
 
@@ -371,15 +385,15 @@ Szczegółowe tabele są w ADR-001 do ADR-004. Przekrojowo:
 2. **Brak wycieku sekretów:** po uruchomieniu z ustawionymi fałszywymi wartościami tokenów żaden plik w `output_dir`, cache i capture nie zawiera tych wartości.
 3. **Budżet:** przy limicie 3 żądań i 5 elementach wykonują się dokładnie 3 próby, a 2 elementy dostają `not_run_budget_or_error`.
 4. **Cache:** drugie uruchomienie daje 0 nowych żądań i identyczne predykcje.
-5. **Spójność raportu:** liczniki MD = HTML = `results.json`, a suma statusów = liczba par.
+5. **Spójność raportu:** liczniki MD = HTML = `results.json`, a suma statusów **dla każdego atrybutu** = liczba par (PRD AC-06, AC-23).
 
 ### Techniczne kryteria akceptacji
 
 - **TAC-01:** `uv run --project app pytest app/tests` przechodzi z 0 błędów i 0 nieoczekiwanych pominięć. Pominięcia mają powód (np. brak capture) widoczny w `-rs`.
 - **TAC-02:** `uv run --project app map-qa run` na plikach kończy się kodem 0 w czasie poniżej 120 s na VM kursu i tworzy 4 pliki: `report.md`, `report.html`, `results.json`, `run_manifest.json`.
-- **TAC-03:** `run_manifest.json` zawiera sha256 każdego pliku wejściowego, zgodne z `sources.json` → `files`.
+- **TAC-03:** `run_manifest.json` zawiera sha256 każdego pliku wejściowego odczytanego w uruchomieniu. Dla plików z wpisem w `sources.json` → `files` hash jest z nim zgodny albo raport pokazuje ostrzeżenie (ADR-001 §3.2).
 - **TAC-04:** Żaden moduł poza `photo_reading` i `sources` nie importuje `httpx` (test importów).
-- **TAC-05:** Każdy fixture w `app/tests/fixtures/captures/` ma pola `captured_at`, `endpoint`, `status`, `response_headers` i `response_body`, a w nagłówkach nie ma `authorization` ani `set-cookie` (test meta).
+- **TAC-05:** Każdy fixture w `app/tests/fixtures/captures/` ma wszystkie pola wymagane schematem capture z ADR-003 §5.8, a w nagłówkach nie ma `authorization` ani `set-cookie` (test meta).
 - **TAC-06:** Wartość żadnej zmiennej z §7 oznaczonej jako sekret nie występuje w żadnym pliku wyjściowym (test e2e z fałszywymi wartościami).
 
 ---
@@ -390,6 +404,6 @@ Szczegółowe tabele są w ADR-001 do ADR-004. Przekrojowo:
 - **Ceny i opóźnienia Luna Decisions i Jev 1.14.** Strony modeli zwróciły 404 przy pobieraniu. Rzeczywiste `usage.cost` i czas zapiszemy z pierwszych capture i dopiszemy do ADR-003 §9.
 - ~~**Profil danych.** Brak `reports/map-qa/profile.md`.~~ **Zamknięte 2026-11-12.** Profil istnieje, a dostęp do Databricks jest zweryfikowany (§1). Wnioski z profilu są wpisane do ADR-001 §3.1, §3.3 i §5 oraz ADR-002 §3.4.
 - **Decyzje wynikające z profilu (pytania do człowieka, `profile.md` §11):**
-  1. **Limity implikowane.** 1475 dróg ma limit tylko implikowany (`PL:urban` 1401, `PL:rural` 46). Trzeba zdecydować, czy pozostają `not_comparable` (obecnie D-13), czy dostają wartości ustawowe. Trzeba też ustalić, czy `PL:urban` + 70 (55 dróg) to konflikt.
+  1. **Limity implikowane.** 1453 drogi mają tylko typ limitu bez liczby (1452 `implicit_only`, głównie `PL:urban` i `PL:rural`; ADR-001 §3.3). Trzeba zdecydować, czy pozostają `not_comparable` (obecnie D-13), czy dostają wartości ustawowe. Trzeba też ustalić, czy `PL:urban` + 70 (55 dróg) to konflikt.
   2. **Zakres klas dróg.** Trzeba ustalić, czy `service`, `track` i drogi z `access=private/no` mają być w kontroli prędkości, osobno czy poza nią. Te klasy dają 74 410 z 83 478 braków `maxspeed`.
   3. **Wiek dowodów i rola Databricks.** 45,6% zdjęć i 51% obserwacji znaków pochodzi sprzed 2024 r., więc trzeba ustalić maksymalny wiek dowodu. Trzeba też potwierdzić, że Databricks pozostaje źródłem alternatywnym i kontrolą parzystości (D-02), a nie wymaganym wejściem.

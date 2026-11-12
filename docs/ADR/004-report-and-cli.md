@@ -2,6 +2,7 @@
 
 **Data:** 2026-11-03
 **Status:** Accepted
+**Aktualizacja:** 2026-11-12 – spójność dokumentów: pełna tabela ustawień (§3.2), miniatury kopiowane do `thumbs/` (§3.5), atrybucja Mapillary (§3.5), liczniki per atrybut i per droga (§4, §8)
 **Dotyczy:** [000-main-architecture.md](000-main-architecture.md), PRD §9
 
 ---
@@ -41,22 +42,33 @@
 
 ### 3.2 Konfiguracja
 
-Pierwszeństwo, od najwyższego: flagi CLI > zmienne `MAP_QA_*` > plik TOML (`--config` lub `MAP_QA_CONFIG`) > wartości domyślne.
+Pierwszeństwo, od najwyższego: flagi CLI > zmienne środowiskowe > plik TOML (`--config` lub `MAP_QA_CONFIG`) > wartości domyślne.
 
-| Klucz | Domyślnie |
-|---|---|
-| `source` | `files` |
-| `data_dir` | `course-materials/exercise-data/map-qa` |
-| `output_dir` | `reports/map-qa` |
-| `cache_dir` | `course-materials/exercise-data/map-qa/data` |
-| `model_reading` | `false` |
-| `max_images` / `max_requests` / `max_cost_usd` | `25` / `100` / `1.00` |
-| `tier1_model` / `compare_model` / `tier2_model` | `openai/gpt-6-luna-decisions` / `typesafe/jev-1.14` / `openai/gpt-6-luna` |
-| `t1_threshold` / `t1_threshold_compare` | `0.80` / `0.80` |
-| `tier2_accept` | `high` |
-| `timeout_s` | `40` |
-| `question_set_version` | `qs-v1` |
-| `seed` | `42` |
+**Pełna lista ustawień (jedyna obowiązująca, uzupełniona 2026-11-12).** Kolumna „Flaga” wymienia wszystkie flagi CLI. Ustawienie bez flagi ustawia się tylko w TOML. Jedyne zmienne `MAP_QA_*` to `MAP_QA_CONFIG` i `MAP_QA_SOURCE` (ADR-000 §7).
+
+| Klucz TOML | Flaga CLI | Zmienna env | Domyślnie |
+|---|---|---|---|
+| – | `--config` | `MAP_QA_CONFIG` | brak |
+| `source` | `--source` | `MAP_QA_SOURCE` | `files` |
+| `data_dir` | – | – | `course-materials/exercise-data/map-qa` |
+| `output_dir` | `--output-dir` | – | `reports/map-qa` |
+| `work_dir` (katalog roboczy: cache, ledger, rozszerzenia DuckDB, materializacja Databricks; wcześniej `cache_dir`) | – | – | `course-materials/exercise-data/map-qa/data` |
+| `model_reading` | `--model-reading` | – | `false` |
+| – | `--yes` | – | brak (pytanie `y/N`) |
+| – | `--compare-sources` | – | wyłączone |
+| `max_images` | – | – | `25` |
+| `max_requests` | `--max-requests` | – | `100` |
+| `max_cost_usd` | `--max-cost-usd` | – | `1.00` |
+| `reserve_usd_tier1` / `reserve_usd_tier2` / `reserve_usd_compare` | – | – | `0.02` / `0.04` / `0.02` (ADR-003 §5.5) |
+| `tier1_model` / `compare_model` / `tier2_model` | – | – | `openai/gpt-6-luna-decisions` / `typesafe/jev-1.14` / `openai/gpt-6-luna` |
+| `t1_threshold` | `--t1-threshold` | – | `0.80` |
+| `t1_threshold_compare` | `--t1-threshold-compare` | – | `0.80` |
+| `tier2_accept` | `--tier2-accept` | – | `high` |
+| `timeout_s` | – | – | `40` |
+| `question_set_version` | – | – | `qs-v1` |
+| `seed` | – | – | `42` |
+
+Flagi progów spełniają PRD §9.1 („thresholds … from the command input”). Progi są zamrażane w chwili potwierdzenia płatnego uruchomienia (ADR-003 §5.7).
 
 Sekretów nie ma w TOML. Jeśli plik konfiguracji zawiera klucz o nazwie pasującej do `*token*`, `*key*` lub `*secret*`, CLI kończy się błędem konfiguracji (kod 2).
 
@@ -83,11 +95,11 @@ W `output_dir`, nadpisywane przy kolejnym uruchomieniu:
 
 ### 3.5 Miniatury i atrybucja
 
-- Ścieżka miniatury jest **względna** od `output_dir`: najpierw `data/photos/<photo_id>.jpg`, potem `offline/<photo_id>.jpg`, dla wycinków `signs/crops/<photo_id>.jpg`.
-- Gdy pliku brak, wyświetlamy tekst „Miniatura niedostępna” i link do źródła z `photos.csv`.
+- **Miniatury są kopiowane do `output_dir/thumbs/<photo_id>.jpg`** (decyzja 2026-11-12: wcześniejsza ścieżka „względna od `output_dir`” wskazywała na foldery, które leżą w `course-materials/exercise-data/map-qa/`, nie w `reports/map-qa/`). Źródło kopii, w tej kolejności: `<data_dir>/data/photos/<photo_id>.jpg`, `<data_dir>/offline/<photo_id>.jpg`, dla wycinków `<data_dir>/signs/crops/<photo_id>.jpg`. `<img src>` w HTML to `thumbs/<photo_id>.jpg`, więc raport z folderem `thumbs/` można przenieść w całości. Kopiowanie jest zapisem w `output_dir`, dozwolonym przez ADR-000 D-05. Wejścia pozostają nietknięte.
+- Gdy pliku źródłowego brak, wyświetlamy tekst „Miniatura niedostępna” i link do źródła z `photos.csv`.
 - Obrazów nie osadzamy jako base64.
 - Pod każdą miniaturą: autor, źródło (Panoramax/Mapillary), licencja z `photos.csv`/`signs.csv` (CC BY-SA 4.0).
-- W stopce: „© OpenStreetMap contributors, ODbL 1.0” i „Overture Maps Foundation, ODbL 1.0 (release 2026-10-21.0)”.
+- W stopce: „© OpenStreetMap contributors, ODbL 1.0” i „Overture Maps Foundation, ODbL 1.0 (release 2026-10-21.0)”. Gdy raport pokazuje metadane pochodne Mapillary (`mapillary_value`, znaki, detekcje), stopka zawiera też „Mapillary – metadane pochodne, ODbL 1.0” (README danych, `sources.json`).
 - Stały disclaimer z PRD §11 jest na górze raportu.
 
 ### 3.6 Escapowanie i język
@@ -103,8 +115,8 @@ W `output_dir`, nadpisywane przy kolejnym uruchomieniu:
 
 `ReportModel` jest budowany raz i przekazywany obu szablonom:
 - `header`: data, źródło, snapshoty, hashe, config;
-- `summary`: liczniki statusów, kompletność, model;
-- `candidates[]`: pary ze statusem `disagree`, `missing_*`, `not_comparable`, `ambiguous_link`;
+- `summary`: liczniki statusów **per atrybut** (suma dla każdego atrybutu = liczba par), liczniki per droga (`osm_way_id`: liczba zdjęć i statusów, ADR-002 §3.4), kompletność, model;
+- `candidates[]`: pary ze statusem `disagree`, `missing_*`, `not_comparable`, `ambiguous_link`, z `candidate_flags[]` i `flags[]` (w tym `suspect_position`);
 - `manual_queue[]`: `abstain`, `model_unavailable`, `ambiguous_link` z powodem;
 - `evaluation`: metryki i porównanie 5 obrazów;
 - `limitations[]`, `attributions[]`.
@@ -184,8 +196,8 @@ flowchart TD
 | Sekret w TOML | Unit | `api_key = "x"` | exit 2 | Klucz `token_limit` też odrzucony (konserwatywnie) |
 | Raport bez modelu | E2E | Pliki map-qa | 4 pliki, kod 0, sekcja „Odczyt modelem nie był uruchomiony” | – |
 | Escapowanie | Unit | Tag OSM `name=<script>alert(1)</script>`, autor z `|` | HTML zawiera `&lt;script&gt;`; MD tabela niezłamana | Link `javascript:` usunięty |
-| Spójność liczników (AC-23) | Integration | `ReportModel` z fixture | Liczby w MD = HTML = `results.json`; suma statusów = liczba par | Zero kandydatów → „Brak kandydatów” i 0 (AC-26) |
-| Miniatury i atrybucja (AC-22) | Integration | Para z miniaturą w `offline/` i para bez pliku | `<img src>` względny, istnieje na dysku; podpis autor/źródło/licencja; placeholder dla brakującej | Brak base64 w HTML |
+| Spójność liczników (AC-23) | Integration | `ReportModel` z fixture | Liczby w MD = HTML = `results.json`; suma statusów dla każdego atrybutu = liczba par | Zero kandydatów → „Brak kandydatów” i 0 (AC-26) |
+| Miniatury i atrybucja (AC-22) | Integration | Para z miniaturą w `offline/` i para bez pliku | `<img src>` = `thumbs/<photo_id>.jpg`, plik skopiowany i istnieje; podpis autor/źródło/licencja; placeholder dla brakującej | Brak base64 w HTML |
 | Polskie znaki (AC-25) | E2E | Pełny raport | `report.html` zawiera „Źródło danych”, renderuje się poprawnie (ręczna kontrola + zrzut) | – |
 | Kody wyjścia | Unit | Każdy scenariusz z §5 | Odpowiedni kod | – |
 | Re-render | Integration | `map-qa report --from results.json` | Identyczny `report.md` (bajt w bajt, poza datą renderu) | – |
@@ -200,5 +212,5 @@ flowchart TD
 ### Techniczne kryteria akceptacji
 
 - **TAC-004-01:** `report.html` nie zawiera `<script` ani zewnętrznych URL zasobów (`src="http`).
-- **TAC-004-02:** Każdy `<img>` w `report.html` ma względny `src` wskazujący istniejący plik albo jest zastąpiony placeholderem.
+- **TAC-004-02:** Każdy `<img>` w `report.html` ma względny `src` `thumbs/<photo_id>.jpg` wskazujący istniejący plik w `output_dir` albo jest zastąpiony placeholderem.
 - **TAC-004-03:** `run_manifest.json` nie zawiera żadnej wartości ze zmiennych sekretów (test z fałszywymi wartościami).

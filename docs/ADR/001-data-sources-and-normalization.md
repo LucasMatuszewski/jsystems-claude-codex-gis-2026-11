@@ -2,7 +2,7 @@
 
 **Data:** 2026-11-03
 **Status:** Accepted
-**Aktualizacja:** 2026-11-12 – fakty z [`reports/map-qa/profile.md`](../../reports/map-qa/profile.md) i zweryfikowany dostęp do Databricks (§3.1, §3.2, §3.3, §5, D-12)
+**Aktualizacja:** 2026-11-12 – fakty z [`reports/map-qa/profile.md`](../../reports/map-qa/profile.md) i zweryfikowany dostęp do Databricks (§3.1, §3.2, §3.3, §5, D-12); spójność dokumentów: etykiety tylko w `Evaluator` (§3.2), zakres hashy (§3.2), typ limitu bez liczby i kolejność statusów (§3.3–3.4), TAC-001-03, kompletność (§3.5)
 **Dotyczy:** [000-main-architecture.md](000-main-architecture.md)
 
 ---
@@ -59,9 +59,11 @@ Każda rozbieżność daje `SchemaMismatch` i kod wyjścia 4.
 
 ### 3.2 Źródła danych
 
-Interfejs `DataSource` ma metodę `load(con) -> InputManifest`. Po jej wykonaniu w połączeniu DuckDB istnieją widoki o stałych nazwach: `osm_roads`, `overture_segments`, `photos`, `photo_road_links`, `reference_labels`, `signs`, `sign_labels`, `signs_nearest_osm`.
+Interfejs `DataSource` ma metodę `load(con) -> InputManifest`. Po jej wykonaniu w połączeniu DuckDB istnieją widoki o stałych nazwach: `osm_roads`, `overture_segments`, `photos`, `photo_road_links`, `signs`, `signs_nearest_osm`.
 
-- **`FilesSource` (domyślny):** widoki na plikach w `course-materials/exercise-data/map-qa/` (ścieżka bazowa z configu). Manifest zawiera sha256 każdego pliku, porównany z `sources.json → files`. Niezgodność hasha to ostrzeżenie w raporcie, nie błąd: dane mogły zostać świadomie odświeżone.
+**Etykiety referencyjne (decyzja 2026-11-12, usuwa sprzeczność z ADR-003 TAC-003-03).** `DataSource` **nie** rejestruje widoków z etykietami. Pliki `reference_labels.csv` i `signs/labels.csv` otwiera wyłącznie `Evaluator` (ADR-003 §3), który udostępnia `SamplePlanner` tylko warstwy losowania, bez wartości etykiet.
+
+- **`FilesSource` (domyślny):** widoki na plikach w `course-materials/exercise-data/map-qa/` (ścieżka bazowa z configu). Manifest zawiera sha256 **każdego pliku odczytanego w uruchomieniu** (w tym `offline/`, `signs/`). Hash jest porównywany z `sources.json → files` tylko dla plików, które mają tam wpis (8 plików, m.in. GeoParquet, CSV, `traffic_signs.geojson`). Pozostałe pliki mają w manifeście sam hash, bez wzorca. Niezgodność ze wzorcem to ostrzeżenie w raporcie, nie błąd: dane mogły zostać świadomie odświeżone. Niezależnie od tego hash przed i po uruchomieniu musi być równy (AC-04, kod 5).
 - **`DatabricksSource`:** materializuje tabele `workspace.map_qa.{osm_roads, overture_segments, photos, photo_road_links}` do Parquet w `course-materials/exercise-data/map-qa/data/databricks/<statement_id>/`, a potem rejestruje te same widoki. Geometria przychodzi jako WKB (`sources.json`: „BINARY WKB; construct GEOMETRY with explicit SRID 4326”) i jest konwertowana `ST_GeomFromWKB`. Etykiety referencyjne i `signs/` są zawsze lokalne, bo nie ma ich w Databricks.
 - **`--compare-sources`:** ładuje oba źródła do osobnych schematów DuckDB i porównuje liczby wierszy oraz zbiory kluczy (`osm_id`, `id`, `photo_id`). Raportuje różnice. Pipeline działa dalej na źródle wybranym w configu.
 - **Brak cichego fallbacku:** jeśli brakuje zmiennej `DATABRICKS_*`, CLI zwraca kod 3 i nazwę zmiennej. Jeśli żądanie zwróci błąd HTTP albo stan `FAILED`/`CANCELED`, CLI zwraca kod 3 i bezpieczny komunikat (bez tokenu).
@@ -122,7 +124,7 @@ Interfejs `DataSource` ma metodę `load(con) -> InputManifest`. Po jej wykonaniu
   - `maxspeed:type`: 2578;
   - `maxspeed:source`: 23, w tym `pl:zone30` (małe litery);
   - `zone:maxspeed`: 19, wartość `PL:30`.
-- **Limit tylko implikowany.** 1475 dróg nie ma liczby w `maxspeed`, a ma `source:maxspeed`/`maxspeed:type`: `PL:urban` 1401, `PL:rural` 46, `sign` 19, `PL:expressway` 7, `PL:zone40` 2. Dla nich `comparable_value` daje `not_comparable` z powodem `implicit_only`, nie `missing_osm`.
+- **Typ limitu bez liczby.** 1475 dróg nie ma liczby w `maxspeed`, a ma `source:maxspeed`/`maxspeed:type`: `PL:urban` 1401, `PL:rural` 46, `sign` 19, `PL:expressway` 7, `PL:zone40` 2. Status to `not_comparable`, nie `missing_osm`, zgodnie z regułą „Typ limitu bez liczby” niżej. Po uwzględnieniu wszystkich kluczy `maxspeed*` reguła obejmuje 1453 drogi.
 - **Niespójności typu i liczby.** Przykłady: `PL:urban` + 70 (55), + 30 (24), + 40 (19); `PL:rural` + 70 (15); `PL:zone30` + 50 (4). 18 dróg ma sprzeczne `source:maxspeed` i `maxspeed:type`. W MVP to tylko informacja w `context_tags` i w raporcie. Status pary nie zmienia się (D-13).
 - **Pozostałe klucze.** Kierunkowe: `forward` 261, `backward` 247. 4 drogi mają jednocześnie `maxspeed` i `maxspeed:forward/backward`. Warunkowe: `maxspeed:conditional` 92, jedyna wartość to `110 @ (Mo-Fr 06:00-18:00)`. Zmienne: `maxspeed:variable=yes` 82. Pojazdy: `hgv`/`bus`/`trailer` po około 1000. Pasy: `maxspeed:lanes` 10.
 - **Overture.** 12 847 segmentów ma reguły. Wszystkie jednostki to `km/h` i nie ma `min_speed`. `when.heading`: `forward` 218, `backward` 216. `when.mode`: `[bus, hgv]` 401, `[bus]` 30, `[hgv]` 9. `when.during`: 19 reguł. `is_max_speed_variable`: 16 reguł.
@@ -140,17 +142,24 @@ Lista pusta lub NULL oznacza brak reguł (`missing_overture`). Dokładne nazwy p
 
 **Wartość porównywalna.** Strona (OSM lub Overture) ma *wartość porównywalną* tylko wtedy, gdy jej reguły bezwarunkowe (`condition_raw IS NULL`) mają dokładnie jedną różną wartość `numeric`, która dotyczy całego segmentu (`between` NULL lub `[0,1]`) i obu kierunków (albo `forward` = `backward`).
 
-Statusy dla atrybutu `speed`, liczone w ADR-002 dla pary zdjęcie–droga:
+**Typ limitu bez liczby (doprecyzowane 2026-11-12).** OSM ma *typ limitu bez liczby*, gdy nie ma żadnej reguły `numeric`, a co najmniej jeden z kluczy `maxspeed:type`, `source:maxspeed`, `maxspeed:source`, `zone:maxspeed` (także z `:forward`/`:backward`) ma wartość. Wartości dzielimy po `;` i porównujemy bez rozróżniania wielkości liter:
+- `implicit_only`: wartość z prefiksem kraju (`^[a-z]{2}:`, np. `PL:urban`, `pl:zone30`, `PL:30`) albo strefa bez prefiksu (`^zone\d+$`, np. `zone30`);
+- `type_without_value`: `sign`, `survey` i inne wartości bez liczby i bez prefiksu kraju.
 
-| Warunek | Status |
-|---|---|
-| Para ma `link_status=ambiguous` | `ambiguous_link` |
-| OSM nie ma reguły, ale `context_tags` zawiera limit implikowany (`source:maxspeed`/`maxspeed:type` = `PL:*`) | `not_comparable`, powód `implicit_only` (dopisane po profilu: 1475 dróg) |
-| OSM nie ma żadnej reguły ani limitu implikowanego | `missing_osm` (gdy brak też w Overture: `missing_osm`, a `missing_overture` liczony w kompletności) |
-| Overture nie ma żadnej reguły | `missing_overture` |
-| Którakolwiek strona nie ma wartości porównywalnej (implicit, warunkowe, kierunkowe różne, częściowe `between`, wiele wartości, `unparseable`) | `not_comparable` + powód |
-| Obie wartości porównywalne, \|Δ\| < 0,5 km/h | `agree` |
-| Obie wartości porównywalne, \|Δ\| ≥ 0,5 km/h | `disagree` |
+W snapshocie 2026-11-01 ta reguła daje **1453 drogi: 1452 `implicit_only` i 1 `type_without_value` (`sign`)**. Zmierzono to 2026-11-12 skryptem tylko do odczytu. Profil (`profile.md` §8.2) podaje 1475, bo liczył drogi bez kolumny `maxspeed`. 22 z nich mają jednak liczbę w `maxspeed:forward`/`:backward` lub w kluczach dla pojazdów, więc mają reguły `numeric`. Test integracyjny odtwarza 1452/1. Inny wynik oznacza błąd parsera albo zmianę danych i wymaga aktualizacji tego ADR.
+
+**Kolejność ustalania statusu `speed`** dla pary zdjęcie–droga (liczone w ADR-002). Obowiązuje **pierwsza** pasująca reguła, więc każda para ma dokładnie jeden status dla atrybutu (PRD AC-06):
+
+| # | Warunek | Status |
+|---|---|---|
+| 1 | Para ma `link_status=ambiguous` | `ambiguous_link` |
+| 2 | OSM nie ma żadnej reguły ani typu limitu bez liczby | `missing_osm` (brak po stronie Overture jest wtedy widoczny tylko w kompletności) |
+| 3 | Brak kandydata Overture (`overture_id` NULL) albo segment nie ma reguł | `missing_overture` |
+| 4 | Którakolwiek strona nie ma wartości porównywalnej: OSM `implicit_only` / `type_without_value`, reguły tylko warunkowe, kierunkowe różne, częściowe `between`, wiele wartości, `unparseable` | `not_comparable` + powód |
+| 5 | Obie wartości porównywalne, \|Δ\| < 0,5 km/h | `agree` |
+| 6 | Obie wartości porównywalne, \|Δ\| ≥ 0,5 km/h | `disagree` |
+
+Reguły warunkowe (np. `maxspeed:conditional`, `maxspeed:hgv`, Overture `when.mode`) **nie blokują** porównania, jeśli obie strony mają wartość porównywalną z reguł bezwarunkowych (PRD AC-07: „unless an unconditional value exists on both sides”). Surowe reguły warunkowe są zawsze pokazywane w raporcie.
 
 Brak tagu nigdy nie jest równy 0 ani `none` (AC-08).
 
@@ -165,8 +174,9 @@ Brak tagu nigdy nie jest równy 0 ani `none` (AC-08).
 
 `grass_paver` jest graniczny. Klasyfikujemy go jako `unpaved`, zgodnie z definicją z README danych: „Paved obejmuje asfalt, beton i kostkę”. Pełna lista wartości Overture zostanie potwierdzona testem kontraktu na `SELECT DISTINCT`, a nieznane wartości dają `unknown_value`.
 
-Statusy dla `surface` działają analogicznie do prędkości:
+Statusy dla `surface` działają analogicznie do prędkości, z tą samą kolejnością reguł 1–6 z §3.3:
 - porównujemy klasy, nie surowe stringi;
+- brak `surface` w OSM → `missing_osm`; brak kandydata Overture albo pusta lista `road_surface` → `missing_overture`;
 - `between` częściowe → `not_comparable`;
 - `unknown_value` po którejkolwiek stronie → `not_comparable`.
 
@@ -176,13 +186,13 @@ Statusy dla `surface` działają analogicznie do prędkości:
 
 Jedno zapytanie SQL liczy, dla każdego atrybutu i źródła, `count`, `with_value` i `pct` w dwóch populacjach: wszystkie drogi oraz drogi połączone ze zdjęciem.
 
-| Atrybut | Kolumny |
+| Atrybut | Kolumna lub klucz w JSON `tags` |
 |---|---|
 | OSM `maxspeed*` | dowolny klucz `maxspeed*` w `tags` |
-| OSM `surface` | `surface` |
-| OSM `lit` | `lit` |
-| OSM `lanes` | `lanes`, `lanes:forward`, `lanes:backward` |
-| OSM `sidewalk*` | `sidewalk`, `sidewalk:left`, `sidewalk:right`, `sidewalk:both` |
+| OSM `surface` | kolumna `surface` |
+| OSM `lit` | kolumna `lit` |
+| OSM `lanes` | kolumna `lanes`; klucze `lanes:forward`, `lanes:backward` tylko w `tags` |
+| OSM `sidewalk*` | kolumny `sidewalk`, `sidewalk:left`, `sidewalk:right`; klucz `sidewalk:both` tylko w `tags` |
 | Overture | `len(speed_limits) > 0`, `len(road_surface) > 0` |
 
 Mianowniki są jawne w raporcie (AC-11).
@@ -365,5 +375,5 @@ sequenceDiagram
 
 - **TAC-001-01:** Dla każdego wiersza OSM suma `raw` reguł odtwarza wszystkie klucze `maxspeed*` z `tags`, bez utraty żadnego klucza (test własności na całym pliku).
 - **TAC-001-02:** Dla każdego segmentu Overture liczba wyprodukowanych reguł ≥ `len(speed_limits)`.
-- **TAC-001-03:** Żaden status `disagree` nie powstaje, gdy którakolwiek strona ma `condition_raw`, częściowe `between` lub `kind ≠ numeric` (test na całym zbiorze).
+- **TAC-001-03:** Status `disagree` (i `agree`) powstaje **tylko** wtedy, gdy obie strony mają wartość porównywalną, czyli wyliczoną wyłącznie z reguł `numeric` bezwarunkowych (`condition_raw IS NULL`), obejmujących cały segment i oba kierunki (§3.3). Reguły warunkowe obok takiej wartości nie zmieniają statusu (test własności na całym zbiorze). Doprecyzowane 2026-11-12: poprzednie brzmienie było sprzeczne z AC-07 i testami „Warunkowe” i „Prędkość dla pojazdów”.
 - **TAC-001-04:** `DatabricksSource` nigdy nie wysyła drugiego `POST /statements` dla tej samej tabeli w jednym uruchomieniu (asercja respx).
