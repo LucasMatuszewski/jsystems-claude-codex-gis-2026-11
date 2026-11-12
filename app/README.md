@@ -1,60 +1,38 @@
-# App
+# map-qa — Map QA CLI (Kraków)
 
-This folder will contain the application built during the course.
+Compares OSM and Overture road attributes (speed limit, surface, lighting, completeness) for photo-linked roads
+and, optionally, reads street photos with a tiered AI reading (decision model → general LLM → manual queue).
+Writes a Polish Markdown + static HTML report. Requirements: [PRD](../docs/PRD.md); architecture:
+[ADR-000](../docs/ADR/000-main-architecture.md) … [ADR-004](../docs/ADR/004-report-and-cli.md).
 
-## How to start
+Run every command from the repository root (Windows: set `PYTHONUTF8=1` first).
 
-The app is scaffolded live during the course through a structured process:
+## Setup and tests
 
-1. **Research** — use agents to research and validate the project idea
-2. **PRD** — generate a Product Requirements Document (`../docs/PRD.md`)
-3. **ADR** — generate Architecture Decision Records (`../docs/ADR/`) to choose the tech stack
-4. **Scaffold** — use the chosen boilerplate (`create-next-app`, AI SDK starter, Mastra, etc.)
-5. **Implement** — build features with agents using TDD
+```powershell
+$env:PYTHONUTF8 = "1"
+uv sync --project app
+uv run --project app pytest app/tests -rs        # module test_run_cached calls the real OpenRouter API
+```
 
-## Checklist
+## Commands
 
-Use this checklist during scaffolding. Some items are provided by the boilerplate (e.g. `create-next-app` ships `tsconfig.json`, ESLint config). Others you add explicitly.
+| Command | What it does |
+|---|---|
+| `uv run --project app map-qa run` | Local files → `reports/map-qa/report.md`, `report.html`, `results.json`, `run_manifest.json` |
+| `… map-qa run --source databricks` | Same pipeline on `workspace.map_qa.*` (needs `DATABRICKS_HOST`, `DATABRICKS_TOKEN`, `DATABRICKS_SQL_WAREHOUSE_ID`) |
+| `… map-qa run --compare-sources` | Adds row counts and key sets of both sources to the report header |
+| `… map-qa run --model-reading [--yes]` | Paid photo reading (needs `OPENROUTER_API_KEY`); asks `y/N` unless `--yes`; limits: 100 requests, 1 USD |
+| `… map-qa report --from reports/map-qa/results.json` | Re-renders the report without network |
+| `… map-qa capture --kind {decisions-luna,decisions-jev,chat-tier2,databricks} [--yes] [--image <photo_id>]` | One real request, saved as a safe capture in `app/tests/fixtures/captures/` |
 
-### Project setup
-- [ ] Choose framework (Next.js, Express+Vite, Mastra, other) — record in ADR
-- [ ] Initialize project (e.g. `npx create-next-app@latest` or equivalent)
-- [ ] TypeScript config (`tsconfig.json`)
-- [ ] Package manager chosen (npm / pnpm / bun)
+Settings: CLI flags > `MAP_QA_*` env > TOML (`--config`, see `map_qa.example.toml`) > defaults (ADR-004 §3.2).
+Secrets come only from environment variables; a TOML key that looks like a secret is rejected (exit 2).
 
-### Code quality
-- [ ] ESLint config (`eslint.config.js`)
-- [ ] Prettier config (`.prettierrc`, `.prettierignore`)
-- [ ] `.editorconfig` (optional but recommended)
+Exit codes: `0` report written (also when the paid loop stopped on an API error), `2` configuration,
+`3` source unavailable / missing variable, `4` input schema mismatch, `5` input changed during the run.
 
-### Testing
-- [ ] Unit/integration test runner (Vitest / Jest)
-- [ ] E2E test runner (Playwright)
-- [ ] Test setup file (e.g. `test-setup.ts` with Testing Library matchers)
+## Work files
 
-### Environment
-- [ ] `.env.example` with required env vars (API keys, ports)
-- [ ] `.env` created locally (gitignored)
-- [ ] `.gitignore` (node_modules, .env, build output, etc.)
-
-### AI integration
-- [ ] Vercel AI SDK (`ai` package) or equivalent
-- [ ] API route / endpoint for chat
-- [ ] Model configuration (provider, model name, API key from env)
-
-### Design
-- [ ] Design tokens (`../assets/design-tokens.json`)
-- [ ] Tailwind CSS or equivalent
-- [ ] Logo and favicon (`../assets/`)
-- [ ] Design system doc (`../docs/design-guidelines.md`)
-
-### Documentation
-- [ ] PRD (`../docs/PRD.md`)
-- [ ] ADRs (`../docs/ADR/`)
-- [ ] AGENTS.md in `app/` with stack-specific rules
-
-## Notes
-
-- Don't create config files manually if the boilerplate provides them — it leads to conflicts.
-- Let the agent research and recommend the right boilerplate based on the ADR decisions.
-- Keep this folder organized: separate routes, components, domain logic, and tests.
+Cache, ledger (`ledger.jsonl`), prepared images, DuckDB extensions and the Databricks materialization live in the
+git-ignored `course-materials/exercise-data/map-qa/data/`. Inputs are never modified (hash before = after).
