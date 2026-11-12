@@ -244,3 +244,13 @@ def test_tier2_budget_refusal_is_attributed_to_tier2(tmp_path):
     e, _, _ = make(tmp_path, [cap("decisions-luna-photo-200")], t1=0.96, max_requests=1)
     r = by_q(e.read("p1", "photo", IMG, PHOTO_QS))["street_lighting_visible"]
     assert (r.decision, r.tier) == ("not_run_budget_or_error", 2)
+
+
+def test_raising_threshold_names_questions_needing_new_calls(tmp_path):
+    """PRD §4.4 step 3 / ADR-003 §5.6: the CLI lists WHICH questions need new tier-2 calls (T51 review)."""
+    e, _, _ = make(tmp_path, [cap("decisions-luna-photo-200")])
+    e.read("p1", "photo", IMG, PHOTO_QS)
+    e2, _, _ = make(tmp_path, [], t1=0.96, run_id="r2")
+    assert e2.new_call_questions(IMG, PHOTO_QS) == {"tier1": [], "tier2": ["street_lighting_visible"]}
+    e3, _, _ = make(tmp_path / "empty", [], run_id="r3")
+    assert e3.new_call_questions(IMG, PHOTO_QS) == {"tier1": PHOTO_QS, "tier2": []}

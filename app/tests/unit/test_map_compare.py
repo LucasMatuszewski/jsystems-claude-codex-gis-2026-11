@@ -123,16 +123,16 @@ def test_surface_note_both_different():
     assert row.note == "OSM: różne; Overture: różne"
 
 
-def test_surface_unknown_value_missing_and_none_class_are_brak_wartosci():
-    for osm_class, ov_class in [("unknown_value", "paved"), ("missing", "paved"), ("paved", None)]:
-        row = one(
-            surface("paved"),
-            street_row(osm_surface_class=osm_class, overture_surface_class=ov_class),
-        )
-        if osm_class == "paved":
-            assert row.note == "OSM: zgodne; Overture: brak wartości"
-        else:
-            assert row.note == "OSM: brak wartości; Overture: zgodne"
+def test_surface_missing_vs_not_comparable_are_distinct():
+    """AC-08 / user story 2: a missing value and an unrecognised/non-reducible value are reported differently
+    (changed after the T51 review; the earlier expectation merged both into 'brak wartości')."""
+    expected = {("unknown_value", "paved"): "OSM: nieporównywalne (unknown_value); Overture: zgodne",
+                ("missing", "paved"): "OSM: brak wartości; Overture: zgodne",
+                ("paved", None): "OSM: zgodne; Overture: brak wartości",
+                ("paved", "not_comparable"): "OSM: zgodne; Overture: nieporównywalne (not_comparable)"}
+    for (osm_class, ov_class), note in expected.items():
+        row = one(surface("paved"), street_row(osm_surface_class=osm_class, overture_surface_class=ov_class))
+        assert row.note == note
 
 
 def test_surface_missing_keys_are_brak_wartosci_and_map_values_dash():
@@ -160,10 +160,13 @@ def test_lighting_no_matches_no_and_mismatch_is_roznie():
     assert one(lighting("yes"), street_row(osm_lit_raw="no", osm_lit_class="no")).note == "OSM: różne"
 
 
-def test_lighting_missing_or_unknown_is_brak_wartosci():
-    for cls in ["missing", "unknown_value", None]:
+def test_lighting_missing_vs_unknown_value():
+    """AC-08: missing `lit` and an unrecognised value (e.g. `disused`) are distinct (T51 review)."""
+    for cls in ["missing", None]:
         row = one(lighting("yes"), street_row(osm_lit_raw=None, osm_lit_class=cls))
         assert row.note == "OSM: brak wartości"
+    row = one(lighting("yes"), street_row(osm_lit_raw="disused", osm_lit_class="unknown_value"))
+    assert row.note == "OSM: nieporównywalne (unknown_value)"
 
 
 def test_lighting_missing_key_is_not_treated_as_no():

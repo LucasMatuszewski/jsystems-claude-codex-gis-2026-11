@@ -223,6 +223,18 @@ class Escalator:
                                     request_ids=[req_id] if req_id else [], from_cache=cached))
         return out
 
+    def new_call_questions(self, image: PreparedImage, qids: list[str]) -> dict[str, list[str]]:
+        """Questions needing NEW calls (not cached) for the primary model, per tier (PRD §4.4 step 3).
+        Without a cached tier-1 answer the tier-2 need is unknown until tier 1 runs."""
+        s = self.s
+        entry = self.cache.get(tier1_key(image.sha256, s.tier1_model, s.qs_version, "tier1", qids))
+        if entry is None:
+            return {"tier1": list(qids), "tier2": []}
+        answers = validate_decisions(entry["body"], qids)
+        unc = [q for q in qids if answers[q].choice == "unknown" or answers[q].pmax < s.t1_threshold]
+        return {"tier1": [], "tier2": [q for q in unc if self.cache.get(
+            tier2_key(image.sha256, s.tier2_model, s.qs_version, q)) is None]}
+
     def pending_calls(self, image: PreparedImage, kind: str, qids: list[str], compare: bool = False) -> dict[str, int]:
         """New calls this image would need (listed before confirmation; PRD §4.4)."""
         s = self.s

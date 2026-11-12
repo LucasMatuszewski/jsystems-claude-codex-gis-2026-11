@@ -12,7 +12,8 @@ from map_qa.core.models import MapCompareRow
 from map_qa.photo_reading.escalator import PhotoReading
 
 ANSWERED_DECISIONS = {"answered", "answered_tier2"}
-MISSING_CLASSES = {None, "unknown_value", "missing"}
+MISSING_CLASSES = {None, "missing"}
+NOT_COMPARABLE_CLASSES = {"unknown_value", "not_comparable"}
 LIGHTING_MATCH = {"yes": {"yes", "yes_conditional"}, "no": {"no"}}
 MAPILLARY_SPEED = re.compile(r"maximum-speed-limit-(\d+)")
 DASH = "–"
@@ -34,6 +35,8 @@ def _prediction(reading: PhotoReading) -> str | None:
 def _agreement(prediction: str, map_class) -> str:
     if map_class in MISSING_CLASSES:
         return MISSING
+    if map_class in NOT_COMPARABLE_CLASSES:
+        return f"nieporównywalne ({map_class})"  # AC-08: not the same as a missing value
     return "zgodne" if prediction == map_class else "różne"
 
 
@@ -76,6 +79,8 @@ def _lighting_note(prediction: str, row: dict) -> str:
     lit_class = row.get("osm_lit_class")
     if lit_class in MISSING_CLASSES:
         return f"OSM: {MISSING}"
+    if lit_class in NOT_COMPARABLE_CLASSES:
+        return f"OSM: nieporównywalne ({lit_class})"
     matches = lit_class in LIGHTING_MATCH.get(prediction, set())
     return f"OSM: {'zgodne' if matches else 'różne'}"
 
@@ -86,11 +91,21 @@ def _speed_note(prediction: str, row: dict) -> str:
     if prediction == "unreadable":
         return "odczyt: wartość nieczytelna"
     value = prediction.strip()
-    osm = (row.get("maxspeed") or "").strip()
-    if not osm:
-        osm_part = f"OSM maxspeed: {MISSING}"
+    if "osm_speed_value" in row:  # normalized comparable value (ADR-001 §3.3), computed by the pipeline
+        osm_value, reason = row.get("osm_speed_value"), row.get("osm_speed_reason")
+        if osm_value is not None:
+            same = value.isdigit() and abs(float(value) - float(osm_value)) < 0.5
+            osm_part = f"OSM: {'zgodne' if same else 'różne'}"
+        elif reason in (None, "no_rules"):
+            osm_part = f"OSM: {MISSING}"
+        else:
+            osm_part = f"OSM: nieporównywalne ({reason})"
     else:
-        osm_part = f"OSM maxspeed: {'zgodne' if osm == value else 'różne'}"
+        osm = (row.get("maxspeed") or "").strip()
+        if not osm:
+            osm_part = f"OSM maxspeed: {MISSING}"
+        else:
+            osm_part = f"OSM maxspeed: {'zgodne' if osm == value else 'różne'}"
     mapillary = _mapillary_number(row)
     if mapillary is None:
         map_part = f"Mapillary: {MISSING}"
@@ -121,6 +136,8 @@ def map_comparison(readings: list[PhotoReading], map_rows: dict[str, dict]) -> l
         prediction = _prediction(reading)
         if prediction is None:
             note = f"nie porównano: brak odpowiedzi modelu ({reading.decision})"
+        elif row.get("link_status") == "ambiguous":
+            note = "nie porównano: niepewne połączenie (ambiguous_link)"  # AC-10, ADR-002 D-22
         else:
             note = note_of(prediction, row)
         out.append(

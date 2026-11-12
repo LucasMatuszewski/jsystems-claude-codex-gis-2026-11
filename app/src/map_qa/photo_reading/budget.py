@@ -66,6 +66,9 @@ class BudgetLedger:
             fh.write(json.dumps(entry) + "\n")
         if not ok:
             self.open_breaker(outcome)
+        elif actual > res.amount:
+            # The reservation was too small: stop paid calls so the cost limit cannot be overrun (AC-13).
+            self.open_breaker("cost_above_reservation")
         return actual
 
     def open_breaker(self, reason: str) -> None:

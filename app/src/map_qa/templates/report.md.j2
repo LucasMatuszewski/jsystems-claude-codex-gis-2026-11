@@ -132,7 +132,7 @@ Pary ze statusem `disagree`, `missing_*`, `not_comparable` lub `ambiguous_link`.
 |---|---:|---|---:|---|---|---|---|---|---|
 {% for c in g.rows %}
 {% set a = (c.attributes | selectattr("attribute", "equalto", g.attribute) | list)[0] %}
-| {{ c.photo_id }} | {{ c.osm_way_id }} | {{ c.overture_id or "–" }} | {{ c.distance_m_recomputed | num }} | {{ a.osm_raw | join("; ") or "–" }} | {{ a.overture_raw | join("; ") or "–" }} | {% for r in c.readings %}{{ r.question }}: {{ r.answer or r.decision }} (tier {{ r.tier or "–" }}, p={{ r.probability | num }}){{ "; " if not loop.last }}{% else %}–{% endfor %} | {{ a.reason or "–" }} | {{ (c.flags + c.reasons) | unique | join(", ") or "–" }} | {% if c.thumb.src %}[miniatura]({{ c.thumb.src }}){% else %}Miniatura niedostępna{% endif %}; {{ c.thumb.author or "–" }}, {{ c.thumb.source or "–" }}, {{ c.thumb.license or "–" }} |
+| {{ c.photo_id }} | {{ c.osm_way_id }} | {{ c.overture_id or "–" }} | {{ c.distance_m_recomputed | num }} | {{ a.osm_raw | join("; ") or "–" }} | {{ a.overture_raw | join("; ") or "–" }} | {% for r in c.readings %}{{ r.question }}: {{ r.answer or r.decision }} (tier {{ r.tier or "–" }}, {% if r.tier == 2 %}pewność={{ r.certainty or "–" }}{% else %}p={{ r.probability | num }}{% endif %}){{ "; " if not loop.last }}{% else %}–{% endfor %} | {{ a.reason or "–" }} | {{ (c.flags + c.reasons) | unique | join(", ") or "–" }} | {% if c.thumb.src %}[miniatura]({{ c.thumb.src }}){% else %}Miniatura niedostępna{% endif %}; {{ c.thumb.author or "–" }}, {{ c.thumb.source or "–" }}, {{ c.thumb.license or "–" }} |
 {% endfor %}
 {% else %}
 Brak kandydatów (0).

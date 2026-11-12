@@ -44,6 +44,13 @@ def test_real_flow_tier1_then_tier2(tmp_path, image):
         assert dec.call_count == 1 and chat.call_count == 1
         sent = json.loads(dec.calls[0].request.content)
         assert len(sent["state"]) == 2 and CROP not in dec.calls[0].request.content.decode()
+        # AC-12 on the requests actually sent in the escalation flow (T51 review): values from this crop's
+        # record in signs.csv / labels.csv / nearest_osm.csv must not appear in either tier's payload.
+        for call in (dec.calls[0], chat.calls[0]):
+            body = call.request.content.decode()
+            for leak in (CROP, "1931009810597411", "jswk", "regulatory--maximum-speed-limit", "19.866218",
+                         "50.064759", ".jpg", "\"certain\"", "187014751", "Wf9MDNQijUaEd5olsYVknw"):
+                assert leak not in body, leak
     assert (r.decision, r.answer, r.tier) == ("answered_tier2", "20", 2)
     assert ledger.entries_for_run() == 2 == client.posts  # TAC-003-02
     expected = sum(response_cost(json.loads((FIXTURES / "captures" / f"{n}.json").read_text(encoding="utf-8"))

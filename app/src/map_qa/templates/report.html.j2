@@ -125,7 +125,7 @@
     <dt>Powód</dt><dd>{{ a.reason or "–" }}</dd>
     <dt>OSM (surowe)</dt><dd>{% for v in a.osm_raw %}<code>{{ v }}</code>{{ " " if not loop.last }}{% else %}–{% endfor %}</dd>
     <dt>Overture (surowe)</dt><dd>{% for v in a.overture_raw %}<code>{{ v }}</code>{{ " " if not loop.last }}{% else %}–{% endfor %}</dd>
-    <dt>Odczyt zdjęcia (predykcja)</dt><dd>{% for r in c.readings %}{{ r.question }}: {{ r.answer or r.decision }} (tier {{ r.tier or "–" }}, p={{ r.probability | num }}){{ "; " if not loop.last }}{% else %}–{% endfor %}</dd>
+    <dt>Odczyt zdjęcia (predykcja)</dt><dd>{% for r in c.readings %}{{ r.question }}: {{ r.answer or r.decision }} (tier {{ r.tier or "–" }}, {% if r.tier == 2 %}pewność={{ r.certainty or "–" }}{% else %}p={{ r.probability | num }}{% endif %}){{ "; " if not loop.last }}{% else %}–{% endfor %}</dd>
     <dt>Flagi</dt><dd>{{ (c.flags + c.reasons) | unique | join(", ") or "–" }}</dd>
   </dl>
 </article>

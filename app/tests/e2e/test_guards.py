@@ -45,6 +45,8 @@ def cli_output(tmp_path_factory: pytest.TempPathFactory) -> Path:
     )
     assert completed.returncode == 0, completed.stdout + "\n" + completed.stderr
     assert (out / "run_manifest.json").is_file()
+    for secret in FAKE_SECRETS:  # T51 review: console output is an output too (AC-05)
+        assert secret not in completed.stdout and secret not in completed.stderr
     return out
 
 
@@ -62,3 +64,20 @@ def test_output_guard_detects_secret_and_base64_mutations(tmp_path: Path) -> Non
     assert any("secret" in item for item in find_violations(output))
     (output / "report.md").write_text("A" * 100, encoding="utf-8")
     assert any("base64" in item for item in find_violations(output))
+
+
+def test_databricks_error_path_does_not_echo_token(tmp_path: Path) -> None:
+    """T51 review: the fake token must not appear in stdout/stderr on the Databricks path (AC-05, TAC-06).
+    The host is unresolvable on purpose, so no request reaches a real workspace."""
+    out = tmp_path / "out"
+    completed = subprocess.run(
+        ["uv", "run", "--project", "app", "map-qa", "run", "--source", "databricks", "--output-dir", str(out)],
+        cwd=REPO_ROOT, capture_output=True, text=True, encoding="utf-8", timeout=300,
+        env=cli_env(DATABRICKS_TOKEN=FAKE_SECRETS[0], DATABRICKS_HOST="https://dbc-guard.invalid",
+                    DATABRICKS_SQL_WAREHOUSE_ID="wh-guard", OPENROUTER_API_KEY=FAKE_SECRETS[1]),
+    )
+    assert completed.returncode == 3, completed.stderr
+    for secret in FAKE_SECRETS:
+        assert secret not in completed.stdout and secret not in completed.stderr
+    assert completed.stderr.count("\n") == 1 and not out.exists()
+

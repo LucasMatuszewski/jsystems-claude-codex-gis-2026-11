@@ -13,6 +13,7 @@ import duckdb
 
 from map_qa.core.errors import MissingCredential
 from map_qa.normalize.lit import lit_class
+from map_qa.normalize.speed import comparable_value, osm_rules
 from map_qa.normalize.surface import comparable_surface, osm_surface_value, overture_surface_values
 from map_qa.photo_reading.budget import BudgetLedger
 from map_qa.photo_reading.cache import DecisionCache
@@ -66,24 +67,31 @@ def _map_rows(con: duckdb.DuckDBPyConnection, items: list[dict]) -> dict[str, di
     photo_ids = [i["photo_id"] for i in items if i["kind"] == "photo"]
     crop_ids = [i["photo_id"] for i in items if i["kind"] == "sign_crop"]
     if photo_ids:
-        cur = con.execute("""SELECT l.photo_id, o.surface, o.lit, s.road_surface, l.overture_id
+        cur = con.execute("""SELECT l.photo_id, o.surface, o.lit, s.road_surface, l.overture_id, l.link_status
                              FROM links l LEFT JOIN osm_roads o ON o.osm_id = l.osm_way_id
                              LEFT JOIN overture_segments s ON s.id = l.overture_id
                              WHERE l.photo_id IN (SELECT unnest(?))""", [photo_ids])
-        for pid, surface, lit, road_surface, ov_id in cur.fetchall():
+        for pid, surface, lit, road_surface, ov_id, link_status in cur.fetchall():
             ov = overture_surface_values(road_surface) if ov_id else []
             ov_cls, _ = comparable_surface(ov) if ov else (None, None)
+            if ov and ov_cls is None:
+                ov_cls = "not_comparable"  # partial `between`, several classes or unknown value
             rows[pid] = {"osm_surface_raw": surface, "osm_surface_class": str(osm_surface_value(surface).cls),
                          "overture_surface_raw": ", ".join(str(v.raw) for v in ov) or None,
-                         "overture_surface_class": ov_cls, "osm_lit_raw": lit, "osm_lit_class": lit_class(lit)}
+                         "overture_surface_class": ov_cls, "osm_lit_raw": lit, "osm_lit_class": lit_class(lit),
+                         "link_status": link_status}
     if crop_ids:
         cur = con.execute("""SELECT s.photo_id, n.maxspeed, n.maxspeed_forward, n.maxspeed_backward,
                                     n.maxspeed_conditional, s.mapillary_value
                              FROM signs s LEFT JOIN signs_nearest_osm n USING (photo_id)
                              WHERE s.photo_id IN (SELECT unnest(?))""", [crop_ids])
         for pid, ms, fw, bw, cond, mv in cur.fetchall():
+            tags = {k: v for k, v in {"maxspeed": ms, "maxspeed:forward": fw, "maxspeed:backward": bw,
+                                      "maxspeed:conditional": cond}.items() if v}
+            value, reason = comparable_value(osm_rules(tags).rules)
             rows[pid] = {"maxspeed": ms, "maxspeed_forward": fw, "maxspeed_backward": bw,
-                         "maxspeed_conditional": cond, "mapillary_value": mv}
+                         "maxspeed_conditional": cond, "mapillary_value": mv,
+                         "osm_speed_value": value, "osm_speed_reason": reason}
     return rows
 
 
@@ -151,6 +159,10 @@ def run_photo_reading(con: duckdb.DuckDBPyConnection, ctx) -> ReadingOutcome:
         for n, item in enumerate(items, start=1):
             mark = " [porównanie]" if item["compare"] else ""
             w(f"  {n:2d}. {item['photo_id']} ({item['kind']}): {', '.join(item['questions'])}{mark}\n")
+            img = prepared.get(item["photo_id"])
+            need = esc.new_call_questions(img, item["questions"]) if img is not None else None
+            if need and need["tier2"] and not need["tier1"]:
+                w(f"      wymaga nowych wywołań tier 2: {', '.join(need['tier2'])}\n")
         confirmed = bool(cfg.yes)
         if not confirmed:
             try:

@@ -195,7 +195,7 @@ def add_read_files(manifest: InputManifest, data_dir: Path, paths: list[Path]) -
 def verify_inputs_unchanged(manifest: InputManifest, base: Path) -> None:
     for f in manifest.files:
         path = Path(base) / f.name
-        if path.is_file() and sha256_file(path) != f.sha256:
+        if not path.is_file() or sha256_file(path) != f.sha256:
             raise InputChanged(f.name)
 
 
