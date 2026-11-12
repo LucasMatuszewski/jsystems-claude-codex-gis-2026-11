@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import hashlib
 import io
+import math
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -33,11 +34,12 @@ def prepare_bytes(raw: bytes) -> PreparedImage:
     scale = 1.0
     if min(w, h) < MIN_SIDE or w * h < MIN_PIXELS:
         # Upscale until BOTH the 256 px short side and the 78 400 px minimum hold (ADR-003 §3.2, 2026-11-12).
-        scale = max(MIN_SIDE / min(w, h), (MIN_PIXELS / (w * h)) ** 0.5) * 1.0005
+        scale = max(MIN_SIDE / min(w, h), (MIN_PIXELS / (w * h)) ** 0.5)
     elif max(w, h) > MAX_SIDE:
         scale = MAX_SIDE / max(w, h)
     if scale != 1.0:
-        w, h = round(w * scale), round(h * scale)
+        rnd = math.ceil if scale > 1 else round  # upscaling must not fall below the minimums
+        w, h = rnd(w * scale - 1e-9), rnd(h * scale - 1e-9)
         if not (MIN_PIXELS <= w * h <= MAX_PIXELS):
             raise ImageOutOfBounds(f"{w}x{h}")
         img = img.resize((w, h), Image.Resampling.LANCZOS)

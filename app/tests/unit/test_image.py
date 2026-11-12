@@ -55,3 +55,12 @@ def test_sha256_of_prepared_bytes_is_stable():
 def test_out_of_bounds_rejected():
     with pytest.raises(ImageOutOfBounds):
         prepare_bytes(jpeg(4000, 40))  # extreme aspect: 256 short side -> 25600 long side -> too many pixels
+
+
+def test_all_real_sign_crops_and_offline_photos_are_accepted(data_dir):
+    from map_qa.photo_reading.image import prepare_file
+    paths = list((data_dir / "signs" / "crops").glob("*.jpg")) + list((data_dir / "offline").glob("*.jpg"))
+    assert len(paths) == 159
+    for path in paths:
+        w, h = prepare_file(path).size
+        assert min(w, h) >= 256 and 78_400 <= w * h <= 2_458_624, path.name
