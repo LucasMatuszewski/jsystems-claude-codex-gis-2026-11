@@ -231,7 +231,7 @@ Mianowniki są jawne w raporcie (AC-11).
 - **Zweryfikowane capture adaptera (T30, 2026-11-12)** – `app/tests/fixtures/captures/databricks-{photos,osm_roads}-limit5*.json`:
   - `ARROW_STREAM` + `EXTERNAL_LINKS` **działa** z tym tokenem: `POST` zwraca od razu `SUCCEEDED` (`wait_timeout=30s`), `manifest.total_chunk_count`, `manifest.chunks[]`, `result.external_links[]` z `chunk_index`, `row_count`, `external_link` (presigned, z `expiration`). Chunk pobrany bez `Authorization` to strumień Arrow IPC. D-11 pozostaje bez zmian.
   - Tabele w Databricks mają dodatkową kolumnę `_rescued_data` (artefakt ingestu), której nie ma w plikach. `DatabricksSource` ją pomija.
-  - Typy różnią się od plików: `geometry` to `BINARY` (WKB), `photos.captured_at` to `TIMESTAMP` (pliki: `TIMESTAMPTZ`), `photos.bytes/width/height` to `INT` (pliki: `BIGINT`). `DatabricksSource` rzutuje je w widokach DuckDB do typów z plików, żeby pipeline był jeden.
+  - Typy różnią się od plików: `geometry` to `BINARY` (WKB), `photos.captured_at` to `TIMESTAMP` (pliki: `TIMESTAMPTZ`), `photos.bytes/width/height` i `photo_road_links.osm_way_id/osm_candidate_count` to `INT` (pliki: `BIGINT`). `DatabricksSource` rzutuje je w widokach DuckDB do typów z plików, żeby pipeline był jeden.
   - Capture nie zawiera tokenu, hosta (maskowany do `*.cloud.databricks.com`), `warehouse_id` ani podpisu presigned URL (query string zastąpiony `<redacted-presigned-query>`).
 
 ---

@@ -17,7 +17,7 @@ import httpx
 
 from map_qa.core.capture import build_capture, mask_host, write_capture
 
-TABLES = {"photos", "osm_roads", "overture_segments", "photo_road_links"}
+TABLES = {"photos", "osm_roads", "overture_segments", "photo_road_links", "missing_table_error_capture"}
 
 
 def main() -> int:
@@ -75,7 +75,7 @@ def main() -> int:
             client_version=ver), out / f"{args.name}.json")
     state = doc.get("status", {}).get("state")
     print(f"HTTP {r.status_code}, state={state}, links={len(links)}, chunk={'tak' if chunk_file else 'nie'}")
-    return 0 if state == "SUCCEEDED" else 1
+    return 0 if state == "SUCCEEDED" or args.table == "missing_table_error_capture" else 1
 
 
 if __name__ == "__main__":

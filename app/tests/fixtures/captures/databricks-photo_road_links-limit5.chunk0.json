@@ -1,0 +1,34 @@
+{
+ "captured_at": "2026-11-12T15:42:55+00:00",
+ "target": "databricks",
+ "endpoint": "<presigned external_link>",
+ "method": "GET",
+ "model_sent": null,
+ "model_returned": null,
+ "client_version": "httpx 0.28.1; Databricks SQL Statement Execution API 2.0",
+ "request_meta": {
+  "chunk_index": 0,
+  "statement": "SELECT * FROM workspace.map_qa.photo_road_links LIMIT 5"
+ },
+ "status": 200,
+ "response_headers": {
+  "accept-ranges": "bytes",
+  "content-disposition": "attachment",
+  "content-length": "2680",
+  "content-security-policy": "sandbox",
+  "content-type": "binary/octet-stream",
+  "etag": "\"660ac5c9de27519af45d2a0f1553cbf9\"",
+  "last-modified": "Thu, 12 Nov 2026 15:42:55 GMT",
+  "x-content-security-policy": "sandbox",
+  "x-content-type-options": "nosniff",
+  "x-frame-options": "DENY",
+  "x-webkit-cs": "sandbox",
+  "x-request-id": "2c7da88d-a058-4999-8b01-943c62f180e1",
+  "date": "Thu, 12 Nov 2026 15:42:54 GMT",
+  "server": "databricks"
+ },
+ "response_body": null,
+ "elapsed_ms": 562.0,
+ "body_file": "databricks-photo_road_links-limit5.chunk0.arrow",
+ "body_sha256": "b224fa4ef273614273613c77989be2f54eeb0461b5b7c0ad360500755367942e"
+}

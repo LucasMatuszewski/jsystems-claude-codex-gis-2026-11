@@ -1,0 +1,53 @@
+{
+ "captured_at": "2026-11-12T15:42:57+00:00",
+ "target": "databricks",
+ "endpoint": "/api/2.0/sql/statements",
+ "method": "POST",
+ "model_sent": null,
+ "model_returned": null,
+ "client_version": "httpx 0.28.1; Databricks SQL Statement Execution API 2.0",
+ "request_meta": {
+  "host": "*.cloud.databricks.com",
+  "statement": "SELECT * FROM workspace.map_qa.missing_table_error_capture LIMIT 5",
+  "body": {
+   "warehouse_id": "<warehouse_id>",
+   "statement": "SELECT * FROM workspace.map_qa.missing_table_error_capture LIMIT 5",
+   "format": "ARROW_STREAM",
+   "disposition": "EXTERNAL_LINKS",
+   "wait_timeout": "30s",
+   "on_wait_timeout": "CONTINUE"
+  },
+  "polls": 0
+ },
+ "status": 200,
+ "response_headers": {
+  "date": "Thu, 12 Nov 2026 15:42:57 GMT",
+  "access-control-allow-headers": "Authorization, X-Databricks-Azure-Workspace-Resource-Id, X-Databricks-Org-Id, Content-Type, X-Databricks-Attribution-Tags",
+  "access-control-allow-origin": "*",
+  "cache-control": "no-cache, no-store, must-revalidate",
+  "expires": "0",
+  "pragma": "no-cache",
+  "content-type": "application/json",
+  "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+  "x-content-type-options": "nosniff",
+  "x-request-id": "723e97e6-2093-46f3-95bf-be9856ab0c22",
+  "content-encoding": "gzip",
+  "vary": "Accept-Encoding",
+  "server": "databricks",
+  "alt-svc": "clear",
+  "server-timing": "request_id;dur=0;desc=\"723e97e6-2093-46f3-95bf-be9856ab0c22\", client_protocol;dur=0;desc=\"HTTP/1.1\", request_ttfb_msec;dur=322",
+  "transfer-encoding": "chunked"
+ },
+ "response_body": {
+  "statement_id": "01f1deaf-bb5b-1591-849f-b90b3073c53d",
+  "status": {
+   "state": "FAILED",
+   "error": {
+    "error_code": "BAD_REQUEST",
+    "message": "[TABLE_OR_VIEW_NOT_FOUND] The table or view `workspace`.`map_qa`.`missing_table_error_capture` cannot be found. Verify the spelling and correctness of the schema and catalog.\nSearch path: [`system`.`session`, `system`.`builtin`, `system`.`ai`, `workspace`.`default`].\nIf you did not qualify the name with a schema, verify the current_schema() output, or qualify the name with the correct schema and catalog.\nTo tolerate the error on drop use DROP VIEW IF EXISTS or DROP TABLE IF EXISTS. SQLSTATE: 42P01; line 1 pos 14"
+   },
+   "sql_state": "42P01"
+  }
+ },
+ "elapsed_ms": 1000.0
+}

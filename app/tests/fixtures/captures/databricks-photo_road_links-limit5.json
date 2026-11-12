@@ -1,0 +1,152 @@
+{
+ "captured_at": "2026-11-12T15:42:55+00:00",
+ "target": "databricks",
+ "endpoint": "/api/2.0/sql/statements",
+ "method": "POST",
+ "model_sent": null,
+ "model_returned": null,
+ "client_version": "httpx 0.28.1; Databricks SQL Statement Execution API 2.0",
+ "request_meta": {
+  "host": "*.cloud.databricks.com",
+  "statement": "SELECT * FROM workspace.map_qa.photo_road_links LIMIT 5",
+  "body": {
+   "warehouse_id": "<warehouse_id>",
+   "statement": "SELECT * FROM workspace.map_qa.photo_road_links LIMIT 5",
+   "format": "ARROW_STREAM",
+   "disposition": "EXTERNAL_LINKS",
+   "wait_timeout": "30s",
+   "on_wait_timeout": "CONTINUE"
+  },
+  "polls": 0
+ },
+ "status": 200,
+ "response_headers": {
+  "date": "Thu, 12 Nov 2026 15:42:54 GMT",
+  "access-control-allow-headers": "Authorization, X-Databricks-Azure-Workspace-Resource-Id, X-Databricks-Org-Id, Content-Type, X-Databricks-Attribution-Tags",
+  "access-control-allow-origin": "*",
+  "cache-control": "no-cache, no-store, must-revalidate",
+  "expires": "0",
+  "pragma": "no-cache",
+  "content-type": "application/json",
+  "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+  "x-content-type-options": "nosniff",
+  "x-request-id": "d67bf8d2-d951-4797-9b74-60387e8dc158",
+  "content-encoding": "gzip",
+  "vary": "Accept-Encoding",
+  "server": "databricks",
+  "alt-svc": "clear",
+  "server-timing": "request_id;dur=0;desc=\"d67bf8d2-d951-4797-9b74-60387e8dc158\", client_protocol;dur=0;desc=\"HTTP/1.1\", request_ttfb_msec;dur=1132",
+  "transfer-encoding": "chunked"
+ },
+ "response_body": {
+  "statement_id": "01f1deaf-b94d-181b-8b03-4229c3c7f37f",
+  "status": {
+   "state": "SUCCEEDED"
+  },
+  "manifest": {
+   "format": "ARROW_STREAM",
+   "schema": {
+    "column_count": 12,
+    "columns": [
+     {
+      "name": "photo_id",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 0
+     },
+     {
+      "name": "osm_way_id",
+      "type_text": "INT",
+      "type_name": "INT",
+      "position": 1
+     },
+     {
+      "name": "overture_id",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 2
+     },
+     {
+      "name": "distance_m",
+      "type_text": "DOUBLE",
+      "type_name": "DOUBLE",
+      "position": 3
+     },
+     {
+      "name": "way_bearing",
+      "type_text": "DOUBLE",
+      "type_name": "DOUBLE",
+      "position": 4
+     },
+     {
+      "name": "bearing_diff",
+      "type_text": "DOUBLE",
+      "type_name": "DOUBLE",
+      "position": 5
+     },
+     {
+      "name": "directed_bearing_diff",
+      "type_text": "DOUBLE",
+      "type_name": "DOUBLE",
+      "position": 6
+     },
+     {
+      "name": "overture_distance_m",
+      "type_text": "DOUBLE",
+      "type_name": "DOUBLE",
+      "position": 7
+     },
+     {
+      "name": "osm_candidate_count",
+      "type_text": "INT",
+      "type_name": "INT",
+      "position": 8
+     },
+     {
+      "name": "match_method",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 9
+     },
+     {
+      "name": "candidate_flags",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 10
+     },
+     {
+      "name": "_rescued_data",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 11
+     }
+    ]
+   },
+   "total_chunk_count": 1,
+   "chunks": [
+    {
+     "chunk_index": 0,
+     "row_offset": 0,
+     "row_count": 5,
+     "byte_count": 2680
+    }
+   ],
+   "total_row_count": 5,
+   "total_byte_count": 2680,
+   "truncated": false
+  },
+  "result": {
+   "external_links": [
+    {
+     "chunk_index": 0,
+     "row_offset": 0,
+     "row_count": 5,
+     "byte_count": 2680,
+     "external_link": "https://us-east-2.storage.cloud.databricks.com/api/2.0/fs/files/WorkspaceInternal/Jobs/sql/extended/results_2026-11-13T16:42:54Z_13176c46-aa00-4913-a49c-386ec0779078?<redacted-presigned-query>",
+     "expiration": "2026-11-12T15:57:54.527Z"
+    }
+   ]
+  }
+ },
+ "elapsed_ms": 1656.0
+}
