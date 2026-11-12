@@ -51,7 +51,7 @@ There is no repeatable way to list where the sources disagree or are incomplete,
 4. **Tier 1, decision model.** The system sends only the neutral question text and the image. The model returns a closed answer with probabilities.
 5. If the highest probability is at or above the configured threshold, the answer is accepted as `answered`.
 6. **Tier 2, general LLM (medium reasoning).** If tier 1 is below the threshold or returns `unknown`, the system asks the same question with the same image to a general model. If that model gives a confident closed answer, the result is `answered_tier2`.
-7. **Tier 3, human.** If tier 2 also abstains, is uncertain or fails, the case goes to the manual review queue with reason `abstain`.
+7. **Tier 3, human.** If tier 2 also abstains or is uncertain, the case goes to the manual review queue with reason `abstain`. A tier-2 failure is handled by step 8, not here.
 8. An API error, timeout or invalid response at either tier is recorded as `model_unavailable`. It is never converted into an answer. After the first error in a run, further paid calls stop and the remaining items are marked `not_run_budget_or_error`.
 9. After reading, the system compares the photo answers with the map attributes (Flow 4.1). Separately, it compares them with the reference labels, which only the evaluator reads.
 10. The report shows coverage, accuracy (certain labels only, with explicit denominators), escalations per tier, abstentions, errors and the request and cost counters for each model and question.
@@ -67,7 +67,7 @@ There is no repeatable way to list where the sources disagree or are incomplete,
 
 1. The user re-runs the same configuration.
 2. Every model answer comes from the cache. The report states that no new requests were made (request counter = 0 for this run).
-3. A threshold change re-evaluates the stored probabilities without new model calls.
+3. A threshold change re-evaluates the stored answers without new model calls when every needed answer is cached (lowering the tier-1 threshold, changing the tier-2 acceptance level). Raising the tier-1 threshold can send questions to tier 2 that were never escalated before; the CLI lists them as needing new calls, and they run only after confirmation and within the budget.
 
 ---
 
@@ -96,7 +96,7 @@ There is no repeatable way to list where the sources disagree or are incomplete,
 
 ### Map comparison
 
-- **AC-06:** Each compared photo–road pair has exactly one status from: `agree`, `disagree`, `missing_osm`, `missing_overture`, `not_comparable`, `ambiguous_link`.
+- **AC-06:** Each compared photo–road pair has exactly one status per compared attribute (speed limit, surface) from: `agree`, `disagree`, `missing_osm`, `missing_overture`, `not_comparable`, `ambiguous_link`.
 - **AC-07:** For a road with a conditional or multi-value speed rule (OSM `maxspeed:conditional` or Overture `speed_limits` with `when`/`between`), the report shows every raw rule and the status is `not_comparable` unless an unconditional value exists on both sides.
 - **AC-08:** A missing tag is reported as `missing_*`, never as `disagree`, and never as the value `0` or `none`.
 - **AC-09:** Distances in the report are in metres and computed after both layers are converted to EPSG:2180. Spot check: the recomputed distance for 3 randomly chosen photo–road pairs matches `photo_road_links.csv` within 0.5 m.
@@ -109,7 +109,7 @@ There is no repeatable way to list where the sources disagree or are incomplete,
 - **AC-13:** Total model requests in one run (tier 1 + tier 2, including failed attempts) never exceed the configured limit (default 100). The run stops before exceeding a cost of 1 USD, using a conservative reservation when the API does not return a cost.
 - **AC-14:** Default sample: at most 25 images: 15 street photos with reference labels (questions: surface paved/unpaved, junction visible, street lighting visible) and 10 sign crops (question: B-33 speed limit value). The sample is split by `sequence`, not by neighbouring frames.
 - **AC-15:** A second decision model is run on the same 5 images and the same questions, and the report compares both models only on those images.
-- **AC-16:** A tier-1 answer below the threshold, or `unknown`, is sent to tier 2. A tier-2 answer below its threshold becomes `abstain` and enters the manual queue. The thresholds are read from configuration, written in the report and not changed after the evaluation run starts.
+- **AC-16:** A tier-1 answer below the threshold, or `unknown`, is sent to tier 2. A tier-2 answer below its acceptance level (self-reported certainty, default: only `high` is accepted) or `unknown` becomes `abstain` and enters the manual queue. The thresholds are read from configuration, written in the report and not changed after the evaluation run starts.
 - **AC-17:** After an API error, timeout or invalid response, the item is `model_unavailable`, no further paid calls are made in that run, and the report is still produced.
 - **AC-18:** Automatic retries are disabled. A second run with the same configuration makes 0 new requests and produces the same predictions from the cache.
 - **AC-19:** Accuracy is computed only for reference labels with status `certain`, separately for each question and tier, as `correct / evaluated`, with `uncertain` exclusions counted. Empty or uncertain labels are never counted as `no` or `none`.
@@ -119,7 +119,7 @@ There is no repeatable way to list where the sources disagree or are incomplete,
 
 - **AC-21:** The CLI writes `report.md`, `report.html` and a machine-readable result file into the configured output directory (default `reports/map-qa/`).
 - **AC-22:** The HTML opens from disk without a server, uses relative image paths and shows the author, source and license (CC BY-SA 4.0) under every thumbnail, plus ODbL attribution for OSM and Overture.
-- **AC-23:** The counts in the Markdown and HTML reports are identical, and the sum of statuses equals the number of compared pairs.
+- **AC-23:** The counts in the Markdown and HTML reports are identical, and for each compared attribute the sum of statuses equals the number of compared pairs.
 - **AC-24:** Observations (map values), reference labels, predictions, abstentions and `model_unavailable` are shown in separate, labelled columns or sections.
 - **AC-25:** Report text is in Polish, and Polish characters render correctly in the HTML.
 - **AC-26:** Zero candidates for a category is a valid result and is shown as `Brak kandydatów` with the count 0.
