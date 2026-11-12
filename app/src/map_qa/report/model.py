@@ -10,7 +10,7 @@ from pydantic import BaseModel, Field
 
 from map_qa.core.enums import ComparisonStatus
 from map_qa.core.models import (  # noqa: F401 (re-export)
-    CompareRow, CompletenessRow, EvalRow, SourceCompareRow,
+    CompareRow, CompletenessRow, EvalRow, MapCompareRow, SourceCompareRow,
 )
 
 STATUS_ORDER = [s.value for s in ComparisonStatus]
@@ -155,15 +155,6 @@ class ReadingRow(BaseModel):
     tier1_answer: str | None = None
     tier1_probability: float | None = None
     reason: str | None = None
-
-
-class MapCompareRow(BaseModel):
-    photo_id: str
-    question: str
-    prediction: str | None
-    decision: str
-    map_values: str
-    note: str | None = None
 
 
 class ModelSection(BaseModel):

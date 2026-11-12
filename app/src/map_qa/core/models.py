@@ -95,3 +95,12 @@ class CompareRow(BaseModel):
     jev_p: float | None
     same: bool | None
     p_diff: float | None
+
+
+class MapCompareRow(BaseModel):
+    photo_id: str
+    question: str
+    prediction: str | None
+    decision: str
+    map_values: str
+    note: str | None = None
