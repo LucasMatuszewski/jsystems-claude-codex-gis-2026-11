@@ -401,7 +401,8 @@ Szczegółowe tabele są w ADR-001 do ADR-004. Przekrojowo:
 ## 11. Otwarte kwestie
 
 - **ID modelu tier 2.** Użytkownik wybrał „GPT 6 Luna” jako ogólny LLM. Domyślnie przyjmujemy `openai/gpt-6-luna`, ale **przed pierwszym płatnym wywołaniem** trzeba potwierdzić ten identyfikator w katalogu modeli OpenRouter, razem z obsługą obrazów, `json_schema` i `reasoning`. Strony modeli i filtr Models API nie zwróciły danych 2026-11-03.
-- **Ceny i opóźnienia Luna Decisions i Jev 1.14.** Strony modeli zwróciły 404 przy pobieraniu. Rzeczywiste `usage.cost` i czas zapiszemy z pierwszych capture i dopiszemy do ADR-003 §9.
+- **Ceny i opóźnienia Luna Decisions i Jev 1.14.** ~~Strony modeli zwróciły 404 przy pobieraniu.~~ **Ceny częściowo rozstrzygnięte 2026-11-12:** użytkownik podał cennik i kontekst (ADR-003 §2): Luna Decisions $0.10 / $0 za 1M tokenów, 1,1M kontekstu; Jev $0.042 / $0, 262K kontekstu. Oba modele przyjmują obrazy. Opóźnienia, tokeny na obraz i koszt tier 2 zapiszemy z pierwszych rzeczywistych wywołań w ADR-003 §9.
+- **Model tier 2.** Użytkownik potwierdził 2026-11-12 ID `openai/gpt-6-luna` jako LLM dla chatu i dostęp wszystkich modeli wyłącznie przez OpenRouter (ADR-003 §1). Obsługę obrazów, `json_schema` i `reasoning` potwierdzają pierwsze rzeczywiste wywołania (T43).
 - ~~**Profil danych.** Brak `reports/map-qa/profile.md`.~~ **Zamknięte 2026-11-12.** Profil istnieje, a dostęp do Databricks jest zweryfikowany (§1). Wnioski z profilu są wpisane do ADR-001 §3.1, §3.3 i §5 oraz ADR-002 §3.4.
 - **Decyzje wynikające z profilu (pytania do człowieka, `profile.md` §11):**
   1. **Limity implikowane.** 1453 drogi mają tylko typ limitu bez liczby (1452 `implicit_only`, głównie `PL:urban` i `PL:rural`; ADR-001 §3.3). Trzeba zdecydować, czy pozostają `not_comparable` (obecnie D-13), czy dostają wartości ustawowe. Trzeba też ustalić, czy `PL:urban` + 70 (55 dróg) to konflikt.

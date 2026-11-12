@@ -2,12 +2,18 @@
 
 **Data:** 2026-11-03
 **Status:** Accepted
-**Aktualizacja:** 2026-11-12 – spójność dokumentów: cache tier 2 per pytanie i skutki zmiany progów (§5.4, §5.6), nazwy progów (§5.7), koszt w najgorszym przypadku (§5.5), jeden schemat capture (§5.8), wartości B-33 5/15/25 km/h (§4.1; `qs-v1` nie było jeszcze użyte, więc wersja bez zmian)
+**Aktualizacja:** 2026-11-12 – spójność dokumentów: cache tier 2 per pytanie i skutki zmiany progów (§5.4, §5.6), nazwy progów (§5.7), koszt w najgorszym przypadku (§5.5), jeden schemat capture (§5.8), wartości B-33 5/15/25 km/h (§4.1; `qs-v1` nie było jeszcze użyte, więc wersja bez zmian); dostęp wyłącznie przez OpenRouter (§1), ceny i kontekst modeli decyzyjnych (§2, §9)
 **Dotyczy:** [000-main-architecture.md](000-main-architecture.md), PRD §4.2, §11
 
 ---
 
 ## 1. Zakres
+
+**Dostęp do modeli (potwierdzone przez użytkownika 2026-11-12).** Wszystkie trzy modele (`openai/gpt-6-luna-decisions`, `typesafe/jev-1.14`, `openai/gpt-6-luna`) wywołujemy **wyłącznie przez API OpenRouter**:
+- `POST https://openrouter.ai/api/alpha/decisions` dla modeli decyzyjnych;
+- `POST https://openrouter.ai/api/v1/chat/completions` dla tier 2.
+
+Nie używamy bezpośrednich API dostawców (OpenAI, TypeSafe) ani ich SDK (ADR-000 D-03). Klucz pochodzi wyłącznie ze zmiennej `OPENROUTER_API_KEY`, ustawionej na poziomie użytkownika systemu. Aplikacja nie czyta `.env` (PRD §8, ADR-000 §7).
 
 **Obejmuje:**
 - próbkę obrazów i przygotowanie obrazu;
@@ -44,7 +50,16 @@
 - Błędy: 400, 401, 402, 403, 404, 413, 429, 500, 502, 503, 524 (timeout), 529 (provider).
 - **GPT-6 Luna Decisions:** do 128 obrazów w żądaniu, bez podanego limitu rozmiaru.
 - **Jev 1.13/1.14:** tylko PNG/JPEG; 256–1568 px na bok; 78 400–2 458 624 px łącznie; 16 MiB na plik; 32 MiB body; brak obrotu EXIF. Żądania z obrazem idą w trybie long-context, który TypeSafe opisuje jako wolniejszy i mniej dokładny. Prawdopodobieństwa różnią się między modelami, więc progi ustawia się osobno dla każdego modelu.
-- **Nieznane:** ceny i opóźnienia obu modeli (strony modeli zwróciły 404). Uzupełnimy je z `usage.cost` i pomiaru czasu w pierwszym capture (§9).
+- **Ceny i kontekst (podane przez użytkownika 2026-11-12 ze stron modeli OpenRouter):**
+
+  | Model (OpenRouter ID) | Rola | Wejście | Cena in / out za 1M tokenów | Kontekst | Strona |
+  |---|---|---|---|---|---|
+  | `openai/gpt-6-luna-decisions` | tier 1, model decyzyjny | tekst + obraz | $0.10 / $0 | 1,1M | https://openrouter.ai/openai/gpt-6-luna-decisions |
+  | `typesafe/jev-1.14` | model decyzyjny porównawczy (5 obrazów) | tekst + obraz | $0.042 / $0 | 262K | https://openrouter.ai/typesafe/jev-1.14 |
+  | `openai/gpt-6-luna` | tier 2, ogólny LLM (chat) | tekst + obraz (do potwierdzenia pierwszym wywołaniem) | – (do pomiaru z `usage.cost`) | – | – |
+
+  Próba pobrania katalogu `GET /api/v1/models` w tej sesji nie doszła do skutku: odmowa uprawnień narzędzia, nie błąd API. Ceny pochodzą więc od użytkownika. Funkcje `openai/gpt-6-luna` (obraz, `json_schema`, `reasoning`) potwierdzają pierwsze rzeczywiste wywołania w T43.
+- **Nieznane:** opóźnienia wszystkich trzech modeli, liczba tokenów, którą OpenRouter nalicza za obraz, i koszt tier 2. Uzupełnimy je z `usage` i pomiaru czasu w pierwszych rzeczywistych wywołaniach (§9).
 
 ---
 
@@ -401,10 +416,12 @@ sequenceDiagram
 
 ## 9. Pomiary do uzupełnienia po pierwszym capture
 
-| Model | Koszt na żądanie (`usage.cost`) | Czas odpowiedzi | Data |
-|---|---|---|---|
-| `openai/gpt-6-luna-decisions` | do uzupełnienia | do uzupełnienia | – |
-| `typesafe/jev-1.14` | do uzupełnienia | do uzupełnienia | – |
-| tier 2 (`openai/gpt-6-luna`, do potwierdzenia) | do uzupełnienia | do uzupełnienia | – |
+| Model | Cennik (in / out za 1M) | Koszt na żądanie (`usage.cost`) | Tokeny wejścia na żądanie | Czas odpowiedzi | Data |
+|---|---|---|---|---|---|
+| `openai/gpt-6-luna-decisions` | $0.10 / $0 | do uzupełnienia | do uzupełnienia | do uzupełnienia | – |
+| `typesafe/jev-1.14` | $0.042 / $0 | do uzupełnienia | do uzupełnienia | do uzupełnienia | – |
+| `openai/gpt-6-luna` (tier 2) | do uzupełnienia | do uzupełnienia | do uzupełnienia | do uzupełnienia | – |
+
+Przy tych cenach żądanie z jednym obrazem kosztuje prawdopodobnie ułamek centa (inferencja, do pomiaru). Rezerwacje z §5.5 (0,02–0,04 USD) pozostają konserwatywne do czasu pomiaru.
 
 Jeśli zmierzony koszt przekroczy rezerwację z §5.5, rezerwację podnosimy przed kolejnym uruchomieniem.
