@@ -2,6 +2,7 @@
 
 **Data:** 2026-11-03
 **Status:** Accepted
+**Aktualizacja:** 2026-11-12 – rzeczywiste nazwy flag i fakty o połączeniach z [`reports/map-qa/profile.md`](../../reports/map-qa/profile.md) (§3.1, §3.4)
 **Dotyczy:** [000-main-architecture.md](000-main-architecture.md)
 
 ---
@@ -36,7 +37,7 @@
 
 ### 3.1 CRS
 
-- OSM ma EPSG:4326, Overture OGC:CRS84. W obu plikach kolejność współrzędnych to (lon, lat) (`sources.json: coordinate_order`).
+- OSM ma EPSG:4326, Overture OGC:CRS84. W obu plikach kolejność współrzędnych to (lon, lat) (`sources.json: coordinate_order`). Profil (2026-11-12) potwierdza typy `GEOMETRY('EPSG:4326')` i `GEOMETRY('OGC:CRS84')`, zero błędnych geometrii i wszystkie 561 pozycji aparatu w bbox. W Databricks geometria jest WKB bez SRID, ale ADR-001 D-11 materializuje ją lokalnie przed tym krokiem.
 - Każda transformacja w DuckDB używa `ST_Transform(geom, 'EPSG:4326', 'EPSG:2180', always_xy := true)`. Bez `always_xy` DuckDB traktuje EPSG:4326 jako (lat, lon), co da błędny wynik bez komunikatu.
 - Pozycję aparatu z `photos.csv` budujemy jako punkt (lon, lat) i transformujemy tak samo.
 - **Dystanse i bufory liczymy wyłącznie na geometrii w EPSG:2180.** Funkcje dystansu na stopniach są zakazane. Test-strażnik grepuje pliki `.sql` w poszukiwaniu `ST_Distance` na kolumnach bez transformacji (konwencja nazw: kolumny metryczne mają przyrostek `_2180`).
@@ -82,6 +83,27 @@ Test charakteryzujący sprawdza na 10 losowych (seed 42) zdjęciach z alternatyw
 | Pozostałe | `ok` | – |
 
 **Uwaga do implementacji.** Dokładne nazwy flag w `candidate_flags` (separator, pisownia) potwierdza test kontraktu na rzeczywistym `photo_road_links.csv` (`SELECT DISTINCT` po rozbiciu). Tabela powyżej zostanie zaktualizowana do rzeczywistych nazw przed implementacją reguł.
+
+**Rzeczywiste flagi (profil 2026-11-12, `profile.md` §7).** Separator to `;`. Wartości i ich mapowanie na tabelę powyżej:
+
+| Flaga w danych | Zdjęcia | Mapowanie |
+|---|---:|---|
+| `ambiguous_candidates` | 65 | `ambiguous` (bez zmian) |
+| `camera_against_way_direction` | 35 | tylko informacja (§3.3) |
+| `panorama_heading_ambiguous` | 31 | odpowiednik `panorama`; `ambiguous` tylko przy braku kierunku |
+| `poor_heading_alignment` | 27 | **nieprzypisana – do decyzji** (propozycja: flaga informacyjna, bo kandydata wybrano mimo to po dystansie) |
+| `boundary_crossing` | 27 | tylko informacja |
+| `missing_heading` | 15 | tylko informacja; w połączeniu z panoramą → `ambiguous` |
+| `service_way` | 14 | odpowiednik `service_or_restricted` |
+| `no_osm_within_25m` | 3 | `no_candidate` (`match_method=none`) |
+| `overture_spatial_only` | 1 | odpowiednik `overture_spatial_fallback` |
+
+**Inne fakty z profilu:**
+
+- **Dystanse.** Maksymalny `distance_m` to 22,17 m, mediana 2,43 m. W snapshocie nie ma kandydatów spoza 25 m, a reguła `distance_m > 25` pozostaje zabezpieczeniem na nowy snapshot.
+- **Kandydaci.** 558 zdjęć ma kandydata OSM i Overture. `match_method`: `osm_source_reference` 557, `spatial_fallback` 1, `none` 3.
+- **Podejrzane metadane.** 3 zdjęcia Panoramax mają identyczną pozycję i czas `2021-11-27 12:00:00` oraz brak kierunku (`profile.md` §6). Dostają flagę `suspect_position`. Ich `link_status` wynika z reguł powyżej, a flaga jest widoczna w raporcie.
+- **Skupienie zdjęć.** Zdjęcia nie są niezależną próbą sieci: 112 dróg ma więcej niż jedno zdjęcie, a najwięcej 55. Raport liczy statusy zarówno per zdjęcie, jak i per droga (`osm_way_id`).
 
 ### 3.5 Przypisanie statusów porównania
 

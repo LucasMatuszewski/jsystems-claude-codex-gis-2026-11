@@ -2,6 +2,7 @@
 
 **Data:** 2026-11-03
 **Status:** Accepted
+**Aktualizacja:** 2026-11-12 – fakty z [`reports/map-qa/profile.md`](../../reports/map-qa/profile.md) i zweryfikowany dostęp do Databricks (§3.1, §3.2, §3.3, §5, D-12)
 **Dotyczy:** [000-main-architecture.md](000-main-architecture.md)
 
 ---
@@ -47,6 +48,15 @@ Oczekujemy co najmniej:
 
 Każda rozbieżność daje `SchemaMismatch` i kod wyjścia 4.
 
+**Potwierdzone w profilu (2026-11-12, `profile.md` §3).** Rzeczywisty `DESCRIBE` zawiera wszystkie kolumny wymienione wyżej. Dla implementacji ważne są typy:
+
+- **OSM.** `maxspeed`, `lanes` i pozostałe wyodrębnione tagi są typu `VARCHAR`, nie liczbowego. `osm_timestamp` jest `VARCHAR`. `tags` to JSON zapisany jako tekst. Geometria ma typ `GEOMETRY('EPSG:4326')`.
+- **Overture.** Geometria ma typ `GEOMETRY('OGC:CRS84')`. Element `speed_limits` ma postać `{min_speed{value,unit}, max_speed{value,unit}, is_max_speed_variable, when{during, heading, using[], recognized[], mode[], vehicle[]}, between DOUBLE[]}`, czyli nazwy pól są zgodne z §3.3.
+- **`photos.csv`.** `captured_at` ma typ `TIMESTAMPTZ`, a `heading` i `horizontal_accuracy_m` typ `DOUBLE`.
+- **`photo_road_links.csv`.** `osm_way_id` ma typ `BIGINT`, a `candidate_flags` to `VARCHAR` z separatorem `;`.
+
+`schema_expected.json` nadal powstaje z pierwszego `DESCRIBE` wykonanego przez test, a profil służy jako punkt odniesienia do przeglądu.
+
 ### 3.2 Źródła danych
 
 Interfejs `DataSource` ma metodę `load(con) -> InputManifest`. Po jej wykonaniu w połączeniu DuckDB istnieją widoki o stałych nazwach: `osm_roads`, `overture_segments`, `photos`, `photo_road_links`, `reference_labels`, `signs`, `sign_labels`, `signs_nearest_osm`.
@@ -55,6 +65,17 @@ Interfejs `DataSource` ma metodę `load(con) -> InputManifest`. Po jej wykonaniu
 - **`DatabricksSource`:** materializuje tabele `workspace.map_qa.{osm_roads, overture_segments, photos, photo_road_links}` do Parquet w `course-materials/exercise-data/map-qa/data/databricks/<statement_id>/`, a potem rejestruje te same widoki. Geometria przychodzi jako WKB (`sources.json`: „BINARY WKB; construct GEOMETRY with explicit SRID 4326”) i jest konwertowana `ST_GeomFromWKB`. Etykiety referencyjne i `signs/` są zawsze lokalne, bo nie ma ich w Databricks.
 - **`--compare-sources`:** ładuje oba źródła do osobnych schematów DuckDB i porównuje liczby wierszy oraz zbiory kluczy (`osm_id`, `id`, `photo_id`). Raportuje różnice. Pipeline działa dalej na źródle wybranym w configu.
 - **Brak cichego fallbacku:** jeśli brakuje zmiennej `DATABRICKS_*`, CLI zwraca kod 3 i nazwę zmiennej. Jeśli żądanie zwróci błąd HTTP albo stan `FAILED`/`CANCELED`, CLI zwraca kod 3 i bezpieczny komunikat (bez tokenu).
+- **Stan dostępu (2026-11-12):** wspólny workspace, token SQL i warehouse działają. Liczności tabel w Databricks są równe plikom lokalnym (`profile.md` §2):
+
+  | Tabela | Pliki | Databricks |
+  |---|---:|---:|
+  | `osm_roads` | 99 768 | 99 768 |
+  | `overture_segments` | 85 405 | 85 405 |
+  | `photos` | 561 | 561 |
+  | `photo_road_links` | 561 | 561 |
+  | `traffic_signs` | 1730 | 1730 |
+
+  Tabela `traffic_signs` też istnieje w Databricks, ale MVP jej nie materializuje (poza zakresem PRD). Geometria w Databricks to WKB bez SRID, zgodnie z założeniem wyżej. `reference_labels` i `signs/` są tylko lokalne.
 
 ### 3.3 Normalizacja prędkości
 
@@ -87,7 +108,25 @@ Interfejs `DataSource` ma metodę `load(con) -> InputManifest`. Po jej wykonaniu
 | `maxspeed:forward` / `:backward` | `direction=forward/backward` |
 | `maxspeed:conditional=30 @ (Mo-Fr 07:00-17:00)` | `numeric` 30, `condition_raw` = tekst w nawiasie; wiele warunków rozdzielonych `;` daje wiele reguł |
 | `maxspeed:type`, `source:maxspeed`, `zone:maxspeed`, `maxspeed:variable` | nie tworzą reguły; trafiają do `context_tags` i do raportu |
+| `maxspeed:source` (niestandardowy), `check_date:maxspeed`, `source:maxspeed:*` | jak wyżej: `context_tags`, bez reguły (dopisane po profilu) |
+| `maxspeed:hgv`, `:bus`, `:trailer` (także z `:forward`/`:backward`) | `numeric`, `condition_raw` = typ pojazdu (np. `vehicle=hgv`). Tak samo jak Overture `when.mode`, więc nie wchodzą do wartości porównywalnej (dopisane po profilu) |
+| `maxspeed:lanes=120\|120\|120\|80` | jedna reguła na pas, `condition_raw` = `lane=<n>`. Nie wchodzi do wartości porównywalnej (dopisane po profilu) |
+| `maxspeed:forward=PL:urban` | `implicit` z `direction=forward` |
 | wartość nieparsowalna | `unparseable`, `raw` zachowane, licznik w raporcie |
+
+**Fakty z profilu (2026-11-12, `profile.md` §8).** Profil sprawdzał, które przypadki z tabeli występują w aktualnym snapshocie:
+
+- **Kolumna `maxspeed`.** Zawiera wyłącznie liczby całkowite: 16 290 dróg, wartości 4–140. Brak jej w 83 478 drogach. W snapshocie **nie ma** jednostek (`mph`), wartości `none`/`signals`/`walk` ani wielu wartości po `;`. Parser nadal je obsługuje, bo `refresh_sources.py` może dać nowszy snapshot, a testy jednostkowe pokrywają je danymi syntetycznymi.
+- **Wartości tekstowe w innych kluczach.** Występują wyłącznie w innych kluczach `maxspeed*`:
+  - `source:maxspeed`: 11 671, w tym `PL:zone30;sign` (wiele wartości) i `zone30` (bez prefiksu kraju);
+  - `maxspeed:type`: 2578;
+  - `maxspeed:source`: 23, w tym `pl:zone30` (małe litery);
+  - `zone:maxspeed`: 19, wartość `PL:30`.
+- **Limit tylko implikowany.** 1475 dróg nie ma liczby w `maxspeed`, a ma `source:maxspeed`/`maxspeed:type`: `PL:urban` 1401, `PL:rural` 46, `sign` 19, `PL:expressway` 7, `PL:zone40` 2. Dla nich `comparable_value` daje `not_comparable` z powodem `implicit_only`, nie `missing_osm`.
+- **Niespójności typu i liczby.** Przykłady: `PL:urban` + 70 (55), + 30 (24), + 40 (19); `PL:rural` + 70 (15); `PL:zone30` + 50 (4). 18 dróg ma sprzeczne `source:maxspeed` i `maxspeed:type`. W MVP to tylko informacja w `context_tags` i w raporcie. Status pary nie zmienia się (D-13).
+- **Pozostałe klucze.** Kierunkowe: `forward` 261, `backward` 247. 4 drogi mają jednocześnie `maxspeed` i `maxspeed:forward/backward`. Warunkowe: `maxspeed:conditional` 92, jedyna wartość to `110 @ (Mo-Fr 06:00-18:00)`. Zmienne: `maxspeed:variable=yes` 82. Pojazdy: `hgv`/`bus`/`trailer` po około 1000. Pasy: `maxspeed:lanes` 10.
+- **Overture.** 12 847 segmentów ma reguły. Wszystkie jednostki to `km/h` i nie ma `min_speed`. `when.heading`: `forward` 218, `backward` 216. `when.mode`: `[bus, hgv]` 401, `[bus]` 30, `[hgv]` 9. `when.during`: 19 reguł. `is_max_speed_variable`: 16 reguł.
+- **Overture jako dowód.** 99,1% segmentów ma w `sources` OpenStreetMap. Zgodność OSM–Overture jest więc słabym, niezależnym dowodem. Raport opisuje ją jako „zgodność snapshotów”, nie potwierdzenie poprawności.
 
 **Parsowanie Overture.** Każdy element listy `speed_limits` daje jedną lub dwie reguły:
 - `max_speed.value` + `max_speed.unit` → `numeric` (przeliczenie jak wyżej);
@@ -106,7 +145,8 @@ Statusy dla atrybutu `speed`, liczone w ADR-002 dla pary zdjęcie–droga:
 | Warunek | Status |
 |---|---|
 | Para ma `link_status=ambiguous` | `ambiguous_link` |
-| OSM nie ma żadnej reguły | `missing_osm` (gdy brak też w Overture: `missing_osm`, a `missing_overture` liczony w kompletności) |
+| OSM nie ma reguły, ale `context_tags` zawiera limit implikowany (`source:maxspeed`/`maxspeed:type` = `PL:*`) | `not_comparable`, powód `implicit_only` (dopisane po profilu: 1475 dróg) |
+| OSM nie ma żadnej reguły ani limitu implikowanego | `missing_osm` (gdy brak też w Overture: `missing_osm`, a `missing_overture` liczony w kompletności) |
 | Overture nie ma żadnej reguły | `missing_overture` |
 | Którakolwiek strona nie ma wartości porównywalnej (implicit, warunkowe, kierunkowe różne, częściowe `between`, wiele wartości, `unparseable`) | `not_comparable` + powód |
 | Obie wartości porównywalne, \|Δ\| < 0,5 km/h | `agree` |
@@ -173,6 +213,10 @@ Mianowniki są jawne w raporcie (AC-11).
   - `status.state ∈ {FAILED, CANCELED, CLOSED}` → `SourceUnavailable(state, error.message bez sekretów)`;
   - przekroczenie 180 s → próba `POST …/cancel`, potem `SourceUnavailable(timeout)`.
 - **Zapis testowy:** pierwsze rzeczywiste wywołanie `SELECT … LIMIT 5` z `photos` zapisujemy jako capture (status, nagłówki bez `Authorization`, body, `captured_at`, host zamaskowany do domeny). Mock w testach integracyjnych powstaje z tego capture.
+- **Zweryfikowane 2026-11-12:**
+  - `POST /api/2.0/sql/statements` z `disposition=INLINE`, `format=JSON_ARRAY` (przez `query_databricks.py`) zwraca `SUCCEEDED`. Wynik ma schemat `[{name, type_text, type_name, position}]`, a liczby `BIGINT` przychodzą w `data_array` jako **stringi** (np. `"99768"`).
+  - Kombinacja `ARROW_STREAM` + `EXTERNAL_LINKS` z tym tokenem **nie została jeszcze sprawdzona**. Pierwszy capture adaptera musi ją potwierdzić. Jeśli workspace jej odmówi, wracamy do decyzji D-11.
+  - Capture z tego odczytu nie został zapisany, bo był to odczyt profilujący, nie test adaptera.
 
 ---
 
@@ -201,7 +245,9 @@ Mianowniki są jawne w raporcie (AC-11).
 
 **Status:** Accepted · **Data:** 2026-11-03
 
-**Decyzja.** Bezpośredni REST (ten sam `httpx.Client` co OpenRouter). Databricks CLI zostaje narzędziem człowieka do ręcznego sprawdzenia w M2. MCP (`/ai-gateway/mcp-services/system.ai.dbsql`) jest opcjonalny wyłącznie dla agenta w eksploracji. Wspólny token z zakresem `sql` dostaje na MCP HTTP 403 (DATABRICKS.md).
+**Decyzja.** Bezpośredni REST (ten sam `httpx.Client` co OpenRouter). Databricks CLI zostaje narzędziem człowieka i agenta do ręcznego sprawdzania i eksploracji. MCP (`/ai-gateway/mcp-services/system.ai.dbsql`) jest opcjonalny wyłącznie dla agenta w eksploracji. Wspólny token z zakresem `sql` dostaje na MCP HTTP 403 (DATABRICKS.md).
+
+**Stan 2026-11-12.** Databricks CLI v1.26.0 jest zainstalowany na VM kursu. `sources.json` odnotowuje weryfikację z wersją 1.23.0. Agenci mogą używać CLI i `query_databricks.py` do eksploracji, ale tylko `SELECT` i bez dostępu do wartości tokenu. Decyzja się nie zmienia: aplikacja nie wywołuje CLI. Powody (testowalność przez respx, brak parsowania stdout, brak zależności od instalacji na innych maszynach) pozostają aktualne.
 
 **Odrzucone alternatywy:**
 - Databricks CLI wywoływany przez `subprocess`: dodatkowa instalacja na VM, trudne testowanie, parsowanie stdout.
@@ -310,7 +356,10 @@ sequenceDiagram
 | Kompletność | Integration | Pliki map-qa | Suma `total` = liczby wierszy z manifestu | Populacja „linked” ≤ 561 |
 | Databricks brak zmiennej | Unit | env bez `DATABRICKS_TOKEN` | exit 3, komunikat zawiera nazwę zmiennej, brak raportu | – |
 | Databricks z capture | Integration | respx z capture `photos LIMIT 5` | 5 wierszy, geometrie poprawne | Stan `FAILED` z capture lub z udokumentowanego body |
-| Parzystość źródeł | E2E (ręczne, z tokenem) | `--compare-sources` | Liczby 99 768 / 85 405 / 561 / 561 lub lista różnic | Warehouse uśpiony → polling, nie błąd |
+| Parzystość źródeł | E2E (ręczne, z tokenem) | `--compare-sources` | Liczby 99 768 / 85 405 / 561 / 561 lub lista różnic (liczności potwierdzone ręcznie 2026-11-12) | Warehouse uśpiony → polling, nie błąd |
+| Limit tylko implikowany | Unit | `maxspeed` brak, `source:maxspeed=PL:urban` | brak reguły `numeric`, `context_tags` zawiera `PL:urban`, status `not_comparable` (`implicit_only`) | `PL:zone30;sign` → oba wpisy zachowane |
+| Prędkość dla pojazdów | Unit | `maxspeed=50`, `maxspeed:hgv=40` | wartość porównywalna = 50, reguła hgv z `condition_raw=vehicle=hgv` | `maxspeed:bus:forward` |
+| Pasy | Unit | `maxspeed:lanes=120\|120\|120\|80` | 4 reguły z `condition_raw=lane=<n>`, nie wpływają na wartość porównywalną | – |
 
 ### Techniczne kryteria akceptacji
 

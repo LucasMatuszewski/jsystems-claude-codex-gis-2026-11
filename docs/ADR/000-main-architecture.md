@@ -2,6 +2,7 @@
 
 **Data:** 2026-11-03
 **Status:** Accepted
+**Aktualizacja:** 2026-11-12 – dostępny profil danych [`reports/map-qa/profile.md`](../../reports/map-qa/profile.md) i zweryfikowany dostęp do Databricks
 **PRD:** [docs/PRD.md](../PRD.md)
 
 Szczegóły poszczególnych obszarów opisują osobne ADR:
@@ -19,7 +20,13 @@ Szczegóły poszczególnych obszarów opisują osobne ADR:
 
 Budujemy CLI w Pythonie 3.12, które porównuje atrybuty dróg OSM i Overture dla Krakowa i dołącza dowody ze zdjęć ulic. Opcjonalnie odczytuje widoczne cechy zdjęć trzystopniowo: model decyzyjny, potem ogólny LLM, a na końcu kolejka ręczna. Wynikiem jest raport Markdown i HTML. ADR przekłada wymagania z [PRD](../PRD.md) na decyzje techniczne, kontrakty i strategię testów. Nie zawiera kodu.
 
-**Stan wejściowy.** `reports/map-qa/profile.md` (wynik kroku M2) jeszcze nie istnieje. Fakty o danych pochodzą z `course-materials/exercise-data/map-qa/README.md` i `sources.json`. Pierwszy etap implementacji zaczyna się od `DESCRIBE` rzeczywistych schematów (ADR-001, §3.1). Każda rozbieżność względem tego ADR zatrzymuje pracę i wraca do uzgodnienia.
+**Stan wejściowy (aktualizacja 2026-11-12).** Profil danych z kroku M2 jest w [`reports/map-qa/profile.md`](../../reports/map-qa/profile.md). Fakty o danych pochodzą teraz z tego profilu, a `course-materials/exercise-data/map-qa/README.md` i `sources.json` pozostają źródłem opisu i licencji. Najważniejsze ustalenia:
+
+- **Databricks jest dostępny i zgodny z plikami.** Databricks CLI v1.26.0 jest zainstalowany i skonfigurowany, a zmienne `DATABRICKS_*` są ustawiane w terminalu (nie w repozytorium). Jeden odczyt `SELECT count(*)` przez SQL Statement Execution API zakończył się stanem `SUCCEEDED`. Liczności wszystkich pięciu tabel `workspace.map_qa.*` są równe plikom lokalnym: 99 768 / 85 405 / 561 / 561 / 1730 (`traffic_signs`). Porównano tylko liczby wierszy, nie zawartość.
+- **Schematy są potwierdzone.** `DESCRIBE` na rzeczywistych plikach jest w profilu (§3). Kontrakt schematu z ADR-001 §3.1 pozostaje pierwszym testem implementacji.
+- **Dane wejściowe są czyste strukturalnie.** Geometrie są poprawne, identyfikatory unikalne, a klucze `photo_id`, `osm_way_id` i `overture_id` nie mają sierot.
+
+Każda rozbieżność względem tego ADR zatrzymuje pracę i wraca do uzgodnienia.
 
 ---
 
@@ -381,4 +388,8 @@ Szczegółowe tabele są w ADR-001 do ADR-004. Przekrojowo:
 
 - **ID modelu tier 2.** Użytkownik wybrał „GPT 6 Luna” jako ogólny LLM. Domyślnie przyjmujemy `openai/gpt-6-luna`, ale **przed pierwszym płatnym wywołaniem** trzeba potwierdzić ten identyfikator w katalogu modeli OpenRouter, razem z obsługą obrazów, `json_schema` i `reasoning`. Strony modeli i filtr Models API nie zwróciły danych 2026-11-03.
 - **Ceny i opóźnienia Luna Decisions i Jev 1.14.** Strony modeli zwróciły 404 przy pobieraniu. Rzeczywiste `usage.cost` i czas zapiszemy z pierwszych capture i dopiszemy do ADR-003 §9.
-- **Profil danych.** Brak `reports/map-qa/profile.md`. Pierwszy etap weryfikuje schematy i nazwy flag (ADR-001 §3.1, ADR-002 §4).
+- ~~**Profil danych.** Brak `reports/map-qa/profile.md`.~~ **Zamknięte 2026-11-12.** Profil istnieje, a dostęp do Databricks jest zweryfikowany (§1). Wnioski z profilu są wpisane do ADR-001 §3.1, §3.3 i §5 oraz ADR-002 §3.4.
+- **Decyzje wynikające z profilu (pytania do człowieka, `profile.md` §11):**
+  1. **Limity implikowane.** 1475 dróg ma limit tylko implikowany (`PL:urban` 1401, `PL:rural` 46). Trzeba zdecydować, czy pozostają `not_comparable` (obecnie D-13), czy dostają wartości ustawowe. Trzeba też ustalić, czy `PL:urban` + 70 (55 dróg) to konflikt.
+  2. **Zakres klas dróg.** Trzeba ustalić, czy `service`, `track` i drogi z `access=private/no` mają być w kontroli prędkości, osobno czy poza nią. Te klasy dają 74 410 z 83 478 braków `maxspeed`.
+  3. **Wiek dowodów i rola Databricks.** 45,6% zdjęć i 51% obserwacji znaków pochodzi sprzed 2024 r., więc trzeba ustalić maksymalny wiek dowodu. Trzeba też potwierdzić, że Databricks pozostaje źródłem alternatywnym i kontrolą parzystości (D-02), a nie wymaganym wejściem.
