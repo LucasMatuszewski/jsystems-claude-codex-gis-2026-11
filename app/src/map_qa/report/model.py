@@ -9,6 +9,7 @@ from typing import Any
 from pydantic import BaseModel, Field
 
 from map_qa.core.enums import ComparisonStatus
+from map_qa.core.models import CompletenessRow  # noqa: F401 (re-export)
 
 STATUS_ORDER = [s.value for s in ComparisonStatus]
 CANDIDATE_STATUSES = ["disagree", "missing_osm", "missing_overture", "not_comparable", "ambiguous_link"]
@@ -78,15 +79,6 @@ class RoadRow(BaseModel):
     osm_way_id: int
     photos: int
     statuses: dict[str, dict[str, int]]
-
-
-class CompletenessRow(BaseModel):
-    source: str
-    attribute: str
-    population: str  # all / linked
-    with_value: int
-    total: int
-    pct: float
 
 
 class Thumb(BaseModel):

@@ -50,3 +50,12 @@ class InputManifest(BaseModel):
             if t.name == name:
                 return t
         raise KeyError(name)
+
+
+class CompletenessRow(BaseModel):
+    source: str
+    attribute: str
+    population: str  # all / linked
+    with_value: int
+    total: int
+    pct: float
