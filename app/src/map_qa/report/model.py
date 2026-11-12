@@ -9,7 +9,9 @@ from typing import Any
 from pydantic import BaseModel, Field
 
 from map_qa.core.enums import ComparisonStatus
-from map_qa.core.models import CompletenessRow, SourceCompareRow  # noqa: F401 (re-export)
+from map_qa.core.models import (  # noqa: F401 (re-export)
+    CompareRow, CompletenessRow, EvalRow, SourceCompareRow,
+)
 
 STATUS_ORDER = [s.value for s in ComparisonStatus]
 CANDIDATE_STATUSES = ["disagree", "missing_osm", "missing_overture", "not_comparable", "ambiguous_link"]
@@ -153,33 +155,6 @@ class ReadingRow(BaseModel):
     tier1_answer: str | None = None
     tier1_probability: float | None = None
     reason: str | None = None
-
-
-class EvalRow(BaseModel):
-    question: str
-    model: str
-    tier: str
-    evaluated: int
-    correct: int
-    answered: int
-    abstained: int
-    unavailable: int
-    not_run: int
-    uncertain_excluded: int
-    accuracy_all: str
-    coverage: str
-    selective_accuracy: str
-
-
-class CompareRow(BaseModel):
-    photo_id: str
-    question: str
-    luna_answer: str | None
-    luna_p: float | None
-    jev_answer: str | None
-    jev_p: float | None
-    same: bool | None
-    p_diff: float | None
 
 
 class MapCompareRow(BaseModel):

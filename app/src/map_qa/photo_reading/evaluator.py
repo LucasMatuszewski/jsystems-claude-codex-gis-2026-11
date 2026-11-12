@@ -9,6 +9,8 @@ import csv
 from dataclasses import dataclass
 from pathlib import Path
 
+from map_qa.core.models import CompareRow, EvalRow
+
 STREET_QUESTIONS = ("surface", "junction_visible", "street_lighting_visible")
 
 
@@ -67,3 +69,90 @@ class Evaluator:
         if question == "speed_limit_value":
             return self._signs.get(photo_id) or self._street.get((photo_id, question))
         return self._street.get((photo_id, question))
+
+    def label_columns(self, readings) -> dict[tuple[str, str], tuple[str | None, str | None]]:
+        """(photo_id, question) -> (label value, status) for the report's separate label column (AC-24)."""
+        out = {}
+        for r in readings:
+            lab = self.label(r.photo_id, r.question_id)
+            out[(r.photo_id, r.question_id)] = (lab.value, lab.status) if lab else (None, None)
+        return out
+
+
+# ---------------------------------------------------------------- metrics (ADR-003 §5.9)
+
+ANSWERED = {"answered", "answered_tier2"}
+
+
+def _ratio(num: int, den: int) -> str:
+    return "nieokreślone" if den == 0 else f"{100.0 * num / den:.1f}% ({num}/{den})"
+
+
+def _row(question: str, model: str, tier: str, items, evaluator: "Evaluator"):
+    """items: (photo_id, question, decision, answer) after the tier view is applied."""
+    c = dict(evaluated=0, correct=0, answered=0, abstained=0, unavailable=0, not_run=0, uncertain_excluded=0)
+    correct_answered = 0
+    for pid, q, decision, answer in items:
+        lab = evaluator.label(pid, q)
+        if lab is None or lab.status != "certain" or lab.value is None:
+            c["uncertain_excluded"] += 1  # empty/uncertain labels are never turned into no/none
+            continue
+        c["evaluated"] += 1
+        if decision in ANSWERED:
+            c["answered"] += 1
+            if answer == lab.value:
+                c["correct"] += 1
+                correct_answered += 1
+        elif decision == "abstain":
+            c["abstained"] += 1
+        elif decision == "model_unavailable":
+            c["unavailable"] += 1
+        else:
+            c["not_run"] += 1
+    return EvalRow(question=question, model=model, tier=tier, **c,
+                   accuracy_all=_ratio(c["correct"], c["evaluated"]),
+                   coverage=_ratio(c["answered"], c["evaluated"]),
+                   selective_accuracy=_ratio(correct_answered, c["answered"]))
+
+
+def evaluate(readings, evaluator: "Evaluator", compare_readings=()) -> list:
+    """Per question: tier-1 view, tier-2 view, final view, and the comparison model (tier 1)."""
+    rows = []
+    questions = list(dict.fromkeys(r.question_id for r in readings))
+    t1_model = next((r.model for r in readings if r.tier == 1 and r.model), "tier1")
+    t2_model = next((r.model for r in readings if r.tier == 2 and r.model), "gpt-6-luna")
+    for q in questions:
+        rs = [r for r in readings if r.question_id == q]
+        tier1 = [(r.photo_id, q, "answered" if r.decision == "answered" else
+                  ("abstain" if r.tier == 2 or r.decision == "abstain" else r.decision), r.tier1_answer) for r in rs]
+        rows.append(_row(q, t1_model, "tier 1", tier1, evaluator))
+        esc = [(r.photo_id, q, r.decision, r.answer) for r in rs if r.tier == 2]
+        rows.append(_row(q, t2_model, "tier 2 (tylko eskalowane)", esc, evaluator))
+        final = [(r.photo_id, q, r.decision, r.answer) for r in rs]
+        rows.append(_row(q, f"{t1_model} → {t2_model.split('/')[-1]}", "końcowa (tier 1 + tier 2)", final, evaluator))
+        cmp = [(r.photo_id, q, r.decision, r.answer) for r in compare_readings if r.question_id == q]
+        if cmp:
+            rows.append(_row(q, compare_readings[0].model, "tier 1 (porównanie, 5 obrazów)", cmp, evaluator))
+    return rows
+
+
+def compare_models(primary, compare):
+    """Luna vs Jev on the same images and questions, tier 1 without escalation (AC-15)."""
+    idx = {(r.photo_id, r.question_id): r for r in primary}
+    table = []
+    for c in compare:
+        p = idx.get((c.photo_id, c.question_id))
+        if p is None:
+            continue
+        pa, pp = p.tier1_answer, p.tier1_probability
+        same = None if pa is None or c.answer is None else pa == c.answer
+        diff = None if pp is None or c.probability is None else abs(pp - c.probability)
+        table.append(CompareRow(photo_id=c.photo_id, question=c.question_id, luna_answer=pa, luna_p=pp,
+                                jev_answer=c.answer, jev_p=c.probability, same=same, p_diff=diff))
+    both = [r for r in table if r.same is not None]
+    diffs = [r.p_diff for r in table if r.p_diff is not None]
+    summary = {"Pary obraz–pytanie": len(table),
+               "Zgodne odpowiedzi": f"{sum(1 for r in both if r.same)}/{len(both)}",
+               "Średnia |Δ max(p)|": f"{sum(diffs) / len(diffs):.3f}" if diffs else "–",
+               "Uwaga": "prawdopodobieństwa różnych modeli nie są wprost porównywalne; mała próbka, bez wniosków o kalibracji"}
+    return table, summary
