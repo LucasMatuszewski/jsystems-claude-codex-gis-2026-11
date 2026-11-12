@@ -181,7 +181,7 @@ Statusy dla `surface` działają analogicznie do prędkości, z tą samą kolejn
 - `between` częściowe → `not_comparable`;
 - `unknown_value` po którejkolwiek stronie → `not_comparable`.
 
-**`lit`.** Bierzemy tylko OSM: `yes` / `no` / inne (`automatic`, `24/7`, `sunset-sunrise` → klasa `yes_conditional`) / `missing`. Porównujemy wyłącznie z odczytem zdjęcia (ADR-003). Nie ma porównania OSM–Overture.
+**`lit`.** Bierzemy tylko OSM: `yes` / `no` / inne (`automatic`, `24/7`, `sunset-sunrise` → klasa `yes_conditional`) / `missing`. Porównujemy wyłącznie z odczytem zdjęcia (ADR-003). Nie ma porównania OSM–Overture. Wartości spoza tej listy (w snapshocie: `disused`, 1 droga) dostają klasę `unknown_value` z zachowaniem `raw` (ustalone przy implementacji T20, 2026-11-12). Overture `road_surface.value=unknown` (53 elementy) to również `unknown_value`.
 
 ### 3.5 Kompletność
 
