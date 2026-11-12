@@ -1,0 +1,121 @@
+{
+ "captured_at": "2026-11-12T15:57:10+00:00",
+ "target": "openrouter",
+ "endpoint": "/api/alpha/decisions",
+ "method": "POST",
+ "model_sent": "openai/gpt-6-luna-decisions",
+ "model_returned": "openai/gpt-6-luna-decisions-20261006",
+ "client_version": "httpx 0.28.1; OpenRouter API",
+ "request_meta": {
+  "body": {
+   "model": "openai/gpt-6-luna-decisions",
+   "state": [
+    "A photograph taken from a street-level camera.",
+    {
+     "type": "image_url",
+     "image_url": "<image>"
+    }
+   ],
+   "questions": {
+    "surface": {
+     "type": "choice",
+     "instructions": "What is the surface of the main road visible in the photo?",
+     "criteria": {
+      "paved": "asphalt, concrete or paving stones/sett",
+      "unpaved": "gravel, dirt, grass, sand or compacted earth",
+      "unknown": "the road surface is not visible or cannot be determined"
+     }
+    },
+    "junction_visible": {
+     "type": "choice",
+     "instructions": "Is a junction of roads for vehicles visible in the photo?",
+     "criteria": {
+      "yes": "two or more roads for vehicles visibly join or split",
+      "no": "no such junction is visible (a pedestrian crossing or an overpass alone is not a junction)",
+      "unknown": "cannot be determined"
+     }
+    },
+    "street_lighting_visible": {
+     "type": "choice",
+     "instructions": "Is a street lamp fitting visible in the photo?",
+     "criteria": {
+      "yes": "a recognizable street lamp fitting is visible",
+      "no": "no street lamp fitting is visible (a utility pole alone does not count)",
+      "unknown": "cannot be determined"
+     }
+    }
+   }
+  },
+  "image": {
+   "image_sha256": "6680cc4291d814a3459a1f9c5afe31bc1b20b32dbf290f8ad960632e0cc635e2",
+   "bytes": 162498
+  }
+ },
+ "status": 200,
+ "response_headers": {
+  "date": "Thu, 12 Nov 2026 15:57:10 GMT",
+  "content-type": "application/json",
+  "transfer-encoding": "chunked",
+  "connection": "keep-alive",
+  "access-control-allow-origin": "*",
+  "access-control-expose-headers": "WWW-Authenticate,PAYMENT-REQUIRED,Payment-Receipt,PAYMENT-RESPONSE,Location,X-Generation-Id,x-openrouter-error-origin,x-openrouter-error-tool,X-Provider-Name,request-id,cf-ray",
+  "x-generation-id": "gen-dec-1794499029-Fsar7zBhs3HqVJSWazQX",
+  "x-provider-name": "Azure",
+  "permissions-policy": "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")",
+  "referrer-policy": "no-referrer, strict-origin-when-cross-origin",
+  "x-content-type-options": "nosniff",
+  "content-encoding": "gzip",
+  "server": "cloudflare",
+  "cf-ray": "a596bb141eddc074-WAW",
+  "alt-svc": "h3=\":443\"; ma=86400"
+ },
+ "response_body": {
+  "model": "openai/gpt-6-luna-decisions-20261006",
+  "answers": {
+   "surface": {
+    "type": "choice",
+    "choice": "paved",
+    "probabilities": {
+     "paved": 1,
+     "unpaved": 0,
+     "unknown": 0
+    },
+    "confidence": 1
+   },
+   "junction_visible": {
+    "type": "choice",
+    "choice": "no",
+    "probabilities": {
+     "yes": 0.01,
+     "no": 0.99,
+     "unknown": 0
+    },
+    "confidence": 0.99
+   },
+   "street_lighting_visible": {
+    "type": "choice",
+    "choice": "no",
+    "probabilities": {
+     "yes": 0.05,
+     "no": 0.95,
+     "unknown": 0
+    },
+    "confidence": 0.93
+   }
+  },
+  "usage": {
+   "input_tokens": 1215,
+   "output_tokens": 0,
+   "cost": 0,
+   "is_byok": true,
+   "cost_details": {
+    "upstream_inference_cost": 0.0001215,
+    "upstream_inference_prompt_cost": 0.0001215,
+    "upstream_inference_completions_cost": 0
+   }
+  },
+  "id": "gen-dec-1794499029-Fsar7zBhs3HqVJSWazQX",
+  "provider": "Azure"
+ },
+ "elapsed_ms": 1469.0
+}

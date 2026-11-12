@@ -9,9 +9,9 @@ model_reading = false
 max_images = 25
 max_requests = 100
 max_cost_usd = 1.00
-reserve_usd_tier1 = 0.02
-reserve_usd_tier2 = 0.04
-reserve_usd_compare = 0.02
+reserve_usd_tier1 = 0.002
+reserve_usd_tier2 = 0.004
+reserve_usd_compare = 0.002
 
 tier1_model = "openai/gpt-6-luna-decisions"
 compare_model = "typesafe/jev-1.14"

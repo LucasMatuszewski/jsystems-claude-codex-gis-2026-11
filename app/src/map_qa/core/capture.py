@@ -45,6 +45,8 @@ def scrub(value: Any) -> Any:
         for k, v in value.items():
             if k == "external_link" and isinstance(v, str):
                 out[k] = redact_presigned(v)
+            elif k == "data" and value.get("type") == "reasoning.encrypted":
+                out[k] = "<redacted-encrypted-reasoning>"  # opaque base64 blob (ADR-003 TAC-003-01)
             elif k == "http_headers" and isinstance(v, dict):
                 out[k] = {hk: "<redacted>" for hk in v}
             else:

@@ -30,6 +30,17 @@ class ApiResult:
         return self.error_kind is None and self.status == 200
 
 
+def response_cost(body: Any) -> float | None:
+    """Conservative cost of one call: max(usage.cost, usage.cost_details.upstream_inference_cost).
+    With BYOK keys OpenRouter reports usage.cost = 0 and the provider charge in cost_details (T43 captures)."""
+    if not isinstance(body, dict):
+        return None
+    usage = body.get("usage") or {}
+    values = [usage.get("cost"), (usage.get("cost_details") or {}).get("upstream_inference_cost")]
+    nums = [float(v) for v in values if isinstance(v, (int, float)) and not isinstance(v, bool) and v >= 0]
+    return max(nums) if nums else None
+
+
 class OpenRouterClient:
     def __init__(self, env: dict[str, str], timeout_s: float = 40.0, transport: httpx.BaseTransport | None = None,
                  base_url: str = BASE_URL) -> None:

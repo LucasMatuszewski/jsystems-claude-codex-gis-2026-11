@@ -59,7 +59,7 @@ Pierwszeństwo, od najwyższego: flagi CLI > zmienne środowiskowe > plik TOML (
 | `max_images` | – | – | `25` |
 | `max_requests` | `--max-requests` | – | `100` |
 | `max_cost_usd` | `--max-cost-usd` | – | `1.00` |
-| `reserve_usd_tier1` / `reserve_usd_tier2` / `reserve_usd_compare` | – | – | `0.02` / `0.04` / `0.02` (ADR-003 §5.5) |
+| `reserve_usd_tier1` / `reserve_usd_tier2` / `reserve_usd_compare` | – | – | `0.002` / `0.004` / `0.002` (ADR-003 §5.5; obniżone 2026-11-12 po pomiarze T43) |
 | `tier1_model` / `compare_model` / `tier2_model` | – | – | `openai/gpt-6-luna-decisions` / `typesafe/jev-1.14` / `openai/gpt-6-luna` |
 | `t1_threshold` | `--t1-threshold` | – | `0.80` |
 | `t1_threshold_compare` | `--t1-threshold-compare` | – | `0.80` |

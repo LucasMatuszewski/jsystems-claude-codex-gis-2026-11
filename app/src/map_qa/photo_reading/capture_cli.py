@@ -13,7 +13,7 @@ from map_qa.core.config import RunConfig
 from map_qa.core.errors import ConfigError, MissingCredential
 from map_qa.photo_reading.budget import BudgetLedger
 from map_qa.photo_reading.capture import CaptureRecorder
-from map_qa.photo_reading.clients import CHAT_PATH, DECISIONS_PATH, OpenRouterClient
+from map_qa.photo_reading.clients import CHAT_PATH, DECISIONS_PATH, OpenRouterClient, response_cost
 from map_qa.photo_reading.evaluator import Evaluator
 from map_qa.photo_reading.image import prepare_file
 from map_qa.photo_reading.payload import chat_payload, decisions_payload
@@ -77,7 +77,7 @@ def run_model_capture(cfg: RunConfig, env: dict[str, str], *, kind: str, yes: bo
         result = client.post(path, payload)
     finally:
         client.close()
-    cost = (result.body or {}).get("usage", {}).get("cost") if isinstance(result.body, dict) else None
+    cost = response_cost(result.body)
     ledger.settle(res, status_code=result.status, cost_usd=cost, outcome="ok" if result.ok else "error")
     status = result.status if result.status is not None else result.error_kind
     capture_name = name or f"{kind}-{img_kind}-{status}"

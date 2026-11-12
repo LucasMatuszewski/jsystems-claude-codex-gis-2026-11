@@ -20,6 +20,7 @@ def test_capture_has_required_fields_and_no_secrets(path):
     assert "authorization" not in headers and "set-cookie" not in headers
     text = path.read_text(encoding="utf-8")
     assert not re.search(r"data:image/[a-z]+;base64,", text)
+    assert not re.search(r"[A-Za-z0-9+/]{65,}={0,2}", re.sub(r"https?://\S+", "", text))  # TAC-003-01
     assert "X-Amz-Signature" not in text and "Bearer " not in text
     if doc.get("body_file"):
         body = (path.parent / doc["body_file"]).read_bytes()

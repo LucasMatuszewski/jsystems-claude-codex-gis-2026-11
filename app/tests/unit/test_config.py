@@ -20,7 +20,7 @@ def test_defaults_without_any_source():
     assert cfg.work_dir == Path("course-materials/exercise-data/map-qa/data")
     assert cfg.model_reading is False
     assert cfg.max_images == 25 and cfg.max_requests == 100 and cfg.max_cost_usd == 1.0
-    assert (cfg.reserve_usd_tier1, cfg.reserve_usd_tier2, cfg.reserve_usd_compare) == (0.02, 0.04, 0.02)
+    assert (cfg.reserve_usd_tier1, cfg.reserve_usd_tier2, cfg.reserve_usd_compare) == (0.002, 0.004, 0.002)
     assert cfg.tier1_model == "openai/gpt-6-luna-decisions"
     assert cfg.compare_model == "typesafe/jev-1.14"
     assert cfg.tier2_model == "openai/gpt-6-luna"

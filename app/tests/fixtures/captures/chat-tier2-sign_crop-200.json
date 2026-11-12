@@ -1,0 +1,168 @@
+{
+ "captured_at": "2026-11-12T15:58:31+00:00",
+ "target": "openrouter",
+ "endpoint": "/api/v1/chat/completions",
+ "method": "POST",
+ "model_sent": "openai/gpt-6-luna",
+ "model_returned": "openai/gpt-6-luna",
+ "client_version": "httpx 0.28.1; OpenRouter API",
+ "request_meta": {
+  "body": {
+   "model": "openai/gpt-6-luna",
+   "messages": [
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "text",
+       "text": "A cropped image from a street-level photograph.\n\nAnswer each question about the image by choosing exactly one option.\nFor each answer also rate your certainty as high, medium or low.\n\nQuestion `speed_limit_value`: What maximum speed value is shown on a round speed limit sign with a red border (Polish B-33) in the image?\n- 5: the value on a B-33 sign\n- 10: the value on a B-33 sign\n- 15: the value on a B-33 sign\n- 20: the value on a B-33 sign\n- 25: the value on a B-33 sign\n- 30: the value on a B-33 sign\n- 40: the value on a B-33 sign\n- 50: the value on a B-33 sign\n- 60: the value on a B-33 sign\n- 70: the value on a B-33 sign\n- 80: the value on a B-33 sign\n- 90: the value on a B-33 sign\n- 100: the value on a B-33 sign\n- 110: the value on a B-33 sign\n- 120: the value on a B-33 sign\n- 130: the value on a B-33 sign\n- 140: the value on a B-33 sign\n- none: no B-33 sign is visible (zone signs, end-of-limit signs and other signs count as none)\n- unreadable: a B-33 sign is visible but its value cannot be read\n\nReply only with JSON that matches the provided schema."
+      },
+      {
+       "type": "image_url",
+       "image_url": "<image>"
+      }
+     ]
+    }
+   ],
+   "reasoning": {
+    "effort": "medium"
+   },
+   "response_format": {
+    "type": "json_schema",
+    "json_schema": {
+     "name": "photo_reading",
+     "strict": true,
+     "schema": {
+      "type": "object",
+      "properties": {
+       "speed_limit_value": {
+        "type": "object",
+        "properties": {
+         "answer": {
+          "type": "string",
+          "enum": [
+           "5",
+           "10",
+           "15",
+           "20",
+           "25",
+           "30",
+           "40",
+           "50",
+           "60",
+           "70",
+           "80",
+           "90",
+           "100",
+           "110",
+           "120",
+           "130",
+           "140",
+           "none",
+           "unreadable"
+          ]
+         },
+         "certainty": {
+          "type": "string",
+          "enum": [
+           "high",
+           "medium",
+           "low"
+          ]
+         }
+        },
+        "required": [
+         "answer",
+         "certainty"
+        ],
+        "additionalProperties": false
+       }
+      },
+      "required": [
+       "speed_limit_value"
+      ],
+      "additionalProperties": false
+     }
+    }
+   }
+  },
+  "image": {
+   "image_sha256": "665d05b93663c8e951f624471bf75cdf8f7f1c9d02833d48576c6e3844fe67e5",
+   "bytes": 44025
+  }
+ },
+ "status": 200,
+ "response_headers": {
+  "date": "Thu, 12 Nov 2026 15:58:30 GMT",
+  "content-type": "application/json",
+  "transfer-encoding": "chunked",
+  "connection": "keep-alive",
+  "access-control-allow-origin": "*",
+  "x-generation-id": "gen-1794499109-WQWYPJrhIaux5VeTbviH",
+  "access-control-expose-headers": "WWW-Authenticate,PAYMENT-REQUIRED,Payment-Receipt,PAYMENT-RESPONSE,Location,X-Generation-Id,x-openrouter-error-origin,x-openrouter-error-tool,X-Provider-Name,request-id,cf-ray",
+  "x-openrouter-release": "api;2d4a9cff-4336-4488-a03b-036fe10a67d0",
+  "permissions-policy": "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")",
+  "referrer-policy": "no-referrer, strict-origin-when-cross-origin",
+  "x-content-type-options": "nosniff",
+  "content-encoding": "gzip",
+  "server": "cloudflare",
+  "cf-ray": "a596bd0b8c1e38bf-WAW",
+  "alt-svc": "h3=\":443\"; ma=86400"
+ },
+ "response_body": {
+  "id": "gen-1794499109-WQWYPJrhIaux5VeTbviH",
+  "object": "chat.completion",
+  "created": 1794499109,
+  "model": "openai/gpt-6-luna",
+  "provider": "Azure",
+  "system_fingerprint": null,
+  "service_tier": "default",
+  "choices": [
+   {
+    "index": 0,
+    "logprobs": null,
+    "finish_reason": "stop",
+    "native_finish_reason": "completed",
+    "message": {
+     "role": "assistant",
+     "content": "{\"speed_limit_value\":{\"answer\":\"20\",\"certainty\":\"high\"}}",
+     "refusal": null,
+     "reasoning": null,
+     "reasoning_details": [
+      {
+       "type": "reasoning.encrypted",
+       "data": "<redacted-encrypted-reasoning>",
+       "format": "azure-openai-responses-v1",
+       "id": "rs_0a0ee02005f4239b016af5e2269a1881978f6b18d073b95122",
+       "index": 0
+      }
+     ]
+    }
+   }
+  ],
+  "usage": {
+   "prompt_tokens": 561,
+   "completion_tokens": 38,
+   "total_tokens": 599,
+   "cost": 0,
+   "is_byok": true,
+   "prompt_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 7.51e-05,
+    "upstream_inference_prompt_cost": 5.61e-05,
+    "upstream_inference_completions_cost": 1.9e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 14,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  }
+ },
+ "elapsed_ms": 1766.0
+}

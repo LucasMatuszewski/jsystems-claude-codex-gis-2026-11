@@ -27,9 +27,9 @@ class RunConfig(BaseModel):
     max_images: int = Field(25, ge=1)
     max_requests: int = Field(100, ge=0)
     max_cost_usd: float = Field(1.00, ge=0)
-    reserve_usd_tier1: float = Field(0.02, gt=0)
-    reserve_usd_tier2: float = Field(0.04, gt=0)
-    reserve_usd_compare: float = Field(0.02, gt=0)
+    reserve_usd_tier1: float = Field(0.002, gt=0)
+    reserve_usd_tier2: float = Field(0.004, gt=0)
+    reserve_usd_compare: float = Field(0.002, gt=0)
     tier1_model: str = "openai/gpt-6-luna-decisions"
     compare_model: str = "typesafe/jev-1.14"
     tier2_model: str = "openai/gpt-6-luna"

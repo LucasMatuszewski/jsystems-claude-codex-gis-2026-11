@@ -1,0 +1,115 @@
+{
+ "captured_at": "2026-11-12T15:57:13+00:00",
+ "target": "openrouter",
+ "endpoint": "/api/alpha/decisions",
+ "method": "POST",
+ "model_sent": "openai/gpt-6-luna-decisions",
+ "model_returned": "openai/gpt-6-luna-decisions-20261006",
+ "client_version": "httpx 0.28.1; OpenRouter API",
+ "request_meta": {
+  "body": {
+   "model": "openai/gpt-6-luna-decisions",
+   "state": [
+    "A cropped image from a street-level photograph.",
+    {
+     "type": "image_url",
+     "image_url": "<image>"
+    }
+   ],
+   "questions": {
+    "speed_limit_value": {
+     "type": "choice",
+     "instructions": "What maximum speed value is shown on a round speed limit sign with a red border (Polish B-33) in the image?",
+     "criteria": {
+      "5": "the value on a B-33 sign",
+      "10": "the value on a B-33 sign",
+      "15": "the value on a B-33 sign",
+      "20": "the value on a B-33 sign",
+      "25": "the value on a B-33 sign",
+      "30": "the value on a B-33 sign",
+      "40": "the value on a B-33 sign",
+      "50": "the value on a B-33 sign",
+      "60": "the value on a B-33 sign",
+      "70": "the value on a B-33 sign",
+      "80": "the value on a B-33 sign",
+      "90": "the value on a B-33 sign",
+      "100": "the value on a B-33 sign",
+      "110": "the value on a B-33 sign",
+      "120": "the value on a B-33 sign",
+      "130": "the value on a B-33 sign",
+      "140": "the value on a B-33 sign",
+      "none": "no B-33 sign is visible (zone signs, end-of-limit signs and other signs count as none)",
+      "unreadable": "a B-33 sign is visible but its value cannot be read"
+     }
+    }
+   }
+  },
+  "image": {
+   "image_sha256": "665d05b93663c8e951f624471bf75cdf8f7f1c9d02833d48576c6e3844fe67e5",
+   "bytes": 44025
+  }
+ },
+ "status": 200,
+ "response_headers": {
+  "date": "Thu, 12 Nov 2026 15:57:13 GMT",
+  "content-type": "application/json",
+  "transfer-encoding": "chunked",
+  "connection": "keep-alive",
+  "access-control-allow-origin": "*",
+  "access-control-expose-headers": "WWW-Authenticate,PAYMENT-REQUIRED,Payment-Receipt,PAYMENT-RESPONSE,Location,X-Generation-Id,x-openrouter-error-origin,x-openrouter-error-tool,X-Provider-Name,request-id,cf-ray",
+  "x-generation-id": "gen-dec-1794499033-treDfq0nkrcD8TLDF3TR",
+  "x-provider-name": "Azure",
+  "permissions-policy": "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")",
+  "referrer-policy": "no-referrer, strict-origin-when-cross-origin",
+  "x-content-type-options": "nosniff",
+  "content-encoding": "gzip",
+  "server": "cloudflare",
+  "cf-ray": "a596bb2dbfe37a60-WAW",
+  "alt-svc": "h3=\":443\"; ma=86400"
+ },
+ "response_body": {
+  "model": "openai/gpt-6-luna-decisions-20261006",
+  "answers": {
+   "speed_limit_value": {
+    "type": "choice",
+    "choice": "20",
+    "probabilities": {
+     "5": 0.04,
+     "10": 0.03,
+     "15": 0.05,
+     "20": 0.38,
+     "25": 0.05,
+     "30": 0.07,
+     "40": 0.05,
+     "50": 0.04,
+     "60": 0.07,
+     "70": 0.04,
+     "80": 0.04,
+     "90": 0.02,
+     "100": 0.02,
+     "110": 0.02,
+     "120": 0.01,
+     "130": 0.02,
+     "140": 0.01,
+     "none": 0.01,
+     "unreadable": 0.03
+    },
+    "confidence": 0.35
+   }
+  },
+  "usage": {
+   "input_tokens": 513,
+   "output_tokens": 0,
+   "cost": 0,
+   "is_byok": true,
+   "cost_details": {
+    "upstream_inference_cost": 5.13e-05,
+    "upstream_inference_prompt_cost": 5.13e-05,
+    "upstream_inference_completions_cost": 0
+   }
+  },
+  "id": "gen-dec-1794499033-treDfq0nkrcD8TLDF3TR",
+  "provider": "Azure"
+ },
+ "elapsed_ms": 766.0
+}

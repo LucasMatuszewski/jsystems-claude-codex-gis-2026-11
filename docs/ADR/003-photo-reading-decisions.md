@@ -56,7 +56,7 @@ Nie używamy bezpośrednich API dostawców (OpenAI, TypeSafe) ani ich SDK (ADR-0
   |---|---|---|---|---|---|
   | `openai/gpt-6-luna-decisions` | tier 1, model decyzyjny | tekst + obraz | $0.10 / $0 | 1,1M | https://openrouter.ai/openai/gpt-6-luna-decisions |
   | `typesafe/jev-1.14` | model decyzyjny porównawczy (5 obrazów) | tekst + obraz | $0.042 / $0 | 262K | https://openrouter.ai/typesafe/jev-1.14 |
-  | `openai/gpt-6-luna` | tier 2, ogólny LLM (chat) | tekst + obraz (do potwierdzenia pierwszym wywołaniem) | – (do pomiaru z `usage.cost`) | – | – |
+  | `openai/gpt-6-luna` | tier 2, ogólny LLM (chat) | tekst + obraz (**potwierdzone T43**: obraz, `json_schema` strict i `reasoning` działają) | zmierzone w §9 | – | – |
 
   Próba pobrania katalogu `GET /api/v1/models` w tej sesji nie doszła do skutku: odmowa uprawnień narzędzia, nie błąd API. Ceny pochodzą więc od użytkownika. Funkcje `openai/gpt-6-luna` (obraz, `json_schema`, `reasoning`) potwierdzają pierwsze rzeczywiste wywołania w T43.
 - **Nieznane:** opóźnienia wszystkich trzech modeli, liczba tokenów, którą OpenRouter nalicza za obraz, i koszt tier 2. Uzupełnimy je z `usage` i pomiaru czasu w pierwszych rzeczywistych wywołaniach (§9).
@@ -180,11 +180,13 @@ Po OPEN pozostałe elementy dostają `not_run_budget_or_error`. Pipeline kończy
   - `max_images = 25`;
   - `max_requests = 100` (tier 1 + tier 2 + porównanie, łącznie z błędami);
   - `max_cost_usd = 1.00`.
-- Rezerwacja przed każdym wywołaniem: `reserve_usd_tier1 = 0.02`, `reserve_usd_tier2 = 0.04`, `reserve_usd_compare = 0.02` (konserwatywne, konfigurowalne). Wywołanie dochodzi do skutku tylko wtedy, gdy `requests_used + 1 ≤ max_requests` i `spent + reserved_open + reserve ≤ max_cost_usd`.
-- Po odpowiedzi: `actual_usd = usage.cost`, gdy jest liczbą. W przeciwnym razie zostaje pełna rezerwacja. Błąd i timeout: pełna rezerwacja.
+- Rezerwacja przed każdym wywołaniem: `reserve_usd_tier1 = 0.002`, `reserve_usd_tier2 = 0.004`, `reserve_usd_compare = 0.002` (konserwatywne, konfigurowalne; obniżone z 0,02/0,04/0,02 po pomiarze T43, około 15–40× zmierzonego kosztu). Wywołanie dochodzi do skutku tylko wtedy, gdy `requests_used + 1 ≤ max_requests` i `spent + reserved_open + reserve ≤ max_cost_usd`.
+- Po odpowiedzi: `actual_usd = max(usage.cost, usage.cost_details.upstream_inference_cost)` z wartości liczbowych. W przeciwnym razie zostaje pełna rezerwacja. Błąd i timeout: pełna rezerwacja.
+- **Klucz BYOK (ustalone w T43, 2026-11-12).** Ten klucz jest typu BYOK: OpenRouter zwraca `usage.cost = 0` i `is_byok = true`, a rzeczywisty koszt dostawcy jest w `usage.cost_details.upstream_inference_cost`. Sam `usage.cost` zaniżałby wydatki, dlatego bierzemy większą z obu wartości.
 - `ledger.jsonl` (append-only, `course-materials/exercise-data/map-qa/data/ledger.jsonl`) jest sumowany przy starcie **per `run_id`**. Limity dotyczą uruchomienia, a raport pokazuje też sumę historyczną.
 - Oczekiwane zużycie domyślnej próbki: 25 (tier 1) + 5 (Jev) + ≤ 25 (tier 2) = maks. 55 żądań.
 - **Koszt w najgorszym przypadku (dopisane 2026-11-12).** Gdyby każde wywołanie rozliczało pełną rezerwację, wyszłoby 25 × 0,02 + 5 × 0,02 + 25 × 0,04 = **1,60 USD**, więcej niż limit 1,00 USD. Limit może więc zatrzymać próbkę (`not_run_budget_or_error`), zanim przejdzie całą. Po pomiarze kosztu w T43 (§9) rezerwacje ustawiamy na zmierzony koszt z zapasem, a oczekiwany koszt próbki wpisujemy tutaj przed płatnym uruchomieniem.
+- **Oczekiwany koszt próbki (2026-11-12, z pomiaru T43).** 15 zdjęć × ~0,00012 + 10 wycinków × ~0,00005 (Luna) + 5 × ~0,0001 (Jev) + ≤ 25 × ~0,0002 (tier 2) ≈ **0,003–0,008 USD**. Najgorszy przypadek przy nowych rezerwacjach: 25 × 0,002 + 5 × 0,002 + 25 × 0,004 = 0,16 USD < 1,00 USD.
 
 ### 5.6 Cache (AC-18, PRD §4.4)
 
@@ -418,9 +420,11 @@ sequenceDiagram
 
 | Model | Cennik (in / out za 1M) | Koszt na żądanie (`usage.cost`) | Tokeny wejścia na żądanie | Czas odpowiedzi | Data |
 |---|---|---|---|---|---|
-| `openai/gpt-6-luna-decisions` | $0.10 / $0 | do uzupełnienia | do uzupełnienia | do uzupełnienia | – |
-| `typesafe/jev-1.14` | $0.042 / $0 | do uzupełnienia | do uzupełnienia | do uzupełnienia | – |
-| `openai/gpt-6-luna` (tier 2) | do uzupełnienia | do uzupełnienia | do uzupełnienia | do uzupełnienia | – |
+| `openai/gpt-6-luna-decisions` (zwracany `…-20261006`, provider Azure) | $0.10 / $0 | 0,0001215 (zdjęcie), 0,0000513 (wycinek)* | 1215 / 513 | 1469 / 766 ms | 2026-11-12 |
+| `typesafe/jev-1.14` (zwracany `…-20261014`) | $0.042 / $0 | 0,0001114 (zdjęcie), 0,0000435 (wycinek)* | 2653 / 1035 (+116/176 out) | 375 / 328 ms | 2026-11-12 |
+| `openai/gpt-6-luna` (tier 2, provider Azure) | z pomiaru | 0,000225 (zdjęcie, 3 pytania), 0,0000776 (wycinek)* | 1286 / 561 (+128/43 out) | 3219 / 2328 ms | 2026-11-12 |
+
+\* `usage.cost_details.upstream_inference_cost`; `usage.cost = 0` (klucz BYOK, §5.5). Źródło: capture w `app/tests/fixtures/captures/*-200.json`. Zaobserwowany błąd: HTTP 400 `{"error": {"message", "code"}}` dla nieistniejącego modelu (`decisions-error-400.json`).
 
 Przy tych cenach żądanie z jednym obrazem kosztuje prawdopodobnie ułamek centa (inferencja, do pomiaru). Rezerwacje z §5.5 (0,02–0,04 USD) pozostają konserwatywne do czasu pomiaru.
 
