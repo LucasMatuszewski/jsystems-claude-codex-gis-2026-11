@@ -303,6 +303,8 @@ def print_summary(ctx: RunContext, model: ReportModel, out_dir: Path) -> None:
     for attr in model.attributes():
         parts = ", ".join(f"{c.status} {c.count}" for c in s.status_counts if c.attribute == attr)
         w(f"{attr}: {parts}\n")
+    if model.model.run and model.model.stopped_reason:
+        w(f"Uwaga: płatna pętla zatrzymana: {model.model.stopped_reason}.\n")
     if model.model.run:
         w(f"Odczyt modelem: żądania {model.model.requests_this_run}, koszt {model.model.cost_this_run_usd:.4f} USD,"
           f" z cache {model.model.cache_hits}\n")

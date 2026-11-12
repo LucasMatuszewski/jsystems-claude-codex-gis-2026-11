@@ -147,6 +147,10 @@ def run_photo_reading(con: duckdb.DuckDBPyConnection, ctx) -> ReadingOutcome:
           f"porównanie {pending['compare']}; limit żądań {cfg.max_requests}, limit kosztu {cfg.max_cost_usd:.2f} USD.\n"
           f"Modele: {cfg.tier1_model} / {cfg.tier2_model} / {cfg.compare_model}; "
           f"progi: T1={cfg.t1_threshold}, T1 porównanie={cfg.t1_threshold_compare}, tier 2={cfg.tier2_accept}.\n")
+        w("Manifest próbki (PRD §4.2 krok 2):\n")
+        for n, item in enumerate(items, start=1):
+            mark = " [porównanie]" if item["compare"] else ""
+            w(f"  {n:2d}. {item['photo_id']} ({item['kind']}): {', '.join(item['questions'])}{mark}\n")
         confirmed = bool(cfg.yes)
         if not confirmed:
             try:
