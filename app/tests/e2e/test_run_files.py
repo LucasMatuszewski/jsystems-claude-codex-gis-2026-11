@@ -66,7 +66,7 @@ def test_counts_consistent_and_stdout_summary(run_result):
     res = json.loads((out / "results.json").read_text(encoding="utf-8"))
     summary = res["report"]["summary"]
     assert summary["pairs"] == 558 and summary["photos"] == 561 and summary["no_candidate"] == 3
-    for attr in ("speed",):
+    for attr in ("speed", "surface"):
         total = sum(c["count"] for c in summary["status_counts"] if c["attribute"] == attr)
         assert total == summary["pairs"]
     assert len(res["pairs"]) == 558
@@ -76,3 +76,14 @@ def test_counts_consistent_and_stdout_summary(run_result):
         assert f'data-counter="{c["attribute"]}:{c["status"]}">{c["count"]}<' in html
         assert re.search(rf"^\| `{c['attribute']}` \| `{c['status']}` \| [^|]+ \| {c['count']} \|$", md, re.M)
     assert "agree" in proc.stdout and "Kod wyjścia: 0" in proc.stdout
+
+
+def test_completeness_and_surface_in_report(run_result):
+    _, out, *_ = run_result
+    res = json.loads((out / "results.json").read_text(encoding="utf-8"))
+    comp = res["report"]["summary"]["completeness"]
+    assert {(r["source"], r["attribute"]) for r in comp} >= {("osm", "maxspeed*"), ("overture", "road_surface")}
+    md = (out / "report.md").read_text(encoding="utf-8")
+    assert "| osm | maxspeed* | wszystkie drogi |" in md and "drogi ze zdjęciem" in md
+    assert "Nawierzchnia: rozbieżne" in md
+    assert len(res["comparisons"]) == 2 * res["report"]["summary"]["pairs"]

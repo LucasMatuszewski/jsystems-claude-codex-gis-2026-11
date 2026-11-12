@@ -218,7 +218,7 @@ def run(ctx: RunContext) -> int:
                 if not row.equal:
                     manifest.warnings.append(f"Różnica między źródłami w tabeli {row.table}.")
         build_pairs(con)
-        attributes = ("speed",)  # Phase 1 slice; surface added in T22
+        attributes = ATTRIBUTES
         compare(con, attributes)
         completeness = completeness_rows(con)
 
