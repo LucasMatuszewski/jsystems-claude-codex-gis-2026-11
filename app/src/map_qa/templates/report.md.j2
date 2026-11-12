@@ -1,0 +1,249 @@
+# Raport kontroli mapy: atrybuty dróg OSM i Overture (Kraków)
+
+> {{ DISCLAIMER }}
+
+## 1. Nagłówek
+
+- Data uruchomienia: {{ m.header.run_date }} (identyfikator: `{{ m.header.run_id }}`)
+- Data wygenerowania raportu: {{ render_date }}
+- Źródło danych: {{ m.header.source_label }}
+- Snapshot OSM: {{ m.header.snapshots.get("osm_extract_date", "–") }}; wydanie Overture: {{ m.header.snapshots.get("overture_release", "–") }}
+
+### Tabele wejściowe
+
+| Tabela | Wiersze | statement_id |
+|---|---:|---|
+{% for t in m.header.tables %}
+| {{ t.name }} | {{ t.rows }} | {{ t.statement_id or "–" }} |
+{% endfor %}
+
+### Hashe plików wejściowych (sha256)
+
+| Plik | sha256 | Zgodność z sources.json |
+|---|---|---|
+{% for f in m.header.files %}
+| {{ f.name }} | `{{ f.sha256 }}` | {{ f.expected_match or "brak wzorca" }} |
+{% endfor %}
+
+### Konfiguracja
+
+| Ustawienie | Wartość |
+|---|---|
+{% for k, v in m.header.config.items() %}
+| {{ k }} | {{ v }} |
+{% endfor %}
+{% if m.header.warnings %}
+
+### Ostrzeżenia
+
+{% for w in m.header.warnings %}
+- {{ w }}
+{% endfor %}
+{% endif %}
+{% if m.header.source_comparison %}
+
+### Porównanie źródeł ({{ m.header.source_label }} kontra {{ m.header.other_source_label }})
+
+| Tabela | Wybrane źródło | Drugie źródło | Klucze tylko w wybranym | Klucze tylko w drugim | Zgodne |
+|---|---:|---:|---:|---:|---|
+{% for r in m.header.source_comparison %}
+| {{ r.table }} | {{ r.selected_rows }} | {{ r.other_rows }} | {{ r.keys_only_selected if r.keys_only_selected is not none else "–" }} | {{ r.keys_only_other if r.keys_only_other is not none else "–" }} | {{ "tak" if r.equal else "NIE" }} |
+{% endfor %}
+{% endif %}
+
+## 2. Podsumowanie
+
+- Zdjęcia: {{ m.summary.photos }}; pary zdjęcie–droga: {{ m.summary.pairs }}; zdjęcia bez kandydata: {{ m.summary.no_candidate }}
+- Status połączeń: {% for k, v in m.summary.link_status.items() %}`{{ k }}` {{ v }}{{ "; " if not loop.last }}{% endfor %}
+
+
+### Statusy porównania (na parę i atrybut; suma dla atrybutu = liczba par)
+
+| Atrybut | Status | Opis | Liczba |
+|---|---|---|---:|
+{% for c in m.summary.status_counts %}
+| `{{ c.attribute }}` | `{{ c.status }}` | {{ STATUS_LABELS[c.status] }} | {{ c.count }} |
+{% endfor %}
+
+Zgodność OSM–Overture to zgodność snapshotów (Overture w 99% pochodzi z OSM), a nie potwierdzenie poprawności.
+
+### Statusy per droga (`osm_way_id`)
+
+Liczba dróg z co najmniej jednym zdjęciem: {{ m.summary.roads_total }}. Tabela pokazuje drogi z więcej niż jednym zdjęciem ({{ m.summary.roads | length }}).
+
+{% if m.summary.roads %}
+| osm_way_id | Zdjęcia | Prędkość | Nawierzchnia |
+|---:|---:|---|---|
+{% for r in m.summary.roads %}
+| {{ r.osm_way_id }} | {{ r.photos }} | {% for s, n in r.statuses.get("speed", {}).items() %}{{ s }} {{ n }}{{ ", " if not loop.last }}{% endfor %} | {% for s, n in r.statuses.get("surface", {}).items() %}{{ s }} {{ n }}{{ ", " if not loop.last }}{% endfor %} |
+{% endfor %}
+{% else %}
+Brak pozycji (0).
+{% endif %}
+
+### Kompletność atrybutów
+
+{% if m.summary.completeness %}
+| Źródło | Atrybut | Populacja | Z wartością | Mianownik | % |
+|---|---|---|---:|---:|---:|
+{% for r in m.summary.completeness %}
+| {{ r.source }} | {{ r.attribute }} | {{ "wszystkie drogi" if r.population == "all" else "drogi ze zdjęciem" }} | {{ r.with_value }} | {{ r.total }} | {{ r.pct | pct }} |
+{% endfor %}
+{% else %}
+Brak pozycji (0).
+{% endif %}
+
+### Odczyt modelem
+
+{% if m.model.run %}
+- Żądania w tym uruchomieniu: {{ m.model.requests_this_run }} (limit {{ m.model.max_requests }}); koszt: {{ m.model.cost_this_run_usd | num(4) }} USD (limit {{ m.model.max_cost_usd | num(2) }} USD)
+- Odpowiedzi z cache: {{ m.model.cache_hits }}; suma historyczna w ledgerze: {{ m.model.ledger_total_requests }} żądań, {{ m.model.ledger_total_cost_usd | num(4) }} USD
+{% if m.model.requests_this_run == 0 %}
+- W tym uruchomieniu nie wykonano nowych żądań (licznik żądań = 0).
+{% endif %}
+{% if m.model.stopped_reason %}
+- Płatna pętla zatrzymana: {{ m.model.stopped_reason }}
+{% endif %}
+
+| Pytanie | Decyzja | Opis | Liczba |
+|---|---|---|---:|
+{% for d in m.model.decisions %}
+| `{{ d.question }}` | `{{ d.decision }}` | {{ DECISION_LABELS[d.decision] }} | {{ d.count }} |
+{% endfor %}
+
+| Model | Poziom | Pytanie | Żądania | Koszt [USD] | Z cache |
+|---|---|---|---:|---:|---:|
+{% for c in m.model.counters %}
+| {{ c.model }} | {{ c.tier }} | {{ c.question }} | {{ c.requests }} | {{ c.cost_usd | num(4) }} | {{ c.cache_hits }} |
+{% endfor %}
+{% else %}
+{{ m.model.not_run_reason }}.
+{% endif %}
+
+## 3. Kandydaci do przeglądu
+
+Pary ze statusem `disagree`, `missing_*`, `not_comparable` lub `ambiguous_link`. Dystans w metrach, liczony w EPSG:2180.
+
+{% for g in m.candidate_groups() %}
+### {{ g.label }} (`{{ g.attribute }}` / `{{ g.status }}`): {{ g.count }}
+
+{% if g.rows %}
+| Zdjęcie | OSM | Overture | Dystans [m] | OSM (surowe) | Overture (surowe) | Odczyt zdjęcia (predykcja) | Powód | Flagi | Miniatura |
+|---|---:|---|---:|---|---|---|---|---|---|
+{% for c in g.rows %}
+{% set a = (c.attributes | selectattr("attribute", "equalto", g.attribute) | list)[0] %}
+| {{ c.photo_id }} | {{ c.osm_way_id }} | {{ c.overture_id or "–" }} | {{ c.distance_m_recomputed | num }} | {{ a.osm_raw | join("; ") or "–" }} | {{ a.overture_raw | join("; ") or "–" }} | {% for r in c.readings %}{{ r.question }}: {{ r.answer or r.decision }} (tier {{ r.tier or "–" }}, p={{ r.probability | num }}){{ "; " if not loop.last }}{% else %}–{% endfor %} | {{ a.reason or "–" }} | {{ (c.flags + c.reasons) | unique | join(", ") or "–" }} | {% if c.thumb.src %}[miniatura]({{ c.thumb.src }}){% else %}Miniatura niedostępna{% endif %}; {{ c.thumb.author or "–" }}, {{ c.thumb.source or "–" }}, {{ c.thumb.license or "–" }} |
+{% endfor %}
+{% else %}
+Brak kandydatów (0).
+{% endif %}
+
+{% endfor %}
+## 4. Kolejka ręczna
+
+{% set amb = m.manual_queue | selectattr("kind", "equalto", "ambiguous_link") | list %}
+### Niepewne połączenia (`ambiguous_link`): {{ amb | length }}
+
+{% if amb %}
+| Zdjęcie | Dotyczy | Powód |
+|---|---|---|
+{% for q in amb %}
+| {{ q.photo_id }} | {{ q.subject }} | {{ q.reason or "–" }} |
+{% endfor %}
+{% else %}
+Brak pozycji (0).
+{% endif %}
+
+### Odczyt modelem: abstencje i `model_unavailable`
+
+{% if m.model.run %}
+{% set mq = m.manual_queue | rejectattr("kind", "equalto", "ambiguous_link") | list %}
+Pozycje: {{ mq | length }}
+
+{% if mq %}
+| Rodzaj | Zdjęcie | Pytanie | Powód |
+|---|---|---|---|
+{% for q in mq %}
+| `{{ q.kind }}` | {{ q.photo_id }} | {{ q.subject }} | {{ q.reason or "–" }} |
+{% endfor %}
+{% else %}
+Brak pozycji (0).
+{% endif %}
+{% else %}
+{{ m.model.not_run_reason }}.
+{% endif %}
+
+## 5. Ewaluacja modelu
+
+{% if m.model.run %}
+Progi (zamrożone przy potwierdzeniu): {% for k, v in m.model.thresholds.items() %}{{ k }}={{ v }}{{ "; " if not loop.last }}{% endfor %}. Wersja pytań: `{{ m.model.question_set_version }}`. Pewność tier 2 to samoocena modelu, nie skalibrowane prawdopodobieństwo.
+
+Próbka: {% for k, v in m.model.sample.items() %}{{ k }}={{ v }}{{ "; " if not loop.last }}{% endfor %}.
+
+#### Predykcje (osobno: odpowiedzi, abstencje, `model_unavailable`)
+
+{% if m.model.readings %}
+| Zdjęcie | Rodzaj | Pytanie | Decyzja | Predykcja | Tier | Model | p (tier 1) | Pewność (tier 2) | Tier 1 przed eskalacją | Powód |
+|---|---|---|---|---|---:|---|---:|---|---|---|
+{% for r in m.model.readings %}
+| {{ r.photo_id }} | {{ r.kind }} | `{{ r.question }}` | `{{ r.decision }}` | {{ r.answer or "–" }} | {{ r.tier or "–" }} | {{ r.model or "–" }} | {{ r.probability | num }} | {{ r.certainty or "–" }} | {{ r.tier1_answer or "–" }} ({{ r.tier1_probability | num }}) | {{ r.reason or "–" }} |
+{% endfor %}
+{% else %}
+Brak pozycji (0).
+{% endif %}
+
+#### Metryki względem etykiet referencyjnych (tylko `certain`)
+
+{% if m.model.evaluation %}
+| Pytanie | Model | Poziom | Oceniane | Poprawne | Odpowiedzi | Abstencje | Niedostępne | Nie uruchomiono | Wykluczone `uncertain` | Accuracy (wszystkie) | Pokrycie | Accuracy po abstencji |
+|---|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+{% for e in m.model.evaluation %}
+| `{{ e.question }}` | {{ e.model }} | {{ e.tier }} | {{ e.evaluated }} | {{ e.correct }} | {{ e.answered }} | {{ e.abstained }} | {{ e.unavailable }} | {{ e.not_run }} | {{ e.uncertain_excluded }} | {{ e.accuracy_all }} | {{ e.coverage }} | {{ e.selective_accuracy }} |
+{% endfor %}
+{% else %}
+Brak pozycji (0).
+{% endif %}
+
+#### Porównanie modeli decyzyjnych na 5 obrazach (tier 1, bez eskalacji)
+
+{% if m.model.comparison %}
+{% for k, v in m.model.comparison_summary.items() %}
+- {{ k }}: {{ v }}
+{% endfor %}
+
+| Zdjęcie | Pytanie | Luna | p Luna | Jev | p Jev | Zgodne | Δ max(p) |
+|---|---|---|---:|---|---:|---|---:|
+{% for r in m.model.comparison %}
+| {{ r.photo_id }} | `{{ r.question }}` | {{ r.luna_answer or "–" }} | {{ r.luna_p | num }} | {{ r.jev_answer or "–" }} | {{ r.jev_p | num }} | {{ "tak" if r.same else ("nie" if r.same is not none else "–") }} | {{ r.p_diff | num }} |
+{% endfor %}
+{% else %}
+Brak pozycji (0).
+{% endif %}
+
+#### Odczyt zdjęcia obok wartości mapy (zestawienie, nie werdykt)
+
+{% if m.model.map_comparison %}
+| Zdjęcie | Pytanie | Predykcja | Decyzja | Wartości mapy | Uwaga |
+|---|---|---|---|---|---|
+{% for r in m.model.map_comparison %}
+| {{ r.photo_id }} | `{{ r.question }}` | {{ r.prediction or "–" }} | `{{ r.decision }}` | {{ r.map_values }} | {{ r.note or "–" }} |
+{% endfor %}
+{% else %}
+Brak pozycji (0).
+{% endif %}
+{% else %}
+{{ m.model.not_run_reason }}.
+{% endif %}
+
+## 6. Ograniczenia i atrybucja
+
+- {{ DISCLAIMER }}
+- Etykiety referencyjne są roboczą referencją przygotowaną przez agentów AI (znaki: dwa modele), a nie prawdą terenową.
+- Daty źródeł się różnią: OSM {{ m.header.snapshots.get("osm_extract_date", "–") }}, Overture {{ m.header.snapshots.get("overture_release", "–") }}, zdjęcia z różnych lat (część sprzed 2024 r.).
+- Połączenia zdjęcie–droga to kandydaci z `photo_road_links.csv`, a nie pewne przypisanie. Kierunek kamery nie jest kierunkiem jazdy, a pozycja aparatu nie jest pozycją znaku.
+- Zdjęcia: licencja CC BY-SA 4.0; autor i źródło podane przy każdej miniaturze.
+- © OpenStreetMap contributors, ODbL 1.0
+- Overture Maps Foundation, ODbL 1.0 (release {{ m.header.snapshots.get("overture_release", "–") }})
+{% if m.shows_mapillary_derived %}
+- Mapillary – metadane pochodne, ODbL 1.0
+{% endif %}

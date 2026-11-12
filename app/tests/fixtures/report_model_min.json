@@ -1,0 +1,91 @@
+{
+  "header": {
+    "run_id": "fixture-run",
+    "run_date": "2026-11-12T10:00:00+00:00",
+    "source": "files",
+    "source_label": "pliki lokalne",
+    "snapshots": {"osm_extract_date": "2026-11-01", "overture_release": "2026-10-21.0"},
+    "files": [
+      {"name": "photos.csv", "sha256": "93157c4798c20434bca70a426c2bd64c5f6d0b5a3ad865f690d1ee9e634d0ed3", "expected_match": "exact"}
+    ],
+    "tables": [{"name": "photos", "rows": 2, "statement_id": null}],
+    "config": {"t1_threshold": 0.8, "tier2_accept": "high", "max_requests": 100, "max_cost_usd": 1.0,
+               "tier1_model": "openai/gpt-6-luna-decisions"},
+    "warnings": [],
+    "source_comparison": []
+  },
+  "summary": {
+    "photos": 3,
+    "pairs": 2,
+    "no_candidate": 1,
+    "link_status": {"ok": 1, "ambiguous": 1, "no_candidate": 1},
+    "status_counts": [
+      {"attribute": "speed", "status": "agree", "count": 0},
+      {"attribute": "speed", "status": "disagree", "count": 1},
+      {"attribute": "speed", "status": "missing_osm", "count": 0},
+      {"attribute": "speed", "status": "missing_overture", "count": 0},
+      {"attribute": "speed", "status": "not_comparable", "count": 0},
+      {"attribute": "speed", "status": "ambiguous_link", "count": 1},
+      {"attribute": "surface", "status": "agree", "count": 1},
+      {"attribute": "surface", "status": "disagree", "count": 0},
+      {"attribute": "surface", "status": "missing_osm", "count": 0},
+      {"attribute": "surface", "status": "missing_overture", "count": 0},
+      {"attribute": "surface", "status": "not_comparable", "count": 0},
+      {"attribute": "surface", "status": "ambiguous_link", "count": 1}
+    ],
+    "roads_total": 2,
+    "roads": [],
+    "completeness": []
+  },
+  "candidates": [
+    {
+      "photo_id": "panoramax_0a6b4cd8-442c-42d5-b6fc-8ad81b0ad600",
+      "osm_way_id": 123,
+      "overture_id": "ov-1",
+      "distance_m": 2.0,
+      "distance_m_recomputed": 2.01,
+      "link_status": "ok",
+      "candidate_flags": [],
+      "flags": ["grade_separated"],
+      "reasons": [],
+      "thumb": {"photo_id": "panoramax_0a6b4cd8-442c-42d5-b6fc-8ad81b0ad600", "kind": "photo",
+                "source_url": "javascript:alert(1)", "author": "Jan | Kowalski", "source": "Panoramax",
+                "license": "CC-BY-SA-4.0"},
+      "attributes": [
+        {"attribute": "speed", "status": "disagree", "reason": "delta_kmh=20", "osm_value": "50",
+         "overture_value": "70", "osm_raw": ["maxspeed=50", "name=<script>alert(1)</script>"],
+         "overture_raw": ["{\"max_speed\": {\"unit\": \"km/h\", \"value\": 70}}"]},
+        {"attribute": "surface", "status": "agree", "reason": null, "osm_value": "paved",
+         "overture_value": "paved", "osm_raw": ["surface=asphalt"], "overture_raw": ["paved"]}
+      ],
+      "readings": []
+    },
+    {
+      "photo_id": "panoramax_missing_example",
+      "osm_way_id": 456,
+      "overture_id": null,
+      "distance_m": 3.0,
+      "distance_m_recomputed": 3.0,
+      "link_status": "ambiguous",
+      "candidate_flags": ["ambiguous_candidates"],
+      "flags": [],
+      "reasons": ["ambiguous_candidates"],
+      "thumb": {"photo_id": "panoramax_missing_example", "kind": "photo",
+                "source_url": "https://api.panoramax.xyz/api/collections/x/items/y",
+                "author": "anna", "source": "Panoramax", "license": "CC-BY-SA-4.0"},
+      "attributes": [
+        {"attribute": "speed", "status": "ambiguous_link", "reason": "ambiguous_candidates", "osm_value": null,
+         "overture_value": null, "osm_raw": [], "overture_raw": []},
+        {"attribute": "surface", "status": "ambiguous_link", "reason": "ambiguous_candidates", "osm_value": null,
+         "overture_value": null, "osm_raw": [], "overture_raw": []}
+      ],
+      "readings": []
+    }
+  ],
+  "manual_queue": [
+    {"kind": "ambiguous_link", "photo_id": "panoramax_missing_example", "subject": "speed, surface",
+     "reason": "ambiguous_candidates"}
+  ],
+  "model": {"run": false, "not_run_reason": "Odczyt modelem nie był uruchomiony"},
+  "shows_mapillary_derived": false
+}

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Raport kontroli mapy – Kraków</title>
+<style>
+  body { font-family: system-ui, "Segoe UI", Roboto, Arial, sans-serif; margin: 0 auto; max-width: 1200px; padding: 16px; color: #1b1f24; background: #fff; line-height: 1.45; }
+  h1 { font-size: 1.6rem; } h2 { border-bottom: 2px solid #d0d7de; padding-bottom: 4px; margin-top: 2rem; } h3 { margin-top: 1.4rem; }
+  .disclaimer { background: #fff8c5; border: 1px solid #d4a72c; padding: 8px 12px; border-radius: 6px; }
+  table { border-collapse: collapse; width: 100%; margin: 8px 0 16px; font-size: 0.9rem; }
+  th, td { border: 1px solid #d0d7de; padding: 4px 6px; text-align: left; vertical-align: top; }
+  th { background: #f6f8fa; } td.n { text-align: right; font-variant-numeric: tabular-nums; }
+  code { background: #f6f8fa; padding: 0 3px; border-radius: 3px; font-size: 0.85em; word-break: break-all; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 12px; }
+  .card { border: 1px solid #d0d7de; border-radius: 6px; padding: 8px; }
+  .card img { max-width: 100%; height: auto; display: block; }
+  .placeholder { background: #f6f8fa; border: 1px dashed #8c959f; padding: 24px 8px; text-align: center; color: #57606a; }
+  figcaption, .meta { font-size: 0.8rem; color: #57606a; }
+  .empty { color: #57606a; font-style: italic; }
+  .s-disagree { color: #a40e26; font-weight: 600; } .s-ambiguous_link { color: #9a6700; font-weight: 600; }
+  dl { display: grid; grid-template-columns: max-content 1fr; gap: 2px 8px; margin: 4px 0; font-size: 0.85rem; }
+  dt { font-weight: 600; } dd { margin: 0; word-break: break-word; }
+  footer { margin-top: 2rem; border-top: 1px solid #d0d7de; padding-top: 8px; font-size: 0.85rem; }
+</style>
+</head>
+<body>
+<header>
+<h1>Raport kontroli mapy: atrybuty dróg OSM i Overture (Kraków)</h1>
+<p class="disclaimer">{{ DISCLAIMER }}</p>
+</header>
+<main>
+<section id="naglowek">
+<h2>1. Nagłówek</h2>
+<ul>
+  <li>Data uruchomienia: {{ m.header.run_date }} (identyfikator: <code>{{ m.header.run_id }}</code>)</li>
+  <li>Data wygenerowania raportu: {{ render_date }}</li>
+  <li>Źródło danych: {{ m.header.source_label }}</li>
+  <li>Snapshot OSM: {{ m.header.snapshots.get("osm_extract_date", "–") }}; wydanie Overture: {{ m.header.snapshots.get("overture_release", "–") }}</li>
+</ul>
+<h3>Tabele wejściowe</h3>
+<table><thead><tr><th>Tabela</th><th>Wiersze</th><th>statement_id</th></tr></thead><tbody>
+{% for t in m.header.tables %}<tr><td>{{ t.name }}</td><td class="n">{{ t.rows }}</td><td>{{ t.statement_id or "–" }}</td></tr>
+{% endfor %}</tbody></table>
+<h3>Hashe plików wejściowych (sha256)</h3>
+<table><thead><tr><th>Plik</th><th>sha256</th><th>Zgodność z sources.json</th></tr></thead><tbody>
+{% for f in m.header.files %}<tr><td>{{ f.name }}</td><td><code>{{ f.sha256 }}</code></td><td>{{ f.expected_match or "brak wzorca" }}</td></tr>
+{% endfor %}</tbody></table>
+<h3>Konfiguracja</h3>
+<table><thead><tr><th>Ustawienie</th><th>Wartość</th></tr></thead><tbody>
+{% for k, v in m.header.config.items() %}<tr><td>{{ k }}</td><td>{{ v }}</td></tr>
+{% endfor %}</tbody></table>
+{% if m.header.warnings %}<h3>Ostrzeżenia</h3><ul>{% for w in m.header.warnings %}<li>{{ w }}</li>{% endfor %}</ul>{% endif %}
+{% if m.header.source_comparison %}
+<h3>Porównanie źródeł ({{ m.header.source_label }} kontra {{ m.header.other_source_label }})</h3>
+<table><thead><tr><th>Tabela</th><th>Wybrane źródło</th><th>Drugie źródło</th><th>Klucze tylko w wybranym</th><th>Klucze tylko w drugim</th><th>Zgodne</th></tr></thead><tbody>
+{% for r in m.header.source_comparison %}<tr><td>{{ r.table }}</td><td class="n">{{ r.selected_rows }}</td><td class="n">{{ r.other_rows }}</td><td class="n">{{ r.keys_only_selected if r.keys_only_selected is not none else "–" }}</td><td class="n">{{ r.keys_only_other if r.keys_only_other is not none else "–" }}</td><td>{{ "tak" if r.equal else "NIE" }}</td></tr>
+{% endfor %}</tbody></table>
+{% endif %}
+</section>
+
+<section id="podsumowanie">
+<h2>2. Podsumowanie</h2>
+<ul>
+  <li>Zdjęcia: {{ m.summary.photos }}; pary zdjęcie–droga: {{ m.summary.pairs }}; zdjęcia bez kandydata: {{ m.summary.no_candidate }}</li>
+  <li>Status połączeń: {% for k, v in m.summary.link_status.items() %}<code>{{ k }}</code> {{ v }}{{ "; " if not loop.last }}{% endfor %}</li>
+</ul>
+<h3>Statusy porównania (na parę i atrybut; suma dla atrybutu = liczba par)</h3>
+<table><thead><tr><th>Atrybut</th><th>Status</th><th>Opis</th><th>Liczba</th></tr></thead><tbody>
+{% for c in m.summary.status_counts %}<tr><td><code>{{ c.attribute }}</code></td><td><code>{{ c.status }}</code></td><td>{{ STATUS_LABELS[c.status] }}</td><td class="n" data-counter="{{ c.attribute }}:{{ c.status }}">{{ c.count }}</td></tr>
+{% endfor %}</tbody></table>
+<p>Zgodność OSM–Overture to zgodność snapshotów (Overture w 99% pochodzi z OSM), a nie potwierdzenie poprawności.</p>
+<h3>Statusy per droga (<code>osm_way_id</code>)</h3>
+<p>Liczba dróg z co najmniej jednym zdjęciem: {{ m.summary.roads_total }}. Tabela pokazuje drogi z więcej niż jednym zdjęciem ({{ m.summary.roads | length }}).</p>
+{% if m.summary.roads %}
+<table><thead><tr><th>osm_way_id</th><th>Zdjęcia</th><th>Prędkość</th><th>Nawierzchnia</th></tr></thead><tbody>
+{% for r in m.summary.roads %}<tr><td class="n">{{ r.osm_way_id }}</td><td class="n">{{ r.photos }}</td><td>{% for s, n in r.statuses.get("speed", {}).items() %}{{ s }} {{ n }}{{ ", " if not loop.last }}{% endfor %}</td><td>{% for s, n in r.statuses.get("surface", {}).items() %}{{ s }} {{ n }}{{ ", " if not loop.last }}{% endfor %}</td></tr>
+{% endfor %}</tbody></table>
+{% else %}<p class="empty">Brak pozycji (0).</p>{% endif %}
+<h3>Kompletność atrybutów</h3>
+{% if m.summary.completeness %}
+<table><thead><tr><th>Źródło</th><th>Atrybut</th><th>Populacja</th><th>Z wartością</th><th>Mianownik</th><th>%</th></tr></thead><tbody>
+{% for r in m.summary.completeness %}<tr><td>{{ r.source }}</td><td>{{ r.attribute }}</td><td>{{ "wszystkie drogi" if r.population == "all" else "drogi ze zdjęciem" }}</td><td class="n">{{ r.with_value }}</td><td class="n">{{ r.total }}</td><td class="n">{{ r.pct | pct }}</td></tr>
+{% endfor %}</tbody></table>
+{% else %}<p class="empty">Brak pozycji (0).</p>{% endif %}
+<h3>Odczyt modelem</h3>
+{% if m.model.run %}
+<ul>
+  <li>Żądania w tym uruchomieniu: <span data-counter="model:requests">{{ m.model.requests_this_run }}</span> (limit {{ m.model.max_requests }}); koszt: {{ m.model.cost_this_run_usd | num(4) }} USD (limit {{ m.model.max_cost_usd | num(2) }} USD)</li>
+  <li>Odpowiedzi z cache: {{ m.model.cache_hits }}; suma historyczna w ledgerze: {{ m.model.ledger_total_requests }} żądań, {{ m.model.ledger_total_cost_usd | num(4) }} USD</li>
+  {% if m.model.requests_this_run == 0 %}<li>W tym uruchomieniu nie wykonano nowych żądań (licznik żądań = 0).</li>{% endif %}
+  {% if m.model.stopped_reason %}<li>Płatna pętla zatrzymana: {{ m.model.stopped_reason }}</li>{% endif %}
+</ul>
+<table><thead><tr><th>Pytanie</th><th>Decyzja</th><th>Opis</th><th>Liczba</th></tr></thead><tbody>
+{% for d in m.model.decisions %}<tr><td><code>{{ d.question }}</code></td><td><code>{{ d.decision }}</code></td><td>{{ DECISION_LABELS[d.decision] }}</td><td class="n">{{ d.count }}</td></tr>
+{% endfor %}</tbody></table>
+<table><thead><tr><th>Model</th><th>Poziom</th><th>Pytanie</th><th>Żądania</th><th>Koszt [USD]</th><th>Z cache</th></tr></thead><tbody>
+{% for c in m.model.counters %}<tr><td>{{ c.model }}</td><td>{{ c.tier }}</td><td>{{ c.question }}</td><td class="n">{{ c.requests }}</td><td class="n">{{ c.cost_usd | num(4) }}</td><td class="n">{{ c.cache_hits }}</td></tr>
+{% endfor %}</tbody></table>
+{% else %}<p class="empty">{{ m.model.not_run_reason }}.</p>{% endif %}
+</section>
+
+<section id="kandydaci">
+<h2>3. Kandydaci do przeglądu</h2>
+<p>Pary ze statusem <code>disagree</code>, <code>missing_*</code>, <code>not_comparable</code> lub <code>ambiguous_link</code>. Dystans w metrach, liczony w EPSG:2180.</p>
+{% for g in m.candidate_groups() %}
+<h3>{{ g.label }} (<code>{{ g.attribute }}</code> / <code>{{ g.status }}</code>): {{ g.count }}</h3>
+{% if g.rows %}
+<div class="cards">
+{% for c in g.rows %}
+{% set a = (c.attributes | selectattr("attribute", "equalto", g.attribute) | list)[0] %}
+<article class="card">
+  <figure>
+    {% if c.thumb.src %}<img src="{{ c.thumb.src }}" alt="Zdjęcie {{ c.photo_id }}" loading="lazy">
+    {% else %}<div class="placeholder">Miniatura niedostępna{% if c.thumb.source_url | safe_url %} – <a href="{{ c.thumb.source_url | safe_url }}" rel="noopener noreferrer">źródło</a>{% endif %}</div>{% endif %}
+    <figcaption>Autor: {{ c.thumb.author or "–" }} · Źródło: {{ c.thumb.source or "–" }}{% if c.thumb.source_url | safe_url %} (<a href="{{ c.thumb.source_url | safe_url }}" rel="noopener noreferrer">link</a>){% endif %} · Licencja: {{ c.thumb.license or "–" }}</figcaption>
+  </figure>
+  <dl>
+    <dt>Zdjęcie</dt><dd><code>{{ c.photo_id }}</code></dd>
+    <dt>OSM</dt><dd>{{ c.osm_way_id }}</dd>
+    <dt>Overture</dt><dd><code>{{ c.overture_id or "–" }}</code></dd>
+    <dt>Dystans [m]</dt><dd>{{ c.distance_m_recomputed | num }} (z pliku: {{ c.distance_m | num }})</dd>
+    <dt>Status</dt><dd class="s-{{ a.status }}">{{ a.status }} – {{ STATUS_LABELS[a.status] }}</dd>
+    <dt>Powód</dt><dd>{{ a.reason or "–" }}</dd>
+    <dt>OSM (surowe)</dt><dd>{% for v in a.osm_raw %}<code>{{ v }}</code>{{ " " if not loop.last }}{% else %}–{% endfor %}</dd>
+    <dt>Overture (surowe)</dt><dd>{% for v in a.overture_raw %}<code>{{ v }}</code>{{ " " if not loop.last }}{% else %}–{% endfor %}</dd>
+    <dt>Odczyt zdjęcia (predykcja)</dt><dd>{% for r in c.readings %}{{ r.question }}: {{ r.answer or r.decision }} (tier {{ r.tier or "–" }}, p={{ r.probability | num }}){{ "; " if not loop.last }}{% else %}–{% endfor %}</dd>
+    <dt>Flagi</dt><dd>{{ (c.flags + c.reasons) | unique | join(", ") or "–" }}</dd>
+  </dl>
+</article>
+{% endfor %}
+</div>
+{% else %}<p class="empty">Brak kandydatów (0).</p>{% endif %}
+{% endfor %}
+</section>
+
+<section id="kolejka">
+<h2>4. Kolejka ręczna</h2>
+{% set amb = m.manual_queue | selectattr("kind", "equalto", "ambiguous_link") | list %}
+<h3>Niepewne połączenia (<code>ambiguous_link</code>): {{ amb | length }}</h3>
+{% if amb %}
+<table><thead><tr><th>Zdjęcie</th><th>Dotyczy</th><th>Powód</th></tr></thead><tbody>
+{% for q in amb %}<tr><td><code>{{ q.photo_id }}</code></td><td>{{ q.subject }}</td><td>{{ q.reason or "–" }}</td></tr>
+{% endfor %}</tbody></table>
+{% else %}<p class="empty">Brak pozycji (0).</p>{% endif %}
+<h3>Odczyt modelem: abstencje i <code>model_unavailable</code></h3>
+{% if m.model.run %}
+{% set mq = m.manual_queue | rejectattr("kind", "equalto", "ambiguous_link") | list %}
+<p>Pozycje: {{ mq | length }}</p>
+{% if mq %}
+<table><thead><tr><th>Rodzaj</th><th>Zdjęcie</th><th>Pytanie</th><th>Powód</th></tr></thead><tbody>
+{% for q in mq %}<tr><td><code>{{ q.kind }}</code></td><td><code>{{ q.photo_id }}</code></td><td>{{ q.subject }}</td><td>{{ q.reason or "–" }}</td></tr>
+{% endfor %}</tbody></table>
+{% else %}<p class="empty">Brak pozycji (0).</p>{% endif %}
+{% else %}<p class="empty">{{ m.model.not_run_reason }}.</p>{% endif %}
+</section>
+
+<section id="ewaluacja">
+<h2>5. Ewaluacja modelu</h2>
+{% if m.model.run %}
+<p>Progi (zamrożone przy potwierdzeniu): {% for k, v in m.model.thresholds.items() %}{{ k }}={{ v }}{{ "; " if not loop.last }}{% endfor %}. Wersja pytań: <code>{{ m.model.question_set_version }}</code>. Pewność tier 2 to samoocena modelu, nie skalibrowane prawdopodobieństwo.</p>
+<p>Próbka: {% for k, v in m.model.sample.items() %}{{ k }}={{ v }}{{ "; " if not loop.last }}{% endfor %}.</p>
+<h3>Predykcje (osobno: odpowiedzi, abstencje, <code>model_unavailable</code>)</h3>
+{% if m.model.readings %}
+<table><thead><tr><th>Zdjęcie</th><th>Rodzaj</th><th>Pytanie</th><th>Decyzja</th><th>Predykcja</th><th>Tier</th><th>Model</th><th>p (tier 1)</th><th>Pewność (tier 2)</th><th>Tier 1 przed eskalacją</th><th>Powód</th></tr></thead><tbody>
+{% for r in m.model.readings %}<tr><td><code>{{ r.photo_id }}</code></td><td>{{ r.kind }}</td><td><code>{{ r.question }}</code></td><td><code>{{ r.decision }}</code></td><td>{{ r.answer or "–" }}</td><td class="n">{{ r.tier or "–" }}</td><td>{{ r.model or "–" }}</td><td class="n">{{ r.probability | num }}</td><td>{{ r.certainty or "–" }}</td><td>{{ r.tier1_answer or "–" }} ({{ r.tier1_probability | num }})</td><td>{{ r.reason or "–" }}</td></tr>
+{% endfor %}</tbody></table>
+{% else %}<p class="empty">Brak pozycji (0).</p>{% endif %}
+<h3>Metryki względem etykiet referencyjnych (tylko <code>certain</code>)</h3>
+{% if m.model.evaluation %}
+<table><thead><tr><th>Pytanie</th><th>Model</th><th>Poziom</th><th>Oceniane</th><th>Poprawne</th><th>Odpowiedzi</th><th>Abstencje</th><th>Niedostępne</th><th>Nie uruchomiono</th><th>Wykluczone <code>uncertain</code></th><th>Accuracy (wszystkie)</th><th>Pokrycie</th><th>Accuracy po abstencji</th></tr></thead><tbody>
+{% for e in m.model.evaluation %}<tr><td><code>{{ e.question }}</code></td><td>{{ e.model }}</td><td>{{ e.tier }}</td><td class="n">{{ e.evaluated }}</td><td class="n">{{ e.correct }}</td><td class="n">{{ e.answered }}</td><td class="n">{{ e.abstained }}</td><td class="n">{{ e.unavailable }}</td><td class="n">{{ e.not_run }}</td><td class="n">{{ e.uncertain_excluded }}</td><td class="n">{{ e.accuracy_all }}</td><td class="n">{{ e.coverage }}</td><td class="n">{{ e.selective_accuracy }}</td></tr>
+{% endfor %}</tbody></table>
+{% else %}<p class="empty">Brak pozycji (0).</p>{% endif %}
+<h3>Porównanie modeli decyzyjnych na 5 obrazach (tier 1, bez eskalacji)</h3>
+{% if m.model.comparison %}
+<ul>{% for k, v in m.model.comparison_summary.items() %}<li>{{ k }}: {{ v }}</li>{% endfor %}</ul>
+<table><thead><tr><th>Zdjęcie</th><th>Pytanie</th><th>Luna</th><th>p Luna</th><th>Jev</th><th>p Jev</th><th>Zgodne</th><th>Δ max(p)</th></tr></thead><tbody>
+{% for r in m.model.comparison %}<tr><td><code>{{ r.photo_id }}</code></td><td><code>{{ r.question }}</code></td><td>{{ r.luna_answer or "–" }}</td><td class="n">{{ r.luna_p | num }}</td><td>{{ r.jev_answer or "–" }}</td><td class="n">{{ r.jev_p | num }}</td><td>{{ "tak" if r.same else ("nie" if r.same is not none else "–") }}</td><td class="n">{{ r.p_diff | num }}</td></tr>
+{% endfor %}</tbody></table>
+{% else %}<p class="empty">Brak pozycji (0).</p>{% endif %}
+<h3>Odczyt zdjęcia obok wartości mapy (zestawienie, nie werdykt)</h3>
+{% if m.model.map_comparison %}
+<table><thead><tr><th>Zdjęcie</th><th>Pytanie</th><th>Predykcja</th><th>Decyzja</th><th>Wartości mapy</th><th>Uwaga</th></tr></thead><tbody>
+{% for r in m.model.map_comparison %}<tr><td><code>{{ r.photo_id }}</code></td><td><code>{{ r.question }}</code></td><td>{{ r.prediction or "–" }}</td><td><code>{{ r.decision }}</code></td><td>{{ r.map_values }}</td><td>{{ r.note or "–" }}</td></tr>
+{% endfor %}</tbody></table>
+{% else %}<p class="empty">Brak pozycji (0).</p>{% endif %}
+{% else %}<p class="empty">{{ m.model.not_run_reason }}.</p>{% endif %}
+</section>
+
+<section id="ograniczenia">
+<h2>6. Ograniczenia i atrybucja</h2>
+<ul>
+  <li>{{ DISCLAIMER }}</li>
+  <li>Etykiety referencyjne są roboczą referencją przygotowaną przez agentów AI (znaki: dwa modele), a nie prawdą terenową.</li>
+  <li>Daty źródeł się różnią: OSM {{ m.header.snapshots.get("osm_extract_date", "–") }}, Overture {{ m.header.snapshots.get("overture_release", "–") }}, zdjęcia z różnych lat (część sprzed 2024 r.).</li>
+  <li>Połączenia zdjęcie–droga to kandydaci z <code>photo_road_links.csv</code>, a nie pewne przypisanie. Kierunek kamery nie jest kierunkiem jazdy, a pozycja aparatu nie jest pozycją znaku.</li>
+  <li>Zdjęcia: licencja CC BY-SA 4.0; autor i źródło podane przy każdej miniaturze.</li>
+</ul>
+</section>
+</main>
+<footer>
+  <p>© OpenStreetMap contributors, ODbL 1.0</p>
+  <p>Overture Maps Foundation, ODbL 1.0 (release {{ m.header.snapshots.get("overture_release", "–") }})</p>
+  {% if m.shows_mapillary_derived %}<p>Mapillary – metadane pochodne, ODbL 1.0</p>{% endif %}
+</footer>
+</body>
+</html>
