@@ -6,7 +6,7 @@ import time
 
 import pytest
 
-from conftest import REPO_ROOT, cli_env
+from tests.conftest import REPO_ROOT, cli_env
 from map_qa.core.paths import sha256_file
 
 INPUTS = ["osm_roads.parquet", "overture_segments.parquet", "photos.csv", "photo_road_links.csv",

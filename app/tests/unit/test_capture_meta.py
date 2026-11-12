@@ -6,7 +6,7 @@ import re
 import pytest
 
 from map_qa.core.capture import REQUIRED_FIELDS, build_capture, mask_host, redact_presigned, scrub
-from conftest import FIXTURES
+from tests.conftest import FIXTURES
 
 CAPTURES = sorted((FIXTURES / "captures").glob("*.json"))
 

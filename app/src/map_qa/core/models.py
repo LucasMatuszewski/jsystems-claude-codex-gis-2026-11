@@ -59,3 +59,12 @@ class CompletenessRow(BaseModel):
     with_value: int
     total: int
     pct: float
+
+
+class SourceCompareRow(BaseModel):
+    table: str
+    selected_rows: int | None
+    other_rows: int | None
+    keys_only_selected: int | None = None
+    keys_only_other: int | None = None
+    equal: bool

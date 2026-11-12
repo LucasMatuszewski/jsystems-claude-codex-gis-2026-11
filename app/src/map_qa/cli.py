@@ -73,7 +73,7 @@ def main(argv: list[str] | None = None, *, env: dict[str, str] | None = None, st
             from map_qa.report.rerender import rerender
             return rerender(args.from_path, args.output_dir, out=out)
         if args.command == "capture":
-            from map_qa.photo_reading.capture_cli import run_capture
+            from map_qa.pipeline import run_capture
             cfg = load_config({"config": args.config}, env)
             return run_capture(cfg, env, kind=args.kind, yes=bool(args.yes), image=args.image, name=args.name,
                                captures_dir=args.captures_dir, out=out, ask=ask or input)

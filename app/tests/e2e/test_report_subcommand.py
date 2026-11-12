@@ -2,7 +2,7 @@
 import shutil
 import subprocess
 
-from conftest import REPO_ROOT, cli_env
+from tests.conftest import REPO_ROOT, cli_env
 
 
 def run(*args):

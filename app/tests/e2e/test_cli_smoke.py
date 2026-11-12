@@ -1,6 +1,6 @@
 import subprocess
 
-from conftest import REPO_ROOT, cli_env
+from tests.conftest import REPO_ROOT, cli_env
 
 
 def test_help_lists_three_subcommands():

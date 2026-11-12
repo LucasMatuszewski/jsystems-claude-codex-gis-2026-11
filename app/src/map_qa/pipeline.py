@@ -212,7 +212,7 @@ def run(ctx: RunContext) -> int:
         if cfg.compare_sources:
             from map_qa.sources.compare import compare_sources
             other = "databricks" if cfg.source == "files" else "files"
-            source_comparison = compare_sources(con, make_source(cfg, ctx.env, other))
+            source_comparison = compare_sources(con, make_source(cfg, ctx.env, other), cfg.work_dir)
             other_label = SOURCE_LABELS[other]
             for row in source_comparison:
                 if not row.equal:
@@ -313,3 +313,35 @@ def print_summary(ctx: RunContext, model: ReportModel, out_dir: Path) -> None:
     if (out_dir / "sample_manifest.json").exists() and model.model.run:
         w(f"Zapisano: {out_dir / 'sample_manifest.json'}\n")
     w("Kod wyjścia: 0\n")
+
+
+# ---------------------------------------------------------------- capture (ADR-004 §3.1, ADR-003 §5.8)
+
+DEFAULT_CAPTURES_DIR = Path("app/tests/fixtures/captures")
+
+
+def confirm(prompt: str, yes: bool, ask: Callable[[str], str], out: TextIO) -> bool:
+    if yes:
+        return True
+    out.write(prompt)
+    out.flush()
+    try:
+        return ask("Potwierdzić? [y/N] ").strip().lower() in ("y", "yes", "t", "tak")
+    except EOFError:
+        return False
+
+
+def run_capture(cfg: RunConfig, env: dict[str, str], *, kind: str, yes: bool, image: str | None, name: str | None,
+                captures_dir: str | None, out: TextIO, ask: Callable[[str], str]) -> int:
+    target_dir = Path(captures_dir) if captures_dir else DEFAULT_CAPTURES_DIR
+    if kind == "databricks":
+        from map_qa.sources.databricks import record_capture, required_env
+        required_env(env)  # exit 3 before asking when a variable is missing
+        if not confirm("Jedno rzeczywiste zapytanie SELECT (photos LIMIT 5) do Databricks.\n", yes, ask, out):
+            out.write("Anulowano: nie wysłano żadnego żądania.\n")
+            return 0
+        record_capture(env, target_dir, name=name or "databricks-photos-limit5", out=out, timeout_s=cfg.timeout_s)
+        return 0
+    from map_qa.photo_reading.capture_cli import run_model_capture
+    return run_model_capture(cfg, env, kind=kind, yes=yes, image=image, name=name, captures_dir=target_dir, out=out,
+                             ask=ask)

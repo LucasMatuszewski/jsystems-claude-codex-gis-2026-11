@@ -177,3 +177,50 @@ class DatabricksSource:
             manifest.tables.append(TableInfo(name=view, rows=n, path=rel, sha256=fh.sha256))
         manifest.warnings.extend(hash_warnings(manifest.files))
         return manifest
+
+
+def record_capture(env: dict[str, str], captures_dir: Path, name: str = "databricks-photos-limit5",
+                   out=None, timeout_s: float = 40.0) -> Path:
+    """`map-qa capture --kind databricks`: one real `SELECT * ... photos LIMIT 5` (ARROW_STREAM + EXTERNAL_LINKS),
+    statement JSON + first chunk written per the ADR-003 §5.8 capture schema (replaces app/tools script)."""
+    import hashlib
+
+    from map_qa.core.capture import build_capture, mask_host, write_capture
+
+    host, token, warehouse = required_env(env)
+    statement = "SELECT * FROM workspace.map_qa.photos LIMIT 5"
+    body = {"warehouse_id": warehouse, "statement": statement, "format": "ARROW_STREAM",
+            "disposition": "EXTERNAL_LINKS", "wait_timeout": "30s", "on_wait_timeout": "CONTINUE"}
+    ver = f"httpx {httpx.__version__}; Databricks SQL Statement Execution API 2.0"
+    captures_dir = Path(captures_dir)
+    src = DatabricksSource(Path("."), Path("."), env=env, timeout_s=timeout_s)
+    with make_client(timeout_s) as client:
+        t0 = time.monotonic()
+        resp = src._request(client, "POST", f"{host}/api/2.0/sql/statements", token, json=body)
+        elapsed = (time.monotonic() - t0) * 1000
+        try:
+            doc = resp.json()
+        except ValueError:
+            doc = {"raw_text": resp.text[:2000]}
+        links = (doc.get("result") or {}).get("external_links") or [] if isinstance(doc, dict) else []
+        if links:
+            t1 = time.monotonic()
+            chunk = src._request(client, "GET", links[0]["external_link"], None)
+            chunk_file = f"{name}.chunk0.arrow"
+            captures_dir.mkdir(parents=True, exist_ok=True)
+            (captures_dir / chunk_file).write_bytes(chunk.content)
+            write_capture(build_capture(
+                target="databricks", endpoint="<presigned external_link>", method="GET", status=chunk.status_code,
+                response_headers=dict(chunk.headers), response_body=None,
+                elapsed_ms=(time.monotonic() - t1) * 1000, request_meta={"chunk_index": 0, "statement": statement},
+                client_version=ver, body_file=chunk_file, body_sha256=hashlib.sha256(chunk.content).hexdigest()),
+                captures_dir / f"{name}.chunk0.json")
+        meta = {"host": mask_host(host), "statement": statement,
+                "body": {k: ("<warehouse_id>" if k == "warehouse_id" else v) for k, v in body.items()}}
+        path = write_capture(build_capture(
+            target="databricks", endpoint="/api/2.0/sql/statements", method="POST", status=resp.status_code,
+            response_headers=dict(resp.headers), response_body=doc, elapsed_ms=elapsed, request_meta=meta,
+            client_version=ver), captures_dir / f"{name}.json")
+    if out is not None:
+        out.write(f"Zapisano capture: {path} (HTTP {resp.status_code})\n")
+    return path
