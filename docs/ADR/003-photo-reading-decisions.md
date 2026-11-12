@@ -91,7 +91,7 @@ Nie używamy bezpośrednich API dostawców (OpenAI, TypeSafe) ani ich SDK (ADR-0
 Jeden przygotowany obraz na plik, używany przez **wszystkie** modele, żeby porównanie było sprawiedliwe:
 
 1. `exif_transpose` (Jev nie obraca według EXIF).
-2. Gdy krótszy bok < 256 px, powiększenie Lanczos do 256 px (małe wycinki znaków). Gdy dłuższy bok > 1568 px, zmniejszenie do 1568 px. Proporcje zachowane. Jeśli po skalowaniu suma pikseli wypada poza 78 400–2 458 624, obraz jest odrzucany z powodem `image_out_of_bounds` i trafia do `not_run`.
+2. Gdy krótszy bok < 256 px **albo obraz ma < 78 400 px**, powiększenie Lanczos tak, by spełnić oba warunki (doprecyzowane przy implementacji T40, 2026-11-12: samo 256 px dawało dla prawie kwadratowych wycinków np. 256×299 = 76 544 px i odrzucało 99 ze 119 wycinków). Gdy dłuższy bok > 1568 px, zmniejszenie do 1568 px. Proporcje zachowane. Jeśli po skalowaniu suma pikseli wypada poza 78 400–2 458 624, obraz jest odrzucany z powodem `image_out_of_bounds` i trafia do `not_run`.
 3. Zapis JPEG, quality 92, bez metadanych EXIF (usuwa też ewentualne GPS z pliku).
 4. `image_sha256` liczony z przygotowanych bajtów. Przygotowany plik trafia do cache.
 
