@@ -32,6 +32,17 @@ Secrets come only from environment variables; a TOML key that looks like a secre
 Exit codes: `0` report written (also when the paid loop stopped on an API error), `2` configuration,
 `3` source unavailable / missing variable, `4` input schema mismatch, `5` input changed during the run.
 
+## Thumbnails (all photos)
+
+The repository ships 40 photos in `offline/`. To show a thumbnail for every candidate, fetch the rest once into the
+git-ignored `data/photos/` (public Panoramax/Mapillary files, hash-checked; a few may return 404 at the source):
+
+```powershell
+uv run --python 3.12 --with pillow==12.0.0 python -I app/tools/fetch_photos.py course-materials/exercise-data/map-qa
+```
+
+Missing photos are shown as a placeholder linking to the source page (PRD AC-27).
+
 ## Work files
 
 Cache, ledger (`ledger.jsonl`), prepared images, DuckDB extensions and the Databricks materialization live in the
