@@ -4,6 +4,55 @@ import pytest
 import jira_read as reader
 
 
+def test_bitbucket_reader_preserves_captured_evidence_and_repo_identity():
+    api = reader.OfflineReader()
+    bundles = api.list_prs(source='bitbucket')
+    assert len(bundles) == 10
+    assert len(api.list_prs()) == 10  # GitHub remains the default.
+    pr = api.get_pr(1, source='bitbucket')
+    assert pr['pr']['data']['id'] == 1
+    text = reader.format_pr(pr, source='bitbucket')
+    assert 'TEST-12' in text and 'bitbucket.org/course-workspace/map-data-jobs-pipelines/' in text
+    assert 'hash' in pr['commits']['data']['values'][0]
+    for query, number in [('TEST-21', 4), ('TSET-9', 5), ('TEST-24', 8), ('TEST-99', 7)]:
+        assert number in [b['pr']['data']['id'] for b in api.list_prs(query, source='bitbucket')]
+    unrelated = api.get_pr(1, source='bitbucket', repo='ai-php-course-08-2026')
+    assert 'ai-php-course-08-2026' in reader.format_pr(unrelated, source='bitbucket')
+    assert unrelated != pr
+    assert len(api.list_prs(source='bitbucket', repo='map-data-jobs-pipelines')) == 9
+    with pytest.raises(ValueError):
+        api.list_prs(source='../../tickets')
+    with pytest.raises(ValueError):
+        api.get_pr(99, source='bitbucket')
+
+
+def test_remote_links_keep_correct_and_wrong_ticket_without_repair():
+    api = reader.OfflineReader()
+    for key, number in [('TEST-12', 1), ('TEST-17', 2), ('TEST-15', 3), ('TEST-13', 9)]:
+        links = api.get_remote_links(key)
+        assert len(links) == 1
+        assert links[0]['object']['url'].endswith(f'/pull-requests/{number}')
+        assert '/ex/jira/00000000-0000-0000-0000-000000000000/' in links[0]['self']
+    assert api.get_remote_links('TEST-1') == []
+    with pytest.raises(ValueError):
+        api.get_remote_links('TEST-999')
+
+
+def test_bitbucket_and_remotelinks_cli(capsys):
+    assert reader.main(['--offline', 'prs', '--source', 'bitbucket'], env={}) == 0
+    assert 'Liczba PR: 10' in capsys.readouterr().out
+    assert reader.main(['--offline', 'pr', '8', '--source', 'bitbucket'], env={}) == 0
+    text = capsys.readouterr().out
+    assert 'TEST-24' in text and 'Sprawdźcie wersję wydania w YAML' in text
+    assert 'brak osobnego zasobu diff' in text
+    assert reader.main(['--offline', 'pr', '1', '--source', 'bitbucket', '--repo', 'ai-php-course-08-2026'], env={}) == 0
+    assert 'ai-php-course-08-2026' in capsys.readouterr().out
+    assert reader.main(['--offline', 'remotelinks', 'TEST-13'], env={}) == 0
+    assert '/pull-requests/9' in capsys.readouterr().out
+    assert reader.main(['remotelinks', 'TEST-13'], env={}) == 1
+    assert 'offline' in capsys.readouterr().err
+
+
 def test_list_search_and_get_confluence_pages():
     with reader.OfflineReader() as api:
         assert len(api.search_pages('')) == 5

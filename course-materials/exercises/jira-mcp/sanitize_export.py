@@ -6,6 +6,7 @@ import argparse
 import json
 from pathlib import Path
 import re
+import sys
 from urllib.parse import quote
 
 UUID = r'[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}'
@@ -105,10 +106,25 @@ def markdown_to_adf(markdown):
 
 def sanitize(raw):
     """Two passes remove identities also when repeated in URLs or free text."""
-    replacements, accounts = {}, {}
+    replacements, accounts, bitbucket_users = {'devpowers': 'course-workspace'}, {}, {}
 
     def collect(node, context=''):
         if isinstance(node, dict):
+            if node.get('display_name') or node.get('account_id') or ((node.get('type') == 'user' or context in ('author', 'user', 'reviewer', 'committer')) and (node.get('uuid') or node.get('nickname'))):
+                identities = [node[k] for k in ('account_id', 'uuid', 'display_name', 'nickname') if node.get(k)]
+                alias = next((bitbucket_users[v] for v in identities if v in bitbucket_users), None)
+                if alias is None:
+                    existing = next((re.search(r'course-(?:account|user)-(\d+)', v) for v in identities if re.search(r'course-(?:account|user)-(\d+)', v)), None)
+                    alias = existing[1] if existing else str(len(set(bitbucket_users.values())) + 1)
+                for value in identities:
+                    bitbucket_users[value] = alias
+                for key, prefix in (('account_id', 'course-account-'), ('uuid', '{course-user-'), ('display_name', 'Autor kursowy '), ('nickname', 'course-user-')):
+                    if node.get(key):
+                        replacements[node[key]] = prefix + alias + ('}' if key == 'uuid' else '')
+            if context == 'author' and node.get('raw'):
+                name = node['raw'].split('<', 1)[0].strip()
+                if name:
+                    replacements.setdefault(name, 'Autor (kurs)')
             account = node.get('accountId')
             if account:
                 accounts.setdefault(account, f'712020:course-user-{len(accounts) + 1}')
@@ -165,6 +181,8 @@ def sanitize(raw):
                     result[key] = markdown_to_adf(scrub(value).replace(r'\[', '[').replace(r'\]', ']'))
                 elif key in ('avatarUrl', 'avatar_url'):
                     result[key] = AVATAR
+                elif key == 'avatar' and isinstance(value, dict):
+                    result[key] = {'href': AVATAR}
                 elif key == 'displayName':
                     result[key] = 'Analityk (kurs)'
                 elif key == 'description' and isinstance(value, str):
@@ -210,6 +228,28 @@ def sanitize_prs(raw):
 
 
 def main(argv=None):
+    argv = sys.argv[1:] if argv is None else argv
+    if argv and argv[0] == 'bitbucket':
+        parser = argparse.ArgumentParser(description='Sanitize a Bitbucket export and extract Jira remote links')
+        parser.add_argument('raw_export', type=Path)
+        parser.add_argument('prs', type=Path)
+        parser.add_argument('--remote-links', type=Path, required=True)
+        args = parser.parse_args(argv[1:])
+        paths = [p.resolve() for p in (args.raw_export, args.prs, args.remote_links)]
+        if len(set(paths)) != len(paths):
+            parser.error('Input and output paths must be distinct')
+        clean = sanitize_prs(json.loads(args.raw_export.read_text(encoding='utf-8')))
+        links = {}
+        for bundle in clean['pull_requests'] + clean.get('other_repo_pull_requests', []):
+            for key, values in bundle.get('jira_remote_links', {}).items():
+                bucket = links.setdefault(key, [])
+                for value in values:
+                    if value not in bucket:
+                        bucket.append(value)
+        for path, document in ((args.prs, clean), (args.remote_links, links)):
+            path.write_text(json.dumps(document, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+        print('Sanitized Bitbucket export and remote links; raw values were not logged.')
+        return
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('raw_export', type=Path)
     parser.add_argument('tickets', type=Path)

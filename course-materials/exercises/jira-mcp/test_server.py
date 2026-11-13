@@ -7,6 +7,16 @@ from pathlib import Path
 import pytest
 
 
+def test_bitbucket_and_remote_link_tools(server):
+    assert len(server.list_prs(source='bitbucket').splitlines()) == 10
+    assert 'TEST-21' in server.get_pr(4, source='bitbucket')
+    assert 'ai-php-course-08-2026' in server.get_pr(1, source='bitbucket', repo='ai-php-course-08-2026')
+    assert '/pull-requests/9' in server.get_remote_links('TEST-13')
+    assert server.get_remote_links('TEST-1') == 'Brak linków zewnętrznych.'
+    with pytest.raises(ValueError):
+        server.list_prs(source='gitlab')
+
+
 @pytest.fixture(scope="module")
 def server():
     path = Path(__file__).with_name("server.py")

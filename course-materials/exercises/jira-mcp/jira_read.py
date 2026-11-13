@@ -190,7 +190,37 @@ def format_page(page):
     return f'{page["id"]} | {page["title"]}\nRodzic: {page.get("parentId") or "Brak"}\nPrzestrzeń: {page["spaceId"]}\nWersja: {json.dumps(page["version"], ensure_ascii=False)}\nLinki: {json.dumps(page.get("_links", {}), ensure_ascii=False)}\n' + ''.join(parser.parts).strip()
 
 
-def format_pr(bundle):
+def pr_metadata(bundle, source='github'):
+    """A display view only; keep each provider's captured response unchanged."""
+    if source == 'github':
+        pr = bundle['pr']
+        return pr['number'], pr['state'], pr['title'], pr['html_url']
+    if source == 'bitbucket':
+        pr = bundle['pr']['data']
+        return pr['id'], pr['state'], pr['title'], pr['links']['html']['href']
+    raise ValueError('Invalid PR source: use github or bitbucket')
+
+
+def format_remote_links(links):
+    return '\n'.join(json.dumps(link, ensure_ascii=False) for link in links) or 'Brak linków zewnętrznych.'
+
+
+def format_pr(bundle, source='github'):
+    if source == 'bitbucket':
+        pr = bundle['pr']['data']
+        number, state, title, url = pr_metadata(bundle, source)
+        lines = [f'bitbucket PR #{number} | {title}', f'Stan: {state}', f'URL: {url}', f'Gałąź: {pr["source"]["branch"]["name"]}', f'Utworzono: {pr.get("created_on", "")}', 'Opis:', pr.get('summary', {}).get('raw', ''), 'Commity:']
+        for commit in bundle['commits']['data']['values']:
+            lines.append(f'{commit["hash"]} | {commit["message"]}')
+        lines.append('Komentarze:')
+        for comment in bundle['comments']['data']['values']:
+            lines.append(f'comment:{comment["id"]} | {comment.get("created_on", "")} | {comment.get("user", {}).get("display_name", "")}\n{comment["content"].get("raw", "")}')
+        lines.append('Linki Jira:')
+        for key, links in bundle.get('jira_remote_links', {}).items():
+            lines.append(key + '\n' + format_remote_links(links))
+        lines.append('Diffy: brak osobnego zasobu diff w tym snapshocie; użyj dostępnej treści opisu i commitów.')
+        return '\n'.join(lines)
+    pr_metadata(bundle, source)  # Reject unknown providers before accessing data.
     # Commits and discussion comments are separate REST resources in the bundle.
     pr = bundle['pr']
     lines = [f'PR #{pr["number"]} | {pr["title"]}', f'Stan: {pr["state"]}', f'URL: {pr["html_url"]}', f'Gałąź: {pr["head"]["ref"]}', f'Utworzono: {pr.get("created_at", "")}', 'Opis:', pr.get('body') or '', 'Commity:']
@@ -209,6 +239,7 @@ def format_pr(bundle):
 class OfflineReader:
     """Read a captured search response. A deliberately bounded JQL subset."""
     def __init__(self, path=DATA_PATH):
+        self.data_dir = Path(path).parent
         self.tickets = json.loads(Path(path).read_text(encoding="utf-8"))["issues"]
         self.by_key = {issue["key"]: issue for issue in self.tickets}
 
@@ -231,7 +262,7 @@ class OfflineReader:
         return sorted(self.get_issue(key)["fields"].get("comment", {}).get("comments", []), key=lambda c: (c["created"], c["id"]))
 
     def _references(self, filename, collection):
-        path = DATA_PATH.parent / filename
+        path = self.data_dir / filename
         if not path.is_file():
             raise ValueError(f"Brak snapshotu {filename}; zgłoś prowadzącemu")
         return json.loads(path.read_text(encoding="utf-8"))[collection]
@@ -247,16 +278,31 @@ class OfflineReader:
                 return page
         raise ValueError(f'Nie znaleziono strony: {page_id}')
 
-    def list_prs(self, query=""):
-        return [pr for pr in self._references('github-prs.json', 'pull_requests') if all(word in format_pr(pr).casefold() for word in query.casefold().split())]
+    def list_prs(self, query="", source='github', repo=None):
+        if source not in ('github', 'bitbucket'):
+            raise ValueError('Invalid PR source: use github or bitbucket')
+        bundles = self._references(source + '-prs.json', 'pull_requests')
+        if source == 'bitbucket':
+            bundles += self._references('bitbucket-prs.json', 'other_repo_pull_requests')
+        return [bundle for bundle in bundles if (repo is None or pr_metadata(bundle, source)[3].split('/')[4] == repo) and all(word in format_pr(bundle, source).casefold() for word in query.casefold().split())]
 
-    def get_pr(self, number):
+    def get_pr(self, number, source='github', repo=None):
         if not re.fullmatch(r'[1-9][0-9]*', str(number)):
             raise ValueError('Invalid PR number')
-        for pr in self.list_prs():
-            if pr['pr']['number'] == int(number):
+        # Bitbucket numbers are repository-local. Default to the exercise repo.
+        if source == 'bitbucket' and repo is None:
+            repo = 'map-data-jobs-pipelines'
+        for pr in self.list_prs(source=source, repo=repo):
+            if pr_metadata(pr, source)[0] == int(number):
                 return pr
         raise ValueError(f'Nie znaleziono PR: {number}')
+
+    def get_remote_links(self, key):
+        key = self.get_issue(key)['key']
+        path = self.data_dir / 'remote-links.json'
+        if not path.is_file():
+            raise ValueError('Brak snapshotu remote-links.json; zgłoś prowadzącemu')
+        return json.loads(path.read_text(encoding='utf-8')).get(key, [])
 
     def search_text(self, query, status=None):
         return [issue for issue in self.tickets if (not status or issue["fields"]["status"]["name"].casefold() == status.casefold()) and all(word in (format_issue(issue, self.children(issue["key"])) + " " + format_comments(self.comments(issue["key"]))).casefold() for word in query.casefold().split())]
@@ -303,16 +349,20 @@ def main(argv=None, *, env=None, transport=None):
     sub.add_parser("search").add_argument("jql")
     for command in ("get", "comments"):
         sub.add_parser(command).add_argument("key")
-    for command in ('pages', 'prs'):
-        sub.add_parser(command).add_argument('query', nargs='?', default='')
+    sub.add_parser('pages').add_argument('query', nargs='?', default='')
     sub.add_parser('page').add_argument('id')
-    sub.add_parser('pr').add_argument('number')
+    sub.add_parser('remotelinks').add_argument('key')
+    for command, argument in (('prs', 'query'), ('pr', 'number')):
+        command_parser = sub.add_parser(command)
+        command_parser.add_argument(argument, **({'nargs': '?', 'default': ''} if command == 'prs' else {}))
+        command_parser.add_argument('--source', choices=('github', 'bitbucket'), default='github')
+        command_parser.add_argument('--repo', help='Repository name; Bitbucket PR numbers are repository-local')
     args = parser.parse_args(argv)
     try:
         environment = os.environ if env is None else env
         offline = args.offline or environment.get("JIRA_OFFLINE") == "1"
-        if args.command in ('pages', 'page', 'prs', 'pr') and not offline:
-            raise ValueError('Confluence i GitHub: te polecenia wymagają trybu --offline')
+        if args.command in ('pages', 'page', 'prs', 'pr', 'remotelinks') and not offline:
+            raise ValueError('Confluence, PR i linki zewnętrzne: te polecenia wymagają trybu --offline')
         api = OfflineReader() if offline else JiraReader(Settings.from_env(environment), transport=transport)
         with api:
             if args.command == "search":
@@ -330,11 +380,13 @@ def main(argv=None, *, env=None, transport=None):
             elif args.command == 'page':
                 print(format_page(api.get_page(args.id)))
             elif args.command == 'prs':
-                prs = api.list_prs(args.query)
-                print('\n'.join(f'{p["pr"]["number"]} | {p["pr"]["state"]} | {p["pr"]["title"]}' for p in prs))
+                prs = api.list_prs(args.query, source=args.source, repo=args.repo)
+                print('\n'.join(f'{n} | {s} | {t} | {u}' for n, s, t, u in (pr_metadata(p, args.source) for p in prs)))
                 print(f'Liczba PR: {len(prs)}')
             elif args.command == 'pr':
-                print(format_pr(api.get_pr(args.number)))
+                print(format_pr(api.get_pr(args.number, source=args.source, repo=args.repo), args.source))
+            elif args.command == 'remotelinks':
+                print(format_remote_links(api.get_remote_links(args.key)))
         return 0
     except (ValueError, KeyError, TypeError, OSError) as error:
         # Do not echo response bodies, URLs, environment values or exception chains.

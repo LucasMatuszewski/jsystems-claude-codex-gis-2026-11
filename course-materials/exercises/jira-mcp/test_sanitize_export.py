@@ -7,6 +7,37 @@ import pytest
 import sanitize_export as sanitizer
 
 
+def test_bitbucket_identities_are_stable_in_text_urls_and_commit_raw():
+    user = {'type': 'user', 'uuid': '{private-uuid}', 'account_id': 'private-account',
+            'display_name': 'Invented Person', 'nickname': 'private-handle',
+            'links': {'avatar': {'href': 'https://avatar.invalid/private'}}}
+    raw = {'workspace': 'devpowers', 'repo': 'map-data-jobs-pipelines',
+           'author': user, 'reviewer': copy.deepcopy(user),
+           'commit': {'author': {'raw': 'Invented Person <fake@example.invalid>', 'user': user}},
+           'description': 'Invented Person private-account {private-uuid} private-handle',
+           'url': 'https://bitbucket.org/devpowers/map-data-jobs-pipelines/pull-requests/1',
+           'jira': 'https://edukey.atlassian.net/browse/TEST-12'}
+    original = copy.deepcopy(raw)
+    clean = sanitizer.sanitize_prs(raw)
+    text = json.dumps(clean).casefold()
+    assert all(s not in text for s in ('devpowers', 'edukey', 'invented person', 'private-', 'fake@example.invalid'))
+    assert clean['workspace'] == 'course-workspace'
+    assert clean['repo'] == raw['repo']
+    assert clean['author'] == clean['reviewer'] == clean['commit']['author']['user']
+    assert 'bitbucket.org/course-workspace/' in text and 'course-site.atlassian.net' in text
+    assert clean['author']['links']['avatar']['href'] == sanitizer.AVATAR
+    assert raw == original
+    assert sanitizer.sanitize_prs(clean) == clean
+
+
+def test_sparse_bitbucket_user_uuid_is_scrubbed_without_type_or_display_name():
+    raw = {'author': {'uuid': '{invented-user-id}'}, 'body': 'User {invented-user-id}'}
+    clean = sanitizer.sanitize_prs(raw)
+    assert 'invented-user-id' not in json.dumps(clean)
+    assert clean['author']['uuid'] in clean['body']
+    assert sanitizer.sanitize_prs(clean) == clean
+
+
 def test_scrubs_nested_identities_and_embedded_values_without_mutating_input():
     cloud = '12345678-1234-1234-1234-123456789abc'
     user = {'accountId': 'private-id-123', 'displayName': 'Private Person', 'emailAddress': 'person@example.invalid', 'avatarUrls': {'48x48': 'https://avatar.invalid/private'}, 'timeZone': 'Europe/Warsaw'}
@@ -122,9 +153,21 @@ def test_snapshot_identity_audit():
     from pathlib import Path
     import re
     data = Path(__file__).resolve().parents[2] / 'exercise-data/jira-jobs'
-    for name in ['tickets.json', 'issue-example.json', 'confluence-pages.json', 'github-prs.json']:
+    for name in ['tickets.json', 'issue-example.json', 'confluence-pages.json', 'github-prs.json', 'bitbucket-prs.json', 'remote-links.json']:
         text = (data/name).read_text()
-        assert not re.search(r'edukey|557058|lucas|[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}', text, re.I), name
+        assert not re.search(r'devpowers|edukey|557058|lucas|[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}', text, re.I), name
+
+
+def test_bitbucket_regeneration_cli_and_remote_link_extraction(tmp_path):
+    from pathlib import Path
+    data = Path(__file__).resolve().parents[2] / 'exercise-data/jira-jobs'
+    output, links = tmp_path / 'prs.json', tmp_path / 'links.json'
+    args = ['bitbucket', str(data / 'bitbucket-prs.json'), str(output), '--remote-links', str(links)]
+    sanitizer.main(args)
+    assert json.loads(output.read_text()) == json.loads((data / 'bitbucket-prs.json').read_text())
+    assert json.loads(links.read_text()) == json.loads((data / 'remote-links.json').read_text())
+    with pytest.raises(SystemExit):
+        sanitizer.main(['bitbucket', str(output), str(output), '--remote-links', str(links)])
 
 
 def test_personal_space_alias_stays_distinct_from_account_alias():

@@ -1,6 +1,6 @@
 # Jira: od zgłoszeń do konfiguracji jobów
 
-W 45 minut przygotujesz po jednym YAML na zamówienie mapowe i raport problemów do decyzji człowieka. Odczytasz snapshot 40 zgłoszeń Jira, 5 stron Confluence i 10 PR-ów GitHub. W Jira masz 7 epiców, 29 tasków, 2 błędy i 2 podzadania. Treść jest syntetyczna, a eksport zanonimizowany. Pracujesz tylko do odczytu, bez uruchamiania przetwarzania ani zapisu do usług.
+W 45 minut przygotujesz po jednym YAML na zamówienie mapowe i raport problemów do decyzji człowieka. Odczytasz snapshot 40 zgłoszeń Jira, 5 stron Confluence, 10 PR-ów GitHub i 10 PR-ów Bitbucket (9 z repozytorium pipeline, 1 z obcego repozytorium). W Jira masz 7 epiców, 29 tasków, 2 błędy i 2 podzadania. Treść jest syntetyczna, a eksport zanonimizowany. Pracujesz tylko do odczytu, bez uruchamiania przetwarzania ani zapisu do usług.
 
 Na VM Windows otwórz PowerShell 5 lub 7. Potrzebujesz uv, Pythona 3.12 i Claude Code albo Codex CLI. Pozostań w katalogu głównym repozytorium; dostosuj literę dysku do swojego klonu.
 
@@ -17,6 +17,8 @@ Set-Location D:\jsystems-claude-codex-gis-2026-11
 | J4, opcjonalnie | poza limitem | Porównanie modeli na tym samym zakresie |
 
 ## J0. Wybierz ścieżkę odczytu
+
+Porównaj [cztery sposoby połączenia agenta z Atlassian](../../Research/atlassian-agents-mcp-plugins-skill-2026-11.md): connector, plugin, MCP i skill z API.
 
 Wybierz A-offline, aby pracować skryptem CLI bez konta i tokenu, albo C, aby przećwiczyć MCP na tych samych danych. A wymaga osobnego dostępu zapewnionego przez prowadzącego. Nie dostajesz dostępu do prywatnej strony prowadzącego, która zawiera inne projekty. B jest opcją dla własnego konta z dostępem do uzgodnionego projektu.
 
@@ -130,7 +132,7 @@ Dla Codex:
 codex mcp add jira-jobs -- uv run --with mcp "D:\jsystems-claude-codex-gis-2026-11\course-materials\exercises\jira-mcp\server.py"
 ```
 
-Uruchom nową sesję. Wpisz `/mcp` i sprawdź siedem narzędzi: `search_tickets`, `get_ticket`, `list_comments`, `search_pages`, `get_page`, `list_prs`, `get_pr`. Wywołaj `search_tickets` z pustym `query`, następnie pozostałe narzędzia dla TEST-1. Oczekujesz 40 kluczy. Wyszukiwanie MCP dopasowuje wszystkie słowa bez rozróżniania liter, także w komentarzach i kluczach hierarchii. `status` dopasowuje dokładną nazwę. To nie jest JQL.
+Uruchom nową sesję. Wpisz `/mcp` i sprawdź osiem narzędzi: `search_tickets`, `get_ticket`, `list_comments`, `search_pages`, `get_page`, `list_prs`, `get_pr`, `get_remote_links`. Wywołaj `search_tickets` z pustym `query`, następnie pozostałe narzędzia dla TEST-1. Oczekujesz 40 kluczy. Wyszukiwanie MCP dopasowuje wszystkie słowa bez rozróżniania liter, także w komentarzach i kluczach hierarchii. `status` dopasowuje dokładną nazwę. To nie jest JQL.
 
 `get_ticket` pokaże dzieci TEST-1. Otwórz każde dziecko, potem podzadania. Sprawdź też linki i wyszukaj numer źródłowy w całej kolejce. Parametry mogą być w zadaniu bez parenta i bez linku.
 
@@ -145,7 +147,7 @@ uv run --with mcp --with httpx --with pytest pytest course-materials/exercises/j
 Zastąp `[ścieżka]` przez A-offline, A, B lub C. Masz zgodę na wskazane materiały kursowe i zapis wyników. Jednorazowy odczyt i raport nie wymagają PRD aplikacji; powtarzalny system lub uruchamianie jobów to osobne zadanie.
 
 ~~~text
-Pracuj ścieżką [ścieżka], tylko do odczytu. Możesz przeczytać README.md i job-params.schema.json z course-materials/exercise-data/jira-jobs/ oraz instrukcję wybranego narzędzia w course-materials/exercises/jira-mcp/README.md. Nie czytaj bezpośrednio tickets.json, issue-example.json, confluence-pages.json, github-prs.json, seed-spec.json, testów, klucza odpowiedzi ani wcześniejszych wyników. Dane pobieraj przez jira_read.py lub narzędzia MCP tej ścieżki. Nie instaluj jeszcze skilla.
+Pracuj ścieżką [ścieżka], tylko do odczytu. Możesz przeczytać README.md i job-params.schema.json z course-materials/exercise-data/jira-jobs/ oraz instrukcję wybranego narzędzia w course-materials/exercises/jira-mcp/README.md. Nie czytaj bezpośrednio tickets.json, issue-example.json, confluence-pages.json, github-prs.json, bitbucket-prs.json, remote-links.json, seed-spec.json, testów, klucza odpowiedzi ani wcześniejszych wyników. Dane pobieraj przez jira_read.py lub narzędzia MCP tej ścieżki. Nie instaluj jeszcze skilla.
 Odkryj wszystkie zgłoszenia bez filtra statusu. Zrekonstruuj każde zamówienie przez epic, jego taski, podzadania, linki i wszystkie komentarze. Wyszukaj także dowody bez parenta lub linku po numerze źródłowym i tytule. Nie traktuj każdego ticketu jako osobnego joba.
 Zapisz jeden YAML na zamówienie w reports/jira-jobs/jobs/<klucz-zamówienia>.yaml oraz reports/jira-jobs/issues.md. YAML: job_id, region, area_name, bbox, layers, data_release, start_step, steps, output_format, output_path, deadline, requester_team, notes i unknown_reasons, zgodnie ze schematem v2. job_id to klucz epika, a dla nowego samodzielnego zamówienia klucz jego zgłoszenia. Zachowaj kandydata będącego możliwym duplikatem, ale oznacz HOLD w notes i raporcie; nie zatwierdzaj dwóch runów. Braki i nierozstrzygnięte konflikty to null z powodem. Jawny brak bbox dla całego regionu też wyjaśnij. Cytuj dowody dla korekt i nie przenoś ich automatycznie między zamówieniami. Release i daty zapisz jako napisy w cudzysłowach.
 W issues.md rozróżnij duplikaty, podobne odrębne zamówienia, konflikty, jawne nadpisania, braki, historyczne wartości i szum ignore_non_job. Przy każdym problemie podaj klucz zamówienia i źródła, pole, cytat, opis lub ID i datę komentarza, proponowaną wartość, pewność z uzasadnieniem oraz pytanie do człowieka. Wyjaśnij rolę każdego odkrytego klucza: zamówienie, dowód albo szum.
@@ -194,9 +196,9 @@ Użyj skilla jira-jobs-triage. Pracuj wybraną wcześniej ścieżką A-offline, 
 
 Porównaj J1 i J2: kompletność dowodów, korekty parametrów, rozpoznanie duplikatu i odróżnienie identycznych nazw różnych obszarów. Sprawdź ręcznie pięć zamówień wraz z ich komentarzami i dziećmi. Zapisz różnice w `reports/jira-jobs/comparison-j1-j2.md`. Użycie skilla samo nie dowodzi lepszego wyniku.
 
-## J3. Powiązania: PR i strony Confluence ↔ Jira
+## J3. Powiązania: PR i strony Confluence - Jira
 
-Jira, Confluence i GitHub nie mają integracji ani linków w panelu development. Zbierz dowody z trzech źródeł przez narzędzia, a następnie przygotuj propozycje odnośników. W A/B możesz zachować odczyt Jira live; strony i PR-y tego ćwiczenia odczytaj lokalnie z `--offline`, z kluczami TEST. Nie mieszaj ich z innym projektem bez uzgodnionego mapowania.
+Jira, Confluence, GitHub i Bitbucket odczytujesz jako osobne źródła. Snapshot zawiera już cztery linki zewnętrzne Jira do Bitbucket, w tym jeden błędny; nie zakładaj kompletnej integracji ani poprawności linku. Zbierz dowody przez narzędzia i przygotuj propozycje odnośników. W A/B możesz zachować odczyt Jira live; strony i PR-y tego ćwiczenia odczytaj lokalnie z `--offline`, z kluczami TEST. Nie mieszaj ich z innym projektem bez uzgodnionego mapowania.
 
 ```powershell
 uv run course-materials/exercises/jira-mcp/jira_read.py --offline pages
@@ -214,13 +216,32 @@ uv run course-materials/exercises/jira-mcp/jira_read.py --offline prs
 uv run course-materials/exercises/jira-mcp/jira_read.py --offline pr 10
 ```
 
-`pages` i `prs` przyjmują opcjonalny tekst wyszukiwania po wszystkich słowach, bez rozróżniania liter. W MCP użyj `search_pages`, `get_page`, `list_prs`, `get_pr`. Odczyt PR obejmuje gałąź, commity, komentarze dyskusji i review oraz diffy plików.
+```powershell
+uv run course-materials/exercises/jira-mcp/jira_read.py --offline prs --source bitbucket
+```
+
+```powershell
+uv run course-materials/exercises/jira-mcp/jira_read.py --offline pr 9 --source bitbucket
+```
+
+```powershell
+uv run course-materials/exercises/jira-mcp/jira_read.py --offline remotelinks TEST-13
+```
+
+```powershell
+uv run course-materials/exercises/jira-mcp/jira_read.py --offline pr 1 --source bitbucket --repo ai-php-course-08-2026
+```
+
+`pages` i `prs` przyjmują tekst wyszukiwania po wszystkich słowach, bez rozróżniania liter. `--source github` jest domyślne; `--source bitbucket` zwraca też PR z obcego repozytorium. Numer PR jest lokalny dla repozytorium: `pr N --source bitbucket` wybiera `map-data-jobs-pipelines`, a `--repo` wskazuje inne. Lista pokazuje URL rozróżniający repozytoria. W MCP użyj `search_pages`, `get_page`, `list_prs(query, source, repo)`, `get_pr(number, source, repo)` i `get_remote_links(key)`. GitHub ma diffy plików; Bitbucket w tym zestawie ma opisy, gałęzie, commity i komentarze, bez osobnego zasobu diff. Brakującej treści YAML nie odtwarzaj z domysłów.
+
+Limit J3 pozostaje 15 minut. Odkryj pełne listy, potem skup analizę na poprawnym istniejącym linku, linku na niewłaściwym tickecie, kluczu tylko w gałęzi/commicie, literówce i PR z obcego repozytorium. Uwzględnij także dowód GitHub i stronę Confluence. Pięć najtrudniejszych wzmianek sprawdź ręcznie; pozostałe nieprzeczytane źródła wymień jako luki pokrycia.
 
 ~~~text
-Pracuj tylko do odczytu przez narzędzia wybranej ścieżki. Masz zgodę na README ćwiczenia, kontrakt danych i zapis raportów. Nie czytaj bezpośrednio snapshotów JSON, testów, seed-spec ani klucza odpowiedzi. Odkryj wszystkie 40 zgłoszeń, 5 stron i 10 PR-ów, bez filtra statusu; odczytaj szczegóły oraz wszystkie komentarze. Strona Konwencje parametrów zleceń jest źródłem zasad normalizacji. Sprawdź także treść gałęzi, komunikaty commitów i diffy plików PR.
-Zapisz reports/jira-jobs/links.csv (UTF-8) z dokładnie kolumnami source,source_id,mention_text,jira_key,confidence,action,evidence. source: pr/page/comment; confidence: high/medium/low; action: link/flag_for_human/ignore. Jeden wiersz na wzmiankę i proponowany cel, nie tylko na PR. source_id ma umożliwiać powrót do dowodu, np. pr:4:commit:<SHA>, pr:10:file:jobs/sl-461.yaml, pr:1:review_comment:<ID>, page:220168193:body lub jira:TEST-1:comment:<ID>. Commity, gałęzie i pliki mają source=pr, komentarze obu usług source=comment. mention_text to dokładny fragment źródła, także gdy nie ma klucza. jira_key to istniejący rozwiązany klucz lub puste pole; błędnego TEST-99 nie wpisuj jako rozwiązanego celu. Dla kilku kandydatów zapisz osobne wiersze. Klucze stron Confluence zachowaj w source_id/evidence, nie w jira_key.
+Pracuj tylko do odczytu przez narzędzia wybranej ścieżki. Masz zgodę na README ćwiczenia, kontrakt danych i zapis raportów. Nie czytaj bezpośrednio snapshotów JSON, testów, seed-spec ani klucza odpowiedzi. Odkryj wszystkie 40 zgłoszeń, 5 stron, 10 PR-ów GitHub i 10 PR-ów Bitbucket, bez filtra statusu. W limicie J3 wybierz przypadki opisane powyżej i odczytaj ich szczegóły oraz wszystkie komentarze. Pobierz istniejące linki zewnętrzne przez remotelinks/get_remote_links, sprawdź cztery niepuste wyniki i porównaj z treścią właściwych zgłoszeń. Nieprzeczytane źródła jawnie oznacz jako luki pokrycia. Strona Konwencje parametrów zleceń jest źródłem zasad normalizacji. Sprawdź także treść gałęzi, komunikaty commitów i diffy plików PR.
+Zapisz reports/jira-jobs/links.csv (UTF-8) z dokładnie kolumnami source,source_id,mention_text,jira_key,confidence,action,evidence. source: pr/page/comment; confidence: high/medium/low; action: link/flag_for_human/ignore. Jeden wiersz na wzmiankę i proponowany cel, nie tylko na PR. source_id ma umożliwiać powrót do dowodu, np. github:course-org/map-data-jobs-sim:pr:4:commit:<SHA>, github:course-org/map-data-jobs-sim:pr:10:file:jobs/sl-461.yaml, bitbucket:course-workspace/map-data-jobs-pipelines:pr:4:branch, page:220168193:body lub jira:TEST-13:remotelink:10003. Zawsze podaj usługę i repozytorium dla PR; sam numer PR nie wystarcza. Commity, gałęzie i pliki mają source=pr, komentarze usług source=comment. Dla istniejącego remote linku source oznacza typ celu (pr lub page), source_id zawiera właściciela Jira i ID linku, a evidence pełny URL celu i wynik porównania treści. mention_text to dokładny fragment źródła, także gdy nie ma klucza. jira_key to istniejący rozwiązany klucz lub puste pole; błędnego TEST-99 nie wpisuj jako rozwiązanego celu. Dla kilku kandydatów zapisz osobne wiersze. Klucze stron Confluence zachowaj w source_id/evidence, nie w jira_key.
 Sprawdź URL, gołe klucze, małe litery, spację zamiast łącznika, literówki, stary prefiks, numer zamawiającego oraz dopasowanie wyłącznie po treści. Potwierdź istnienie i kontekst klucza w Jira. Zapisz dowód oraz uzasadnienie pewności. Prawidłowy klucz może mieć high confidence i nadal flag_for_human z powodu konfliktu lub nieustalonej intencji. Literówki, nieistniejące klucze, niepotwierdzona migracja prefiksu i dopasowanie wyłącznie po treści wymagają decyzji człowieka; nie dopisuj fikcyjnego mapowania. Komentarze botów bez dowodów biznesowych oznacz ignore, bez wypisywania ich w całości.
-Zapisz reports/jira-jobs/links.md: propozycje linków, przypadki do decyzji człowieka i luki pokrycia. Porównaj parametry YAML/diffów PR z zamówieniami oraz daty kalendarza Confluence z opisem, komentarzami i duedate Jira. Wskaż brakujące odnośniki i konflikty, zachowaj HOLD/BLOCKED. Sam link nie zatwierdza konfiguracji ani dwóch dostaw. Uruchom validate_links.py i ręcznie sprawdź pięć najtrudniejszych wzmianek. Niczego nie zapisuj do Jira, Confluence ani GitHub, nie zamykaj zgłoszeń i nie uruchamiaj jobów.
+Istniejące poprawne powiązanie oznacz action=ignore i evidence z already_linked_no_action, bez ponownego linkowania. Gdy link jest na złym tickecie, zapisz flag_for_human, obecnego właściciela i proponowany poprawny cel z uzasadnieniem; niczego samodzielnie nie usuwaj ani nie przenoś. Nie linkuj PR z obcego repozytorium tylko dlatego, że zawiera istniejący klucz.
+Zapisz reports/jira-jobs/links.md: propozycje linków, przypadki do decyzji człowieka i luki pokrycia. Porównaj parametry YAML/diffów PR z zamówieniami oraz daty kalendarza Confluence z opisem, komentarzami i duedate Jira. Wskaż brakujące odnośniki i konflikty, zachowaj HOLD/BLOCKED. Sam link nie zatwierdza konfiguracji ani dwóch dostaw. Uruchom validate_links.py i ręcznie sprawdź pięć najtrudniejszych wzmianek. Niczego nie zapisuj do Jira, Confluence, GitHub ani Bitbucket, nie zamykaj zgłoszeń i nie uruchamiaj jobów.
 ~~~
 
 ```powershell

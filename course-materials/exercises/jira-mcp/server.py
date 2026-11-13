@@ -5,7 +5,7 @@ except ModuleNotFoundError:
     from mcp.server import MCPServer as FastMCP
 from mcp.types import ToolAnnotations
 
-from jira_read import OfflineReader, flatten_adf, format_comments, format_issue, format_page, format_pr
+from jira_read import OfflineReader, flatten_adf, format_comments, format_issue, format_page, format_pr, format_remote_links, pr_metadata
 
 snapshot = OfflineReader()
 TICKETS = snapshot.tickets
@@ -51,15 +51,21 @@ def get_page(page_id: str) -> str:
 
 
 @mcp.tool(annotations=READ_ONLY)
-def list_prs(query: str = '') -> str:
+def list_prs(query: str = '', source: str = 'github', repo: str | None = None) -> str:
     """Wszystkie stany PR; szukaj w tytułach, opisach, gałęziach, commitach i komentarzach."""
-    return '\n'.join(f'{p["pr"]["number"]} | {p["pr"]["state"]} | {p["pr"]["title"]}' for p in snapshot.list_prs(query)) or 'Brak PR.'
+    return '\n'.join(f'{n} | {s} | {t} | {u}' for n, s, t, u in (pr_metadata(p, source) for p in snapshot.list_prs(query, source, repo))) or 'Brak PR.'
 
 
 @mcp.tool(annotations=READ_ONLY)
-def get_pr(number: int) -> str:
+def get_pr(number: int, source: str = 'github', repo: str | None = None) -> str:
     """Pełny PR wraz z gałęzią, SHA i wiadomościami commitów oraz ID komentarzy."""
-    return format_pr(snapshot.get_pr(number))
+    return format_pr(snapshot.get_pr(number, source, repo), source)
+
+
+@mcp.tool(annotations=READ_ONLY)
+def get_remote_links(key: str) -> str:
+    """Istniejące linki zewnętrzne Jira; zachowuje także błędne powiązania."""
+    return format_remote_links(snapshot.get_remote_links(key))
 
 
 if __name__ == '__main__':
