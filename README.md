@@ -1,5 +1,10 @@
 # UPDATES !!!
 
+## Dzień 4 (13.11)
+
+- **Ręczny przegląd decyzji modeli:** [strona przeglądu online](https://devpowers.com/szkolenia/jsystems/tomtom-ai-2026-11/reports/map-qa/review/review.html), ze zdjęciami. Oceńcie przypadki sami, a potem porównajcie z odpowiedziami modeli. Kod w [PR #11](https://github.com/LucasMatuszewski/jsystems-claude-codex-gis-2026-11/pull/11), gałąź `manual-review-tool`.
+- **Raporty z implementacji online:** [podsumowanie HTML](https://devpowers.com/szkolenia/jsystems/tomtom-ai-2026-11/reports/map-qa/summary.html), [pełny raport HTML](https://devpowers.com/szkolenia/jsystems/tomtom-ai-2026-11/reports/map-qa/report.html). Kod w [PR #10](https://github.com/LucasMatuszewski/jsystems-claude-codex-gis-2026-11/pull/10), gałąź `Map-App-Implementation`.
+
 ## Po trzecim dniu (12.11)
 
 - **Implementacja trenera:** [PR #10 - Map QA CLI](https://github.com/LucasMatuszewski/jsystems-claude-codex-gis-2026-11/pull/10), gałąź [`Map-App-Implementation`](https://github.com/LucasMatuszewski/jsystems-claude-codex-gis-2026-11/tree/Map-App-Implementation). Znajdziecie tam aplikację, PRD, ADR, plan oraz wyniki uruchomienia. `main` pozostaje bazą startową kursu z materiałami.
