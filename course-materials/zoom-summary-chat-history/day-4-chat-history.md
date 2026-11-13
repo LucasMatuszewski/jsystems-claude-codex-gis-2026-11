@@ -200,12 +200,14 @@ Wiadomości publiczne w kolejności chronologicznej. Reakcje oznaczają zliczeni
 
 - **13:58 — Łukasz Matuszewski:**
 
+  ```toml
   [windows]
   sandbox = "elevated"
   [features]
   # Tested course baseline; MXC requires a separate acceptance run.
   prefer_mxc = false
   network_proxy = false
+  ```
 
 - **14:02 — Łukasz Matuszewski:** Approve for me na stałę w config.toml  
   approvals_reviewer = "auto_review"  
