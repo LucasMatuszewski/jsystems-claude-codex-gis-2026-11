@@ -1,4 +1,8 @@
-"""Trainer-only synthetic Jira seed. Dry-run is offline; writes require --apply."""
+"""LEGACY trainer-only flat-ticket seeder, not a v2 seed-spec.json importer.
+
+Does not recreate epics, parents, subtasks or v2 workflow. Do not use it to
+regenerate the current snapshot. Dry-run is offline; writes require --apply.
+"""
 
 import argparse
 from copy import deepcopy

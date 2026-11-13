@@ -1,4 +1,4 @@
-"""Testy kontraktu narzędzi na syntetycznym, lokalnym zbiorze."""
+"""Testy kontraktu narzędzi na zanonimizowanym snapshocie Jira."""
 
 import importlib.util
 import json
@@ -18,14 +18,14 @@ def server():
 
 def test_discovery_is_complete(server):
     lines = server.search_tickets("").splitlines()
-    assert len(lines) == 36
-    assert lines[0].startswith("MAPJOB-101 |")
-    assert lines[-1].startswith("MAPJOB-136 |")
+    assert len(lines) == 34
+    assert lines[0].startswith("TEST-1 |")
+    assert lines[-1].startswith("TEST-34 |")
 
 
 @pytest.mark.parametrize("query,key", [
-    ("PILOT-ZEFIR MAPJOB-105", "MAPJOB-105"),
-    ("OSTATECZNE POTWIERDZENIE MAPJOB-106", "MAPJOB-106"),
+    ("ZMIANA ODBIORCY TEST-1", "TEST-1"),
+    ("ZATWIERDZONEGO OUTPUT_PATH TEST-30", "TEST-30"),
 ])
 def test_search_matches_comments_and_all_words_case_insensitively(server, query, key):
     result = server.search_tickets(query)
@@ -45,8 +45,8 @@ def test_search_unknown_returns_explicit_message(server):
 
 
 def test_get_ticket_preserves_raw_values_and_metadata(server):
-    text = server.get_ticket("mapjob-102")
-    for value in ("MAPJOB-102", "regoin", "PL-MZ", "26.11", "2026-11-02", "map-data"):
+    text = server.get_ticket("test-1")
+    for value in ("TEST-1", "regoin", "PL-MZ", "26.11", "2026-11-13", "job-order"):
         assert value in text
     assert '"type": "doc"' not in text
 
@@ -67,37 +67,36 @@ def test_adf_rich_content_keeps_boundaries_and_link_text(server):
 
 
 def test_get_ticket_exposes_explicit_links(server):
-    assert "MAPJOB-108" in server.get_ticket("MAPJOB-107")
+    assert "TEST-10" in server.get_ticket("TEST-9")
 
 
 def test_comments_preserve_override_and_chronology(server):
-    text = server.list_comments("MAPJOB-106")
-    assert text.index("10601") < text.index("10602")
-    assert "2026.10" in text
-    assert "2026.11" in text
-    assert "Zespół wydań" in text
-    assert "2026-11-05T12:00:00.000+0000" in text
+    text = server.list_comments("TEST-1")
+    assert text.index("conflation jest gotowe") < text.index("zmiana odbiorcy")
+    assert "listopad 2026" in text and "parquet" in text
+    assert "Analityk (kurs)" in text
+    assert "2026-11-19" in text
 
 
 def test_empty_comments(server):
-    assert server.list_comments("MAPJOB-101") == "Brak komentarzy."
+    assert server.list_comments("TEST-2") == "Brak komentarzy."
 
 
 @pytest.mark.parametrize("tool", ["get_ticket", "list_comments"])
-@pytest.mark.parametrize("key", ["MAPJOB-999", "../../tickets.json"])
+@pytest.mark.parametrize("key", ["TEST-999", "../../tickets.json"])
 def test_unknown_ticket_is_not_a_path(server, tool, key):
-    with pytest.raises(ValueError, match="Nie znaleziono zgłoszenia"):
+    with pytest.raises(ValueError, match="Nie znaleziono zgłoszenia|Invalid issue key"):
         getattr(server, tool)(key)
 
 
 def test_data_shape_and_adf():
     path = Path(__file__).resolve().parents[2] / "exercise-data/jira-jobs/tickets.json"
     response = json.loads(path.read_text(encoding="utf-8"))
-    assert response["total"] == len(response["issues"]) == 36
-    assert len({issue["key"] for issue in response["issues"]}) == 36
+    assert len(response["issues"]) == 34
+    assert len({issue["key"] for issue in response["issues"]}) == 34
     for issue in response["issues"]:
         fields = issue["fields"]
-        assert issue["key"].startswith("MAPJOB-")
+        assert issue["key"].startswith("TEST-")
         assert fields["description"]["type"] == "doc"
         assert fields["description"]["version"] == 1
         assert fields["summary"] and fields["status"]["name"]

@@ -1,48 +1,58 @@
-# Zlecenia przetwarzania danych mapowych
+# Jira jobs: snapshot rzeczywistego API
 
-To syntetyczny, lokalny zbiór 36 zgłoszeń MAPJOB-101 do MAPJOB-136. Zespoły zamawiają w nich przetwarzanie dróg, POI, ograniczeń prędkości i adresów. Nie ma tu prawdziwych osób, firm, kont ani danych z organizacji. Nazwy obszarów roboczych są fikcyjne; kody krajów i regionów służą do ćwiczenia kontroli parametrów. Nie potrzebujesz konta Jira ani tokenu.
+Pracujesz z 34 zgłoszeniami utworzonymi w rzeczywistej Jira Cloud: 7 epiców zamówień, 25 tasków i 2 podzadania. Treść zamówień, role, obszary i ścieżki są syntetyczne. Statusy to 19 To Do, 11 In Progress i 4 Done. Zbiór zawiera 12 komentarzy i 8 relacji strukturalnych. Nie potrzebujesz dostępu do strony prowadzącego ani tokenu.
 
-Pracujesz na dwóch plikach: `tickets.json` zawiera surowe zgłoszenia, a `job-params.schema.json` określa format wyniku ekstrakcji. Traktuj oba jako wejścia tylko do odczytu. [Ćwiczenie MCP](../../exercises/jira-mcp/README.md) prowadzi od połączenia serwera do raportu problemów. Pipeline uruchamiasz dopiero po ręcznym zatwierdzeniu parametrów, poza tym ćwiczeniem.
+`tickets.json` zachowuje kopertę wyszukiwania `{"issues": [...]}` i komplet pól eksportu, w tym puste wartości, niestandardowe `customfield_*`, ID, statusy, relacje, rodziców, podzadania i znaczniki czasu. Nie dodano sztucznego `total`: źródłowy eksport nie zawierał paginacji. `issue-example.json` jest zbudowany ze zgłoszenia TEST-1 w tym samym eksporcie i pokazuje kształt GET issue: `expand`, `id`, `self`, `key`, `fields`. Dodatkowe `webUrl` pozostaje w wynikach wyszukiwania z konektora.
 
-Zgłoszenia na kursowej stronie Jira pochodzą z tego samego `tickets.json`, zaimportowanego przez `course-materials/exercises/jira-mcp/seed_jira.py`. Każde zachowuje opis, etykiety, komentarze i relacje oraz znacznik `course-seed`; dodatkowa etykieta `course-source-*` odróżnia zgłoszenia o jednakowym tytule. Jira nadaje nowe klucze, ID komentarzy, daty i autora importu, a status początkowy wynika z workflow projektu; oryginalny klucz, datę i status znajdziesz w stopce opisu, autora i datę komentarza w jego stopce, a mapowanie kluczy w generowanym przy imporcie `seed-map.json`. Stare klucze w treści zleceń są celowo zachowane jako dowody źródłowe; przy analizie rzeczywistej Jira podawaj także jej bieżące klucze. Lokalna ścieżka MCP nadal działa bez konta i tokenu.
+## Jak powstały pliki
 
-## Mapa pól wejściowych
+Prowadzący utworzył zgłoszenia na podstawie `seed-spec.json`, wyeksportował pełne pola i komentarze przez konektor, a następnie uruchomił `sanitize_export.py`. Surowy eksport i mapowanie tożsamości pozostają poza repozytorium. To snapshot rzeczywistych odpowiedzi po anonimizacji i odtworzeniu reprezentacji REST v3, nie bajtowa kopia odpowiedzi HTTP.
 
-`tickets.json` ma kształt odpowiedzi wyszukiwania Jira Cloud REST API v3: `startAt`, `maxResults`, `total`, `issues`. To kompletna lokalna strona danych, a nie połączenie z API. Nie odtwarza wszystkich pól i mechanizmów uprawnień Jira.
+Zastosowano: fikcyjny host `course-site.atlassian.net`, zerowy cloud ID, stabilne `accountId` w formacie `712020:course-user-1`, nazwę użytkownika `Analityk (kurs)`, nazwę projektu `Projekt kursowy` i ogólne awatary. Usunięto `emailAddress`, zastąpiono wystąpienia tożsamości także w adresach i tekście. `timeZone` zachowano. Ścieżki `self` pozostały bez zmian, zmieniły się host i identyfikatory użytkowników lub cloud ID.
 
-| Ścieżka | Znaczenie |
-|---|---|
-| `issues[].key` | Klucz zgłoszenia |
-| `issues[].fields.summary` | Krótki tytuł, który nie musi być unikalny |
-| `issues[].fields.description` | Opis jako Atlassian Document Format: `type: doc`, `version: 1`, `content` |
-| `issues[].fields.status.name` | To Do, In Progress albo Done |
-| `issues[].fields.labels` | Etykiety pomocnicze; mogą być nieaktualne |
-| `issues[].fields.created` | Data utworzenia w ISO 8601 |
-| `issues[].fields.issuelinks` | Jawne powiązania z kierunkiem `inwardIssue` lub `outwardIssue` |
-| `issues[].fields.comment.comments[]` | Komentarze z `id`, `created`, `updated`, zespołem autora i `body` w ADF |
+`description` przekonwertowany do ADF tak jak zwraca REST v3. W dostarczonym eksporcie także wszystkie komentarze były Markdown, mimo oczekiwania ADF; ich `body` przekonwertowano tą samą metodą. Zachowano akapity, nagłówki, listy, bloki kodu z językiem, tabele, pogrubienia, kursywę i kod inline. Dosłowne sekwencje `\n` w opisach odtworzono jako podziały wierszy. Dodane przez konektor `\[` i `\]` w komentarzach odtworzono jako nawiasy. Gotowe węzły ADF nie są ponownie interpretowane. Alias autora w tekście komentarza oznacza rolę, a `author.displayName` jest kontem technicznym.
 
-Opis i komentarze mogą używać polskich albo angielskich nazw parametrów. Błędy i sprzeczności są celowe: literówki, powtórzone zlecenia, identyczne tytuły dla różnych obszarów lub warstw, brak pola, poprawki w komentarzach oraz podejrzana kolejność współrzędnych. Sama wzmianka o innym kluczu nie tworzy `issuelinks`. Status Done nie wyklucza zgłoszenia z ekstrakcji.
+To celowo zagęszczona kolejka szkoleniowa. Prawdziwy kształt API nie potwierdza istnienia notebooków, storage ani wyników przetwarzania. `seed-spec.json` to lista definicji dla prowadzącego, nie odpowiedź REST. Nie używaj jej zamiast narzędzi w ćwiczeniu.
 
-## Docelowe parametry
+## Gdzie szukać parametrów
 
-Wynik `params.json` jest tablicą. Zachowujesz jeden obiekt na każdy klucz, także dla duplikatów; powtórzenia opisujesz osobno. Każdy obiekt zawiera `ticket_key`, dziewięć poniższych pól i `unknown_reasons`.
+| Źródło | Pola API | Co z niego odczytasz |
+|---|---|---|
+| Zamówienie | `fields.issuetype`, `fields.summary`, `fields.description` | Epic, numer źródłowy, tabela lub opis parametrów |
+| Taski pod epikiem | `fields.parent.key` w wynikach wyszukiwania | Kroki, SQL, historyczne komórki YAML, warunki odbioru |
+| Podzadania | `fields.subtasks` oraz `fields.parent.key` | Zakres bbox i wyjaśnienie kolejności osi |
+| Komentarze | `fields.comment.comments[].body`, `id`, `created` | Korekty parametrów, potwierdzenia i blokady |
+| Linki | `fields.issuelinks[].type`, `inwardIssue`, `outwardIssue` | Zależności i podejrzenie duplikatu, z zachowaniem kierunku |
+| Wyszukiwanie tekstowe | Tytuł, opis i komentarze całej kolejki | Zadania bez parenta lub linku, wskazane numerem zamówienia albo tytułem |
 
-| Pole | Oczekiwana wartość |
-|---|---|
-| `country_code` | Dwuliterowy kod kraju, np. PL |
-| `region_code` | Kod regionu, np. PL-14; nie zamieniaj nieznanych aliasów bez dowodu |
-| `spatial_scope` | Obiekt obszaru administracyjnego albo bbox |
-| `layer` | `roads`, `poi`, `speed_limits`, `addresses` |
-| `data_release` | Wydanie w formacie `YYYY.MM` |
-| `processing_step` | `ingest`, `conflation`, `validation`, `export` |
-| `output_format` | `GeoParquet`, `GeoJSON`, `CSV`, `GPKG` |
-| `deadline` | Rzeczywista data kalendarzowa `YYYY-MM-DD` |
-| `requester_team` | Nazwa zespołu zamawiającego, nie domyślnie autora komentarza |
+`subtasks` nie jest listą wszystkich tasków epika. Wyszukaj także `parent = TEST-1`, a następnie dzieci tasków. Powiązania tekstowe mogą prowadzić do zgłoszenia poza hierarchią. Dane biznesowe region/deadline/format są w treści, nie w specjalnie utworzonych polach Jira. Nie utożsamiaj autora technicznego ani statusu Jira z zamawiającym lub zgodą na wykonanie.
 
-Obszar nazwany zapisujesz jako `{"kind":"admin_area","name":"Sektor R-01"}`. Bbox zapisujesz jako `{"kind":"bbox","coordinates":[20.8,51.8,21.4,52.4],"crs":"EPSG:4326"}`. Kolejność to `[west,south,east,north]`, czyli długość, szerokość, długość, szerokość geograficzna. Dla tego zbioru west < east i south < north. Schema sprawdza liczbę i zakres współrzędnych; walidator powinien dodatkowo sprawdzić ich kolejność. Zgodność obszaru z krajem wymaga oceny danych, nie tylko sprawdzenia zakresu - zamienione lat/lon mogą nadal mieścić się w dozwolonych przedziałach.
+## Kontrakt wyniku v2
 
-Wolno ujednolicić wielkość liter znanych formatów i przekształcić jednoznaczną datę słowną. Wartości z literówką lub nieznanym skrótem poprawiaj tylko z potwierdzeniem w tym samym zgłoszeniu. Jawna zatwierdzona korekta w komentarzu ma pierwszeństwo przed wcześniejszą wartością; sam późniejszy czas nie zamienia propozycji w decyzję. Nie kopiuj parametrów z podobnego zlecenia.
+Zapisz jeden plik `reports/jira-jobs/jobs/<klucz-epika>.yaml` na każde zamówienie. Zachowaj także kandydata będącego możliwym duplikatem; nie usuwaj go i nie planuj drugiego runu bez rozstrzygnięcia. Taski i podzadania są dowodami, nie osobnymi jobami. Zgłoszenia dostępu i błędów UI bez zamówienia danych opisz jako `ignore_non_job` w `issues.md`, bez generowania konfiguracji.
 
-Nieznany lub nierozstrzygnięty parametr ma wartość `null`. Dodaj wtedy powód pod jego nazwą w `unknown_reasons`, np. `{"data_release":"Brak wydania w opisie i komentarzach"}`. Dla kompletnych rekordów użyj `{}`. Jeśli nie da się ustalić całego obszaru, `spatial_scope` ma być `null`, a nie obiektem z wymyślonymi współrzędnymi. Schema wymaga powodu dla każdego `null`; nie potrafi ocenić, czy powód jest prawdziwy.
+Każdy YAML zawiera 13 pól: `job_id`, `region`, `area_name`, `bbox`, `layers`, `data_release`, `start_step`, `steps`, `output_format`, `output_path`, `deadline`, `requester_team`, `notes`, oraz obowiązkowe `unknown_reasons`. `job_id` to rzeczywisty klucz epika, np. `TEST-1`. `notes` to lista napisów. Release i deadline zapisuj w cudzysłowach, np. `'2026.11'` i `'2026-11-19'`. Schemat waliduje jeden obiekt YAML, nie listę wszystkich zgłoszeń.
 
-Walidacja JSON Schema Draft 2020-12 wymaga sprawdzania formatów dat, np. `Draft202012Validator(..., format_checker=FormatChecker())` w bibliotece `jsonschema`. Osobno sprawdź komplet 36 różnych kluczy, zgodność każdego pola z dowodem oraz problemy opisane w `issues.md`.
+Normalizuj wydanie do `YYYY.MM`, datę do `YYYY-MM-DD`, region do potwierdzonego ISO 3166-2, format i kroki do małych liter. Warstwy to lista: `roads`, `junctions`, `poi`, `speed_limits`, `addresses`. `steps` to kroki pozostałe od `start_step`, w kolejności wykonania. Nie dodawaj zakończonych etapów na podstawie liczby tasków. Bbox to `[west, south, east, north]` w EPSG:4326. Zamiana osi wymaga dowodu w źródle, nie tylko legalnych zakresów liczb.
+
+Każde nieznane lub nierozstrzygnięte pole ma `null` i konkretny powód w `unknown_reasons`. Jawnie zamówiony cały region może mieć `bbox: null`; wtedy powód wyjaśnia brak dodatkowego wycinka, a nie brak informacji. Brak docelowej ścieżki blokuje wykonanie, chociaż szkic z `null` i powodem przechodzi schemat. HOLD, BLOCKED i warunki odbioru zachowaj w `notes` oraz `issues.md`. Poprawna walidacja nie jest zgodą na uruchomienie.
+
+W `issues.md` podaj dla problemu klucz zamówienia i zgłoszenia dowodowego, pole, cytat, źródło (opis lub ID i data komentarza), wartość, pewność z uzasadnieniem i pytanie do człowieka. Rozróżnij: duplikaty, podobne odrębne zamówienia, konflikty, zatwierdzone nadpisania, braki, wartości historyczne i szum. Późniejszy komentarz zmienia parametry tylko tam, gdzie jawnie zatwierdzono zmianę. Nie przenoś korekty do innego epika automatycznie.
+
+Sprawdź YAML względem `job-params.schema.json`, daty kalendarzowe, kolejność kroków i relacje bbox. Walidator kursowy uruchomisz z katalogu głównego repozytorium:
+
+```powershell
+uv run --with pyyaml --with jsonschema course-materials/exercises/jira-mcp/validate_jobs.py reports/jira-jobs/jobs
+```
+
+Oczekujesz 7 kandydatów zamówień. Każdy z 34 kluczy musi mieć wyjaśnioną rolę: zamówienie, dowód albo szum. Nie zmieniaj Jira i nie uruchamiaj Databricks ani pipeline GIS.
+
+## Odtworzenie snapshotu przez prowadzącego
+
+Surowy eksport trzymaj poza repozytorium, np. w `D:\trainer-private\jira-export.json`. Polecenie nadpisuje tylko dwa jawne pliki docelowe; nie zapisuje danych surowych ani mapowania użytkowników.
+
+```powershell
+python course-materials/exercises/jira-mcp/sanitize_export.py D:\trainer-private\jira-export.json course-materials/exercise-data/jira-jobs/tickets.json --example course-materials/exercise-data/jira-jobs/issue-example.json
+```
+
+`seed_jira.py` jest narzędziem legacy dla płaskiego formatu zgłoszeń. Nie obsługuje `seed-spec.json`, nie odtwarza epiców, parentów ani workflow v2. Nie używaj go do odtworzenia bieżącego zbioru. Użyj procedury seedowania v2 prowadzącego, potem wyeksportuj i zanonimizuj dane. Dokumentacja ADF: [format dokumentu Atlassiana](https://developer.atlassian.com/cloud/jira/platform/apis/document/structure/).

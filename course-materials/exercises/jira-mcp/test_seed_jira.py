@@ -35,17 +35,17 @@ def test_payload_keeps_adf_labels_and_original_date(tickets):
 def test_key_mapping_and_link_direction(tickets):
     mapping = {t["key"]: f"MAPJOB-{n}" for n, t in enumerate(tickets, 1)}
     links = seed.link_payloads(tickets, mapping)
-    assert len(links) == 2
-    related, blocked = links
-    assert related["inwardIssue"]["key"] == mapping["MAPJOB-107"]
-    assert related["outwardIssue"]["key"] == mapping["MAPJOB-108"]
-    assert blocked["inwardIssue"]["key"] == mapping["MAPJOB-130"]
-    assert blocked["outwardIssue"]["key"] == mapping["MAPJOB-135"]
+    assert len(links) == 8
+    assert {link['type']['name'] for link in links} == {'Duplicate', 'Relates', 'Blocks'}
+    for ticket in tickets:
+        for link in ticket['fields']['issuelinks']:
+            if 'outwardIssue' in link:
+                assert {'type': {'name': link['type']['name']}, 'inwardIssue': {'key': mapping[ticket['key']]}, 'outwardIssue': {'key': mapping[link['outwardIssue']['key']]}} in links
 
 
 def test_idempotency_does_not_collapse_equal_summaries(tickets):
-    same = [t for t in tickets if t["fields"]["summary"] == "Kontrola Centrum"]
-    assert len(same) == 2
+    same = copy.deepcopy(tickets[:2])
+    same[1]["fields"]["summary"] = same[0]["fields"]["summary"]
     existing = [{"key": f"MAPJOB-{n}", "fields": seed.issue_payload(t, "MAPJOB", "Task")["fields"]} for n, t in enumerate(same, 1)]
     assert seed.existing_key(same[0], existing) == "MAPJOB-1"
     assert seed.existing_key(same[1], existing) == "MAPJOB-2"
@@ -65,7 +65,7 @@ def test_dry_run_never_touches_network_or_map(tmp_path, capsys, tickets):
     assert seed.main([], env=ENV, transport=httpx.MockTransport(forbidden), map_path=target) == 0
     assert not target.exists()
     output = capsys.readouterr().out
-    assert "36" in output and "MAPJOB-101" in output and "course-seed" in output
+    assert "34" in output and "TEST-1" in output and "course-seed" in output
     assert "synthetic-token" not in output
 
 
@@ -82,7 +82,7 @@ def test_apply_resumes_comments_and_links_without_duplicates(tmp_path, tickets):
         if request.method == "GET" and path.endswith("search/jql"):
             return httpx.Response(200, json={"issues": list(records.values()), "isLast": True})
         if request.method == "GET" and path.endswith("issueLinkType"):
-            return httpx.Response(200, json={"issueLinkTypes": [{"name": "Relates", "inward": "relates to", "outward": "relates to"}, {"name": "Blocks", "inward": "is blocked by", "outward": "blocks"}]})
+            return httpx.Response(200, json={"issueLinkTypes": [{"name": "Relates", "inward": "relates to", "outward": "relates to"}, {"name": "Blocks", "inward": "is blocked by", "outward": "blocks"}, {"name": "Duplicate", "inward": "is duplicated by", "outward": "duplicates"}]})
         if request.method == "POST":
             payload = json.loads(request.content)
             mutations.append(path)
@@ -113,13 +113,14 @@ def test_apply_resumes_comments_and_links_without_duplicates(tmp_path, tickets):
         count = len(mutations)
         second = seed.apply_seed(api, tickets, "MAPJOB", "Task", target)
     assert first == second == json.loads(target.read_text())
-    assert len(records) == 36 and len(links) == 2
+    assert len(records) == 34 and len(links) == 8
     assert sum(map(len, comments.values())) == sum(len(t["fields"]["comment"]["comments"]) for t in tickets)
     assert len(mutations) == count
 
 
 def test_checkpoint_handles_search_index_lag_and_comment_failure(tmp_path, tickets):
-    ticket = next(t for t in tickets if t["fields"]["comment"]["comments"])
+    ticket = copy.deepcopy(next(t for t in tickets if t["fields"]["comment"]["comments"]))
+    ticket["fields"]["issuelinks"] = []  # Isolate checkpoint recovery from the separately tested link graph.
     records, posted, fail = {}, [], [True]
     def handle(request):
         path = request.url.path
