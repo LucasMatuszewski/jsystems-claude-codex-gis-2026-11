@@ -1,6 +1,8 @@
 # Jira jobs: snapshot rzeczywistego API
 
-Pracujesz z 40 zgłoszeniami utworzonymi w rzeczywistej Jira Cloud: 7 epiców zamówień, 29 tasków, 2 błędy i 2 podzadania, oraz z 5 stronami Confluence i 10 PR-ami GitHub. Treść zamówień, role, obszary i ścieżki są syntetyczne. Statusy to 25 To Do, 11 In Progress i 4 Done. Zbiór zawiera 16 komentarzy Jira i 12 relacji strukturalnych. Nie potrzebujesz dostępu do strony prowadzącego ani tokenu.
+Pracujesz z 40 zgłoszeniami utworzonymi w rzeczywistej Jira Cloud: 7 epiców zamówień, 29 tasków, 2 błędy i 2 podzadania, oraz z 5 stronami Confluence, 10 PR-ami GitHub i 10 PR-ami Bitbucket. Treść zamówień, role, obszary i ścieżki są syntetyczne. Statusy to 25 To Do, 11 In Progress i 4 Done. Zbiór zawiera 16 komentarzy Jira i 12 relacji strukturalnych. Snapshot odczytasz lokalnie, bez konta Jira, tokenu i dostępu do usług szkoleniowych.
+
+Zacznij od ścieżki A-offline albo lokalnego MCP w [instrukcji ćwiczenia](../../exercises/jira-mcp/README.md). Po zapisaniu własnych wyników otwórz [Sprawdź się](../../exercises/jira-mcp/SPRAWDZ-SIE.md), które zawiera spoilery. Własna Jira Cloud jest opcją dodatkową; nie musisz odtwarzać zgłoszeń w żadnej usłudze.
 
 `tickets.json` zachowuje kopertę wyszukiwania `{"issues": [...]}` i komplet pól eksportu, w tym puste wartości, niestandardowe `customfield_*`, ID, statusy, relacje, rodziców, podzadania i znaczniki czasu. Nie dodano sztucznego `total`: źródłowy eksport nie zawierał paginacji. `issue-example.json` jest zbudowany ze zgłoszenia TEST-1 w tym samym eksporcie i pokazuje kształt GET issue: `expand`, `id`, `self`, `key`, `fields`. Dodatkowe `webUrl` pozostaje w wynikach wyszukiwania z konektora.
 
@@ -13,7 +15,7 @@ Pracujesz z 40 zgłoszeniami utworzonymi w rzeczywistej Jira Cloud: 7 epiców za
 | `confluence-pages.json` | Kolekcja `results`: id, title, parentId, spaceId, version, body.storage.value i _links; rodzic oraz 4 strony potomne |
 | `github-prs.json` | Pakiet `repo` i `pull_requests`; każdy rekord zawiera REST `pr`, `commits`, `comments`, `review_comments` i `files` z patchami |
 | `job-params.schema.json` | Kontrakt szkicu konfiguracji, nie zgoda na wykonanie |
-| `seed-spec.json` | Starsze definicje 34 zgłoszeń dla prowadzącego; nie opisują całego snapshotu v2 |
+| `seed-spec.json` | Archiwalne definicje 34 zgłoszeń; nie opisują całego snapshotu v2 |
 
 W pakiecie GitHub pola `pr.comments` i `pr.commits` pozostają licznikami REST; tablice zasobów są obok obiektu `pr`. Zachowano SHA, ID komentarzy, gałęzie, SQL i diff YAML, aby można było wskazać dokładny dowód. W komentarzach znajdują się także automatyczne komunikaty o limicie review; nie dowodzą wykonania ani odbioru pracy.
 
@@ -31,7 +33,7 @@ Zastosowano: fikcyjny host `course-site.atlassian.net`, zerowy cloud ID, stabiln
 
 W eksporcie v2 opisy są już ADF; zachowano je bez ponownego parsowania. Markdown w komentarzach przekonwertowano do `body` ADF tak jak zwraca REST v3. Sanitizer potrafi też przekonwertować starsze opisy Markdown. Zachowano akapity, nagłówki, listy, bloki kodu z językiem, tabele, pogrubienia, kursywę i kod inline. Dosłowne sekwencje `\n` w opisach odtworzono jako podziały wierszy. Dodane przez konektor `\[` i `\]` w komentarzach odtworzono jako nawiasy. Gotowe węzły ADF nie są ponownie interpretowane. Alias autora w tekście komentarza oznacza rolę, a `author.displayName` jest kontem technicznym.
 
-To celowo zagęszczona kolejka szkoleniowa. Prawdziwy kształt API nie potwierdza istnienia notebooków, storage ani wyników przetwarzania. `seed-spec.json` to lista definicji dla prowadzącego, nie odpowiedź REST. Nie używaj jej zamiast narzędzi w ćwiczeniu.
+To celowo zagęszczona kolejka szkoleniowa. Prawdziwy kształt API nie potwierdza istnienia notebooków, storage ani wyników przetwarzania. `seed-spec.json` to archiwalna lista definicji, nie odpowiedź REST. Nie używaj jej zamiast narzędzi w ćwiczeniu.
 
 ## Gdzie szukać parametrów
 
@@ -78,14 +80,8 @@ W `links.md` opisz proponowane linki, abstencje, konflikty YAML PR kontra ticket
 uv run course-materials/exercises/jira-mcp/validate_links.py reports/jira-jobs/links.csv
 ```
 
-## Odtworzenie snapshotu przez prowadzącego
+## Praca samodzielna
 
-Surowy eksport trzymaj poza repozytorium, np. w `D:\trainer-private\jira-export.json`. Polecenie nadpisuje tylko cztery jawne pliki docelowe; nie zapisuje danych surowych ani mapowania użytkowników.
-
-```powershell
-python course-materials/exercises/jira-mcp/sanitize_export.py D:\trainer-private\export-raw-v2.json course-materials/exercise-data/jira-jobs/tickets.json --example course-materials/exercise-data/jira-jobs/issue-example.json --pages-raw D:\trainer-private\confluence-pages.json --pages course-materials/exercise-data/jira-jobs/confluence-pages.json --prs-raw D:\trainer-private\github-prs-export.json --prs course-materials/exercise-data/jira-jobs/github-prs.json
-```
-
-`seed_jira.py` jest narzędziem legacy dla płaskiego formatu zgłoszeń. Nie obsługuje `seed-spec.json`, nie odtwarza epiców, parentów ani workflow v2. Nie używaj go do odtworzenia bieżącego zbioru. Użyj procedury seedowania v2 prowadzącego, potem wyeksportuj i zanonimizuj dane. Dokumentacja ADF: [format dokumentu Atlassiana](https://developer.atlassian.com/cloud/jira/platform/apis/document/structure/).
+Nie zmieniaj snapshotu, aby dopasować go do odpowiedzi. Zapisuj wyniki w `reports/jira-jobs/`. Adresy `course-site.atlassian.net`, organizacja `course-org` i workspace `course-workspace` są identyfikatorami w danych, nie kontami do logowania. Odczytujesz je przez lokalne narzędzia. `seed_jira.py` jest narzędziem legacy dla płaskiego formatu, nie odtwarza hierarchii v2 i nie jest potrzebny do tego ćwiczenia. Dokumentacja [ADF](https://developer.atlassian.com/cloud/jira/platform/apis/document/structure/) pomaga rozpoznać strukturę opisu i komentarzy.
 
 Kontrakty źródłowe: [Confluence REST v2 Page](https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-page/), [GitHub REST PR](https://docs.github.com/en/rest/pulls/pulls), [komentarze dyskusji](https://docs.github.com/en/rest/issues/comments), [komentarze review](https://docs.github.com/en/rest/pulls/comments).

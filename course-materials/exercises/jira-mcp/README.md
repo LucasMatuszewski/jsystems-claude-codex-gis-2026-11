@@ -2,7 +2,7 @@
 
 W 45 minut przygotujesz po jednym YAML na zamówienie mapowe i raport problemów do decyzji człowieka. Odczytasz snapshot 40 zgłoszeń Jira, 5 stron Confluence, 10 PR-ów GitHub i 10 PR-ów Bitbucket (9 z repozytorium pipeline, 1 z obcego repozytorium). W Jira masz 7 epiców, 29 tasków, 2 błędy i 2 podzadania. Treść jest syntetyczna, a eksport zanonimizowany. Pracujesz tylko do odczytu, bez uruchamiania przetwarzania ani zapisu do usług.
 
-Na VM Windows otwórz PowerShell 5 lub 7. Potrzebujesz uv, Pythona 3.12 i Claude Code albo Codex CLI. Pozostań w katalogu głównym repozytorium; dostosuj literę dysku do swojego klonu.
+Ćwiczenie wykonasz samodzielnie na swoim komputerze, bez prowadzącego, konta Jira i wspólnego tokenu. Otwórz PowerShell 5 lub 7. Potrzebujesz Git, uv, Pythona 3.12, klonu tego repozytorium i własnego dostępu do Claude Code albo Codex CLI. Pozostań w katalogu głównym repozytorium; dostosuj literę dysku do swojego klonu.
 
 ```powershell
 Set-Location D:\jsystems-claude-codex-gis-2026-11
@@ -20,7 +20,7 @@ Set-Location D:\jsystems-claude-codex-gis-2026-11
 
 Porównaj [cztery sposoby połączenia agenta z Atlassian](../../Research/atlassian-agents-mcp-plugins-skill-2026-11.md): connector, plugin, MCP i skill z API.
 
-Wybierz A-offline, aby pracować skryptem CLI bez konta i tokenu, albo C, aby przećwiczyć MCP na tych samych danych. A wymaga osobnego dostępu zapewnionego przez prowadzącego. Nie dostajesz dostępu do prywatnej strony prowadzącego, która zawiera inne projekty. B jest opcją dla własnego konta z dostępem do uzgodnionego projektu.
+Zacznij od A-offline, aby pracować skryptem CLI bez konta i tokenu, albo C, aby przećwiczyć MCP na tych samych danych. A i B są opcjonalne: wymagają twojego konta Jira Cloud i projektu, do którego masz prawo dostępu. Nie używaj dawnych tokenów szkoleniowych. Dla firmowego Server/DC zobacz osobne konfiguracje MCP; czytnik live w tym ćwiczeniu obsługuje Cloud, a skill Server/DC nie zastępuje go bez dostosowania.
 
 Przeczytaj [kontrakt danych](../../exercise-data/jira-jobs/README.md) i [schemat v2](../../exercise-data/jira-jobs/job-params.schema.json). Nie edytuj wejść. Zakończ poprzednią sesję przed zmianą agenta, aby dwa procesy nie pisały tego samego raportu. Internet jest potrzebny do instalacji bibliotek i działania agenta; lokalne narzędzia odczytują zgłoszenia bez sieci.
 
@@ -64,9 +64,9 @@ uv run --with httpx course-materials/exercises/jira-mcp/jira_read.py --offline s
 
 Lokalny podzbiór JQL obsługuje `project`, `labels`, `status`, `issuetype`, `parent`, `key` z `=`, `text` z `~`, łączenie przez `AND` i `ORDER BY key` z opcjonalnym `ASC` lub `DESC`. Nie obsługuje OR, funkcji JQL ani pełnej składni serwera Jira; nieobsługiwane zapytanie zgłasza błąd. Odczyt `get` pokazuje rodzica, dzieci i linki, a `comments` pełną treść komentarzy. Używaj tych poleceń, zamiast otwierać pliki JSON.
 
-### A. Rzeczywista Jira przez API, tylko z dostępem od prowadzącego
+### A. Własna Jira Cloud przez API, opcjonalnie
 
-Wybierz A tylko wtedy, gdy prowadzący zapewni osobny dozwolony projekt i dane dostępu. Zastąp `TEST` oraz przykładowe klucze wartościami tego projektu. Tryb live jest domyślny; wyłącz ustawienie offline.
+Wybierz A tylko dla własnego konta i dozwolonego projektu. Utwórz osobisty token z minimalnymi zakresami odczytu w panelu konta Atlassian. Zastąp `TEST` i przykładowe klucze wartościami swojego projektu. Nie zakładaj, że twoja Jira zawiera 40 zgłoszeń z tego ćwiczenia: oczekiwane odpowiedzi i samokontrola dotyczą wyłącznie snapshotu. Do porównania z nimi wróć do A-offline lub C. Tryb live jest domyślny; wyłącz ustawienie offline.
 
 ```powershell
 Remove-Item Env:JIRA_OFFLINE -ErrorAction SilentlyContinue
@@ -77,7 +77,7 @@ $env:JIRA_BASE_URL = "https://twoja-strona.atlassian.net"
 ```
 
 ```powershell
-$env:JIRA_EMAIL = "wlasciciel@example.com"
+$env:JIRA_EMAIL = Read-Host "E-mail właściciela tokenu Jira Cloud"
 ```
 
 ```powershell
@@ -96,11 +96,11 @@ $env:JIRA_API_TOKEN = [System.Net.NetworkCredential]::new("", $jiraSecureToken).
 
 Używaj tych samych poleceń `search`, `get`, `comments` co w A-offline. CLI pobiera wszystkie strony wyszukiwania i komentarzy. W live zapytania wykonuje Jira i dostępna jest jej pełna składnia JQL. `get` pokazuje pola rodzica i podzadań; taski epika wyszukaj dodatkowo przez `parent = <klucz>`. Nie zakładaj, że `subtasks` zawiera wszystkie dzieci epika.
 
-Po ustawieniu `JIRA_CLOUD_ID` klient korzysta z bramy `https://api.atlassian.com/ex/jira/{cloudId}`. Bez tej zmiennej używa `JIRA_BASE_URL`. Potrzebujesz uprawnień właściciela tokenu do projektu i odpowiednich zakresów odczytu. Odczyt odmawia POST, DELETE i endpointów poza wyszukiwaniem, zgłoszeniami i komentarzami. Błędy 401/403 wymagają sprawdzenia dostępu; 429 oznacza limit. Zgłoś błąd prowadzącemu, a potem wybierz A-offline lub C.
+Po ustawieniu `JIRA_CLOUD_ID` klient korzysta z bramy `https://api.atlassian.com/ex/jira/{cloudId}`. Bez tej zmiennej używa `JIRA_BASE_URL`. Potrzebujesz uprawnień właściciela tokenu do projektu i odpowiednich zakresów odczytu. Odczyt odmawia POST, DELETE i endpointów poza wyszukiwaniem, zgłoszeniami i komentarzami. Błędy 401/403 wymagają sprawdzenia dostępu i zakresów tokenu; 429 oznacza limit. Jeśli nie możesz rozwiązać problemu z administratorem, wróć do A-offline lub C. Nie potrzebujesz dostępu live do ukończenia ćwiczenia.
 
 ### B. Rovo MCP na własnym koncie, opcjonalnie
 
-Jeśli masz własne konto z dostępem do uzgodnionego projektu, możesz połączyć oficjalny endpoint Rovo MCP przez OAuth. Wykonaj polecenie dla swojego klienta przed nową sesją.
+Jeśli masz własne konto z dostępem do dozwolonego projektu Cloud, możesz połączyć oficjalny endpoint Rovo MCP przez OAuth. Wykonaj polecenie dla swojego klienta przed nową sesją. [Przykładowe konfiguracje](../../agent-configs/mcp-atlassian/README.md) wyjaśniają osobne konta, zakresy konfiguracji i alternatywę Server/DC.
 
 ```powershell
 claude mcp add --transport http --scope local atlassian-oauth https://mcp.atlassian.com/v2/mcp
@@ -250,24 +250,53 @@ uv run course-materials/exercises/jira-mcp/validate_links.py reports/jira-jobs/l
 
 To zadanie klasyfikacji: tani model decyzyjny przez OpenRouter Decisions może ocenić każdą wzmiankę z możliwością abstencji, a agent zbiera kontekst i przygotowuje kandydatów. Kod sprawdza istnienie kluczy i kontrakt wyniku, a człowiek rozstrzyga niepewne dopasowania oraz konflikty.
 
-Opcjonalnie wybierz 5 najtrudniejszych wzmianek i porównaj ocenę agenta z modelem Decisions według [wzorca M6](../map-qa-decisions/README.md#m6-odczytaj-zdjęcie-modelem-decyzyjnym). Nie wykonuj płatnych wywołań w podstawowym J3; po zgodzie prowadzącego budżet wynosi najwyżej 5 żądań łącznie, jedno na wzmiankę, wliczając capture i błędy. Użyj wyłącznie `OPENROUTER_API_KEY` z odziedziczonego środowiska, bez plików sekretów, z timeout 40 s i zerem retry; po błędzie przerwij pętlę. Przekaż tylko syntetyczny kontekst wzmianki i kandydatów, bez rzeczywistej poczty i danych osób. Zadaj pytanie Choice o związek semantyczny z kandydatem: `same_work`, `different_work`, `insufficient_evidence`; ta ostatnia odpowiedź lub niepewny rozkład oznacza abstencję i `flag_for_human`. Najpierw sprawdź aktualny [kontrakt Decisions](https://openrouter.ai/docs/api/api-reference/alphadecisions/submit-a-decisions-request); zachowaj bezpieczny capture przed mockiem. Zapisz model, pytanie, wynik, rozkład prawdopodobieństw, czas i `usage.cost` dla każdej próby oraz sumę kosztu; brak kosztu oznacz jako brak pomiaru, nie zero. Pięć przykładów to demonstracja, nie kalibracja produkcyjna.
+### J3 Decisions. Opcjonalna próba na własnym koncie
+
+Podstawowe J3 nie wykonuje płatnych wywołań. Ten dodatek wykonaj poza limitem 45 minut, tylko jeśli świadomie wybierasz własne konto OpenRouter z dostępnym modelem Decisions i kluczem w odziedziczonej zmiennej `OPENROUTER_API_KEY`. Nie korzystaj ze wspólnego tokenu ani budżetu szkoleniowego. [Dokumentacja Decisions](https://openrouter.ai/docs/api/api-reference/alphadecisions/submit-a-decisions-request) opisuje surowy `POST https://openrouter.ai/api/alpha/decisions`, pytania Choice i odpowiedź `answers.<id>.probabilities`; to osobny endpoint, nie Chat Completions. Dokumentacja pokazuje `typesafe/jev-1.13`; dostępność i koszt na twoim koncie trzeba sprawdzić przed wyborem próby.
+
+Sprawdź jedynie obecność klucza w bieżącym PowerShell, bez odczytu plików sekretów:
+
+```powershell
+[bool]$env:OPENROUTER_API_KEY
+```
+
+Jeśli wynik to `False`, pomiń wariant płatny i porównaj raport z samokontrolą. Jeśli to `True` i chcesz wykonać próbę na własny koszt, wklej poniższy prompt do agenta. Obejmuje przygotowanie i wykonanie maksymalnie pięciu żądań, bez dodatkowej próby technicznej. Przed uruchomieniem przeczytaj przygotowany manifest i kod klienta.
+
+~~~text
+Wykonaj opcjonalną próbę J3 Decisions na moim własnym koncie OpenRouter. Budżet: maksymalnie 5 żądań POST łącznie w tej próbie, wliczając pierwszy capture, timeouty i błędy; jedno żądanie na wzmiankę i jednego kandydata. Nie wykonuj dodatkowego testowego wywołania, retry ani zamiany modelu. Wznowienie nie zeruje licznika. Po błędzie HTTP, sieciowym, walidacji odpowiedzi lub braku wymaganych prawdopodobieństw przerwij całą płatną pętlę.
+Najpierw przeczytaj bieżący oficjalny kontrakt OpenRouter Decisions. Użyj modelu typesafe/jev-1.13, surowego POST https://openrouter.ai/api/alpha/decisions i klienta Python httpx bez SDK i bez automatycznych retry; timeout 40 s, follow_redirects=False. Nie wykonuj płatnych wywołań, jeśli kontrakt lub dostępność modelu nie są potwierdzone. Nie czytaj pliku samokontroli przed zapisaniem wyników. Wejścia czytaj wyłącznie przez lokalne narzędzia ćwiczenia, nie bezpośrednio z JSON ani testów.
+Przygotuj w reports/jira-jobs/decisions/ manifest pięciu par: GitHub course-org/map-data-jobs-sim PR 5 i kandydat z literówki; GitHub PR 9 i kandydat po treści; GitHub PR 10 i jeden z dwóch kluczy; Bitbucket course-workspace/map-data-jobs-pipelines PR 9 i kandydat wynikający z treści; Bitbucket course-workspace/ai-php-course-08-2026 PR 1 i wspomniany klucz. Zapisz source_id, dokładną wzmiankę, kandydata, dowody i wcześniejszą ocenę agenta przed API. Odczytaj również właściwe tickety, komentarze, istniejące remote linki i dostępne diffy. Nie dopowiadaj brakujących plików.
+W każdym request użyj questions.relation.type="choice" oraz identycznych instructions: "Czy praca opisana w source dotyczy tego samego zamówienia i zakresu co candidate?". criteria: same_work="Źródło i kandydat dotyczą tego samego zamówienia i zakresu pracy."; different_work="Źródło opisuje inne zamówienie lub inny zakres pracy niż kandydat."; insufficient_evidence="Dostępna treść nie rozstrzyga, którego zamówienia i zakresu dotyczy źródło.". State to obiekt source i candidate z treścią potrzebną do tej oceny oraz kontekstem repozytorium i parametrów. Wysyłaj tylko dane syntetyczne, bez klucza odpowiedzi, wcześniejszych etykiet agenta, prawdziwej poczty i danych osób.
+Klucz odczytaj wyłącznie z os.environ["OPENROUTER_API_KEY"]. Nie czytaj żadnego pliku sekretów, nie loguj nagłówka Authorization i nie wypisuj wartości klucza. Zapisz manifest i klienta decyzji, potem pokaż ich ścieżki oraz pięć par do mojego przeglądu przed płatnym wykonaniem.
+Licznik prób zapisz na dysku przed każdym POST; przerwij, jeśli wynosi już 5, także po ponownym uruchomieniu. Pierwsze żądanie jest zarazem capture: zapisz datę, endpoint, wersję httpx, bezpieczny request bez nagłówka Authorization, status, nagłówki odpowiedzi po usunięciu wartości sekretów i pełny syntetyczny body. Nie twórz mocka przed capture. Nie drukuj surowych błędów, które mogłyby ujawnić nagłówki żądania. Każdy wynik zapisz z model/provider/id, questions, answers, confidence, probabilities, czasem i usage.cost; brak kosztu oznacz null, nie zero. Podaj koszt zmierzony oraz liczbę prób bez pomiaru kosztu.
+Polityka próby ustalona przed pomiarem: abstain i flag_for_human, jeśli wygrywa insufficient_evidence, max(probabilities)<0.85 lub różnica dwóch największych prawdopodobieństw<0.20. Brak rozkładu lub błędna odpowiedź oznacza model_unavailable i przerwanie, nigdy zgodę na link. Model ocenia związek semantyczny, a nie pozwolenie na zmianę. Niezależnie od prawdopodobieństw literówki, migracja prefiksu, dopasowanie tylko po treści, błędny istniejący link, konflikt parametrów i nieustalona intencja dostawy pozostają flag_for_human. Poprawny istniejący link to ignore/already_linked_no_action; obce repozytorium nie dostaje linku przez sam zgodny klucz.
+Po mojej decyzji o wykonaniu uruchom przygotowanego klienta dokładnie raz. Zapisz comparison.md z oceną agenta, odpowiedzią modelu i decyzją po zastosowaniu reguł dla każdej pary. Dopiero po zapisaniu wyników otwórz plik samokontroli i porównaj z sekcjami GitHub, Bitbucket oraz Confluence. Policz błędne propozycje linków, poprawne decyzje i abstencje; nie traktuj abstencji jako fałszywej pewności ani pięciu przykładów jako kalibracji produkcyjnej. Nie zmieniaj progów po obejrzeniu odpowiedzi. Niczego nie zapisuj do usług i nie uruchamiaj jobów.
+~~~
+
+Próg `0.85` i margines `0.20` to polityka tej demonstracji, a nie gwarancja jakości modelu. Różnica między oceną związku a propozycją linku jest zamierzona: model może rozpoznać wspólną pracę, a kod nadal musi zachować `flag_for_human` przy konflikcie lub brakującej decyzji.
 
 ## J4. Opcjonalne porównanie modeli
 
 Wybierz tańszy i mocniejszy model dostępny na koncie przez `/model`. W dwóch świeżych sesjach użyj identycznego promptu J1 i tej samej ścieżki. Nie pokazuj drugiemu modelowi pierwszego wyniku. Zapisz wyniki w nowych katalogach `reports/jira-jobs-comparison/cheap` i `reports/jira-jobs-comparison/strong`.
 
-Ręcznie oceń pięć tych samych zamówień: TEST-1..TEST-5 wraz z pełnym drzewem i dowodami spoza hierarchii. W live ustal odpowiadające im klucze i uzgodnij zakres z prowadzącym. Oceniaj 12 pól poza job_id, maksymalnie 60 punktów; notes jako jedno pole. Sprawdź osobno job_id, liczbę plików i unknown_reasons. `null` jest poprawny tylko z właściwym powodem. Nie porównuj samych tytułów ani statusów.
+Ręcznie oceń pięć tych samych zamówień: TEST-1..TEST-5 wraz z pełnym drzewem i dowodami spoza hierarchii, potem porównaj je ze [Sprawdź się](./SPRAWDZ-SIE.md). W live samodzielnie wybierz i zapisz równoważny zakres własnego projektu; nie porównuj go z odpowiedziami snapshotu. Oceniaj 12 pól poza job_id, maksymalnie 60 punktów; notes jako jedno pole. Sprawdź osobno job_id, liczbę plików i unknown_reasons. `null` jest poprawny tylko z właściwym powodem. Nie porównuj samych tytułów ani statusów.
 
 Zapisz dokładne nazwy modeli, czas i dostępny pomiar zużycia. `/context` w Claude Code lub `/status` w Codex może pokazywać wielkość kontekstu albo limit konta, nie zużyte tokeny; zachowaj nazwę i jednostkę pomiaru z ekranu. Jeśli zużycie nie jest dostępne, napisz to. Nie potrzebujesz dodatkowego płatnego API.
 
-## Granice i narzędzia prowadzącego
+## Samokontrola i zakończenie
 
-Nie zapisuj tokenów, surowych eksportów ani mapowania kont w repozytorium. W A używaj wyłącznie uzgodnionego projektu, ponieważ token sam nie ogranicza dostępu do tego projektu. Po ćwiczeniu wyczyść zmienne w bieżącej sesji.
+Zachowaj swój pierwszy raport, zanim otworzysz [Sprawdź się](./SPRAWDZ-SIE.md). Plik zawiera spoilery: oczekiwane ustalenia dla dziewięciu zamówień, zasiane problemy oraz decyzje o linkach. Porównaj parametry i dowody, nie tylko wynik walidatora. Poprawki zapisz jako osobny wynik z krótkim uzasadnieniem różnic. Ćwiczenie jest ukończone, gdy masz YAML-e i oba raporty, jawne HOLD/BLOCKED oraz rozumiesz pięć ręcznie sprawdzonych przypadków.
+
+Nie zapisuj tokenów, surowych eksportów ani mapowania kont w repozytorium. W A używaj wyłącznie dozwolonego projektu, ponieważ token sam nie ogranicza dostępu do tego projektu. Po ćwiczeniu wyczyść zmienne w bieżącej sesji.
 
 ```powershell
-Remove-Item Env:JIRA_API_TOKEN,Env:JIRA_EMAIL,Env:JIRA_CLOUD_ID,Env:JIRA_OFFLINE -ErrorAction SilentlyContinue
+Remove-Item Env:JIRA_API_TOKEN,Env:JIRA_EMAIL,Env:JIRA_CLOUD_ID,Env:JIRA_BASE_URL,Env:JIRA_OFFLINE -ErrorAction SilentlyContinue
 ```
 
-`sanitize_export.py` służy prowadzącemu do odtworzenia snapshotu z eksportu poza repozytorium. Instrukcja jest w README danych. `seed_jira.py` jest legacy: obsługuje dawny płaski format, nie `seed-spec.json` ani hierarchię v2. Nie uruchamiaj go w ćwiczeniu i nie używaj do odtworzenia tej kolejki.
+```powershell
+Remove-Variable jiraSecureToken -ErrorAction SilentlyContinue
+```
+
+`sanitize_export.py` i `seed_jira.py` nie są potrzebne do samodzielnego ćwiczenia. Ten drugi obsługuje dawny płaski format, nie hierarchię v2; nie odtwarzaj nim tej kolejki. Dane wejściowe pozostają bez zmian.
 
 Źródła: [Jira REST API v3](https://developer.atlassian.com/cloud/jira/platform/rest/v3/), [ADF](https://developer.atlassian.com/cloud/jira/platform/apis/document/structure/), [Rovo MCP](https://developer.atlassian.com/cloud/rovo-mcp/), [Claude Code MCP](https://code.claude.com/docs/en/mcp), [Codex MCP](https://developers.openai.com/codex/mcp/).

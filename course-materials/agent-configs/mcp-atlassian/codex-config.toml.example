@@ -1,0 +1,17 @@
+[mcp_servers.atlassian-cloud]
+url = "https://mcp.atlassian.com/v2/mcp"
+env_http_headers = { Authorization = "ATLASSIAN_CLOUD_AUTH" }
+
+[mcp_servers.jira-onprem]
+url = "https://mcp.devpowers.com/jira/mcp"
+env_http_headers = { Authorization = "JIRA_MCP_AUTH" }
+
+[mcp_servers.confluence-onprem]
+url = "https://mcp.devpowers.com/confluence/mcp"
+env_http_headers = { Authorization = "CONFLUENCE_MCP_AUTH" }
+
+[mcp_servers.bitbucket-onprem]
+command = "uvx"
+args = ["mcp-bitbucket-dc"]
+env = { BITBUCKET_URL = "https://bitbucket.devpowers.com" }
+env_vars = ["BITBUCKET_API_TOKEN"]
