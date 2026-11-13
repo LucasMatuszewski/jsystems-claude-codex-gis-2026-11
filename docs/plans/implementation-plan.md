@@ -273,3 +273,15 @@ T00 is done (PRD and ADR fixes committed). The next bounded task is **T01: scaff
 - **T51 reviews.** CX-Sol (`codex exec review --base main -m gpt-6.1-sol`) found 5 P2 issues: capture budget, malformed cost, tier-2 attribution, image side limits, missing inputs. All 5 were confirmed and fixed with regression tests (`e797433`). A second read by Claude found 9 more, all confirmed and fixed (`7061237`). The fixes covered: missing vs not comparable in the map comparison (two CC-Haiku tests that encoded the conflation were changed, justified by AC-08), normalized speed comparison, ambiguous links excluded, tier-2 card label, cost above reservation opens the breaker, deleted input detected, questions needing new calls listed, and Databricks and console secret guards.
 - **Final QA (2026-11-12).** `map-qa run` on files: exit 0, 11 s. `map-qa run --model-reading --yes` with an empty cache against the real endpoints: exit 0, 44 requests, 0.0059 USD, 108 s. Cached rerun: 0 requests. Playwright: `lang=pl`, 0 scripts, 0 external `src`, 21/21 thumbnails load, every link https with `rel=noopener noreferrer`, 0 console errors.
 - **Gates accepted (2026-11-13).** The human accepted T16, T24, T33, T47 and T51 and asked for a push plus a PR ready for review (U5).
+
+### Phase 6 — Report usability (PRD §13, requested by the human on 2026-11-13 after reviewing PR #10)
+
+| ID | Task | Observable outcome | PRD/ADR links | Prerequisites | Owner/model | Editable files | Verification and handoff | Status |
+|---|---|---|---|---|---|---|---|---|
+| T60 | PRD amendment | AC-27…AC-31 recorded in English | PRD §13 | T51 | ORCH | `docs/PRD.md` | Docs review | done (`e77deb4`) |
+| T61 | Local photos for thumbnails | 558/561 photos in ignored `data/photos/` (3 Panoramax return 404 at the source); placeholders link to the Mapillary viewer or are labelled as Panoramax API metadata | AC-27 | T60 | ORCH | templates; scratch fetch script (outside repo) | 233 images, 0 broken, 6 placeholders, all linked (Playwright) | done (`06852d5`) |
+| T62 | Glossary, label provenance, total cost | Glossary in both reports; AI-label notice next to metrics; cost of all answers incl. cache, per model | AC-28, AC-29, AC-30 | T60 | ORCH | `report/model.py`, templates, `escalator.py`, `model_reading.py` | `test_report_usability.py` Red → Green | done (`06852d5`) |
+| T63 | Executive summary | `summary.html` written by `run` and `report --from`; KPIs, insights, 4 static SVG charts with table views, dark mode, no JS | AC-31 | T62 | ORCH | `report/summary.py`, `templates/summary.html.j2`, `render.py`, `rerender.py` | 363 passed; Playwright light/dark screenshots, 0 console errors; counters equal report.html | done (`06852d5`) |
+
+- **Final QA after Phase 6 (2026-11-13, commit `06852d5`).** `map-qa run --model-reading --yes`: exit 0, all answers from cache. `summary.html` and `report.html` in Playwright: `lang=pl`, no scripts, 0 broken images, 0 console errors. Summary counters equal the report's (AC-23).
+- **Documentation language (human, 2026-11-13).** The existing ADRs stay in Polish (U7 dropped); new documents and tickets are written in English.
