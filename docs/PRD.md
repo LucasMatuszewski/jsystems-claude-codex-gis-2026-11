@@ -285,3 +285,15 @@ flowchart TD
 - **Model choice** (which decision model, which second model for the 5-image comparison, which general model for tier 2) is decided in the ADR.
 - **Sample bias:** the Mapillary photos were selected via speed-limit features, and the sign set is deliberately enriched with hard negatives. Neither reflects real-world frequencies.
 - **Next steps after the MVP:** dashboard with persisted analyst decisions; topology checks; own photo–road re-matching; live API ingestion; larger evaluation budget.
+
+---
+
+## 13. Amendment 2026-11-13: report usability (after the human review of PR #10)
+
+Agreed with the human on 2026-11-13 after reading the first full report. These requirements extend §9.2 and do not change §4.
+
+- **AC-27 (thumbnails):** the pipeline uses every locally available photo, `data/photos/` first (filled by the course script `download_photos.py`), then `offline/`. When a thumbnail is missing, the placeholder links to a human-viewable page of the photo, never to a raw JSON API response. Mapillary photos use the Mapillary viewer; a Panoramax link is labelled as "metadane źródła" when only the API URL is known.
+- **AC-28 (glossary):** both reports contain a short Polish glossary explaining tier 1 (decision model with probabilities), tier 2 (general LLM asked only when tier 1 is uncertain), abstain, `model_unavailable`, `not_run_budget_or_error`, and the six comparison statuses.
+- **AC-29 (label provenance):** every place that shows reference labels or accuracy says that the labels were produced by AI agents (street photos: Codex; sign crops: Codex and GLM-5.3-Flash agreeing) and were not verified by a human. Accuracy is presented as agreement with these working labels, not as correctness.
+- **AC-30 (costs):** besides the cost of new requests in this run, the reports show the total cost of all model answers used in the report, including the original cost of answers served from the cache, per model.
+- **AC-31 (executive summary):** every `map-qa run` and `map-qa report --from` also writes `summary.html`, a one-page Polish summary readable in a few minutes. It contains key numbers, the main data insights, the model comparison and the caveats, with static charts (inline SVG, no JavaScript, no external assets, a table view for every chart). The text is generated deterministically from `results.json` by a template; no LLM call is needed.
