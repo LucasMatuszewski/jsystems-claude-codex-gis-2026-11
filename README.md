@@ -1,5 +1,14 @@
 # UPDATES !!!
 
+## Po dniu 4 (13.11)
+
+- **Sprostowanie: uprawnienia konektora Atlassian.** Na szkoleniu mówiłem, że po stronie Atlassiana konektor claude.ai ma niewiele ustawień dostępu. To nieprawda: na ekranie zgody po kliknięciu Connect rozwiń sekcje Read, Write i Search. Zobaczysz pojedyncze uprawnienia (domyślnie zaznaczone wszystkie 32), np. `read_jira`, `search_jira`, `write_jira`, `read_confluence`. Do analizy zgłoszeń wystarczą `read_jira` i `search_jira` (ewentualnie `read_confluence`, `search_confluence`), bez żadnego `write_*` i bez uprawnień działających w całej organizacji. Wybierasz też konkretną witrynę i workspace Bitbucket. Masz więc dwie warstwy ochrony: uprawnienia po stronie Atlassiana i ustawienia narzędzi po stronie Claude lub Codex ([opis w konfiguracjach MCP](course-materials/agent-configs/mcp-atlassian/README.md#dwie-warstwy-uprawnień), [dokumentacja Atlassian](https://support.atlassian.com/atlassian-rovo-mcp-server/docs/getting-started-with-the-atlassian-remote-mcp-server/)).
+- [Konfiguracje MCP dla Claude Code i Codex](course-materials/agent-configs/mcp-atlassian/README.md): kilka połączeń Atlassian, osobne tokeny, OAuth i wariant lokalny Server/DC.
+- [Connector, plugin, MCP czy skill z API?](course-materials/Research/atlassian-agents-mcp-plugins-skill-2026-11.md): porównanie i wybór ścieżki dla Cloud oraz Server/Data Center.
+- [Jira do samodzielnej pracy](course-materials/exercises/jira-mcp/README.md): zacznij od snapshotu bez konta i tokenu. Po własnej próbie otwórz [Sprawdź się, ze spoilerami](course-materials/exercises/jira-mcp/SPRAWDZ-SIE.md).
+- [Skill atlassian-onprem-safe](https://github.com/EdukeyTeam/agent-toolbox/tree/main/skills/atlassian-onprem-safe): kontrolowany REST do Jira, Confluence i Bitbucket Server/DC, z interaktywnym przygotowaniem PAT.
+- Oficjalna dokumentacja: [Claude Code MCP](https://code.claude.com/docs/en/mcp), [Codex MCP](https://developers.openai.com/codex/mcp/), [Atlassian Rovo MCP](https://developer.atlassian.com/cloud/rovo-mcp/), [wprowadzenie MCP](https://modelcontextprotocol.io/docs/getting-started/intro), [specyfikacja MCP](https://modelcontextprotocol.io/specification/latest), [Atlassian PAT](https://confluence.atlassian.com/enterprise/using-personal-access-tokens-1026032365.html).
+
 ## Dzień 4 (13.11)
 
 - **Implementacja trenera:** [PR #10 - Map QA CLI](https://github.com/LucasMatuszewski/jsystems-claude-codex-gis-2026-11/pull/10), gałąź [`Map-App-Implementation`](https://github.com/LucasMatuszewski/jsystems-claude-codex-gis-2026-11/tree/Map-App-Implementation). Przypomnienie: tam znajdziecie kod aplikacji, PRD, ADR, plan i raporty w `reports/map-qa/`. `main` pozostaje bazą startową kursu z materiałami.

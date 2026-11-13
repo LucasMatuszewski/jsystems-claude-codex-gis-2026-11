@@ -1,0 +1,34 @@
+{
+  "mcpServers": {
+    "atlassian-cloud": {
+      "type": "http",
+      "url": "https://mcp.atlassian.com/v2/mcp",
+      "headers": {
+        "Authorization": "${ATLASSIAN_CLOUD_AUTH}"
+      }
+    },
+    "jira-onprem": {
+      "type": "http",
+      "url": "https://mcp.devpowers.com/jira/mcp",
+      "headers": {
+        "Authorization": "${JIRA_MCP_AUTH}"
+      }
+    },
+    "confluence-onprem": {
+      "type": "http",
+      "url": "https://mcp.devpowers.com/confluence/mcp",
+      "headers": {
+        "Authorization": "${CONFLUENCE_MCP_AUTH}"
+      }
+    },
+    "bitbucket-onprem": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": ["mcp-bitbucket-dc"],
+      "env": {
+        "BITBUCKET_URL": "https://bitbucket.devpowers.com",
+        "BITBUCKET_API_TOKEN": "${BITBUCKET_API_TOKEN}"
+      }
+    }
+  }
+}
