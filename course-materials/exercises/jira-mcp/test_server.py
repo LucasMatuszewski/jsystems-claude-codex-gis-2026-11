@@ -18,9 +18,9 @@ def server():
 
 def test_discovery_is_complete(server):
     lines = server.search_tickets("").splitlines()
-    assert len(lines) == 34
+    assert len(lines) == 40
     assert lines[0].startswith("TEST-1 |")
-    assert lines[-1].startswith("TEST-34 |")
+    assert lines[-1].startswith("TEST-40 |")
 
 
 @pytest.mark.parametrize("query,key", [
@@ -92,8 +92,8 @@ def test_unknown_ticket_is_not_a_path(server, tool, key):
 def test_data_shape_and_adf():
     path = Path(__file__).resolve().parents[2] / "exercise-data/jira-jobs/tickets.json"
     response = json.loads(path.read_text(encoding="utf-8"))
-    assert len(response["issues"]) == 34
-    assert len({issue["key"] for issue in response["issues"]}) == 34
+    assert len(response["issues"]) == 40
+    assert len({issue["key"] for issue in response["issues"]}) == 40
     for issue in response["issues"]:
         fields = issue["fields"]
         assert issue["key"].startswith("TEST-")
@@ -106,3 +106,18 @@ def test_data_shape_and_adf():
         comments = fields["comment"]
         assert comments["total"] == len(comments["comments"])
         assert all(c["body"]["type"] == "doc" for c in comments["comments"])
+
+
+def test_confluence_and_github_tools(server):
+    assert len(server.search_pages('').splitlines()) == 5
+    assert '220135425' in server.search_pages('konwencje parametrów')
+    assert 'course-site.atlassian.net' in server.get_page('220135425')
+    assert len(server.list_prs('').splitlines()) == 10
+    assert server.list_prs('test-12-osm-wk46').startswith('3 |')
+    assert '2026.10' in server.get_pr(10) and '4559055746' in server.get_pr(10)
+    assert server.search_pages('brak-nieistniejącej-frazy') == 'Brak stron.'
+    assert server.list_prs('brak-nieistniejącej-frazy') == 'Brak PR.'
+    with pytest.raises(ValueError):
+        server.get_page('../tickets.json')
+    with pytest.raises(ValueError):
+        server.get_pr(9999)

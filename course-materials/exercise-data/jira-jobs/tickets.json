@@ -59,10 +59,10 @@
         "customfield_10020": null,
         "customfield_10021": null,
         "priority": {
-          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-          "name": "Medium",
-          "id": "3"
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/2",
+          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/high_new.svg",
+          "name": "High",
+          "id": "2"
         },
         "labels": [
           "course-seed",
@@ -108,10 +108,10 @@
                   }
                 },
                 "priority": {
-                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-                  "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-                  "name": "Medium",
-                  "id": "3"
+                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/4",
+                  "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/low_new.svg",
+                  "name": "Low",
+                  "id": "4"
                 },
                 "issuetype": {
                   "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issuetype/10113",
@@ -126,10 +126,60 @@
                 }
               }
             }
+          },
+          {
+            "id": "10462",
+            "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issueLink/10462",
+            "type": {
+              "id": "10003",
+              "name": "Relates",
+              "inward": "relates to",
+              "outward": "relates to",
+              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issueLinkType/10003"
+            },
+            "inwardIssue": {
+              "id": "10655",
+              "key": "TEST-37",
+              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issue/10655",
+              "fields": {
+                "summary": "Daily dashboard check 2026-11-12: row counts dropped for PL-14 roads",
+                "status": {
+                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10017",
+                  "description": "",
+                  "iconUrl": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/",
+                  "name": "To Do",
+                  "id": "10017",
+                  "statusCategory": {
+                    "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/statuscategory/2",
+                    "id": 2,
+                    "key": "new",
+                    "colorName": "blue-gray",
+                    "name": "To Do"
+                  }
+                },
+                "priority": {
+                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/2",
+                  "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/high_new.svg",
+                  "name": "High",
+                  "id": "2"
+                },
+                "issuetype": {
+                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issuetype/10111",
+                  "id": "10111",
+                  "description": "Tasks track small, distinct pieces of work.",
+                  "iconUrl": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+                  "name": "Task",
+                  "subtask": false,
+                  "avatarId": 10318,
+                  "entityId": "1970404a-5c87-4161-87a2-e41864064657",
+                  "hierarchyLevel": 0
+                }
+              }
+            }
           }
         ],
         "assignee": null,
-        "updated": "2026-11-13T03:21:18.710+0100",
+        "updated": "2026-11-13T03:35:21.163+0100",
         "status": {
           "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10018",
           "description": "This work item is being actively worked on at the moment by the assignee.",
@@ -577,7 +627,7 @@
         },
         "environment": null,
         "customfield_10119": null,
-        "duedate": null,
+        "duedate": "2026-11-19",
         "progress": {
           "progress": 0,
           "total": 0
@@ -687,11 +737,35 @@
                 "accountId": "712020:course-user-1",
                 "displayName": "Analityk (kurs)"
               }
+            },
+            {
+              "id": "10456",
+              "body": {
+                "type": "doc",
+                "version": 1,
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Kanoniczne kody regionów, format wydania i wzorzec ścieżki: https://course-site.atlassian.net/wiki/spaces/~course-user/pages/220135425"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "created": "2026-11-13T03:35:21.163+0100",
+              "updated": "2026-11-13T03:35:21.163+0100",
+              "author": {
+                "accountId": "712020:course-user-1",
+                "displayName": "Analityk (kurs)"
+              }
             }
           ],
           "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issue/10619/comment",
-          "maxResults": 3,
-          "total": 3,
+          "maxResults": 4,
+          "total": 4,
           "startAt": 0
         },
         "worklog": {
@@ -779,9 +853,110 @@
         "timeestimate": null,
         "aggregatetimeoriginalestimate": null,
         "versions": [],
-        "issuelinks": [],
+        "issuelinks": [
+          {
+            "id": "10460",
+            "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issueLink/10460",
+            "type": {
+              "id": "10003",
+              "name": "Relates",
+              "inward": "relates to",
+              "outward": "relates to",
+              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issueLinkType/10003"
+            },
+            "inwardIssue": {
+              "id": "10653",
+              "key": "TEST-35",
+              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issue/10653",
+              "fields": {
+                "summary": "Databricks run failed - OSM-460 export Kraków (run 48211907)",
+                "status": {
+                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10017",
+                  "description": "",
+                  "iconUrl": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/",
+                  "name": "To Do",
+                  "id": "10017",
+                  "statusCategory": {
+                    "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/statuscategory/2",
+                    "id": 2,
+                    "key": "new",
+                    "colorName": "blue-gray",
+                    "name": "To Do"
+                  }
+                },
+                "priority": {
+                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/2",
+                  "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/high_new.svg",
+                  "name": "High",
+                  "id": "2"
+                },
+                "issuetype": {
+                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issuetype/10112",
+                  "id": "10112",
+                  "description": "Bugs track problems or errors.",
+                  "iconUrl": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/2/universal_avatar/view/type/issuetype/avatar/10303?size=medium",
+                  "name": "Bug",
+                  "subtask": false,
+                  "avatarId": 10303,
+                  "entityId": "efdef124-a22c-445a-9c82-ff7e121bcdbf",
+                  "hierarchyLevel": 0
+                }
+              }
+            }
+          },
+          {
+            "id": "10463",
+            "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issueLink/10463",
+            "type": {
+              "id": "10003",
+              "name": "Relates",
+              "inward": "relates to",
+              "outward": "relates to",
+              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issueLinkType/10003"
+            },
+            "inwardIssue": {
+              "id": "10656",
+              "key": "TEST-38",
+              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issue/10656",
+              "fields": {
+                "summary": "OSM-466 - ponowne zamówienie Kraków, inny format wydania (re-order OSM-460)",
+                "status": {
+                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10017",
+                  "description": "",
+                  "iconUrl": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/",
+                  "name": "To Do",
+                  "id": "10017",
+                  "statusCategory": {
+                    "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/statuscategory/2",
+                    "id": 2,
+                    "key": "new",
+                    "colorName": "blue-gray",
+                    "name": "To Do"
+                  }
+                },
+                "priority": {
+                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
+                  "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
+                  "name": "Medium",
+                  "id": "3"
+                },
+                "issuetype": {
+                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issuetype/10111",
+                  "id": "10111",
+                  "description": "Tasks track small, distinct pieces of work.",
+                  "iconUrl": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+                  "name": "Task",
+                  "subtask": false,
+                  "avatarId": 10318,
+                  "entityId": "1970404a-5c87-4161-87a2-e41864064657",
+                  "hierarchyLevel": 0
+                }
+              }
+            }
+          }
+        ],
         "assignee": null,
-        "updated": "2026-11-13T03:21:22.084+0100",
+        "updated": "2026-11-13T03:34:07.617+0100",
         "status": {
           "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10018",
           "description": "This work item is being actively worked on at the moment by the assignee.",
@@ -897,7 +1072,7 @@
         },
         "environment": null,
         "customfield_10119": null,
-        "duedate": null,
+        "duedate": "2026-11-16",
         "progress": {
           "progress": 0,
           "total": 0
@@ -982,10 +1157,10 @@
         "customfield_10020": null,
         "customfield_10021": null,
         "priority": {
-          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-          "name": "Medium",
-          "id": "3"
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/2",
+          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/high_new.svg",
+          "name": "High",
+          "id": "2"
         },
         "labels": [
           "course-seed",
@@ -1001,7 +1176,7 @@
         "versions": [],
         "issuelinks": [],
         "assignee": null,
-        "updated": "2026-11-13T03:20:38.564+0100",
+        "updated": "2026-11-13T03:35:22.276+0100",
         "status": {
           "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10017",
           "description": "",
@@ -1144,7 +1319,7 @@
         },
         "environment": null,
         "customfield_10119": null,
-        "duedate": null,
+        "duedate": "2026-11-20",
         "progress": {
           "progress": 0,
           "total": 0
@@ -1188,11 +1363,35 @@
                 "accountId": "712020:course-user-1",
                 "displayName": "Analityk (kurs)"
               }
+            },
+            {
+              "id": "10457",
+              "body": {
+                "type": "doc",
+                "version": 1,
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Opis migracji workbencha i lista transformerów: https://course-site.atlassian.net/wiki/spaces/~course-user/pages/220233729"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "created": "2026-11-13T03:35:22.276+0100",
+              "updated": "2026-11-13T03:35:22.276+0100",
+              "author": {
+                "accountId": "712020:course-user-1",
+                "displayName": "Analityk (kurs)"
+              }
             }
           ],
           "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issue/10621/comment",
-          "maxResults": 1,
-          "total": 1,
+          "maxResults": 2,
+          "total": 2,
           "startAt": 0
         },
         "worklog": {
@@ -1282,7 +1481,7 @@
         "versions": [],
         "issuelinks": [],
         "assignee": null,
-        "updated": "2026-11-13T03:21:26.951+0100",
+        "updated": "2026-11-13T03:33:38.484+0100",
         "status": {
           "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10018",
           "description": "This work item is being actively worked on at the moment by the assignee.",
@@ -1721,7 +1920,7 @@
         },
         "environment": null,
         "customfield_10119": null,
-        "duedate": null,
+        "duedate": "2026-11-18",
         "progress": {
           "progress": 0,
           "total": 0
@@ -1840,10 +2039,10 @@
         "customfield_10020": null,
         "customfield_10021": null,
         "priority": {
-          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-          "name": "Medium",
-          "id": "3"
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/2",
+          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/high_new.svg",
+          "name": "High",
+          "id": "2"
         },
         "labels": [
           "course-seed",
@@ -1857,9 +2056,60 @@
         "timeestimate": null,
         "aggregatetimeoriginalestimate": null,
         "versions": [],
-        "issuelinks": [],
+        "issuelinks": [
+          {
+            "id": "10461",
+            "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issueLink/10461",
+            "type": {
+              "id": "10003",
+              "name": "Relates",
+              "inward": "relates to",
+              "outward": "relates to",
+              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issueLinkType/10003"
+            },
+            "inwardIssue": {
+              "id": "10654",
+              "key": "TEST-36",
+              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issue/10654",
+              "fields": {
+                "summary": "Databricks run failed - DASH-465 Berlin validation (run 48213344)",
+                "status": {
+                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10017",
+                  "description": "",
+                  "iconUrl": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/",
+                  "name": "To Do",
+                  "id": "10017",
+                  "statusCategory": {
+                    "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/statuscategory/2",
+                    "id": 2,
+                    "key": "new",
+                    "colorName": "blue-gray",
+                    "name": "To Do"
+                  }
+                },
+                "priority": {
+                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/1",
+                  "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/highest_new.svg",
+                  "name": "Highest",
+                  "id": "1"
+                },
+                "issuetype": {
+                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issuetype/10112",
+                  "id": "10112",
+                  "description": "Bugs track problems or errors.",
+                  "iconUrl": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/2/universal_avatar/view/type/issuetype/avatar/10303?size=medium",
+                  "name": "Bug",
+                  "subtask": false,
+                  "avatarId": 10303,
+                  "entityId": "efdef124-a22c-445a-9c82-ff7e121bcdbf",
+                  "hierarchyLevel": 0
+                }
+              }
+            }
+          }
+        ],
         "assignee": null,
-        "updated": "2026-11-13T03:21:29.678+0100",
+        "updated": "2026-11-13T03:34:05.319+0100",
         "status": {
           "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10018",
           "description": "This work item is being actively worked on at the moment by the assignee.",
@@ -2018,7 +2268,7 @@
         },
         "environment": null,
         "customfield_10119": null,
-        "duedate": null,
+        "duedate": "2026-11-14",
         "progress": {
           "progress": 0,
           "total": 0
@@ -2122,7 +2372,7 @@
         "versions": [],
         "issuelinks": [],
         "assignee": null,
-        "updated": "2026-11-13T03:20:41.722+0100",
+        "updated": "2026-11-13T03:32:11.890+0100",
         "status": {
           "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10017",
           "description": "",
@@ -2233,7 +2483,7 @@
         },
         "environment": null,
         "customfield_10119": null,
-        "duedate": null,
+        "duedate": "2026-11-19",
         "progress": {
           "progress": 0,
           "total": 0
@@ -2352,10 +2602,10 @@
         "customfield_10020": null,
         "customfield_10021": null,
         "priority": {
-          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-          "name": "Medium",
-          "id": "3"
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/4",
+          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/low_new.svg",
+          "name": "Low",
+          "id": "4"
         },
         "labels": [
           "course-seed",
@@ -2401,10 +2651,10 @@
                   }
                 },
                 "priority": {
-                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-                  "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-                  "name": "Medium",
-                  "id": "3"
+                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/4",
+                  "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/low_new.svg",
+                  "name": "Low",
+                  "id": "4"
                 },
                 "issuetype": {
                   "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issuetype/10111",
@@ -2451,10 +2701,10 @@
                   }
                 },
                 "priority": {
-                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-                  "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-                  "name": "Medium",
-                  "id": "3"
+                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/2",
+                  "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/high_new.svg",
+                  "name": "High",
+                  "id": "2"
                 },
                 "issuetype": {
                   "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issuetype/10113",
@@ -2472,7 +2722,7 @@
           }
         ],
         "assignee": null,
-        "updated": "2026-11-13T03:20:51.220+0100",
+        "updated": "2026-11-13T03:32:14.128+0100",
         "status": {
           "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10017",
           "description": "",
@@ -2599,7 +2849,7 @@
         },
         "environment": null,
         "customfield_10119": null,
-        "duedate": null,
+        "duedate": "2026-11-18",
         "progress": {
           "progress": 0,
           "total": 0
@@ -2731,10 +2981,10 @@
               }
             },
             "priority": {
-              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-              "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-              "name": "Medium",
-              "id": "3"
+              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/2",
+              "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/high_new.svg",
+              "name": "High",
+              "id": "2"
             },
             "issuetype": {
               "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issuetype/10113",
@@ -2790,10 +3040,10 @@
         "customfield_10020": null,
         "customfield_10021": null,
         "priority": {
-          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-          "name": "Medium",
-          "id": "3"
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/2",
+          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/high_new.svg",
+          "name": "High",
+          "id": "2"
         },
         "labels": [
           "course-seed",
@@ -2808,7 +3058,7 @@
         "versions": [],
         "issuelinks": [],
         "assignee": null,
-        "updated": "2026-11-13T03:21:20.459+0100",
+        "updated": "2026-11-13T03:29:58.202+0100",
         "status": {
           "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10018",
           "description": "This work item is being actively worked on at the moment by the assignee.",
@@ -2959,7 +3209,7 @@
         },
         "environment": null,
         "customfield_10119": null,
-        "duedate": null,
+        "duedate": "2026-11-20",
         "progress": {
           "progress": 0,
           "total": 0
@@ -3024,10 +3274,10 @@
               }
             },
             "priority": {
-              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-              "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-              "name": "Medium",
-              "id": "3"
+              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/2",
+              "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/high_new.svg",
+              "name": "High",
+              "id": "2"
             },
             "issuetype": {
               "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issuetype/10113",
@@ -3083,10 +3333,10 @@
         "customfield_10020": null,
         "customfield_10021": null,
         "priority": {
-          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-          "name": "Medium",
-          "id": "3"
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/2",
+          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/high_new.svg",
+          "name": "High",
+          "id": "2"
         },
         "labels": [
           "course-seed",
@@ -3131,10 +3381,10 @@
                   }
                 },
                 "priority": {
-                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-                  "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-                  "name": "Medium",
-                  "id": "3"
+                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/4",
+                  "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/low_new.svg",
+                  "name": "Low",
+                  "id": "4"
                 },
                 "issuetype": {
                   "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issuetype/10111",
@@ -3152,7 +3402,7 @@
           }
         ],
         "assignee": null,
-        "updated": "2026-11-13T03:19:59.990+0100",
+        "updated": "2026-11-13T03:32:15.727+0100",
         "status": {
           "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10017",
           "description": "",
@@ -3261,7 +3511,7 @@
         },
         "environment": null,
         "customfield_10119": null,
-        "duedate": null,
+        "duedate": "2026-11-10",
         "progress": {
           "progress": 0,
           "total": 0
@@ -3326,10 +3576,10 @@
               }
             },
             "priority": {
-              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-              "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-              "name": "Medium",
-              "id": "3"
+              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/2",
+              "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/high_new.svg",
+              "name": "High",
+              "id": "2"
             },
             "issuetype": {
               "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issuetype/10113",
@@ -3385,10 +3635,10 @@
         "customfield_10020": null,
         "customfield_10021": null,
         "priority": {
-          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-          "name": "Medium",
-          "id": "3"
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/4",
+          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/low_new.svg",
+          "name": "Low",
+          "id": "4"
         },
         "labels": [
           "course-seed",
@@ -3433,10 +3683,10 @@
                   }
                 },
                 "priority": {
-                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-                  "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-                  "name": "Medium",
-                  "id": "3"
+                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/2",
+                  "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/high_new.svg",
+                  "name": "High",
+                  "id": "2"
                 },
                 "issuetype": {
                   "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issuetype/10111",
@@ -3483,10 +3733,10 @@
                   }
                 },
                 "priority": {
-                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-                  "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-                  "name": "Medium",
-                  "id": "3"
+                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/4",
+                  "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/low_new.svg",
+                  "name": "Low",
+                  "id": "4"
                 },
                 "issuetype": {
                   "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issuetype/10113",
@@ -3504,7 +3754,7 @@
           }
         ],
         "assignee": null,
-        "updated": "2026-11-13T03:20:28.363+0100",
+        "updated": "2026-11-13T03:32:17.338+0100",
         "status": {
           "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10017",
           "description": "",
@@ -3608,7 +3858,7 @@
         },
         "environment": null,
         "customfield_10119": null,
-        "duedate": null,
+        "duedate": "2026-11-24",
         "progress": {
           "progress": 0,
           "total": 0
@@ -3755,7 +4005,7 @@
         "versions": [],
         "issuelinks": [],
         "assignee": null,
-        "updated": "2026-11-13T03:21:37.593+0100",
+        "updated": "2026-11-13T03:32:18.847+0100",
         "status": {
           "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10019",
           "description": "",
@@ -3853,7 +4103,7 @@
         "customfield_10000": "{}",
         "environment": null,
         "customfield_10119": null,
-        "duedate": null,
+        "duedate": "2026-11-09",
         "progress": {
           "progress": 0,
           "total": 0
@@ -3977,10 +4227,10 @@
         "customfield_10020": null,
         "customfield_10021": null,
         "priority": {
-          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-          "name": "Medium",
-          "id": "3"
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/2",
+          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/high_new.svg",
+          "name": "High",
+          "id": "2"
         },
         "labels": [
           "course-seed",
@@ -4046,7 +4296,7 @@
           }
         ],
         "assignee": null,
-        "updated": "2026-11-13T03:21:23.660+0100",
+        "updated": "2026-11-13T03:32:20.100+0100",
         "status": {
           "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10018",
           "description": "This work item is being actively worked on at the moment by the assignee.",
@@ -4150,7 +4400,7 @@
         },
         "environment": null,
         "customfield_10119": null,
-        "duedate": null,
+        "duedate": "2026-11-13",
         "progress": {
           "progress": 0,
           "total": 0
@@ -4322,10 +4572,10 @@
                   }
                 },
                 "priority": {
-                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-                  "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-                  "name": "Medium",
-                  "id": "3"
+                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/2",
+                  "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/high_new.svg",
+                  "name": "High",
+                  "id": "2"
                 },
                 "issuetype": {
                   "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issuetype/10111",
@@ -4343,7 +4593,7 @@
           }
         ],
         "assignee": null,
-        "updated": "2026-11-13T03:20:29.638+0100",
+        "updated": "2026-11-13T03:32:21.595+0100",
         "status": {
           "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10017",
           "description": "",
@@ -4431,7 +4681,7 @@
         },
         "environment": null,
         "customfield_10119": null,
-        "duedate": null,
+        "duedate": "2026-11-16",
         "progress": {
           "progress": 0,
           "total": 0
@@ -4496,10 +4746,10 @@
               }
             },
             "priority": {
-              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-              "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-              "name": "Medium",
-              "id": "3"
+              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/2",
+              "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/high_new.svg",
+              "name": "High",
+              "id": "2"
             },
             "issuetype": {
               "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issuetype/10113",
@@ -4555,10 +4805,10 @@
         "customfield_10020": null,
         "customfield_10021": null,
         "priority": {
-          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-          "name": "Medium",
-          "id": "3"
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/1",
+          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/highest_new.svg",
+          "name": "Highest",
+          "id": "1"
         },
         "labels": [
           "course-seed",
@@ -4573,7 +4823,7 @@
         "versions": [],
         "issuelinks": [],
         "assignee": null,
-        "updated": "2026-11-13T03:18:24.587+0100",
+        "updated": "2026-11-13T03:32:23.433+0100",
         "status": {
           "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10017",
           "description": "",
@@ -4670,7 +4920,7 @@
         },
         "environment": null,
         "customfield_10119": null,
-        "duedate": null,
+        "duedate": "2026-11-11",
         "progress": {
           "progress": 0,
           "total": 0
@@ -4735,10 +4985,10 @@
               }
             },
             "priority": {
-              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-              "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-              "name": "Medium",
-              "id": "3"
+              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/2",
+              "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/high_new.svg",
+              "name": "High",
+              "id": "2"
             },
             "issuetype": {
               "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issuetype/10113",
@@ -4794,10 +5044,10 @@
         "customfield_10020": null,
         "customfield_10021": null,
         "priority": {
-          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-          "name": "Medium",
-          "id": "3"
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/2",
+          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/high_new.svg",
+          "name": "High",
+          "id": "2"
         },
         "labels": [
           "conflation",
@@ -4863,7 +5113,7 @@
           }
         ],
         "assignee": null,
-        "updated": "2026-11-13T03:21:25.296+0100",
+        "updated": "2026-11-13T03:32:25.174+0100",
         "status": {
           "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10018",
           "description": "This work item is being actively worked on at the moment by the assignee.",
@@ -4972,7 +5222,7 @@
         },
         "environment": null,
         "customfield_10119": null,
-        "duedate": null,
+        "duedate": "2026-11-18",
         "progress": {
           "progress": 0,
           "total": 0
@@ -5037,10 +5287,10 @@
               }
             },
             "priority": {
-              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-              "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-              "name": "Medium",
-              "id": "3"
+              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/2",
+              "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/high_new.svg",
+              "name": "High",
+              "id": "2"
             },
             "issuetype": {
               "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issuetype/10113",
@@ -5145,10 +5395,10 @@
                   }
                 },
                 "priority": {
-                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-                  "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-                  "name": "Medium",
-                  "id": "3"
+                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/2",
+                  "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/high_new.svg",
+                  "name": "High",
+                  "id": "2"
                 },
                 "issuetype": {
                   "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issuetype/10111",
@@ -5166,7 +5416,7 @@
           }
         ],
         "assignee": null,
-        "updated": "2026-11-13T03:20:30.706+0100",
+        "updated": "2026-11-13T03:32:26.561+0100",
         "status": {
           "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10017",
           "description": "",
@@ -5270,7 +5520,7 @@
         },
         "environment": null,
         "customfield_10119": null,
-        "duedate": null,
+        "duedate": "2026-11-20",
         "progress": {
           "progress": 0,
           "total": 0
@@ -5442,10 +5692,10 @@
                   }
                 },
                 "priority": {
-                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-                  "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-                  "name": "Medium",
-                  "id": "3"
+                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/2",
+                  "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/high_new.svg",
+                  "name": "High",
+                  "id": "2"
                 },
                 "issuetype": {
                   "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issuetype/10111",
@@ -5463,7 +5713,7 @@
           }
         ],
         "assignee": null,
-        "updated": "2026-11-13T03:21:28.184+0100",
+        "updated": "2026-11-13T03:32:27.703+0100",
         "status": {
           "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10018",
           "description": "This work item is being actively worked on at the moment by the assignee.",
@@ -5558,7 +5808,7 @@
         },
         "environment": null,
         "customfield_10119": null,
-        "duedate": null,
+        "duedate": "2026-11-17",
         "progress": {
           "progress": 0,
           "total": 0
@@ -5682,10 +5932,10 @@
         "customfield_10020": null,
         "customfield_10021": null,
         "priority": {
-          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-          "name": "Medium",
-          "id": "3"
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/2",
+          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/high_new.svg",
+          "name": "High",
+          "id": "2"
         },
         "labels": [
           "course-seed",
@@ -5751,7 +6001,7 @@
           }
         ],
         "assignee": null,
-        "updated": "2026-11-13T03:20:32.011+0100",
+        "updated": "2026-11-13T03:32:29.233+0100",
         "status": {
           "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10017",
           "description": "",
@@ -5848,7 +6098,7 @@
         },
         "environment": null,
         "customfield_10119": null,
-        "duedate": null,
+        "duedate": "2026-11-19",
         "progress": {
           "progress": 0,
           "total": 0
@@ -5972,10 +6222,10 @@
         "customfield_10020": null,
         "customfield_10021": null,
         "priority": {
-          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-          "name": "Medium",
-          "id": "3"
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/4",
+          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/low_new.svg",
+          "name": "Low",
+          "id": "4"
         },
         "labels": [
           "course-seed",
@@ -5990,7 +6240,7 @@
         "versions": [],
         "issuelinks": [],
         "assignee": null,
-        "updated": "2026-11-13T03:19:10.435+0100",
+        "updated": "2026-11-13T03:32:30.511+0100",
         "status": {
           "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10017",
           "description": "",
@@ -6078,7 +6328,7 @@
         },
         "environment": null,
         "customfield_10119": null,
-        "duedate": null,
+        "duedate": "2026-11-26",
         "progress": {
           "progress": 0,
           "total": 0
@@ -6143,10 +6393,10 @@
               }
             },
             "priority": {
-              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-              "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-              "name": "Medium",
-              "id": "3"
+              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/2",
+              "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/high_new.svg",
+              "name": "High",
+              "id": "2"
             },
             "issuetype": {
               "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issuetype/10113",
@@ -6202,10 +6452,10 @@
         "customfield_10020": null,
         "customfield_10021": null,
         "priority": {
-          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-          "name": "Medium",
-          "id": "3"
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/1",
+          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/highest_new.svg",
+          "name": "Highest",
+          "id": "1"
         },
         "labels": [
           "course-seed",
@@ -6220,7 +6470,7 @@
         "versions": [],
         "issuelinks": [],
         "assignee": null,
-        "updated": "2026-11-13T03:21:31.020+0100",
+        "updated": "2026-11-13T03:32:32.395+0100",
         "status": {
           "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10018",
           "description": "This work item is being actively worked on at the moment by the assignee.",
@@ -6322,7 +6572,7 @@
         },
         "environment": null,
         "customfield_10119": null,
-        "duedate": null,
+        "duedate": "2026-11-13",
         "progress": {
           "progress": 0,
           "total": 0
@@ -6421,10 +6671,10 @@
               }
             },
             "priority": {
-              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-              "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-              "name": "Medium",
-              "id": "3"
+              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/2",
+              "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/high_new.svg",
+              "name": "High",
+              "id": "2"
             },
             "issuetype": {
               "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issuetype/10113",
@@ -6480,10 +6730,10 @@
         "customfield_10020": null,
         "customfield_10021": null,
         "priority": {
-          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-          "name": "Medium",
-          "id": "3"
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/2",
+          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/high_new.svg",
+          "name": "High",
+          "id": "2"
         },
         "labels": [
           "course-seed",
@@ -6549,7 +6799,7 @@
           }
         ],
         "assignee": null,
-        "updated": "2026-11-13T03:20:33.256+0100",
+        "updated": "2026-11-13T03:32:34.018+0100",
         "status": {
           "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10017",
           "description": "",
@@ -6637,7 +6887,7 @@
         },
         "environment": null,
         "customfield_10119": null,
-        "duedate": null,
+        "duedate": "2026-11-14",
         "progress": {
           "progress": 0,
           "total": 0
@@ -6702,10 +6952,10 @@
               }
             },
             "priority": {
-              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-              "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-              "name": "Medium",
-              "id": "3"
+              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/2",
+              "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/high_new.svg",
+              "name": "High",
+              "id": "2"
             },
             "issuetype": {
               "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issuetype/10113",
@@ -6809,10 +7059,10 @@
                   }
                 },
                 "priority": {
-                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-                  "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-                  "name": "Medium",
-                  "id": "3"
+                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/2",
+                  "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/high_new.svg",
+                  "name": "High",
+                  "id": "2"
                 },
                 "issuetype": {
                   "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issuetype/10111",
@@ -6830,7 +7080,7 @@
           }
         ],
         "assignee": null,
-        "updated": "2026-11-13T03:20:33.222+0100",
+        "updated": "2026-11-13T03:32:35.675+0100",
         "status": {
           "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10017",
           "description": "",
@@ -6918,7 +7168,7 @@
         },
         "environment": null,
         "customfield_10119": null,
-        "duedate": null,
+        "duedate": "2026-11-17",
         "progress": {
           "progress": 0,
           "total": 0
@@ -7060,7 +7310,7 @@
         "versions": [],
         "issuelinks": [],
         "assignee": null,
-        "updated": "2026-11-13T03:19:18.160+0100",
+        "updated": "2026-11-13T03:32:37.283+0100",
         "status": {
           "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10017",
           "description": "",
@@ -7188,7 +7438,7 @@
         },
         "environment": null,
         "customfield_10119": null,
-        "duedate": null,
+        "duedate": "2026-11-18",
         "progress": {
           "progress": 0,
           "total": 0
@@ -7381,7 +7631,7 @@
           }
         ],
         "assignee": null,
-        "updated": "2026-11-13T03:20:34.485+0100",
+        "updated": "2026-11-13T03:32:38.928+0100",
         "status": {
           "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10017",
           "description": "",
@@ -7469,7 +7719,7 @@
         },
         "environment": null,
         "customfield_10119": null,
-        "duedate": null,
+        "duedate": "2026-11-19",
         "progress": {
           "progress": 0,
           "total": 0
@@ -7662,7 +7912,7 @@
           }
         ],
         "assignee": null,
-        "updated": "2026-11-13T03:20:34.457+0100",
+        "updated": "2026-11-13T03:32:40.460+0100",
         "status": {
           "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10017",
           "description": "",
@@ -7743,7 +7993,7 @@
         },
         "environment": null,
         "customfield_10119": null,
-        "duedate": null,
+        "duedate": "2026-11-20",
         "progress": {
           "progress": 0,
           "total": 0
@@ -7808,10 +8058,10 @@
               }
             },
             "priority": {
-              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-              "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-              "name": "Medium",
-              "id": "3"
+              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/4",
+              "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/low_new.svg",
+              "name": "Low",
+              "id": "4"
             },
             "issuetype": {
               "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issuetype/10113",
@@ -7867,10 +8117,10 @@
         "customfield_10020": null,
         "customfield_10021": null,
         "priority": {
-          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-          "name": "Medium",
-          "id": "3"
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/5",
+          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/lowest_new.svg",
+          "name": "Lowest",
+          "id": "5"
         },
         "labels": [
           "course-seed",
@@ -7886,7 +8136,7 @@
         "versions": [],
         "issuelinks": [],
         "assignee": null,
-        "updated": "2026-11-13T03:19:23.999+0100",
+        "updated": "2026-11-13T03:32:41.835+0100",
         "status": {
           "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10017",
           "description": "",
@@ -7974,7 +8224,7 @@
         },
         "environment": null,
         "customfield_10119": null,
-        "duedate": null,
+        "duedate": "2026-11-18",
         "progress": {
           "progress": 0,
           "total": 0
@@ -8039,10 +8289,10 @@
               }
             },
             "priority": {
-              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-              "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-              "name": "Medium",
-              "id": "3"
+              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/4",
+              "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/low_new.svg",
+              "name": "Low",
+              "id": "4"
             },
             "issuetype": {
               "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issuetype/10113",
@@ -8098,10 +8348,10 @@
         "customfield_10020": null,
         "customfield_10021": null,
         "priority": {
-          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-          "name": "Medium",
-          "id": "3"
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/4",
+          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/low_new.svg",
+          "name": "Low",
+          "id": "4"
         },
         "labels": [
           "course-seed",
@@ -8117,7 +8367,7 @@
         "versions": [],
         "issuelinks": [],
         "assignee": null,
-        "updated": "2026-11-13T03:19:25.930+0100",
+        "updated": "2026-11-13T03:32:43.265+0100",
         "status": {
           "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10017",
           "description": "",
@@ -8205,7 +8455,7 @@
         },
         "environment": null,
         "customfield_10119": null,
-        "duedate": null,
+        "duedate": "2026-11-18",
         "progress": {
           "progress": 0,
           "total": 0
@@ -8270,10 +8520,10 @@
               }
             },
             "priority": {
-              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-              "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-              "name": "Medium",
-              "id": "3"
+              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/4",
+              "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/low_new.svg",
+              "name": "Low",
+              "id": "4"
             },
             "issuetype": {
               "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issuetype/10113",
@@ -8329,10 +8579,10 @@
         "customfield_10020": null,
         "customfield_10021": null,
         "priority": {
-          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-          "name": "Medium",
-          "id": "3"
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/5",
+          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/lowest_new.svg",
+          "name": "Lowest",
+          "id": "5"
         },
         "labels": [
           "course-seed",
@@ -8348,7 +8598,7 @@
         "versions": [],
         "issuelinks": [],
         "assignee": null,
-        "updated": "2026-11-13T03:19:27.959+0100",
+        "updated": "2026-11-13T03:32:44.688+0100",
         "status": {
           "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10017",
           "description": "",
@@ -8436,7 +8686,7 @@
         },
         "environment": null,
         "customfield_10119": null,
-        "duedate": null,
+        "duedate": "2026-11-18",
         "progress": {
           "progress": 0,
           "total": 0
@@ -8526,10 +8776,10 @@
         "customfield_10020": null,
         "customfield_10021": null,
         "priority": {
-          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-          "name": "Medium",
-          "id": "3"
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/4",
+          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/low_new.svg",
+          "name": "Low",
+          "id": "4"
         },
         "labels": [
           "course-seed",
@@ -8543,7 +8793,7 @@
         "versions": [],
         "issuelinks": [],
         "assignee": null,
-        "updated": "2026-11-13T03:21:40.804+0100",
+        "updated": "2026-11-13T03:32:46.324+0100",
         "status": {
           "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10019",
           "description": "",
@@ -8767,10 +9017,10 @@
         "customfield_10020": null,
         "customfield_10021": null,
         "priority": {
-          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-          "name": "Medium",
-          "id": "3"
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/2",
+          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/high_new.svg",
+          "name": "High",
+          "id": "2"
         },
         "labels": [
           "course-seed",
@@ -8784,7 +9034,7 @@
         "versions": [],
         "issuelinks": [],
         "assignee": null,
-        "updated": "2026-11-13T03:21:32.560+0100",
+        "updated": "2026-11-13T03:32:47.618+0100",
         "status": {
           "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10018",
           "description": "This work item is being actively worked on at the moment by the assignee.",
@@ -8888,7 +9138,7 @@
         },
         "environment": null,
         "customfield_10119": null,
-        "duedate": null,
+        "duedate": "2026-11-17",
         "progress": {
           "progress": 0,
           "total": 0
@@ -9007,10 +9257,10 @@
         "customfield_10020": null,
         "customfield_10021": null,
         "priority": {
-          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-          "name": "Medium",
-          "id": "3"
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/5",
+          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/lowest_new.svg",
+          "name": "Lowest",
+          "id": "5"
         },
         "labels": [
           "access-request",
@@ -9024,7 +9274,7 @@
         "versions": [],
         "issuelinks": [],
         "assignee": null,
-        "updated": "2026-11-13T03:19:33.189+0100",
+        "updated": "2026-11-13T03:32:49.065+0100",
         "status": {
           "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10017",
           "description": "",
@@ -9204,10 +9454,10 @@
         "customfield_10020": null,
         "customfield_10021": null,
         "priority": {
-          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-          "name": "Medium",
-          "id": "3"
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/5",
+          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/lowest_new.svg",
+          "name": "Lowest",
+          "id": "5"
         },
         "labels": [
           "course-seed",
@@ -9221,7 +9471,7 @@
         "versions": [],
         "issuelinks": [],
         "assignee": null,
-        "updated": "2026-11-13T03:21:34.297+0100",
+        "updated": "2026-11-13T03:32:50.186+0100",
         "status": {
           "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10018",
           "description": "This work item is being actively worked on at the moment by the assignee.",
@@ -9381,10 +9631,10 @@
               }
             },
             "priority": {
-              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
-              "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
-              "name": "Medium",
-              "id": "3"
+              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/2",
+              "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/high_new.svg",
+              "name": "High",
+              "id": "2"
             },
             "issuetype": {
               "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issuetype/10111",
@@ -9463,7 +9713,7 @@
         "versions": [],
         "issuelinks": [],
         "assignee": null,
-        "updated": "2026-11-13T03:21:35.754+0100",
+        "updated": "2026-11-13T03:32:51.816+0100",
         "status": {
           "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10019",
           "description": "",
@@ -9563,7 +9813,7 @@
         "customfield_10000": "{}",
         "environment": null,
         "customfield_10119": null,
-        "duedate": null,
+        "duedate": "2026-11-17",
         "progress": {
           "progress": 0,
           "total": 0
@@ -9744,7 +9994,7 @@
         "versions": [],
         "issuelinks": [],
         "assignee": null,
-        "updated": "2026-11-13T03:21:39.171+0100",
+        "updated": "2026-11-13T03:32:53.189+0100",
         "status": {
           "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10019",
           "description": "",
@@ -9847,7 +10097,7 @@
         "customfield_10000": "{}",
         "environment": null,
         "customfield_10119": null,
-        "duedate": null,
+        "duedate": "2026-11-16",
         "progress": {
           "progress": 0,
           "total": 0
@@ -9872,6 +10122,2849 @@
         }
       },
       "webUrl": "https://course-site.atlassian.net/browse/TEST-34"
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10653",
+      "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issue/10653",
+      "key": "TEST-35",
+      "fields": {
+        "statuscategorychangedate": "2026-11-13T03:33:40.230+0100",
+        "issuetype": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issuetype/10112",
+          "id": "10112",
+          "description": "Bugs track problems or errors.",
+          "iconUrl": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/2/universal_avatar/view/type/issuetype/avatar/10303?size=medium",
+          "name": "Bug",
+          "subtask": false,
+          "avatarId": 10303,
+          "entityId": "efdef124-a22c-445a-9c82-ff7e121bcdbf",
+          "hierarchyLevel": 0
+        },
+        "timespent": null,
+        "project": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/project/10004",
+          "id": "10004",
+          "key": "TEST",
+          "name": "Projekt kursowy",
+          "projectTypeKey": "software",
+          "simplified": true,
+          "avatarUrls": {
+            "48x48": "https://example.invalid/avatar.png",
+            "24x24": "https://example.invalid/avatar.png",
+            "16x16": "https://example.invalid/avatar.png",
+            "32x32": "https://example.invalid/avatar.png"
+          }
+        },
+        "fixVersions": [],
+        "aggregatetimespent": null,
+        "statusCategory": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        },
+        "resolution": null,
+        "resolutiondate": null,
+        "workratio": -1,
+        "issuerestriction": {
+          "issuerestrictions": {},
+          "shouldDisplay": true
+        },
+        "watches": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issue/TEST-35/watchers",
+          "watchCount": 1,
+          "isWatching": true
+        },
+        "lastViewed": null,
+        "created": "2026-11-13T03:33:39.904+0100",
+        "customfield_10020": null,
+        "customfield_10021": null,
+        "priority": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/2",
+          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/high_new.svg",
+          "name": "High",
+          "id": "2"
+        },
+        "labels": [
+          "added-v2",
+          "course-seed",
+          "databricks-run",
+          "failed-run"
+        ],
+        "customfield_10016": null,
+        "customfield_10017": null,
+        "customfield_10019": "0|i002lb:",
+        "timeestimate": null,
+        "aggregatetimeoriginalestimate": null,
+        "versions": [],
+        "issuelinks": [
+          {
+            "id": "10460",
+            "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issueLink/10460",
+            "type": {
+              "id": "10003",
+              "name": "Relates",
+              "inward": "relates to",
+              "outward": "relates to",
+              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issueLinkType/10003"
+            },
+            "outwardIssue": {
+              "id": "10620",
+              "key": "TEST-2",
+              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issue/10620",
+              "fields": {
+                "summary": "OSM weekly dump ingest wk46 - Kraków",
+                "status": {
+                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10018",
+                  "description": "This work item is being actively worked on at the moment by the assignee.",
+                  "iconUrl": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/",
+                  "name": "In Progress",
+                  "id": "10018",
+                  "statusCategory": {
+                    "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/statuscategory/4",
+                    "id": 4,
+                    "key": "indeterminate",
+                    "colorName": "yellow",
+                    "name": "In Progress"
+                  }
+                },
+                "priority": {
+                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
+                  "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
+                  "name": "Medium",
+                  "id": "3"
+                },
+                "issuetype": {
+                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issuetype/10113",
+                  "id": "10113",
+                  "description": "Epics track collections of related bugs, stories, and tasks.",
+                  "iconUrl": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+                  "name": "Epic",
+                  "subtask": false,
+                  "avatarId": 10307,
+                  "entityId": "f018b2d8-40ce-40c4-909f-52e1836a5f15",
+                  "hierarchyLevel": 1
+                }
+              }
+            }
+          }
+        ],
+        "assignee": null,
+        "updated": "2026-11-13T03:35:23.286+0100",
+        "status": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10017",
+          "description": "",
+          "iconUrl": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/",
+          "name": "To Do",
+          "id": "10017",
+          "statusCategory": {
+            "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/statuscategory/2",
+            "id": 2,
+            "key": "new",
+            "colorName": "blue-gray",
+            "name": "To Do"
+          }
+        },
+        "components": [],
+        "timeoriginalestimate": null,
+        "description": {
+          "type": "doc",
+          "version": 1,
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Run notebooka "
+                },
+                {
+                  "type": "text",
+                  "text": "map_export_delta",
+                  "marks": [
+                    {
+                      "type": "code"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "text": " zakończył się błędem. Zgłasza dyżur Data Ops."
+                }
+              ]
+            },
+            {
+              "type": "table",
+              "content": [
+                {
+                  "type": "tableRow",
+                  "content": [
+                    {
+                      "type": "tableHeader",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "Pole"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableHeader",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "Wartość"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "content": [
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "Run ID"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "48211907"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "content": [
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "Job"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "map-jobs-export"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "content": [
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "Cluster"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "gis-jobs-std-02 (DBR 14.3 LTS, 4 x Standard_DS4_v2)"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "content": [
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "Start (UTC)"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "2026-11-12 05:44:10"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "content": [
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "Koniec (UTC)"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "2026-11-12 05:47:52"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "content": [
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "Wynik"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "FAILED"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "content": [
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "Zamówienie"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "OSM-460, patrz epik TEST-2"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Parametry zapisane w logu runu (skopiowane z configu, bez zmian):"
+                }
+              ]
+            },
+            {
+              "type": "codeBlock",
+              "attrs": {
+                "language": "yaml"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "region: PL-12\narea_name: Kraków\nbbox: [19.80, 49.95, 20.20, 50.15]\nlayers: [roads, junctons]\ndata_release: '2026.11'\nstart_step: export\noutput_format: delta\noutput_path: dbfs:/map-jobs/osm-460/2026-11/"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Fragment błędu:"
+                }
+              ]
+            },
+            {
+              "type": "codeBlock",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "org.apache.spark.sql.AnalysisException: [TABLE_OR_VIEW_NOT_FOUND] The table or view `accepted_map_data_junctons` cannot be found.\n  at map_export_delta.py, line 61, in load_layer(layer='junctons')"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Pierwsza próba nie zapisała żadnej partycji w katalogu wyjściowym. Nie uruchamiać ponownie, dopóki config nie zostanie poprawiony i sprawdzony."
+                }
+              ]
+            }
+          ]
+        },
+        "customfield_10255": null,
+        "timetracking": {},
+        "customfield_10015": null,
+        "security": null,
+        "attachment": [],
+        "aggregatetimeestimate": null,
+        "summary": "Databricks run failed - OSM-460 export Kraków (run 48211907)",
+        "creator": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/user?accountId=712020%3Acourse-user-1",
+          "accountId": "712020:course-user-1",
+          "avatarUrls": {
+            "48x48": "https://example.invalid/avatar.png",
+            "24x24": "https://example.invalid/avatar.png",
+            "16x16": "https://example.invalid/avatar.png",
+            "32x32": "https://example.invalid/avatar.png"
+          },
+          "displayName": "Analityk (kurs)",
+          "active": true,
+          "timeZone": "Europe/Warsaw",
+          "accountType": "atlassian"
+        },
+        "subtasks": [],
+        "reporter": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/user?accountId=712020%3Acourse-user-1",
+          "accountId": "712020:course-user-1",
+          "avatarUrls": {
+            "48x48": "https://example.invalid/avatar.png",
+            "24x24": "https://example.invalid/avatar.png",
+            "16x16": "https://example.invalid/avatar.png",
+            "32x32": "https://example.invalid/avatar.png"
+          },
+          "displayName": "Analityk (kurs)",
+          "active": true,
+          "timeZone": "Europe/Warsaw",
+          "accountType": "atlassian"
+        },
+        "aggregateprogress": {
+          "progress": 0,
+          "total": 0
+        },
+        "environment": null,
+        "customfield_10119": null,
+        "duedate": "2026-11-13",
+        "progress": {
+          "progress": 0,
+          "total": 0
+        },
+        "votes": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issue/TEST-35/votes",
+          "votes": 0,
+          "hasVoted": false
+        },
+        "comment": {
+          "comments": [
+            {
+              "id": "10458",
+              "body": {
+                "type": "doc",
+                "version": 1,
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Restart od wybranego kroku i typowe awarie: https://course-site.atlassian.net/wiki/spaces/~course-user/pages/220168193"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "created": "2026-11-13T03:35:23.286+0100",
+              "updated": "2026-11-13T03:35:23.286+0100",
+              "author": {
+                "accountId": "712020:course-user-1",
+                "displayName": "Analityk (kurs)"
+              }
+            }
+          ],
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issue/10653/comment",
+          "maxResults": 1,
+          "total": 1,
+          "startAt": 0
+        },
+        "worklog": {
+          "startAt": 0,
+          "maxResults": 20,
+          "total": 0,
+          "worklogs": []
+        }
+      },
+      "webUrl": "https://course-site.atlassian.net/browse/TEST-35"
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10654",
+      "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issue/10654",
+      "key": "TEST-36",
+      "fields": {
+        "statuscategorychangedate": "2026-11-13T03:33:41.878+0100",
+        "issuetype": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issuetype/10112",
+          "id": "10112",
+          "description": "Bugs track problems or errors.",
+          "iconUrl": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/2/universal_avatar/view/type/issuetype/avatar/10303?size=medium",
+          "name": "Bug",
+          "subtask": false,
+          "avatarId": 10303,
+          "entityId": "efdef124-a22c-445a-9c82-ff7e121bcdbf",
+          "hierarchyLevel": 0
+        },
+        "timespent": null,
+        "project": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/project/10004",
+          "id": "10004",
+          "key": "TEST",
+          "name": "Projekt kursowy",
+          "projectTypeKey": "software",
+          "simplified": true,
+          "avatarUrls": {
+            "48x48": "https://example.invalid/avatar.png",
+            "24x24": "https://example.invalid/avatar.png",
+            "16x16": "https://example.invalid/avatar.png",
+            "32x32": "https://example.invalid/avatar.png"
+          }
+        },
+        "fixVersions": [],
+        "aggregatetimespent": null,
+        "statusCategory": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        },
+        "resolution": null,
+        "resolutiondate": null,
+        "workratio": -1,
+        "issuerestriction": {
+          "issuerestrictions": {},
+          "shouldDisplay": true
+        },
+        "watches": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issue/TEST-36/watchers",
+          "watchCount": 1,
+          "isWatching": true
+        },
+        "lastViewed": null,
+        "created": "2026-11-13T03:33:41.511+0100",
+        "customfield_10020": null,
+        "customfield_10021": null,
+        "priority": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/1",
+          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/highest_new.svg",
+          "name": "Highest",
+          "id": "1"
+        },
+        "labels": [
+          "added-v2",
+          "course-seed",
+          "databricks-run",
+          "failed-run"
+        ],
+        "customfield_10016": null,
+        "customfield_10017": null,
+        "customfield_10019": "0|i002lp:",
+        "timeestimate": null,
+        "aggregatetimeoriginalestimate": null,
+        "versions": [],
+        "issuelinks": [
+          {
+            "id": "10461",
+            "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issueLink/10461",
+            "type": {
+              "id": "10003",
+              "name": "Relates",
+              "inward": "relates to",
+              "outward": "relates to",
+              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issueLinkType/10003"
+            },
+            "outwardIssue": {
+              "id": "10623",
+              "key": "TEST-5",
+              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issue/10623",
+              "fields": {
+                "summary": "Daily dashboard check failures - Berlin refresh",
+                "status": {
+                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10018",
+                  "description": "This work item is being actively worked on at the moment by the assignee.",
+                  "iconUrl": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/",
+                  "name": "In Progress",
+                  "id": "10018",
+                  "statusCategory": {
+                    "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/statuscategory/4",
+                    "id": 4,
+                    "key": "indeterminate",
+                    "colorName": "yellow",
+                    "name": "In Progress"
+                  }
+                },
+                "priority": {
+                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/2",
+                  "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/high_new.svg",
+                  "name": "High",
+                  "id": "2"
+                },
+                "issuetype": {
+                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issuetype/10113",
+                  "id": "10113",
+                  "description": "Epics track collections of related bugs, stories, and tasks.",
+                  "iconUrl": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+                  "name": "Epic",
+                  "subtask": false,
+                  "avatarId": 10307,
+                  "entityId": "f018b2d8-40ce-40c4-909f-52e1836a5f15",
+                  "hierarchyLevel": 1
+                }
+              }
+            }
+          }
+        ],
+        "assignee": null,
+        "updated": "2026-11-13T03:35:24.310+0100",
+        "status": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10017",
+          "description": "",
+          "iconUrl": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/",
+          "name": "To Do",
+          "id": "10017",
+          "statusCategory": {
+            "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/statuscategory/2",
+            "id": 2,
+            "key": "new",
+            "colorName": "blue-gray",
+            "name": "To Do"
+          }
+        },
+        "components": [],
+        "timeoriginalestimate": null,
+        "description": {
+          "type": "doc",
+          "version": 1,
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Poranny run walidacji dla Berlina przerwany po 41 minutach. Parametry wyglądają poprawnie; podejrzenie: problem z klastrem, nie z configiem."
+                }
+              ]
+            },
+            {
+              "type": "table",
+              "content": [
+                {
+                  "type": "tableRow",
+                  "content": [
+                    {
+                      "type": "tableHeader",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "Pole"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableHeader",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "Wartość"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "content": [
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "Run ID"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "48213344"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "content": [
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "Job"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "map-jobs-validation"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "content": [
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "Cluster"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "gis-jobs-std-01 (autoscale 2-8 węzłów)"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "content": [
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "Start (UTC)"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "2026-11-12 06:12:03"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "content": [
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "Koniec (UTC)"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "2026-11-12 06:53:40"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "content": [
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "Wynik"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "FAILED (INTERNAL_ERROR)"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "content": [
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "Zamówienie"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "DASH-465, epik TEST-5"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Parametry z logu:"
+                }
+              ]
+            },
+            {
+              "type": "codeBlock",
+              "attrs": {
+                "language": "yaml"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "region: DE-BE\narea_name: Berlin\nbbox: null\nlayers: [roads, addresses]\ndata_release: '2026.11'\nstart_step: validation\noutput_format: delta\noutput_path: dbfs:/map-jobs/dash-465/2026-11/"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Błąd:"
+                }
+              ]
+            },
+            {
+              "type": "codeBlock",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "SparkException: Job aborted due to stage failure: Task 217 in stage 14.0 failed 4 times,\nmost recent failure: ExecutorLostFailure (executor 6 exited caused by one of the running tasks)\nReason: Spot instance was preempted by the cloud provider."
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Poprzedni run z 2026-11-11 (run 48199120, ten sam cluster) przeszedł w 12 minut."
+                }
+              ]
+            }
+          ]
+        },
+        "customfield_10255": null,
+        "timetracking": {},
+        "customfield_10015": null,
+        "security": null,
+        "attachment": [],
+        "aggregatetimeestimate": null,
+        "summary": "Databricks run failed - DASH-465 Berlin validation (run 48213344)",
+        "creator": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/user?accountId=712020%3Acourse-user-1",
+          "accountId": "712020:course-user-1",
+          "avatarUrls": {
+            "48x48": "https://example.invalid/avatar.png",
+            "24x24": "https://example.invalid/avatar.png",
+            "16x16": "https://example.invalid/avatar.png",
+            "32x32": "https://example.invalid/avatar.png"
+          },
+          "displayName": "Analityk (kurs)",
+          "active": true,
+          "timeZone": "Europe/Warsaw",
+          "accountType": "atlassian"
+        },
+        "subtasks": [],
+        "reporter": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/user?accountId=712020%3Acourse-user-1",
+          "accountId": "712020:course-user-1",
+          "avatarUrls": {
+            "48x48": "https://example.invalid/avatar.png",
+            "24x24": "https://example.invalid/avatar.png",
+            "16x16": "https://example.invalid/avatar.png",
+            "32x32": "https://example.invalid/avatar.png"
+          },
+          "displayName": "Analityk (kurs)",
+          "active": true,
+          "timeZone": "Europe/Warsaw",
+          "accountType": "atlassian"
+        },
+        "aggregateprogress": {
+          "progress": 0,
+          "total": 0
+        },
+        "environment": null,
+        "customfield_10119": null,
+        "duedate": "2026-11-13",
+        "progress": {
+          "progress": 0,
+          "total": 0
+        },
+        "votes": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issue/TEST-36/votes",
+          "votes": 0,
+          "hasVoted": false
+        },
+        "comment": {
+          "comments": [
+            {
+              "id": "10459",
+              "body": {
+                "type": "doc",
+                "version": 1,
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Runbook dyżurnego (klastry, restart, kontakty): https://course-site.atlassian.net/wiki/spaces/~course-user/pages/220168193"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "created": "2026-11-13T03:35:24.310+0100",
+              "updated": "2026-11-13T03:35:24.310+0100",
+              "author": {
+                "accountId": "712020:course-user-1",
+                "displayName": "Analityk (kurs)"
+              }
+            }
+          ],
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issue/10654/comment",
+          "maxResults": 1,
+          "total": 1,
+          "startAt": 0
+        },
+        "worklog": {
+          "startAt": 0,
+          "maxResults": 20,
+          "total": 0,
+          "worklogs": []
+        }
+      },
+      "webUrl": "https://course-site.atlassian.net/browse/TEST-36"
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10655",
+      "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issue/10655",
+      "key": "TEST-37",
+      "fields": {
+        "statuscategorychangedate": "2026-11-13T03:33:43.535+0100",
+        "issuetype": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issuetype/10111",
+          "id": "10111",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "1970404a-5c87-4161-87a2-e41864064657",
+          "hierarchyLevel": 0
+        },
+        "timespent": null,
+        "project": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/project/10004",
+          "id": "10004",
+          "key": "TEST",
+          "name": "Projekt kursowy",
+          "projectTypeKey": "software",
+          "simplified": true,
+          "avatarUrls": {
+            "48x48": "https://example.invalid/avatar.png",
+            "24x24": "https://example.invalid/avatar.png",
+            "16x16": "https://example.invalid/avatar.png",
+            "32x32": "https://example.invalid/avatar.png"
+          }
+        },
+        "fixVersions": [],
+        "aggregatetimespent": null,
+        "statusCategory": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        },
+        "resolution": null,
+        "resolutiondate": null,
+        "workratio": -1,
+        "issuerestriction": {
+          "issuerestrictions": {},
+          "shouldDisplay": true
+        },
+        "watches": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issue/TEST-37/watchers",
+          "watchCount": 1,
+          "isWatching": true
+        },
+        "lastViewed": null,
+        "created": "2026-11-13T03:33:43.155+0100",
+        "customfield_10020": null,
+        "customfield_10021": null,
+        "priority": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/2",
+          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/high_new.svg",
+          "name": "High",
+          "id": "2"
+        },
+        "labels": [
+          "added-v2",
+          "course-seed",
+          "daily-check"
+        ],
+        "customfield_10016": null,
+        "customfield_10017": null,
+        "customfield_10019": "0|i002lv:",
+        "timeestimate": null,
+        "aggregatetimeoriginalestimate": null,
+        "versions": [],
+        "issuelinks": [
+          {
+            "id": "10462",
+            "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issueLink/10462",
+            "type": {
+              "id": "10003",
+              "name": "Relates",
+              "inward": "relates to",
+              "outward": "relates to",
+              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issueLinkType/10003"
+            },
+            "outwardIssue": {
+              "id": "10619",
+              "key": "TEST-1",
+              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issue/10619",
+              "fields": {
+                "summary": "Speed limits refresh - Nowa Wieś / PL-MZ / release 26.11",
+                "status": {
+                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10018",
+                  "description": "This work item is being actively worked on at the moment by the assignee.",
+                  "iconUrl": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/",
+                  "name": "In Progress",
+                  "id": "10018",
+                  "statusCategory": {
+                    "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/statuscategory/4",
+                    "id": 4,
+                    "key": "indeterminate",
+                    "colorName": "yellow",
+                    "name": "In Progress"
+                  }
+                },
+                "priority": {
+                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/2",
+                  "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/high_new.svg",
+                  "name": "High",
+                  "id": "2"
+                },
+                "issuetype": {
+                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issuetype/10113",
+                  "id": "10113",
+                  "description": "Epics track collections of related bugs, stories, and tasks.",
+                  "iconUrl": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+                  "name": "Epic",
+                  "subtask": false,
+                  "avatarId": 10307,
+                  "entityId": "f018b2d8-40ce-40c4-909f-52e1836a5f15",
+                  "hierarchyLevel": 1
+                }
+              }
+            }
+          }
+        ],
+        "assignee": null,
+        "updated": "2026-11-13T03:34:06.287+0100",
+        "status": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10017",
+          "description": "",
+          "iconUrl": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/",
+          "name": "To Do",
+          "id": "10017",
+          "statusCategory": {
+            "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/statuscategory/2",
+            "id": 2,
+            "key": "new",
+            "colorName": "blue-gray",
+            "name": "To Do"
+          }
+        },
+        "components": [],
+        "timeoriginalestimate": null,
+        "description": {
+          "type": "doc",
+          "version": 1,
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Codzienna kontrola stanu bazy i dashboardu (godz. 07:00 UTC). Liczba rekordów roads dla PL-14 spadła o ponad 40% względem poprzedniego dnia, pozostałe warstwy bez zmian."
+                }
+              ]
+            },
+            {
+              "type": "table",
+              "content": [
+                {
+                  "type": "tableRow",
+                  "content": [
+                    {
+                      "type": "tableHeader",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "Warstwa"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableHeader",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "2026-11-11"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableHeader",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "2026-11-12"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableHeader",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "Różnica"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "content": [
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "roads"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "18 452"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "10 931"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "-41%"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "content": [
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "speed_limits"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "6 120"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "6 118"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "-2"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "content": [
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "junctions"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "3 207"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "3 207"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "0"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "content": [
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "addresses"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "21 880"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "21 880"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "0"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Ostatni run, który zapisał PL-14: run 48205871, start 2026-11-11 21:30 UTC, koniec 2026-11-11 22:04 UTC. Podejrzenie: partycja "
+                },
+                {
+                  "type": "text",
+                  "text": "release_id = '2026.11'",
+                  "marks": [
+                    {
+                      "type": "code"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "text": " została nadpisana mniejszym wejściem albo filtr "
+                },
+                {
+                  "type": "text",
+                  "text": "is_deleted",
+                  "marks": [
+                    {
+                      "type": "code"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "text": " objął za dużo rekordów. Powiązane z zamówieniem SL-461 (Nowa Wieś). Do ustalenia: czy ktoś uruchamiał drugi run dla tego regionu."
+                }
+              ]
+            }
+          ]
+        },
+        "customfield_10255": null,
+        "timetracking": {},
+        "customfield_10015": null,
+        "security": null,
+        "attachment": [],
+        "aggregatetimeestimate": null,
+        "summary": "Daily dashboard check 2026-11-12: row counts dropped for PL-14 roads",
+        "creator": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/user?accountId=712020%3Acourse-user-1",
+          "accountId": "712020:course-user-1",
+          "avatarUrls": {
+            "48x48": "https://example.invalid/avatar.png",
+            "24x24": "https://example.invalid/avatar.png",
+            "16x16": "https://example.invalid/avatar.png",
+            "32x32": "https://example.invalid/avatar.png"
+          },
+          "displayName": "Analityk (kurs)",
+          "active": true,
+          "timeZone": "Europe/Warsaw",
+          "accountType": "atlassian"
+        },
+        "subtasks": [],
+        "reporter": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/user?accountId=712020%3Acourse-user-1",
+          "accountId": "712020:course-user-1",
+          "avatarUrls": {
+            "48x48": "https://example.invalid/avatar.png",
+            "24x24": "https://example.invalid/avatar.png",
+            "16x16": "https://example.invalid/avatar.png",
+            "32x32": "https://example.invalid/avatar.png"
+          },
+          "displayName": "Analityk (kurs)",
+          "active": true,
+          "timeZone": "Europe/Warsaw",
+          "accountType": "atlassian"
+        },
+        "aggregateprogress": {
+          "progress": 0,
+          "total": 0
+        },
+        "environment": null,
+        "customfield_10119": null,
+        "duedate": "2026-11-13",
+        "progress": {
+          "progress": 0,
+          "total": 0
+        },
+        "votes": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issue/TEST-37/votes",
+          "votes": 0,
+          "hasVoted": false
+        },
+        "comment": {
+          "comments": [],
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issue/10655/comment",
+          "maxResults": 0,
+          "total": 0,
+          "startAt": 0
+        },
+        "worklog": {
+          "startAt": 0,
+          "maxResults": 20,
+          "total": 0,
+          "worklogs": []
+        }
+      },
+      "webUrl": "https://course-site.atlassian.net/browse/TEST-37"
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10656",
+      "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issue/10656",
+      "key": "TEST-38",
+      "fields": {
+        "statuscategorychangedate": "2026-11-13T03:33:45.161+0100",
+        "issuetype": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issuetype/10111",
+          "id": "10111",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "1970404a-5c87-4161-87a2-e41864064657",
+          "hierarchyLevel": 0
+        },
+        "timespent": null,
+        "project": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/project/10004",
+          "id": "10004",
+          "key": "TEST",
+          "name": "Projekt kursowy",
+          "projectTypeKey": "software",
+          "simplified": true,
+          "avatarUrls": {
+            "48x48": "https://example.invalid/avatar.png",
+            "24x24": "https://example.invalid/avatar.png",
+            "16x16": "https://example.invalid/avatar.png",
+            "32x32": "https://example.invalid/avatar.png"
+          }
+        },
+        "fixVersions": [],
+        "aggregatetimespent": null,
+        "statusCategory": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        },
+        "resolution": null,
+        "resolutiondate": null,
+        "workratio": -1,
+        "issuerestriction": {
+          "issuerestrictions": {},
+          "shouldDisplay": true
+        },
+        "watches": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issue/TEST-38/watchers",
+          "watchCount": 1,
+          "isWatching": true
+        },
+        "lastViewed": null,
+        "created": "2026-11-13T03:33:44.863+0100",
+        "customfield_10020": null,
+        "customfield_10021": null,
+        "priority": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
+          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
+          "name": "Medium",
+          "id": "3"
+        },
+        "labels": [
+          "added-v2",
+          "course-seed",
+          "job-order",
+          "re-order"
+        ],
+        "customfield_10016": null,
+        "customfield_10017": null,
+        "customfield_10019": "0|i002m8:",
+        "timeestimate": null,
+        "aggregatetimeoriginalestimate": null,
+        "versions": [],
+        "issuelinks": [
+          {
+            "id": "10463",
+            "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issueLink/10463",
+            "type": {
+              "id": "10003",
+              "name": "Relates",
+              "inward": "relates to",
+              "outward": "relates to",
+              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issueLinkType/10003"
+            },
+            "outwardIssue": {
+              "id": "10620",
+              "key": "TEST-2",
+              "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issue/10620",
+              "fields": {
+                "summary": "OSM weekly dump ingest wk46 - Kraków",
+                "status": {
+                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10018",
+                  "description": "This work item is being actively worked on at the moment by the assignee.",
+                  "iconUrl": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/",
+                  "name": "In Progress",
+                  "id": "10018",
+                  "statusCategory": {
+                    "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/statuscategory/4",
+                    "id": 4,
+                    "key": "indeterminate",
+                    "colorName": "yellow",
+                    "name": "In Progress"
+                  }
+                },
+                "priority": {
+                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
+                  "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
+                  "name": "Medium",
+                  "id": "3"
+                },
+                "issuetype": {
+                  "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issuetype/10113",
+                  "id": "10113",
+                  "description": "Epics track collections of related bugs, stories, and tasks.",
+                  "iconUrl": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+                  "name": "Epic",
+                  "subtask": false,
+                  "avatarId": 10307,
+                  "entityId": "f018b2d8-40ce-40c4-909f-52e1836a5f15",
+                  "hierarchyLevel": 1
+                }
+              }
+            }
+          }
+        ],
+        "assignee": null,
+        "updated": "2026-11-13T03:34:07.595+0100",
+        "status": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10017",
+          "description": "",
+          "iconUrl": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/",
+          "name": "To Do",
+          "id": "10017",
+          "statusCategory": {
+            "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/statuscategory/2",
+            "id": 2,
+            "key": "new",
+            "colorName": "blue-gray",
+            "name": "To Do"
+          }
+        },
+        "components": [],
+        "timeoriginalestimate": null,
+        "description": {
+          "type": "doc",
+          "version": 1,
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Zespół Data Ops prosi o powtórzenie zamówienia OSM-460 (Kraków, PL-12) z innym zapisem wydania i formatem. Wpisane ręcznie z formularza:"
+                }
+              ]
+            },
+            {
+              "type": "table",
+              "content": [
+                {
+                  "type": "tableRow",
+                  "content": [
+                    {
+                      "type": "tableHeader",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "Parametr z formularza"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableHeader",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "Wartość"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "content": [
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "region"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "PL-12"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "content": [
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "area"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "Kraków"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "content": [
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "release"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "2026-11-W46"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "content": [
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "layers"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "roads; junctions"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "content": [
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "format"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "parquet"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "content": [
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "output"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "dbfs:/map-jobs/osm-466/2026-11/"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "content": [
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "start"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "ingest"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "content": [
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "potrzebne na"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "23.11.2026"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Uwaga od zamawiającego: \"to samo okno co w OSM-460, tylko inny format\". W formularzu nie podano bbox. Czy to nowa dostawa, czy zastąpienie poprzedniej, nie zostało ustalone."
+                }
+              ]
+            }
+          ]
+        },
+        "customfield_10255": null,
+        "timetracking": {},
+        "customfield_10015": null,
+        "security": null,
+        "attachment": [],
+        "aggregatetimeestimate": null,
+        "summary": "OSM-466 - ponowne zamówienie Kraków, inny format wydania (re-order OSM-460)",
+        "creator": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/user?accountId=712020%3Acourse-user-1",
+          "accountId": "712020:course-user-1",
+          "avatarUrls": {
+            "48x48": "https://example.invalid/avatar.png",
+            "24x24": "https://example.invalid/avatar.png",
+            "16x16": "https://example.invalid/avatar.png",
+            "32x32": "https://example.invalid/avatar.png"
+          },
+          "displayName": "Analityk (kurs)",
+          "active": true,
+          "timeZone": "Europe/Warsaw",
+          "accountType": "atlassian"
+        },
+        "subtasks": [],
+        "reporter": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/user?accountId=712020%3Acourse-user-1",
+          "accountId": "712020:course-user-1",
+          "avatarUrls": {
+            "48x48": "https://example.invalid/avatar.png",
+            "24x24": "https://example.invalid/avatar.png",
+            "16x16": "https://example.invalid/avatar.png",
+            "32x32": "https://example.invalid/avatar.png"
+          },
+          "displayName": "Analityk (kurs)",
+          "active": true,
+          "timeZone": "Europe/Warsaw",
+          "accountType": "atlassian"
+        },
+        "aggregateprogress": {
+          "progress": 0,
+          "total": 0
+        },
+        "environment": null,
+        "customfield_10119": null,
+        "duedate": "2026-11-23",
+        "progress": {
+          "progress": 0,
+          "total": 0
+        },
+        "votes": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issue/TEST-38/votes",
+          "votes": 0,
+          "hasVoted": false
+        },
+        "comment": {
+          "comments": [],
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issue/10656/comment",
+          "maxResults": 0,
+          "total": 0,
+          "startAt": 0
+        },
+        "worklog": {
+          "startAt": 0,
+          "maxResults": 20,
+          "total": 0,
+          "worklogs": []
+        }
+      },
+      "webUrl": "https://course-site.atlassian.net/browse/TEST-38"
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10657",
+      "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issue/10657",
+      "key": "TEST-39",
+      "fields": {
+        "statuscategorychangedate": "2026-11-13T03:33:46.930+0100",
+        "issuetype": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issuetype/10111",
+          "id": "10111",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "1970404a-5c87-4161-87a2-e41864064657",
+          "hierarchyLevel": 0
+        },
+        "timespent": null,
+        "project": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/project/10004",
+          "id": "10004",
+          "key": "TEST",
+          "name": "Projekt kursowy",
+          "projectTypeKey": "software",
+          "simplified": true,
+          "avatarUrls": {
+            "48x48": "https://example.invalid/avatar.png",
+            "24x24": "https://example.invalid/avatar.png",
+            "16x16": "https://example.invalid/avatar.png",
+            "32x32": "https://example.invalid/avatar.png"
+          }
+        },
+        "fixVersions": [],
+        "aggregatetimespent": null,
+        "statusCategory": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        },
+        "resolution": null,
+        "resolutiondate": null,
+        "workratio": -1,
+        "issuerestriction": {
+          "issuerestrictions": {},
+          "shouldDisplay": true
+        },
+        "watches": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issue/TEST-39/watchers",
+          "watchCount": 1,
+          "isWatching": true
+        },
+        "lastViewed": null,
+        "created": "2026-11-13T03:33:46.649+0100",
+        "customfield_10020": null,
+        "customfield_10021": null,
+        "priority": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/3",
+          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/medium_new.svg",
+          "name": "Medium",
+          "id": "3"
+        },
+        "labels": [
+          "added-v2",
+          "course-seed",
+          "from-email",
+          "job-order"
+        ],
+        "customfield_10016": null,
+        "customfield_10017": null,
+        "customfield_10019": "0|i002md:",
+        "timeestimate": null,
+        "aggregatetimeoriginalestimate": null,
+        "versions": [],
+        "issuelinks": [],
+        "assignee": null,
+        "updated": "2026-11-13T03:33:46.726+0100",
+        "status": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10017",
+          "description": "",
+          "iconUrl": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/",
+          "name": "To Do",
+          "id": "10017",
+          "statusCategory": {
+            "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/statuscategory/2",
+            "id": 2,
+            "key": "new",
+            "colorName": "blue-gray",
+            "name": "To Do"
+          }
+        },
+        "components": [],
+        "timeoriginalestimate": null,
+        "description": {
+          "type": "doc",
+          "version": 1,
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Zgłoszenie założone przez wklejenie wątku e-mail (bez porządkowania). Do wyciągnięcia: parametry zamówienia i otwarte pytania."
+                }
+              ]
+            },
+            {
+              "type": "codeBlock",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Od: A. Wiśniewska (Local Search)\nDo: [email usunięty]\nTemat: FW: RE: RE: Dane dla Gdyni - drogi i POI do końca miesiąca\nData: czwartek, 12 listopada 2026 14:08\n\nCześć, przesyłam ustalenia z rozmowy. Potrzebujemy Gdyni, to jest pomorskie,\nczyli PL-22 jak Gdańsk. Warstwy: drogi i poi, adresów nie. Wydanie listopadowe.\nFormat zrobimy w parquet, tak jak ostatnio u Was.\nOkno: mniej więcej od 18.40 N, 18.45 E do 18.55 N, 18.60 E (pewnie trzeba sprawdzić).\nTermin: do końca miesiąca, najlepiej wcześniej. Gdzie wrzucić - zapytam Pawła.\n\n---- Wiadomość oryginalna ----\nOd: Paweł K. (Data Platform)\nData: środa, 11 listopada 2026 16:52\nKatalog dla Gdyni będzie dbfs:/map-jobs/poi-470/2026-11/ albo w tym nowym\nkontenerze, jeszcze nie wiem. Nie używajcie scratch.\n\n---- Wiadomość oryginalna ----\nOd: A. Wiśniewska\nData: wtorek, 10 listopada 2026 09:30\nCzy możecie zrobić taki sam run jak dla Gdańska (MIG-463) tylko dla Gdyni?"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Notatka zgłaszającego: nie ma numeru zamówienia, numer POI-470 pojawia się tylko w jednej wiadomości."
+                }
+              ]
+            }
+          ]
+        },
+        "customfield_10255": null,
+        "timetracking": {},
+        "customfield_10015": null,
+        "security": null,
+        "attachment": [],
+        "aggregatetimeestimate": null,
+        "summary": "FW: RE: RE: Dane dla Gdyni - drogi i POI do końca miesiąca",
+        "creator": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/user?accountId=712020%3Acourse-user-1",
+          "accountId": "712020:course-user-1",
+          "avatarUrls": {
+            "48x48": "https://example.invalid/avatar.png",
+            "24x24": "https://example.invalid/avatar.png",
+            "16x16": "https://example.invalid/avatar.png",
+            "32x32": "https://example.invalid/avatar.png"
+          },
+          "displayName": "Analityk (kurs)",
+          "active": true,
+          "timeZone": "Europe/Warsaw",
+          "accountType": "atlassian"
+        },
+        "subtasks": [],
+        "reporter": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/user?accountId=712020%3Acourse-user-1",
+          "accountId": "712020:course-user-1",
+          "avatarUrls": {
+            "48x48": "https://example.invalid/avatar.png",
+            "24x24": "https://example.invalid/avatar.png",
+            "16x16": "https://example.invalid/avatar.png",
+            "32x32": "https://example.invalid/avatar.png"
+          },
+          "displayName": "Analityk (kurs)",
+          "active": true,
+          "timeZone": "Europe/Warsaw",
+          "accountType": "atlassian"
+        },
+        "aggregateprogress": {
+          "progress": 0,
+          "total": 0
+        },
+        "environment": null,
+        "customfield_10119": null,
+        "duedate": "2026-11-30",
+        "progress": {
+          "progress": 0,
+          "total": 0
+        },
+        "votes": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issue/TEST-39/votes",
+          "votes": 0,
+          "hasVoted": false
+        },
+        "comment": {
+          "comments": [],
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issue/10657/comment",
+          "maxResults": 0,
+          "total": 0,
+          "startAt": 0
+        },
+        "worklog": {
+          "startAt": 0,
+          "maxResults": 20,
+          "total": 0,
+          "worklogs": []
+        }
+      },
+      "webUrl": "https://course-site.atlassian.net/browse/TEST-39"
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10658",
+      "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issue/10658",
+      "key": "TEST-40",
+      "fields": {
+        "statuscategorychangedate": "2026-11-13T03:33:48.431+0100",
+        "issuetype": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issuetype/10111",
+          "id": "10111",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "1970404a-5c87-4161-87a2-e41864064657",
+          "hierarchyLevel": 0
+        },
+        "timespent": null,
+        "project": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/project/10004",
+          "id": "10004",
+          "key": "TEST",
+          "name": "Projekt kursowy",
+          "projectTypeKey": "software",
+          "simplified": true,
+          "avatarUrls": {
+            "48x48": "https://example.invalid/avatar.png",
+            "24x24": "https://example.invalid/avatar.png",
+            "16x16": "https://example.invalid/avatar.png",
+            "32x32": "https://example.invalid/avatar.png"
+          }
+        },
+        "fixVersions": [],
+        "aggregatetimespent": null,
+        "statusCategory": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        },
+        "resolution": null,
+        "resolutiondate": null,
+        "workratio": -1,
+        "issuerestriction": {
+          "issuerestrictions": {},
+          "shouldDisplay": true
+        },
+        "watches": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issue/TEST-40/watchers",
+          "watchCount": 1,
+          "isWatching": true
+        },
+        "lastViewed": null,
+        "created": "2026-11-13T03:33:48.201+0100",
+        "customfield_10020": null,
+        "customfield_10021": null,
+        "priority": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/priority/4",
+          "iconUrl": "https://course-site.atlassian.net/images/icons/priorities/low_new.svg",
+          "name": "Low",
+          "id": "4"
+        },
+        "labels": [
+          "added-v2",
+          "chunker",
+          "course-seed"
+        ],
+        "customfield_10016": null,
+        "customfield_10017": null,
+        "customfield_10019": "0|i002mp:",
+        "timeestimate": null,
+        "aggregatetimeoriginalestimate": null,
+        "versions": [],
+        "issuelinks": [],
+        "assignee": null,
+        "updated": "2026-11-13T03:33:48.265+0100",
+        "status": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/status/10017",
+          "description": "",
+          "iconUrl": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/",
+          "name": "To Do",
+          "id": "10017",
+          "statusCategory": {
+            "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/statuscategory/2",
+            "id": 2,
+            "key": "new",
+            "colorName": "blue-gray",
+            "name": "To Do"
+          }
+        },
+        "components": [],
+        "timeoriginalestimate": null,
+        "description": {
+          "type": "doc",
+          "version": 1,
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Narzędzie do dzielenia pracy na chunki podzieliło okno Kraków na siatkę 4 x 4 (16 chunków, rozmiar 0.10 x 0.05 stopnia). Chunk 11 jest pusty, bo pokrywa tereny kolejowe bez dróg."
+                }
+              ]
+            },
+            {
+              "type": "table",
+              "content": [
+                {
+                  "type": "tableRow",
+                  "content": [
+                    {
+                      "type": "tableHeader",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "Chunk"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableHeader",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "Rekordów roads"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableHeader",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "Uwagi"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "content": [
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "01-10"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "1 140 - 2 980"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "ok"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "content": [
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "11"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "0"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "pusty"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "content": [
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "12-16"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "1 020 - 2 410"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "ok"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Czy pusty chunk ma być pomijany w ingest, czy raportowany jako błąd? Wcześniej ustalaliśmy to przy checku schematu, patrz TEST-12. Zgłoszenie nie dotyczy zmiany bbox."
+                }
+              ]
+            }
+          ]
+        },
+        "customfield_10255": null,
+        "timetracking": {},
+        "customfield_10015": null,
+        "security": null,
+        "attachment": [],
+        "aggregatetimeestimate": null,
+        "summary": "Chunker Kraków - wynik podziału okna i pusty chunk",
+        "creator": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/user?accountId=712020%3Acourse-user-1",
+          "accountId": "712020:course-user-1",
+          "avatarUrls": {
+            "48x48": "https://example.invalid/avatar.png",
+            "24x24": "https://example.invalid/avatar.png",
+            "16x16": "https://example.invalid/avatar.png",
+            "32x32": "https://example.invalid/avatar.png"
+          },
+          "displayName": "Analityk (kurs)",
+          "active": true,
+          "timeZone": "Europe/Warsaw",
+          "accountType": "atlassian"
+        },
+        "subtasks": [],
+        "reporter": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/user?accountId=712020%3Acourse-user-1",
+          "accountId": "712020:course-user-1",
+          "avatarUrls": {
+            "48x48": "https://example.invalid/avatar.png",
+            "24x24": "https://example.invalid/avatar.png",
+            "16x16": "https://example.invalid/avatar.png",
+            "32x32": "https://example.invalid/avatar.png"
+          },
+          "displayName": "Analityk (kurs)",
+          "active": true,
+          "timeZone": "Europe/Warsaw",
+          "accountType": "atlassian"
+        },
+        "aggregateprogress": {
+          "progress": 0,
+          "total": 0
+        },
+        "environment": null,
+        "customfield_10119": null,
+        "duedate": "2026-11-20",
+        "progress": {
+          "progress": 0,
+          "total": 0
+        },
+        "votes": {
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issue/TEST-40/votes",
+          "votes": 0,
+          "hasVoted": false
+        },
+        "comment": {
+          "comments": [],
+          "self": "https://api.atlassian.com/ex/jira/00000000-0000-0000-0000-000000000000/rest/api/3/issue/10658/comment",
+          "maxResults": 0,
+          "total": 0,
+          "startAt": 0
+        },
+        "worklog": {
+          "startAt": 0,
+          "maxResults": 20,
+          "total": 0,
+          "worklogs": []
+        }
+      },
+      "webUrl": "https://course-site.atlassian.net/browse/TEST-40"
     }
   ]
 }

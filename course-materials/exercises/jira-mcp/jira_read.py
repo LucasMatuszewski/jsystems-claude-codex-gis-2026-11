@@ -8,6 +8,7 @@ from dataclasses import dataclass, field
 import os
 import re
 import sys
+from html.parser import HTMLParser
 from urllib.parse import urlsplit
 
 
@@ -121,7 +122,7 @@ class JiraReader:
             params["nextPageToken"] = token
 
     def get_issue(self, key):
-        return self.request("GET", f"/rest/api/3/issue/{issue_key(key)}", params={"fields": "summary,description,status,created,labels,issuelinks,project,issuetype,parent,subtasks"})
+        return self.request("GET", f"/rest/api/3/issue/{issue_key(key)}", params={"fields": "summary,description,status,created,priority,duedate,labels,issuelinks,project,issuetype,parent,subtasks"})
 
     def comments(self, key):
         result, start = [], 0
@@ -140,6 +141,7 @@ def format_issue(issue, children=None):
     fields = issue["fields"]
     lines = [issue["key"], "Tytuł: " + fields.get("summary", ""), "Status: " + fields.get("status", {}).get("name", ""), "Utworzono: " + fields.get("created", ""), "Etykiety: " + ", ".join(fields.get("labels", [])), "Opis:", flatten_adf(fields.get("description")).strip(), "Powiązania:"]
     parent = (fields.get("parent") or {}).get("key", "Brak")
+    lines[4:4] = ["Priorytet: " + (fields.get("priority") or {}).get("name", "Brak"), "Termin Jira (duedate): " + (fields.get("duedate") or "Brak")]
     children = fields.get("subtasks", []) if children is None else children
     lines[-1:-1] = ["Typ: " + fields.get("issuetype", {}).get("name", ""), "Rodzic: " + parent, "Dzieci: " + (", ".join(child["key"] for child in children) or "Brak")]
     for link in fields.get("issuelinks", []):
@@ -154,6 +156,54 @@ def format_comments(comments):
 
 
 DATA_PATH = Path(__file__).resolve().parents[2] / "exercise-data/jira-jobs/tickets.json"
+
+
+class StorageText(HTMLParser):
+    """Keep readable HTML boundaries and explicit reference destinations."""
+    def __init__(self):
+        super().__init__()
+        self.parts = []
+        self.href = None
+
+    def handle_starttag(self, tag, attrs):
+        if tag == "a":
+            self.href = dict(attrs).get("href")
+        if tag in ("p", "div", "li", "tr", "br", "pre", "h1", "h2", "h3"):
+            self.parts.append("\n")
+
+    def handle_endtag(self, tag):
+        if tag == "a" and self.href:
+            self.parts.append(f" ({self.href})")
+            self.href = None
+        if tag in ("p", "div", "li", "tr", "pre", "h1", "h2", "h3"):
+            self.parts.append("\n")
+        elif tag in ("td", "th"):
+            self.parts.append(" | ")
+
+    def handle_data(self, data):
+        self.parts.append(data)
+
+
+def format_page(page):
+    parser = StorageText()
+    parser.feed(page["body"]["storage"]["value"])
+    return f'{page["id"]} | {page["title"]}\nRodzic: {page.get("parentId") or "Brak"}\nPrzestrzeń: {page["spaceId"]}\nWersja: {json.dumps(page["version"], ensure_ascii=False)}\nLinki: {json.dumps(page.get("_links", {}), ensure_ascii=False)}\n' + ''.join(parser.parts).strip()
+
+
+def format_pr(bundle):
+    # Commits and discussion comments are separate REST resources in the bundle.
+    pr = bundle['pr']
+    lines = [f'PR #{pr["number"]} | {pr["title"]}', f'Stan: {pr["state"]}', f'URL: {pr["html_url"]}', f'Gałąź: {pr["head"]["ref"]}', f'Utworzono: {pr.get("created_at", "")}', 'Opis:', pr.get('body') or '', 'Commity:']
+    for commit in bundle.get('commits', []):
+        lines.append(f'{commit["sha"]} | {commit["commit"]["message"]}')
+    lines.append('Komentarze:')
+    for kind in ('comments', 'review_comments'):
+        for comment in bundle.get(kind, []):
+            lines.append(f'{kind}:{comment["id"]} | {comment.get("created_at", "")} | {comment.get("user", {}).get("login", "")} | {comment.get("path", "")}\n{comment.get("body") or ""}')
+    lines.append('Pliki i diffy:')
+    for file in bundle.get('files', []):
+        lines.append(f'{file["filename"]}\n{file.get("patch", "Brak patch w eksporcie")}')
+    return '\n'.join(lines)
 
 
 class OfflineReader:
@@ -179,6 +229,34 @@ class OfflineReader:
 
     def comments(self, key):
         return sorted(self.get_issue(key)["fields"].get("comment", {}).get("comments", []), key=lambda c: (c["created"], c["id"]))
+
+    def _references(self, filename, collection):
+        path = DATA_PATH.parent / filename
+        if not path.is_file():
+            raise ValueError(f"Brak snapshotu {filename}; zgłoś prowadzącemu")
+        return json.loads(path.read_text(encoding="utf-8"))[collection]
+
+    def search_pages(self, query=""):
+        return [p for p in self._references('confluence-pages.json', 'results') if all(word in format_page(p).casefold() for word in query.casefold().split())]
+
+    def get_page(self, page_id):
+        if not re.fullmatch(r'[0-9]+', str(page_id)):
+            raise ValueError('Invalid page ID')
+        for page in self.search_pages():
+            if str(page['id']) == str(page_id):
+                return page
+        raise ValueError(f'Nie znaleziono strony: {page_id}')
+
+    def list_prs(self, query=""):
+        return [pr for pr in self._references('github-prs.json', 'pull_requests') if all(word in format_pr(pr).casefold() for word in query.casefold().split())]
+
+    def get_pr(self, number):
+        if not re.fullmatch(r'[1-9][0-9]*', str(number)):
+            raise ValueError('Invalid PR number')
+        for pr in self.list_prs():
+            if pr['pr']['number'] == int(number):
+                return pr
+        raise ValueError(f'Nie znaleziono PR: {number}')
 
     def search_text(self, query, status=None):
         return [issue for issue in self.tickets if (not status or issue["fields"]["status"]["name"].casefold() == status.casefold()) and all(word in (format_issue(issue, self.children(issue["key"])) + " " + format_comments(self.comments(issue["key"]))).casefold() for word in query.casefold().split())]
@@ -225,10 +303,16 @@ def main(argv=None, *, env=None, transport=None):
     sub.add_parser("search").add_argument("jql")
     for command in ("get", "comments"):
         sub.add_parser(command).add_argument("key")
+    for command in ('pages', 'prs'):
+        sub.add_parser(command).add_argument('query', nargs='?', default='')
+    sub.add_parser('page').add_argument('id')
+    sub.add_parser('pr').add_argument('number')
     args = parser.parse_args(argv)
     try:
         environment = os.environ if env is None else env
         offline = args.offline or environment.get("JIRA_OFFLINE") == "1"
+        if args.command in ('pages', 'page', 'prs', 'pr') and not offline:
+            raise ValueError('Confluence i GitHub: te polecenia wymagają trybu --offline')
         api = OfflineReader() if offline else JiraReader(Settings.from_env(environment), transport=transport)
         with api:
             if args.command == "search":
@@ -237,8 +321,20 @@ def main(argv=None, *, env=None, transport=None):
                 print(f"Liczba zgłoszeń: {len(issues)}")
             elif args.command == "get":
                 print(format_issue(api.get_issue(args.key), api.children(args.key) if offline else None))
-            else:
+            elif args.command == 'comments':
                 print(format_comments(api.comments(args.key)))
+            elif args.command == 'pages':
+                pages = api.search_pages(args.query)
+                print('\n'.join(f'{p["id"]} | {p["title"]}' for p in pages))
+                print(f'Liczba stron: {len(pages)}')
+            elif args.command == 'page':
+                print(format_page(api.get_page(args.id)))
+            elif args.command == 'prs':
+                prs = api.list_prs(args.query)
+                print('\n'.join(f'{p["pr"]["number"]} | {p["pr"]["state"]} | {p["pr"]["title"]}' for p in prs))
+                print(f'Liczba PR: {len(prs)}')
+            elif args.command == 'pr':
+                print(format_pr(api.get_pr(args.number)))
         return 0
     except (ValueError, KeyError, TypeError, OSError) as error:
         # Do not echo response bodies, URLs, environment values or exception chains.

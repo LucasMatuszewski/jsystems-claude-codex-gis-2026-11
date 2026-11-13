@@ -35,7 +35,7 @@ def test_payload_keeps_adf_labels_and_original_date(tickets):
 def test_key_mapping_and_link_direction(tickets):
     mapping = {t["key"]: f"MAPJOB-{n}" for n, t in enumerate(tickets, 1)}
     links = seed.link_payloads(tickets, mapping)
-    assert len(links) == 8
+    assert len(links) == 12
     assert {link['type']['name'] for link in links} == {'Duplicate', 'Relates', 'Blocks'}
     for ticket in tickets:
         for link in ticket['fields']['issuelinks']:
@@ -65,7 +65,7 @@ def test_dry_run_never_touches_network_or_map(tmp_path, capsys, tickets):
     assert seed.main([], env=ENV, transport=httpx.MockTransport(forbidden), map_path=target) == 0
     assert not target.exists()
     output = capsys.readouterr().out
-    assert "34" in output and "TEST-1" in output and "course-seed" in output
+    assert "40" in output and "TEST-1" in output and "course-seed" in output
     assert "synthetic-token" not in output
 
 
@@ -113,7 +113,7 @@ def test_apply_resumes_comments_and_links_without_duplicates(tmp_path, tickets):
         count = len(mutations)
         second = seed.apply_seed(api, tickets, "MAPJOB", "Task", target)
     assert first == second == json.loads(target.read_text())
-    assert len(records) == 34 and len(links) == 8
+    assert len(records) == 40 and len(links) == 12
     assert sum(map(len, comments.values())) == sum(len(t["fields"]["comment"]["comments"]) for t in tickets)
     assert len(mutations) == count
 

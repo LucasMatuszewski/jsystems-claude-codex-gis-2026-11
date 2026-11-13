@@ -1,29 +1,41 @@
 ---
 name: jira-jobs-triage
-description: Odtwarzanie konfiguracji zamówień GIS z epiców Jira, tasków, podzadań, powiązań i komentarzy. Jeden YAML na zamówienie oraz raport problemów z dowodami, tylko do odczytu.
+description: Odtwarzanie konfiguracji zamówień GIS z epiców Jira, tasków, podzadań, powiązań i komentarzy. Przeszukuje także Confluence i PR-y GitHub. Wynik: YAML, issues.md i links.csv z dowodami, tylko do odczytu.
 ---
 
-# Zamówienia Jira: konfiguracje jobów i decyzje
+# Zamówienia Jira: konfiguracje jobów, powiązania i decyzje
 
-Użyj tego skilla do rekonstrukcji parametrów jobów GIS i triage zgłoszeń. Masz zgodę na `course-materials/exercise-data/jira-jobs/README.md`, `job-params.schema.json` w tym samym katalogu i instrukcję narzędzi w `course-materials/exercises/jira-mcp/README.md`. Nie czytaj bezpośrednio `tickets.json`, `issue-example.json`, `seed-spec.json`, testów, odpowiedzi prowadzącego ani wcześniejszych wyników. Nie modyfikuj Jira, danych wejściowych ani aplikacji. Nie uruchamiaj pipeline ani Databricks.
+Użyj tego skilla do rekonstrukcji parametrów jobów GIS i triage zgłoszeń. Masz zgodę na `course-materials/exercise-data/jira-jobs/README.md`, `job-params.schema.json` w tym samym katalogu i instrukcję narzędzi w `course-materials/exercises/jira-mcp/README.md`. Nie czytaj bezpośrednio `tickets.json`, `issue-example.json`, `confluence-pages.json`, `github-prs.json`, `seed-spec.json`, testów, odpowiedzi prowadzącego ani wcześniejszych wyników. Nie modyfikuj Jira, Confluence, GitHub, danych wejściowych ani aplikacji. Nie uruchamiaj pipeline ani Databricks.
 
 ## Odczyt i odkrywanie
 
 Użyj ścieżki wybranej przez uczestnika. A-offline: `jira_read.py` z `JIRA_OFFLINE=1` albo `--offline` przed podkomendą. A: ten sam CLI w trybie live, wyłącznie z dostępem zapewnionym do uzgodnionego projektu. C: lokalne MCP `search_tickets`, `get_ticket`, `list_comments`. B: aktualne odpowiedniki wyszukiwania JQL, pobrania zgłoszenia i wszystkich komentarzy przez Rovo MCP. Nie wypisuj zmiennych środowiskowych ani tokenów. Nie obchodź problemów dostępu bezpośrednim odczytem JSON.
 
-Odkryj pełną kolejkę bez filtra statusu, z każdej strony odpowiedzi. W snapshocie powinny być 34 klucze i 7 epiców. Dla każdego zamówienia przeczytaj epic, bezpośrednie dzieci, podzadania, linkowane zgłoszenia oraz wszystkie komentarze tych źródeł. `subtasks` to nie lista wszystkich tasków epika. W CLI użyj `search "parent = TEST-1"` i dalszych rodziców; w MCP odczytaj listę `Dzieci`, potem każde dziecko.
+Odkryj pełną kolejkę bez filtra statusu, z każdej strony odpowiedzi. W snapshocie powinny być 40 kluczy i 7 epiców, a dodatkowo 5 stron i 10 PR-ów. Dla każdego zamówienia przeczytaj epic, bezpośrednie dzieci, podzadania, linkowane zgłoszenia oraz wszystkie komentarze tych źródeł. `subtasks` to nie lista wszystkich tasków epika. W CLI użyj `search "parent = TEST-1"` i dalszych rodziców; w MCP odczytaj listę `Dzieci`, potem każde dziecko.
 
 Wyszukaj również numer zamówienia źródłowego i wskazany tytuł w całej kolejce. Dowód może nie mieć parenta ani linku. Link Duplicate jest podejrzeniem analityka, nie potwierdzeniem anulowania. Dwie identyczne nazwy obszaru mogą oznaczać różne regiony i bbox. Zachowaj kierunek linku. Komentarze czytaj chronologicznie, ale nie wybieraj automatycznie ostatniej wartości z dowolnego zgłoszenia. Rola w tekście komentarza i konto techniczne API to różne rzeczy; autora nie utożsamiaj z requester_team.
 
+Odczytaj także strony Confluence: `pages [tekst]` i `page ID`, albo MCP `search_pages` i `get_page`. Strona "Konwencje parametrów zleceń" (220135425) jest źródłem prawdy dla normalizacji: regiony, release, bbox, formaty, ścieżki i kroki. Jawna korekta zamawiającego dotyczy tylko wskazanego zamówienia. Sprawdź Runbook, kalendarz i migrację WB-ROADS-07; szukaj pełnych URL i gołych kluczy oraz brakujących odnośników. Porównaj duedate Jira z opisem i komentarzami oraz datą kalendarza, zamiast wybierać pierwszą znalezioną datę.
+
+Odkryj wszystkie PR-y przez `prs [tekst]` / `pr N`, albo MCP `list_prs` / `get_pr`. Odczytaj tytuł, opis, gałąź, wszystkie komunikaty commitów, komentarze dyskusji i inline review oraz diffy plików. Klucz może wystąpić tylko w gałęzi lub commicie, a YAML może przeczyć opisowi Jira. Jira, Confluence i GitHub nie mają integracji; `Closes` w opisie nie jest zgodą na zamknięcie zgłoszenia. CLI stron i PR-ów działa wyłącznie z `--offline`; w A/B użyj go jako osobnego źródła z kluczami TEST, bez nieuzgodnionego mapowania do projektu live.
+
 ## Konfiguracje i normalizacja
 
-Zapisz `reports/jira-jobs/jobs/<klucz-epika>.yaml`: jeden kandydat na każde zamówienie, także podejrzany duplikat. Taski i podzadania nie są osobnymi jobami. Zgłoszenia szumu bez zamówienia danych oznacz `ignore_non_job` w raporcie, bez tworzenia pustej konfiguracji.
+Zapisz `reports/jira-jobs/jobs/<klucz-zamówienia>.yaml`: jeden kandydat na każde zamówienie, także podejrzany duplikat. Taski i podzadania kroków nie są osobnymi jobami. TEST-38 i TEST-39 to nowe samodzielne zamówienia, zachowaj je jako szkice wymagające potwierdzenia. Oczekujesz 7 szkiców pod epicami i 2 nowych, razem 9. Błędy uruchomień, daily check i wynik chunkera są dowodami operacyjnymi, bez nowej konfiguracji. Zgłoszenia szumu bez zamówienia danych oznacz `ignore_non_job` w raporcie, bez tworzenia pustej konfiguracji.
 
-Każdy YAML zawiera `job_id`, `region`, `area_name`, `bbox`, `layers`, `data_release`, `start_step`, `steps`, `output_format`, `output_path`, `deadline`, `requester_team`, `notes`, `unknown_reasons`. Stosuj schemat v2 i kontrakt README. `job_id` jest kluczem epika. `notes` to lista napisów, daty i release to napisy w cudzysłowach. Brak lub nierozstrzygnięty konflikt oznacza `null` i konkretny powód. Jawny brak bbox dla całego regionu też wymaga wyjaśnienia. Konfiguracja z brakującym celem eksportu jest BLOCKED, nawet gdy przechodzi schemat szkicu.
+Każdy YAML zawiera `job_id`, `region`, `area_name`, `bbox`, `layers`, `data_release`, `start_step`, `steps`, `output_format`, `output_path`, `deadline`, `requester_team`, `notes`, `unknown_reasons`. Stosuj schemat v2 i kontrakt README. `job_id` jest kluczem epika albo samodzielnego zgłoszenia nowego zamówienia. Numer zamawiającego zachowaj w notes; brak jego potwierdzenia też wymaga pytania. `notes` to lista napisów, daty i release to napisy w cudzysłowach. Brak lub nierozstrzygnięty konflikt oznacza `null` i konkretny powód. Jawny brak bbox dla całego regionu też wymaga wyjaśnienia. Konfiguracja z brakującym celem eksportu jest BLOCKED, nawet gdy przechodzi schemat szkicu.
 
-Wykorzystaj treść SQL, tabel i bloków kodu, ale sprawdź, czy nie są historyczną kopią. Zachowaj istotne predykaty i warunki odbioru w `notes`. `steps` oznacza kroki pozostałe od `start_step`, nie wszystkie istniejące taski. Status Jira ani zakończenie starego notebooka nie wyznacza startu lub deadline. Nie dodawaj publish, jeśli nie zostało zamówione. Nie zamieniaj osi bbox bez jawnego dowodu w źródle.
+Wykorzystaj treść SQL, tabel i bloków kodu, ale sprawdź, czy nie są historyczną kopią. Zachowaj istotne predykaty i warunki odbioru w `notes`. `steps` oznacza kroki pozostałe od `start_step`, nie wszystkie istniejące taski. Status Jira ani zakończenie starego notebooka nie wyznacza startu lub deadline. Nie dodawaj publish, jeśli nie zostało zamówione. Nie zamieniaj osi bbox bez jawnego dowodu w źródle. Przy ponownym zamówieniu nie nadpisuj poprzedniej dostawy i nie kopiuj bbox bez potwierdzenia zakresu. Niepewny bbox lub niezatwierdzona ścieżka pozostają null z powodem.
 
 Korekta nadpisuje wartość tylko po jawnym potwierdzeniu w zakresie danego zamówienia. Nie przenoś nowszych parametrów do drugiego epika automatycznie. Potencjalny duplikat pozostaje HOLD, a w notes i raporcie zapisz konieczność decyzji o anulowaniu lub osobnej dostawie. Nie planuj dwóch runów na podstawie samej normalizacji.
+
+## Powiązania z dowodami
+
+Zapisz `reports/jira-jobs/links.csv` z dokładnie kolumnami `source,source_id,mention_text,jira_key,confidence,action,evidence`, według kontraktu J3 w README. source = pr/page/comment, confidence = high/medium/low, action = link/flag_for_human/ignore. Commity, gałęzie i pliki mają source=pr; komentarze obu usług source=comment. source_id wskazuje usługę, PR lub stronę i pole, SHA albo ID komentarza, np. pr:4:commit:<SHA> lub jira:TEST-1:comment:<ID>. mention_text jest oryginalnym fragmentem. Jeden wiersz na wzmiankę i cel; wielu kandydatów rozpisz osobno. jira_key to istniejący rozwiązany klucz albo puste pole, nigdy numer nieistniejącego zgłoszenia. ID strony przechowuj w source_id/evidence.
+
+Sprawdź istnienie kluczy w Jira i porównaj kontekst. Małe litery i spację zamiast łącznika można normalizować po potwierdzeniu. Literówka, nieznany klucz, historyczny prefiks bez mapy migracji, sam numer zamawiającego lub dopasowanie wyłącznie po treści wymagają flag_for_human i uzasadnienia. Sprawdź region, bbox, wydanie, warstwy i rolę taska; sama nazwa miejscowości nie wystarczy. Nawet dokładne klucze z high confidence mogą wymagać flag_for_human ze względu na konflikt parametrów. Nie usuwaj HOLD podejrzanego duplikatu. Komentarze botów bez kontekstu biznesowego oznacz ignore.
+
+Zapisz `reports/jira-jobs/links.md`: proponowane odnośniki, niepewności, braki pokrycia, sprzeczności YAML PR z ticketem i kalendarza z terminem Jira. Zwaliduj CSV przez `validate_links.py`; walidacja formatu nie potwierdza trafności powiązań. Model decyzyjny jest opcją z J3, wymaga osobnego budżetu, abstencji i nie wykonuje zapisów w usługach.
 
 ## Raport, dowody i kontrola
 

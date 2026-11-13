@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Konfiguracja zamówienia mapowego v2",
-  "description": "Jeden obiekt na epic, nie na ticket. Kandydat do oceny, nie zgoda na uruchomienie. Każde null wymaga konkretnego powodu.",
+  "description": "Jeden obiekt na zamówienie: epic albo samodzielne zgłoszenie nowego zamówienia, nie na każdy ticket. Kandydat do oceny, nie zgoda na uruchomienie. Każde null wymaga konkretnego powodu.",
   "type": "object",
   "additionalProperties": false,
   "required": [

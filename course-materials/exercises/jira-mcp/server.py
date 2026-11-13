@@ -5,7 +5,7 @@ except ModuleNotFoundError:
     from mcp.server import MCPServer as FastMCP
 from mcp.types import ToolAnnotations
 
-from jira_read import OfflineReader, flatten_adf, format_comments, format_issue
+from jira_read import OfflineReader, flatten_adf, format_comments, format_issue, format_page, format_pr
 
 snapshot = OfflineReader()
 TICKETS = snapshot.tickets
@@ -36,6 +36,30 @@ def get_ticket(key: str) -> str:
 def list_comments(key: str) -> str:
     """Pełna treść komentarzy od najstarszego, z ID, datą i autorem technicznym."""
     return format_comments(snapshot.comments(key))
+
+
+@mcp.tool(annotations=READ_ONLY)
+def search_pages(query: str = '') -> str:
+    """Szukaj wszystkich słów w tytule, HTML storage i adresach stron Confluence."""
+    return '\n'.join(f'{p["id"]} | {p["title"]}' for p in snapshot.search_pages(query)) or 'Brak stron.'
+
+
+@mcp.tool(annotations=READ_ONLY)
+def get_page(page_id: str) -> str:
+    """Treść strony Confluence z wersją, rodzicem i docelowymi URL odwołań."""
+    return format_page(snapshot.get_page(page_id))
+
+
+@mcp.tool(annotations=READ_ONLY)
+def list_prs(query: str = '') -> str:
+    """Wszystkie stany PR; szukaj w tytułach, opisach, gałęziach, commitach i komentarzach."""
+    return '\n'.join(f'{p["pr"]["number"]} | {p["pr"]["state"]} | {p["pr"]["title"]}' for p in snapshot.list_prs(query)) or 'Brak PR.'
+
+
+@mcp.tool(annotations=READ_ONLY)
+def get_pr(number: int) -> str:
+    """Pełny PR wraz z gałęzią, SHA i wiadomościami commitów oraz ID komentarzy."""
+    return format_pr(snapshot.get_pr(number))
 
 
 if __name__ == '__main__':

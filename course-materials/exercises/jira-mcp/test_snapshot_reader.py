@@ -9,7 +9,7 @@ import jira_read as reader
 
 def test_offline_search_project_parent_epics_and_comments():
     with reader.OfflineReader() as api:
-        assert len(api.search('project = TEST ORDER BY key')) == 34
+        assert len(api.search('project = TEST ORDER BY key')) == 40
         assert len(api.search('project = TEST AND issuetype = Epic')) == 7
         assert len(api.search('parent = TEST-1')) == 3
         assert [i['key'] for i in api.search('parent = TEST-8')] == ['TEST-33']
@@ -34,7 +34,7 @@ def test_get_exposes_parent_children_links_and_code_blocks(capsys):
 
 def test_no_credentials_or_network_for_offline(capsys):
     assert reader.main(['--offline', 'search', 'project = TEST'], env={}) == 0
-    assert 'Liczba zgłoszeń: 34' in capsys.readouterr().out
+    assert 'Liczba zgłoszeń: 40' in capsys.readouterr().out
     assert reader.main(['--offline', 'comments', 'TEST-1'], env={}) == 0
     text = capsys.readouterr().out
     assert 'parquet' in text and '2026-11-19' in text
@@ -55,4 +55,4 @@ def test_offline_module_does_not_need_httpx(monkeypatch):
     monkeypatch.setitem(sys.modules, 'httpx', None)
     module = runpy.run_path(str(Path(reader.__file__)))
     with module['OfflineReader']() as api:
-        assert len(api.search('project = TEST')) == 34
+        assert len(api.search('project = TEST')) == 40

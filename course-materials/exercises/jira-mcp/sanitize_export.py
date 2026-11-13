@@ -118,6 +118,14 @@ def sanitize(raw):
                         replacements[node[key]] = 'Analityk (kurs)'
             if context == 'project' and node.get('name'):
                 replacements[node['name']] = 'Projekt kursowy'
+            if context in ('author', 'committer') and node.get('email') and node.get('name'):
+                replacements[node['name']] = 'Autor (kurs)'
+            if node.get('login'):
+                login = node['login']
+                alias = 'course-org' if login.casefold() in ('lucasmatuszewski', 'course-org') else 'course-user'
+                replacements[login] = alias
+                if node.get('name'):
+                    replacements[node['name']] = 'Autor (kurs)'
             for key, value in node.items():
                 if key.lower() in ('cloudid', 'cloud_id') and isinstance(value, str):
                     replacements[value] = FAKE_CLOUD
@@ -126,7 +134,7 @@ def sanitize(raw):
             for value in node:
                 collect(value, context)
         elif isinstance(node, str):
-            for cloud in re.findall(r'(?:/ex/jira/|ari:cloud:jira:)(%s)' % UUID, node):
+            for cloud in re.findall(r'(?:/ex/(?:jira|confluence)/|ari:cloud:(?:jira|confluence):)(%s)' % UUID, node):
                 replacements[cloud] = FAKE_CLOUD
             for email in re.findall(r'[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}', node):
                 replacements[email] = '[email usunięty]'
@@ -137,22 +145,25 @@ def sanitize(raw):
     pattern = re.compile('|'.join(re.escape(key) for key in sorted(replacements, key=len, reverse=True))) if replacements else None
 
     def scrub(text):
+        # Space keys use a different alias from the same person's accountId.
+        text = re.sub(r'(?:\\?~|%7e)557058(?::|%3a)?[a-z0-9%:_-]*', '~course-user', text, flags=re.I)
         if pattern:
             text = pattern.sub(lambda m: replacements[m.group()], text)
-        text = re.sub('edukey.atlassian.net', 'course-site.atlassian.net', text, flags=re.I)
+        text = re.sub(r'edukey\.atlassian\.net', 'course-site.atlassian.net', text, flags=re.I)
+        text = re.sub(r'LucasMatuszewski', 'course-org', text, flags=re.I)
         return re.sub('edukey', 'Course', text, flags=re.I)
 
     def visit(node, context='', in_comment=False):
         if isinstance(node, dict):
             result = {}
             for key, value in node.items():
-                if key == 'emailAddress':
+                if key in ('emailAddress', 'email'):
                     continue
                 if key == 'avatarUrls' and isinstance(value, dict):
                     result[key] = {size: AVATAR for size in value}
                 elif key == 'body' and in_comment and isinstance(value, str):
                     result[key] = markdown_to_adf(scrub(value).replace(r'\[', '[').replace(r'\]', ']'))
-                elif key == 'avatarUrl':
+                elif key in ('avatarUrl', 'avatar_url'):
                     result[key] = AVATAR
                 elif key == 'displayName':
                     result[key] = 'Analityk (kurs)'
@@ -160,6 +171,13 @@ def sanitize(raw):
                     result[key] = markdown_to_adf(scrub(value)) if context == 'fields' else scrub(value)
                 else:
                     result[key] = visit(value, key, in_comment or key == 'comment')
+            if node.get('login'):
+                # GitHub user IDs identify accounts; PR/comment IDs are evidence.
+                alias = result['login']
+                if 'id' in node:
+                    result['id'] = 1001 if alias == 'course-org' else 2001
+                if 'node_id' in node:
+                    result['node_id'] = 'course-account-' + alias
             return result
         if isinstance(node, list):
             return [visit(item, context, in_comment) for item in node]
@@ -170,22 +188,56 @@ def sanitize(raw):
     return visit(raw)
 
 
+def sanitize_pages(raw):
+    """Normalize the trainer's storage-HTML export to a REST v2 page collection.
+
+    This is a representation conversion, not a byte-exact HTTP capture.
+    """
+    clean = sanitize(raw)
+    pages = clean.get('pages', clean.get('results', []))
+    results = []
+    for page in pages:
+        item = {key: page[key] for key in ('id', 'title', 'parentId', 'spaceId', 'status', 'version', '_links') if key in page}
+        body = page['body']
+        item['body'] = {'storage': {'representation': 'storage', 'value': body}} if isinstance(body, str) else body
+        results.append(item)
+    return {'results': results, '_links': clean.get('_links', {})}
+
+
+def sanitize_prs(raw):
+    """Keep native PR fields and separately exported REST resources intact."""
+    return sanitize(raw)
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('raw_export', type=Path)
     parser.add_argument('tickets', type=Path)
     parser.add_argument('--example', type=Path, required=True)
     parser.add_argument('--example-key', default='TEST-1')
+    parser.add_argument('--pages-raw', type=Path)
+    parser.add_argument('--pages', type=Path)
+    parser.add_argument('--prs-raw', type=Path)
+    parser.add_argument('--prs', type=Path)
     args = parser.parse_args(argv)
-    paths = [args.raw_export.resolve(), args.tickets.resolve(), args.example.resolve()]
-    if len(set(paths)) != 3:
+    if bool(args.pages_raw) != bool(args.pages):
+        parser.error('--pages-raw and --pages must be supplied together')
+    if bool(args.prs_raw) != bool(args.prs):
+        parser.error('--prs-raw and --prs must be supplied together')
+    paths = [p.resolve() for p in (args.raw_export, args.tickets, args.example, args.pages_raw, args.pages, args.prs_raw, args.prs) if p]
+    if len(set(paths)) != len(paths):
         parser.error('Input and output paths must be distinct')
     clean = sanitize(json.loads(args.raw_export.read_text(encoding='utf-8')))
     issue = next((item for item in clean['issues'] if item['key'] == args.example_key), None)
     if issue is None:
         parser.error('Example key not present in export')
     example = {key: issue[key] for key in ('expand', 'id', 'self', 'key', 'fields')}
-    for path, document in ((args.tickets, clean), (args.example, example)):
+    outputs = [(args.tickets, clean), (args.example, example)]
+    if args.pages_raw:
+        outputs.append((args.pages, sanitize_pages(json.loads(args.pages_raw.read_text(encoding='utf-8')))))
+    if args.prs_raw:
+        outputs.append((args.prs, sanitize_prs(json.loads(args.prs_raw.read_text(encoding='utf-8')))))
+    for path, document in outputs:
         path.write_text(json.dumps(document, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     print(f'Sanitized {len(clean["issues"])} issues; raw values were not logged.')
 
