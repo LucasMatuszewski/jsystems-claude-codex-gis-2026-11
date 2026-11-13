@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Podsumowanie kontroli mapy – Kraków</title>
+<style>
+  :root {
+    color-scheme: light;
+    --surface: #fcfcfb; --surface-2: #f0efec; --border: #d9d7d0;
+    --text-primary: #0b0b0b; --text-secondary: #52514e;
+    --series-1: #2a78d6; --series-2: #eb6834; --series-3: #1baf7a; --seq: #2a78d6;
+    --note-bg: #fff8c5; --note-border: #d4a72c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      color-scheme: dark;
+      --surface: #1a1a19; --surface-2: #2a2a28; --border: #45443f;
+      --text-primary: #f0efec; --text-secondary: #c3c2b7;
+      --series-1: #3987e5; --series-2: #d95926; --series-3: #199e70; --seq: #3987e5;
+      --note-bg: #3a3214; --note-border: #8a6d1a;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --surface: #1a1a19; --surface-2: #2a2a28; --border: #45443f;
+    --text-primary: #f0efec; --text-secondary: #c3c2b7;
+    --series-1: #3987e5; --series-2: #d95926; --series-3: #199e70; --seq: #3987e5;
+    --note-bg: #3a3214; --note-border: #8a6d1a;
+  }
+  body { font-family: system-ui, "Segoe UI", Roboto, Arial, sans-serif; margin: 0 auto; max-width: 1000px;
+         padding: 16px; background: var(--surface); color: var(--text-primary); line-height: 1.45; }
+  h1 { font-size: 1.5rem; margin-bottom: 4px; } h2 { font-size: 1.15rem; margin-top: 1.8rem; }
+  .meta, figcaption, .legend { color: var(--text-secondary); font-size: 0.85rem; }
+  .note { background: var(--note-bg); border: 1px solid var(--note-border); padding: 8px 12px; border-radius: 6px; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
+  .kpi { background: var(--surface-2); border-radius: 8px; padding: 10px 12px; }
+  .kpi .v { font-size: 1.6rem; font-weight: 650; font-variant-numeric: tabular-nums; }
+  .kpi .l { color: var(--text-secondary); font-size: 0.85rem; }
+  ul.insights li { margin-bottom: 6px; }
+  figure { margin: 12px 0 20px; } svg { display: block; max-width: 100%; height: auto; }
+  svg .lbl, svg .val { fill: var(--text-primary); font-size: 12px; font-family: inherit; }
+  svg .axis { stroke: var(--border); stroke-width: 1; }
+  svg .s1 { fill: var(--series-1); } svg .s2 { fill: var(--series-2); } svg .s3 { fill: var(--series-3); }
+  svg .seq { fill: var(--seq); }
+  .legend span { display: inline-flex; align-items: center; gap: 4px; margin-right: 12px; }
+  .sw { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+  .sw.s1 { background: var(--series-1); } .sw.s2 { background: var(--series-2); } .sw.s3 { background: var(--series-3); }
+  table { border-collapse: collapse; width: 100%; font-size: 0.85rem; margin-top: 6px; }
+  th, td { border: 1px solid var(--border); padding: 3px 6px; text-align: left; }
+  a { color: var(--series-1); }
+</style>
+</head>
+<body>
+<header>
+<h1>Podsumowanie kontroli mapy (Kraków)</h1>
+<p class="meta">Uruchomienie 2026-11-13T00:39:15+00:00 · źródło danych: pliki lokalne · OSM 2026-11-01, Overture 2026-10-21.0 · wygenerowano 2026-11-13 · szczegóły: <a href="report.html">report.html</a></p>
+<p class="note">Odczyt zdjęcia jest predykcją modelu, a nie weryfikacją terenową. Rozbieżność źródeł nie oznacza automatycznie błędu mapy.</p>
+</header>
+<main>
+<section>
+<h2>Kluczowe liczby</h2>
+<div class="kpis">
+<div class="kpi"><div class="v" data-kpi="pairs">558</div><div class="l">par zdjęcie–droga</div></div>
+<div class="kpi"><div class="v" data-kpi="speed_agree">70.1%</div><div class="l">zgodnych limitów prędkości</div></div>
+<div class="kpi"><div class="v" data-kpi="candidates">167</div><div class="l">par do przeglądu</div></div>
+<div class="kpi"><div class="v" data-kpi="queue">70</div><div class="l">pozycji w kolejce ręcznej</div></div>
+<div class="kpi"><div class="v" data-kpi="cost">0.0049 USD</div><div class="l">koszt odpowiedzi modeli</div></div>
+</div>
+</section>
+<section>
+<h2>Najważniejsze wnioski</h2>
+<ul class="insights"><li>Ograniczenie prędkości: 391 z 558 par (70.1%) ma zgodne wartości OSM i Overture, 2 rozbieżnych, 14 z brakującą wartością, 86 nieporównywalnych; najczęstszy powód nieporównywalności: overture:partial_between (82).</li><li>Nawierzchnia: 486 z 558 par (87.1%) ma zgodne wartości OSM i Overture, 0 rozbieżnych, 3 z brakującą wartością, 4 nieporównywalnych; najczęstszy powód nieporównywalności: overture:partial_between (4).</li><li>65 z 561 zdjęć (11.6%) ma niepewne połączenie z drogą i czeka na ręczny przegląd; 3 zdjęć nie ma kandydata w promieniu 25 m.</li><li>Najsłabiej uzupełniony atrybut na drogach ze zdjęciami: osm lit (97/230, 42.2%).</li><li>Odczyt zdjęć: 55 pytań; 41 rozstrzygnął tier 1, 9 tier 2, 5 trafiło do kolejki ręcznej (abstain), 0 błędów API, 0 nieuruchomionych.</li><li>Najwyższa zgodność z etykietami AI: surface (100.0% (15/15)); najniższa: junction_visible (73.3% (11/15)). Próbka jest mała, więc to wskazówka, a nie pomiar jakości.</li><li>Luna Decisions i Jev 1.14 na tych samych 5 obrazach: zgodne odpowiedzi 10/11, średnia różnica max(p) 0.170.</li><li>Koszt wszystkich odpowiedzi modeli w raporcie: 0.0049 USD (nowe żądania w tym uruchomieniu: 0, 0.0000 USD).</li></ul>
+</section>
+<section>
+<h2>Wykresy</h2>
+<figure>
+<figcaption><strong>Ograniczenie prędkości: statusy porównania OSM–Overture (n = 558 par)</strong></figcaption>
+<svg viewBox="0 0 760 188" width="100%" role="img" aria-label="Ograniczenie prędkości: statusy porównania OSM–Overture (n = 558 par)" xmlns="http://www.w3.org/2000/svg"><line class="axis" x1="290" y1="0" x2="290" y2="188"/><g><title>zgodne (agree): 391 (70.1%)</title><text class="lbl" x="282" y="23.4" text-anchor="end">zgodne (agree)</text><rect class="seq" x="290" y="8" width="360.0" height="22" rx="4"/><text class="val" x="656.0" y="23.4">391 (70.1%)</text></g><g><title>rozbieżne (disagree): 2 (0.4%)</title><text class="lbl" x="282" y="53.4" text-anchor="end">rozbieżne (disagree)</text><rect class="seq" x="290" y="38" width="1.8" height="22" rx="4"/><text class="val" x="297.8" y="53.4">2 (0.4%)</text></g><g><title>brak w OSM (missing_osm): 14 (2.5%)</title><text class="lbl" x="282" y="83.4" text-anchor="end">brak w OSM (missing_osm)</text><rect class="seq" x="290" y="68" width="12.9" height="22" rx="4"/><text class="val" x="308.9" y="83.4">14 (2.5%)</text></g><g><title>brak w Overture (missing_overture): 0 (0.0%)</title><text class="lbl" x="282" y="113.4" text-anchor="end">brak w Overture (missing_overture)</text><rect class="seq" x="290" y="98" width="0.0" height="22" rx="4"/><text class="val" x="296.0" y="113.4">0 (0.0%)</text></g><g><title>nieporównywalne (not_comparable): 86 (15.4%)</title><text class="lbl" x="282" y="143.4" text-anchor="end">nieporównywalne (not_comparable)</text><rect class="seq" x="290" y="128" width="79.2" height="22" rx="4"/><text class="val" x="375.2" y="143.4">86 (15.4%)</text></g><g><title>niepewne połączenie (ambiguous_link): 65 (11.6%)</title><text class="lbl" x="282" y="173.4" text-anchor="end">niepewne połączenie (ambiguous_link)</text><rect class="seq" x="290" y="158" width="59.8" height="22" rx="4"/><text class="val" x="355.8" y="173.4">65 (11.6%)</text></g></svg>
+<details><summary>Tabela danych</summary>
+<table><thead><tr><th>Status</th><th>Liczba</th><th>% par</th></tr></thead><tbody>
+<tr><td>agree</td><td><span data-counter="speed:agree">391</span></td><td>70.1%</td></tr>
+<tr><td>disagree</td><td><span data-counter="speed:disagree">2</span></td><td>0.4%</td></tr>
+<tr><td>missing_osm</td><td><span data-counter="speed:missing_osm">14</span></td><td>2.5%</td></tr>
+<tr><td>missing_overture</td><td><span data-counter="speed:missing_overture">0</span></td><td>0.0%</td></tr>
+<tr><td>not_comparable</td><td><span data-counter="speed:not_comparable">86</span></td><td>15.4%</td></tr>
+<tr><td>ambiguous_link</td><td><span data-counter="speed:ambiguous_link">65</span></td><td>11.6%</td></tr>
+</tbody></table></details>
+</figure>
+<figure>
+<figcaption><strong>Nawierzchnia: statusy porównania OSM–Overture (n = 558 par)</strong></figcaption>
+<svg viewBox="0 0 760 188" width="100%" role="img" aria-label="Nawierzchnia: statusy porównania OSM–Overture (n = 558 par)" xmlns="http://www.w3.org/2000/svg"><line class="axis" x1="290" y1="0" x2="290" y2="188"/><g><title>zgodne (agree): 486 (87.1%)</title><text class="lbl" x="282" y="23.4" text-anchor="end">zgodne (agree)</text><rect class="seq" x="290" y="8" width="360.0" height="22" rx="4"/><text class="val" x="656.0" y="23.4">486 (87.1%)</text></g><g><title>rozbieżne (disagree): 0 (0.0%)</title><text class="lbl" x="282" y="53.4" text-anchor="end">rozbieżne (disagree)</text><rect class="seq" x="290" y="38" width="0.0" height="22" rx="4"/><text class="val" x="296.0" y="53.4">0 (0.0%)</text></g><g><title>brak w OSM (missing_osm): 3 (0.5%)</title><text class="lbl" x="282" y="83.4" text-anchor="end">brak w OSM (missing_osm)</text><rect class="seq" x="290" y="68" width="2.2" height="22" rx="4"/><text class="val" x="298.2" y="83.4">3 (0.5%)</text></g><g><title>brak w Overture (missing_overture): 0 (0.0%)</title><text class="lbl" x="282" y="113.4" text-anchor="end">brak w Overture (missing_overture)</text><rect class="seq" x="290" y="98" width="0.0" height="22" rx="4"/><text class="val" x="296.0" y="113.4">0 (0.0%)</text></g><g><title>nieporównywalne (not_comparable): 4 (0.7%)</title><text class="lbl" x="282" y="143.4" text-anchor="end">nieporównywalne (not_comparable)</text><rect class="seq" x="290" y="128" width="3.0" height="22" rx="4"/><text class="val" x="299.0" y="143.4">4 (0.7%)</text></g><g><title>niepewne połączenie (ambiguous_link): 65 (11.6%)</title><text class="lbl" x="282" y="173.4" text-anchor="end">niepewne połączenie (ambiguous_link)</text><rect class="seq" x="290" y="158" width="48.1" height="22" rx="4"/><text class="val" x="344.1" y="173.4">65 (11.6%)</text></g></svg>
+<details><summary>Tabela danych</summary>
+<table><thead><tr><th>Status</th><th>Liczba</th><th>% par</th></tr></thead><tbody>
+<tr><td>agree</td><td><span data-counter="surface:agree">486</span></td><td>87.1%</td></tr>
+<tr><td>disagree</td><td><span data-counter="surface:disagree">0</span></td><td>0.0%</td></tr>
+<tr><td>missing_osm</td><td><span data-counter="surface:missing_osm">3</span></td><td>0.5%</td></tr>
+<tr><td>missing_overture</td><td><span data-counter="surface:missing_overture">0</span></td><td>0.0%</td></tr>
+<tr><td>not_comparable</td><td><span data-counter="surface:not_comparable">4</span></td><td>0.7%</td></tr>
+<tr><td>ambiguous_link</td><td><span data-counter="surface:ambiguous_link">65</span></td><td>11.6%</td></tr>
+</tbody></table></details>
+</figure>
+<figure>
+<figcaption><strong>Kompletność atrybutów (% dróg z wartością)</strong></figcaption>
+<div class="legend"><span><i class="sw s1"></i>wszystkie drogi</span><span><i class="sw s2"></i>drogi ze zdjęciem</span></div><svg viewBox="0 0 760 428" width="100%" role="img" aria-label="Kompletność atrybutów (% dróg z wartością)" xmlns="http://www.w3.org/2000/svg"><line class="axis" x1="290" y1="0" x2="290" y2="428"/><g><title>osm maxspeed*, wszystkie drogi: 17963/99768 (18.0%)</title><text class="lbl" x="282" y="23.4" text-anchor="end">osm maxspeed*</text><rect class="s1" x="290" y="8" width="64.8" height="22" rx="4"/><text class="val" x="360.8" y="23.4">18.0%</text></g><g><title>osm maxspeed*, drogi ze zdjęciem: 219/230 (95.2%)</title><text class="lbl" x="282" y="53.4" text-anchor="end">osm maxspeed*</text><rect class="s2" x="290" y="38" width="342.8" height="22" rx="4"/><text class="val" x="638.8" y="53.4">95.2%</text></g><g><title>osm surface, wszystkie drogi: 39566/99768 (39.7%)</title><text class="lbl" x="282" y="83.4" text-anchor="end">osm surface</text><rect class="s1" x="290" y="68" width="142.8" height="22" rx="4"/><text class="val" x="438.8" y="83.4">39.7%</text></g><g><title>osm surface, drogi ze zdjęciem: 226/230 (98.3%)</title><text class="lbl" x="282" y="113.4" text-anchor="end">osm surface</text><rect class="s2" x="290" y="98" width="353.7" height="22" rx="4"/><text class="val" x="649.7" y="113.4">98.3%</text></g><g><title>osm lit, wszystkie drogi: 15589/99768 (15.6%)</title><text class="lbl" x="282" y="143.4" text-anchor="end">osm lit</text><rect class="s1" x="290" y="128" width="56.3" height="22" rx="4"/><text class="val" x="352.3" y="143.4">15.6%</text></g><g><title>osm lit, drogi ze zdjęciem: 97/230 (42.2%)</title><text class="lbl" x="282" y="173.4" text-anchor="end">osm lit</text><rect class="s2" x="290" y="158" width="151.8" height="22" rx="4"/><text class="val" x="447.8" y="173.4">42.2%</text></g><g><title>osm lanes, wszystkie drogi: 11279/99768 (11.3%)</title><text class="lbl" x="282" y="203.4" text-anchor="end">osm lanes</text><rect class="s1" x="290" y="188" width="40.7" height="22" rx="4"/><text class="val" x="336.7" y="203.4">11.3%</text></g><g><title>osm lanes, drogi ze zdjęciem: 208/230 (90.4%)</title><text class="lbl" x="282" y="233.4" text-anchor="end">osm lanes</text><rect class="s2" x="290" y="218" width="325.6" height="22" rx="4"/><text class="val" x="621.6" y="233.4">90.4%</text></g><g><title>osm sidewalk*, wszystkie drogi: 12640/99768 (12.7%)</title><text class="lbl" x="282" y="263.4" text-anchor="end">osm sidewalk*</text><rect class="s1" x="290" y="248" width="45.6" height="22" rx="4"/><text class="val" x="341.6" y="263.4">12.7%</text></g><g><title>osm sidewalk*, drogi ze zdjęciem: 105/230 (45.7%)</title><text class="lbl" x="282" y="293.4" text-anchor="end">osm sidewalk*</text><rect class="s2" x="290" y="278" width="164.3" height="22" rx="4"/><text class="val" x="460.3" y="293.4">45.7%</text></g><g><title>overture speed_limits, wszystkie drogi: 12847/85405 (15.0%)</title><text class="lbl" x="282" y="323.4" text-anchor="end">overture speed_limits</text><rect class="s1" x="290" y="308" width="54.2" height="22" rx="4"/><text class="val" x="350.2" y="323.4">15.0%</text></g><g><title>overture speed_limits, drogi ze zdjęciem: 127/139 (91.4%)</title><text class="lbl" x="282" y="353.4" text-anchor="end">overture speed_limits</text><rect class="s2" x="290" y="338" width="328.9" height="22" rx="4"/><text class="val" x="624.9" y="353.4">91.4%</text></g><g><title>overture road_surface, wszystkie drogi: 32108/85405 (37.6%)</title><text class="lbl" x="282" y="383.4" text-anchor="end">overture road_surface</text><rect class="s1" x="290" y="368" width="135.3" height="22" rx="4"/><text class="val" x="431.3" y="383.4">37.6%</text></g><g><title>overture road_surface, drogi ze zdjęciem: 136/139 (97.8%)</title><text class="lbl" x="282" y="413.4" text-anchor="end">overture road_surface</text><rect class="s2" x="290" y="398" width="352.2" height="22" rx="4"/><text class="val" x="648.2" y="413.4">97.8%</text></g></svg>
+<details><summary>Tabela danych</summary>
+<table><thead><tr><th>Źródło</th><th>Atrybut</th><th>Populacja</th><th>Z wartością / mianownik</th><th>%</th></tr></thead><tbody>
+<tr><td>osm</td><td>maxspeed*</td><td>all</td><td>17963/99768</td><td>18.0%</td></tr>
+<tr><td>osm</td><td>maxspeed*</td><td>linked</td><td>219/230</td><td>95.2%</td></tr>
+<tr><td>osm</td><td>surface</td><td>all</td><td>39566/99768</td><td>39.7%</td></tr>
+<tr><td>osm</td><td>surface</td><td>linked</td><td>226/230</td><td>98.3%</td></tr>
+<tr><td>osm</td><td>lit</td><td>all</td><td>15589/99768</td><td>15.6%</td></tr>
+<tr><td>osm</td><td>lit</td><td>linked</td><td>97/230</td><td>42.2%</td></tr>
+<tr><td>osm</td><td>lanes</td><td>all</td><td>11279/99768</td><td>11.3%</td></tr>
+<tr><td>osm</td><td>lanes</td><td>linked</td><td>208/230</td><td>90.4%</td></tr>
+<tr><td>osm</td><td>sidewalk*</td><td>all</td><td>12640/99768</td><td>12.7%</td></tr>
+<tr><td>osm</td><td>sidewalk*</td><td>linked</td><td>105/230</td><td>45.7%</td></tr>
+<tr><td>overture</td><td>speed_limits</td><td>all</td><td>12847/85405</td><td>15.0%</td></tr>
+<tr><td>overture</td><td>speed_limits</td><td>linked</td><td>127/139</td><td>91.4%</td></tr>
+<tr><td>overture</td><td>road_surface</td><td>all</td><td>32108/85405</td><td>37.6%</td></tr>
+<tr><td>overture</td><td>road_surface</td><td>linked</td><td>136/139</td><td>97.8%</td></tr>
+</tbody></table></details>
+</figure>
+<figure>
+<figcaption><strong>Zgodność odczytu z etykietami AI (accuracy, abstencja = błąd)</strong></figcaption>
+<div class="legend"><span><i class="sw s1"></i>tier 1 (Luna Decisions)</span><span><i class="sw s2"></i>końcowa: tier 1 + tier 2</span><span><i class="sw s3"></i>Jev 1.14 (5 obrazów)</span></div><svg viewBox="0 0 760 368" width="100%" role="img" aria-label="Zgodność odczytu z etykietami AI (accuracy, abstencja = błąd)" xmlns="http://www.w3.org/2000/svg"><line class="axis" x1="290" y1="0" x2="290" y2="368"/><g><title>surface, tier 1 (Luna Decisions): accuracy 100.0% (15/15); pokrycie 100.0% (15/15); po abstencji 100.0% (15/15)</title><text class="lbl" x="282" y="23.4" text-anchor="end">surface · tier 1</text><rect class="s1" x="290" y="8" width="360.0" height="22" rx="4"/><text class="val" x="656.0" y="23.4">100% (15/15)</text></g><g><title>surface, końcowa: tier 1 + tier 2: accuracy 100.0% (15/15); pokrycie 100.0% (15/15); po abstencji 100.0% (15/15)</title><text class="lbl" x="282" y="53.4" text-anchor="end">surface · końcowa</text><rect class="s2" x="290" y="38" width="360.0" height="22" rx="4"/><text class="val" x="656.0" y="53.4">100% (15/15)</text></g><g><title>surface, Jev 1.14 (5 obrazów): accuracy 100.0% (3/3); pokrycie 100.0% (3/3); po abstencji 100.0% (3/3)</title><text class="lbl" x="282" y="83.4" text-anchor="end">surface · Jev</text><rect class="s3" x="290" y="68" width="360.0" height="22" rx="4"/><text class="val" x="656.0" y="83.4">100% (3/3)</text></g><g><title>junction_visible, tier 1 (Luna Decisions): accuracy 73.3% (11/15); pokrycie 86.7% (13/15); po abstencji 84.6% (11/13)</title><text class="lbl" x="282" y="113.4" text-anchor="end">junction_visible · tier 1</text><rect class="s1" x="290" y="98" width="263.9" height="22" rx="4"/><text class="val" x="559.9" y="113.4">73% (11/15)</text></g><g><title>junction_visible, końcowa: tier 1 + tier 2: accuracy 73.3% (11/15); pokrycie 86.7% (13/15); po abstencji 84.6% (11/13)</title><text class="lbl" x="282" y="143.4" text-anchor="end">junction_visible · końcowa</text><rect class="s2" x="290" y="128" width="263.9" height="22" rx="4"/><text class="val" x="559.9" y="143.4">73% (11/15)</text></g><g><title>junction_visible, Jev 1.14 (5 obrazów): accuracy 33.3% (1/3); pokrycie 33.3% (1/3); po abstencji 100.0% (1/1)</title><text class="lbl" x="282" y="173.4" text-anchor="end">junction_visible · Jev</text><rect class="s3" x="290" y="158" width="119.9" height="22" rx="4"/><text class="val" x="415.9" y="173.4">33% (1/3)</text></g><g><title>street_lighting_visible, tier 1 (Luna Decisions): accuracy 57.1% (8/14); pokrycie 71.4% (10/14); po abstencji 80.0% (8/10)</title><text class="lbl" x="282" y="203.4" text-anchor="end">street_lighting_visible · tier 1</text><rect class="s1" x="290" y="188" width="205.6" height="22" rx="4"/><text class="val" x="501.6" y="203.4">57% (8/14)</text></g><g><title>street_lighting_visible, końcowa: tier 1 + tier 2: accuracy 78.6% (11/14); pokrycie 92.9% (13/14); po abstencji 84.6% (11/13)</title><text class="lbl" x="282" y="233.4" text-anchor="end">street_lighting_visible · końcowa</text><rect class="s2" x="290" y="218" width="283.0" height="22" rx="4"/><text class="val" x="579.0" y="233.4">79% (11/14)</text></g><g><title>street_lighting_visible, Jev 1.14 (5 obrazów): accuracy 100.0% (3/3); pokrycie 100.0% (3/3); po abstencji 100.0% (3/3)</title><text class="lbl" x="282" y="263.4" text-anchor="end">street_lighting_visible · Jev</text><rect class="s3" x="290" y="248" width="360.0" height="22" rx="4"/><text class="val" x="656.0" y="263.4">100% (3/3)</text></g><g><title>speed_limit_value, tier 1 (Luna Decisions): accuracy 20.0% (2/10); pokrycie 20.0% (2/10); po abstencji 100.0% (2/2)</title><text class="lbl" x="282" y="293.4" text-anchor="end">speed_limit_value · tier 1</text><rect class="s1" x="290" y="278" width="72.0" height="22" rx="4"/><text class="val" x="368.0" y="293.4">20% (2/10)</text></g><g><title>speed_limit_value, końcowa: tier 1 + tier 2: accuracy 80.0% (8/10); pokrycie 80.0% (8/10); po abstencji 100.0% (8/8)</title><text class="lbl" x="282" y="323.4" text-anchor="end">speed_limit_value · końcowa</text><rect class="s2" x="290" y="308" width="288.0" height="22" rx="4"/><text class="val" x="584.0" y="323.4">80% (8/10)</text></g><g><title>speed_limit_value, Jev 1.14 (5 obrazów): accuracy 50.0% (1/2); pokrycie 50.0% (1/2); po abstencji 100.0% (1/1)</title><text class="lbl" x="282" y="353.4" text-anchor="end">speed_limit_value · Jev</text><rect class="s3" x="290" y="338" width="180.0" height="22" rx="4"/><text class="val" x="476.0" y="353.4">50% (1/2)</text></g></svg>
+<details><summary>Tabela danych</summary>
+<table><thead><tr><th>Pytanie</th><th>Wariant</th><th>Accuracy</th><th>Pokrycie</th><th>Accuracy po abstencji</th><th>Wykluczone uncertain</th></tr></thead><tbody>
+<tr><td>surface</td><td>tier 1 (Luna Decisions)</td><td>100.0% (15/15)</td><td>100.0% (15/15)</td><td>100.0% (15/15)</td><td>0</td></tr>
+<tr><td>surface</td><td>końcowa: tier 1 + tier 2</td><td>100.0% (15/15)</td><td>100.0% (15/15)</td><td>100.0% (15/15)</td><td>0</td></tr>
+<tr><td>surface</td><td>Jev 1.14 (5 obrazów)</td><td>100.0% (3/3)</td><td>100.0% (3/3)</td><td>100.0% (3/3)</td><td>0</td></tr>
+<tr><td>junction_visible</td><td>tier 1 (Luna Decisions)</td><td>73.3% (11/15)</td><td>86.7% (13/15)</td><td>84.6% (11/13)</td><td>0</td></tr>
+<tr><td>junction_visible</td><td>końcowa: tier 1 + tier 2</td><td>73.3% (11/15)</td><td>86.7% (13/15)</td><td>84.6% (11/13)</td><td>0</td></tr>
+<tr><td>junction_visible</td><td>Jev 1.14 (5 obrazów)</td><td>33.3% (1/3)</td><td>33.3% (1/3)</td><td>100.0% (1/1)</td><td>0</td></tr>
+<tr><td>street_lighting_visible</td><td>tier 1 (Luna Decisions)</td><td>57.1% (8/14)</td><td>71.4% (10/14)</td><td>80.0% (8/10)</td><td>1</td></tr>
+<tr><td>street_lighting_visible</td><td>końcowa: tier 1 + tier 2</td><td>78.6% (11/14)</td><td>92.9% (13/14)</td><td>84.6% (11/13)</td><td>1</td></tr>
+<tr><td>street_lighting_visible</td><td>Jev 1.14 (5 obrazów)</td><td>100.0% (3/3)</td><td>100.0% (3/3)</td><td>100.0% (3/3)</td><td>0</td></tr>
+<tr><td>speed_limit_value</td><td>tier 1 (Luna Decisions)</td><td>20.0% (2/10)</td><td>20.0% (2/10)</td><td>100.0% (2/2)</td><td>0</td></tr>
+<tr><td>speed_limit_value</td><td>końcowa: tier 1 + tier 2</td><td>80.0% (8/10)</td><td>80.0% (8/10)</td><td>100.0% (8/8)</td><td>0</td></tr>
+<tr><td>speed_limit_value</td><td>Jev 1.14 (5 obrazów)</td><td>50.0% (1/2)</td><td>50.0% (1/2)</td><td>100.0% (1/1)</td><td>0</td></tr>
+</tbody></table></details>
+</figure>
+</section>
+<section>
+<h2>Jak czytać te wyniki</h2>
+<ul>
+  <li>Etykiety referencyjne przygotowały agenty AI: zdjęcia ulic oznaczył Codex, a wycinki znaków to zgodny odczyt dwóch modeli (Codex i GLM-5.3-Flash). Etykiety nie zostały zweryfikowane przez człowieka, więc accuracy oznacza zgodność z roboczą referencją AI, a nie poprawność terenową.</li>
+  <li>Zgodność OSM i Overture to zgodność snapshotów: Overture w 99% pochodzi z OSM, więc nie jest niezależnym potwierdzeniem.</li>
+  <li>Tier 1 to model decyzyjny z prawdopodobieństwami, a tier 2 to ogólny LLM pytany tylko przy niepewności tier 1. Pełny słowniczek jest w <a href="report.html">report.html</a>.</li>
+  <li>Próbka zdjęć jest mała i dobrana celowo, więc wyniki modeli są wskazówką, a nie pomiarem jakości.</li>
+</ul>
+</section>
+</main>
+<footer class="meta"><p>© OpenStreetMap contributors, ODbL 1.0 · Overture Maps Foundation, ODbL 1.0 (release 2026-10-21.0) · Mapillary – metadane pochodne, ODbL 1.0 · zdjęcia CC BY-SA 4.0</p></footer>
+</body>
+</html>

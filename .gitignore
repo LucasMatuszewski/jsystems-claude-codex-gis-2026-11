@@ -21,11 +21,3 @@ __pycache__/
 /.idea
 /.claude/worktrees
 
-# map-qa generated run outputs (ADR-000 §3); profile.md stays tracked
-/reports/map-qa/report.md
-/reports/map-qa/report.html
-/reports/map-qa/summary.html
-/reports/map-qa/results.json
-/reports/map-qa/run_manifest.json
-/reports/map-qa/sample_manifest.json
-/reports/map-qa/thumbs/

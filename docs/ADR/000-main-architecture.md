@@ -91,7 +91,7 @@ Monolityczny pakiet Pythona z CLI i potokiem etapów (pipeline). Każdy etap ma 
 | `app/tests/fixtures/rows/` | Wybrane prawdziwe wiersze z danych map-qa (kopie, nie modyfikacje) |
 | `app/map_qa.example.toml` | Przykładowa konfiguracja |
 | `app/AGENTS.md` | Zasady specyficzne dla stacku (zagnieżdżone, krótkie) |
-| `reports/map-qa/` | Wyniki uruchomień. Pliki generowane (`report.md`, `report.html`, `results.json`, `run_manifest.json`, `sample_manifest.json`, `thumbs/`) są ignorowane przez Git. Ręcznie przygotowany `profile.md` jest wersjonowany (decyzja 2026-11-12) |
+| `reports/map-qa/` | Wyniki uruchomień: `summary.html`, `report.html`, `report.md`, `results.json`, `run_manifest.json`, `sample_manifest.json` i `thumbs/` (miniatury CC BY-SA z atrybucją). **Są wersjonowane w Git** (decyzja człowieka 2026-11-13, zastępuje wcześniejszą regułę o ignorowaniu): to produkt aplikacji pokazywany grupie, linkowany w PR i materiałach kursu, a VM kursu jest usuwana po szkoleniu. Commitujemy wyniki uzgodnionego przebiegu; pliki nie zawierają sekretów (strażnik TAC-06). `profile.md` jest wersjonowany jak dotąd |
 | `course-materials/exercise-data/map-qa/data/` | Cache, ledger, rozszerzenia DuckDB, materializacja Databricks (ignorowane) |
 
 Polecenia uruchamiamy z katalogu głównego repo: `uv run --project app map-qa …` oraz `uv run --project app pytest app/tests`.
