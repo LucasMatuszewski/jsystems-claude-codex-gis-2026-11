@@ -66,7 +66,7 @@ def test_six_positive_four_negative_signs(manifest, data_dir):
 
 def test_missing_image_is_replaced_and_counted(data_dir, tmp_path):
     m = plan_sample(data_dir, Evaluator(data_dir), seed=42, max_images=25,
-                    exists=lambda p: p.is_file() and ("offline" not in str(p) or zlib.crc32(str(p).encode()) % 3 != 0))
+                    exists=lambda p: p.is_file() and ("crops" in str(p) or zlib.crc32(p.name.encode()) % 3 != 0))
     assert sum(1 for i in m["items"] if i["kind"] == "photo") == 15
     assert m["counters"]["image_missing"] > 0
 

@@ -310,7 +310,7 @@ def print_summary(ctx: RunContext, model: ReportModel, out_dir: Path) -> None:
           f" z cache {model.model.cache_hits}\n")
     else:
         w(f"{model.model.not_run_reason}.\n")
-    for name in ("report.md", "report.html", "results.json", "run_manifest.json"):
+    for name in ("summary.html", "report.md", "report.html", "results.json", "run_manifest.json"):
         w(f"Zapisano: {out_dir / name}\n")
     if (out_dir / "sample_manifest.json").exists() and model.model.run:
         w(f"Zapisano: {out_dir / 'sample_manifest.json'}\n")

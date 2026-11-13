@@ -2,6 +2,15 @@
 
 > {{ DISCLAIMER }}
 
+Krótkie podsumowanie: `summary.html` w tym samym katalogu.
+
+### Słowniczek
+
+{% for term, text in GLOSSARY %}
+- **{{ term }}**: {{ text }}
+{% endfor %}
+- **Etykieta referencyjna**: {{ LABEL_PROVENANCE }}
+
 ## 1. Nagłówek
 
 - Data uruchomienia: {{ m.header.run_date }} (identyfikator: `{{ m.header.run_id }}`)
@@ -97,6 +106,7 @@ Brak pozycji (0).
 
 {% if m.model.run %}
 - Żądania w tym uruchomieniu: {{ m.model.requests_this_run }} (limit {{ m.model.max_requests }}); koszt: {{ m.model.cost_this_run_usd | num(4) }} USD (limit {{ m.model.max_cost_usd | num(2) }} USD)
+- Koszt wszystkich odpowiedzi użytych w raporcie (łącznie z odpowiedziami z cache): {{ m.model.answers_cost_usd | num(4) }} USD{% for k, v in m.model.answers_cost_by_model.items() %}{{ "; " if loop.first else ", " }}{{ k }} {{ v | num(4) }}{% endfor %}
 - Odpowiedzi z cache: {{ m.model.cache_hits }}; suma historyczna w ledgerze: {{ m.model.ledger_total_requests }} żądań, {{ m.model.ledger_total_cost_usd | num(4) }} USD
 {% if m.model.requests_this_run == 0 %}
 - W tym uruchomieniu nie wykonano nowych żądań (licznik żądań = 0).
@@ -132,7 +142,7 @@ Pary ze statusem `disagree`, `missing_*`, `not_comparable` lub `ambiguous_link`.
 |---|---:|---|---:|---|---|---|---|---|---|
 {% for c in g.rows %}
 {% set a = (c.attributes | selectattr("attribute", "equalto", g.attribute) | list)[0] %}
-| {{ c.photo_id }} | {{ c.osm_way_id }} | {{ c.overture_id or "–" }} | {{ c.distance_m_recomputed | num }} | {{ a.osm_raw | join("; ") or "–" }} | {{ a.overture_raw | join("; ") or "–" }} | {% for r in c.readings %}{{ r.question }}: {{ r.answer or r.decision }} (tier {{ r.tier or "–" }}, {% if r.tier == 2 %}pewność={{ r.certainty or "–" }}{% else %}p={{ r.probability | num }}{% endif %}){{ "; " if not loop.last }}{% else %}–{% endfor %} | {{ a.reason or "–" }} | {{ (c.flags + c.reasons) | unique | join(", ") or "–" }} | {% if c.thumb.src %}[miniatura]({{ c.thumb.src }}){% else %}Miniatura niedostępna{% endif %}; {{ c.thumb.author or "–" }}, {{ c.thumb.source or "–" }}, {{ c.thumb.license or "–" }} |
+| {{ c.photo_id }} | {{ c.osm_way_id }} | {{ c.overture_id or "–" }} | {{ c.distance_m_recomputed | num }} | {{ a.osm_raw | join("; ") or "–" }} | {{ a.overture_raw | join("; ") or "–" }} | {% for r in c.readings %}{{ r.question }}: {{ r.answer or r.decision }} (tier {{ r.tier or "–" }}, {% if r.tier == 2 %}pewność={{ r.certainty or "–" }}{% else %}p={{ r.probability | num }}{% endif %}){{ "; " if not loop.last }}{% else %}–{% endfor %} | {{ a.reason or "–" }} | {{ (c.flags + c.reasons) | unique | join(", ") or "–" }} | {% if c.thumb.src %}[miniatura]({{ c.thumb.src }}){% else %}Miniatura niedostępna{% if c.thumb.source_url | safe_url %} ({{ "zobacz zdjęcie (Mapillary)" if c.thumb.source == "Mapillary" else "metadane źródła (API Panoramax)" }}: {{ c.thumb.source_url | safe_url }}){% endif %}{% endif %}; {{ c.thumb.author or "–" }}, {{ c.thumb.source or "–" }}, {{ c.thumb.license or "–" }} |
 {% endfor %}
 {% else %}
 Brak kandydatów (0).
@@ -193,6 +203,8 @@ Brak pozycji (0).
 {% endif %}
 
 #### Metryki względem etykiet referencyjnych (tylko `certain`)
+
+> {{ LABEL_PROVENANCE }}
 
 {% if m.model.evaluation %}
 | Pytanie | Model | Poziom | Oceniane | Poprawne | Odpowiedzi | Abstencje | Niedostępne | Nie uruchomiono | Wykluczone `uncertain` | Accuracy (wszystkie) | Pokrycie | Accuracy po abstencji |

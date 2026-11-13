@@ -170,6 +170,8 @@ class ModelSection(BaseModel):
     ledger_total_requests: int = 0
     ledger_total_cost_usd: float = 0.0
     cache_hits: int = 0
+    answers_cost_usd: float = 0.0  # all answers used, incl. original cost of cached ones (AC-30)
+    answers_cost_by_model: dict[str, float] = Field(default_factory=dict)
     max_requests: int | None = None
     max_cost_usd: float | None = None
     stopped_reason: str | None = None
@@ -233,3 +235,31 @@ def build_status_counts(rows: list[tuple[str, str]], attributes: tuple[str, ...]
     for attr, status in rows:
         counts[(attr, status)] += 1
     return [StatusCount(attribute=a, status=s, count=counts[(a, s)]) for a in attributes for s in STATUS_ORDER]
+
+
+# ---- PRD §13 (2026-11-13): glossary (AC-28) and label provenance (AC-29), shared by all templates
+LABEL_PROVENANCE = (
+    "Etykiety referencyjne przygotowały agenty AI: zdjęcia ulic oznaczył Codex, a wycinki znaków to zgodny odczyt "
+    "dwóch modeli (Codex i GLM-5.3-Flash). Etykiety nie zostały zweryfikowane przez człowieka, więc accuracy "
+    "oznacza zgodność z roboczą referencją AI, a nie poprawność terenową.")
+GLOSSARY = [
+    ("Tier 1", "model decyzyjny (openai/gpt-6-luna-decisions) zwraca zamkniętą odpowiedź z prawdopodobieństwem "
+               "każdej opcji; odpowiedź z max(p) ≥ progu T1 jest przyjmowana (`answered`)."),
+    ("Tier 2", "ogólny LLM (openai/gpt-6-luna, rozumowanie medium) dostaje ten sam obraz i tylko pytania, przy których "
+               "tier 1 był niepewny albo odpowiedział `unknown`; sam ocenia pewność (high/medium/low). Przyjmowane jest "
+               "tylko `high` (`answered_tier2`)."),
+    ("Model porównawczy", "typesafe/jev-1.14 odpowiada na te same pytania dla 5 obrazów, tylko na poziomie tier 1, "
+                          "żeby porównać dwa modele decyzyjne."),
+    ("abstain", "żaden poziom nie dał pewnej odpowiedzi; pozycja trafia do kolejki ręcznej."),
+    ("model_unavailable", "błąd API, timeout albo niepoprawna odpowiedź; nigdy nie jest zamieniany na odpowiedź. "
+                          "Po pierwszym błędzie kolejne płatne wywołania są wstrzymane."),
+    ("not_run_budget_or_error", "pytanie nie zostało wysłane, bo skończył się limit żądań lub kosztu albo wcześniej "
+                                "wystąpił błąd."),
+    ("agree / disagree", "OSM i Overture mają po jednej bezwarunkowej wartości dla całego odcinka; są zgodne "
+                         "lub różne. Zgodność oznacza zgodność snapshotów (Overture w 99% pochodzi z OSM)."),
+    ("missing_osm / missing_overture", "brak tagu lub reguły po danej stronie; brak nigdy nie jest liczony jako 0."),
+    ("not_comparable", "wartości nie da się uczciwie porównać: reguła warunkowa, kierunkowa, dotyczy części odcinka "
+                       "(`between`), limit tylko typem (np. PL:urban) albo nieznana wartość."),
+    ("ambiguous_link", "połączenie zdjęcia z drogą jest niepewne (np. kilku podobnych kandydatów); para trafia do "
+                       "kolejki ręcznej i nie dostaje agree/disagree."),
+]

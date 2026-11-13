@@ -10,7 +10,7 @@ from typing import Any
 from jinja2 import Environment, PackageLoader, StrictUndefined, select_autoescape
 
 from map_qa.report.model import (
-    ATTRIBUTE_LABELS, DECISION_LABELS, DISCLAIMER, NOT_RUN, STATUS_LABELS, ReportModel,
+    ATTRIBUTE_LABELS, DECISION_LABELS, DISCLAIMER, GLOSSARY, LABEL_PROVENANCE, NOT_RUN, STATUS_LABELS, ReportModel,
 )
 
 SAFE_ID = re.compile(r"^[A-Za-z0-9_\-]+$")
@@ -50,7 +50,8 @@ def fmt_pct(value: Any) -> str:
 def _common(env: Environment) -> Environment:
     env.filters.update(num=fmt_num, pct=fmt_pct, safe_url=safe_url)
     env.globals.update(STATUS_LABELS=STATUS_LABELS, ATTRIBUTE_LABELS=ATTRIBUTE_LABELS,
-                       DECISION_LABELS=DECISION_LABELS, DISCLAIMER=DISCLAIMER, NOT_RUN=NOT_RUN)
+                       DECISION_LABELS=DECISION_LABELS, DISCLAIMER=DISCLAIMER, NOT_RUN=NOT_RUN,
+                       GLOSSARY=GLOSSARY, LABEL_PROVENANCE=LABEL_PROVENANCE)
     return env
 
 
@@ -73,6 +74,13 @@ def render_markdown(model: ReportModel, render_date: str) -> str:
 
 def render_html(model: ReportModel, render_date: str) -> str:
     return _html_env().get_template("report.html.j2").render(m=model, render_date=render_date)
+
+
+def render_summary(model: ReportModel, render_date: str) -> str:
+    """One-page executive summary (PRD §13 AC-31); SVG markup is generated from escaped values only."""
+    from map_qa.report.summary import summary_context
+    return _html_env().get_template("summary.html.j2").render(m=model, s=summary_context(model),
+                                                             render_date=render_date)
 
 
 def thumbnail_source(data_dir: Path, photo_id: str, kind: str) -> Path | None:
@@ -116,6 +124,7 @@ def write_outputs(model: ReportModel, out_dir: Path, data_dir: Path, render_date
     read = copy_thumbnails(model, out_dir, Path(data_dir)) if copy_thumbs else []
     (out_dir / "report.md").write_text(render_markdown(model, render_date), encoding="utf-8", newline="\n")
     (out_dir / "report.html").write_text(render_html(model, render_date), encoding="utf-8", newline="\n")
+    (out_dir / "summary.html").write_text(render_summary(model, render_date), encoding="utf-8", newline="\n")
     (out_dir / "results.json").write_text(
         json.dumps(results_document(model, extra_results), ensure_ascii=False, indent=1), encoding="utf-8",
         newline="\n")

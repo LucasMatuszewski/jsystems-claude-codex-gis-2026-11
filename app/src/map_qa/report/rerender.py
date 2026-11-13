@@ -11,7 +11,7 @@ from pydantic import ValidationError
 
 from map_qa.core.errors import ConfigError
 from map_qa.report.model import ReportModel
-from map_qa.report.render import render_html, render_markdown
+from map_qa.report.render import render_html, render_markdown, render_summary
 
 
 def rerender(results_path: str | Path, output_dir: str | Path | None, out: TextIO,
@@ -34,5 +34,6 @@ def rerender(results_path: str | Path, output_dir: str | Path | None, out: TextI
     when = render_date or date.today().isoformat()
     (dest / "report.md").write_text(render_markdown(model, when), encoding="utf-8", newline="\n")
     (dest / "report.html").write_text(render_html(model, when), encoding="utf-8", newline="\n")
+    (dest / "summary.html").write_text(render_summary(model, when), encoding="utf-8", newline="\n")
     out.write(f"Zapisano: {dest / 'report.md'}\nZapisano: {dest / 'report.html'}\nKod wyjścia: 0\n")
     return 0

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Podsumowanie kontroli mapy – Kraków</title>
+<style>
+  :root {
+    color-scheme: light;
+    --surface: #fcfcfb; --surface-2: #f0efec; --border: #d9d7d0;
+    --text-primary: #0b0b0b; --text-secondary: #52514e;
+    --series-1: #2a78d6; --series-2: #eb6834; --series-3: #1baf7a; --seq: #2a78d6;
+    --note-bg: #fff8c5; --note-border: #d4a72c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      color-scheme: dark;
+      --surface: #1a1a19; --surface-2: #2a2a28; --border: #45443f;
+      --text-primary: #f0efec; --text-secondary: #c3c2b7;
+      --series-1: #3987e5; --series-2: #d95926; --series-3: #199e70; --seq: #3987e5;
+      --note-bg: #3a3214; --note-border: #8a6d1a;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --surface: #1a1a19; --surface-2: #2a2a28; --border: #45443f;
+    --text-primary: #f0efec; --text-secondary: #c3c2b7;
+    --series-1: #3987e5; --series-2: #d95926; --series-3: #199e70; --seq: #3987e5;
+    --note-bg: #3a3214; --note-border: #8a6d1a;
+  }
+  body { font-family: system-ui, "Segoe UI", Roboto, Arial, sans-serif; margin: 0 auto; max-width: 1000px;
+         padding: 16px; background: var(--surface); color: var(--text-primary); line-height: 1.45; }
+  h1 { font-size: 1.5rem; margin-bottom: 4px; } h2 { font-size: 1.15rem; margin-top: 1.8rem; }
+  .meta, figcaption, .legend { color: var(--text-secondary); font-size: 0.85rem; }
+  .note { background: var(--note-bg); border: 1px solid var(--note-border); padding: 8px 12px; border-radius: 6px; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
+  .kpi { background: var(--surface-2); border-radius: 8px; padding: 10px 12px; }
+  .kpi .v { font-size: 1.6rem; font-weight: 650; font-variant-numeric: tabular-nums; }
+  .kpi .l { color: var(--text-secondary); font-size: 0.85rem; }
+  ul.insights li { margin-bottom: 6px; }
+  figure { margin: 12px 0 20px; } svg { display: block; max-width: 100%; height: auto; }
+  svg .lbl, svg .val { fill: var(--text-primary); font-size: 12px; font-family: inherit; }
+  svg .axis { stroke: var(--border); stroke-width: 1; }
+  svg .s1 { fill: var(--series-1); } svg .s2 { fill: var(--series-2); } svg .s3 { fill: var(--series-3); }
+  svg .seq { fill: var(--seq); }
+  .legend span { display: inline-flex; align-items: center; gap: 4px; margin-right: 12px; }
+  .sw { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+  .sw.s1 { background: var(--series-1); } .sw.s2 { background: var(--series-2); } .sw.s3 { background: var(--series-3); }
+  table { border-collapse: collapse; width: 100%; font-size: 0.85rem; margin-top: 6px; }
+  th, td { border: 1px solid var(--border); padding: 3px 6px; text-align: left; }
+  a { color: var(--series-1); }
+</style>
+</head>
+<body>
+<header>
+<h1>Podsumowanie kontroli mapy (Kraków)</h1>
+<p class="meta">Uruchomienie {{ m.header.run_date }} · źródło danych: {{ m.header.source_label }} · OSM {{ m.header.snapshots.get("osm_extract_date", "–") }}, Overture {{ m.header.snapshots.get("overture_release", "–") }} · wygenerowano {{ render_date }} · szczegóły: <a href="report.html">report.html</a></p>
+<p class="note">{{ DISCLAIMER }}</p>
+</header>
+<main>
+<section>
+<h2>Kluczowe liczby</h2>
+<div class="kpis">
+{% for key, value, label in s.kpis %}<div class="kpi"><div class="v" data-kpi="{{ key }}">{{ value }}</div><div class="l">{{ label }}</div></div>
+{% endfor %}</div>
+</section>
+<section>
+<h2>Najważniejsze wnioski</h2>
+<ul class="insights">{% for line in s.insights %}<li>{{ line }}</li>{% endfor %}</ul>
+</section>
+<section>
+<h2>Wykresy</h2>
+{% for c in s.charts %}
+<figure>
+<figcaption><strong>{{ c.title }}</strong></figcaption>
+{% if c.legend %}<div class="legend">{% for slot, name in c.legend %}<span><i class="sw s{{ slot }}"></i>{{ name }}</span>{% endfor %}</div>{% endif %}
+{{ c.svg() | safe }}
+<details><summary>Tabela danych</summary>
+<table><thead><tr>{% for h in c.table_head %}<th>{{ h }}</th>{% endfor %}</tr></thead><tbody>
+{% for row in c.table_rows %}<tr>{% for cell in row %}<td>{% if cell is string %}{{ cell }}{% else %}<span data-counter="{{ cell[0] }}">{{ cell[1] }}</span>{% endif %}</td>{% endfor %}</tr>
+{% endfor %}</tbody></table></details>
+</figure>
+{% endfor %}
+</section>
+<section>
+<h2>Jak czytać te wyniki</h2>
+<ul>
+  <li>{{ LABEL_PROVENANCE }}</li>
+  <li>Zgodność OSM i Overture to zgodność snapshotów: Overture w 99% pochodzi z OSM, więc nie jest niezależnym potwierdzeniem.</li>
+  <li>Tier 1 to model decyzyjny z prawdopodobieństwami, a tier 2 to ogólny LLM pytany tylko przy niepewności tier 1. Pełny słowniczek jest w <a href="report.html">report.html</a>.</li>
+  <li>Próbka zdjęć jest mała i dobrana celowo, więc wyniki modeli są wskazówką, a nie pomiarem jakości.</li>
+</ul>
+</section>
+</main>
+<footer class="meta"><p>© OpenStreetMap contributors, ODbL 1.0 · Overture Maps Foundation, ODbL 1.0 (release {{ m.header.snapshots.get("overture_release", "–") }}){% if m.shows_mapillary_derived %} · Mapillary – metadane pochodne, ODbL 1.0{% endif %} · zdjęcia CC BY-SA 4.0</p></footer>
+</body>
+</html>

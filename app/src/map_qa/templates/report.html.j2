@@ -22,6 +22,7 @@
   .s-disagree { color: #a40e26; font-weight: 600; } .s-ambiguous_link { color: #9a6700; font-weight: 600; }
   dl { display: grid; grid-template-columns: max-content 1fr; gap: 2px 8px; margin: 4px 0; font-size: 0.85rem; }
   dt { font-weight: 600; } dd { margin: 0; word-break: break-word; }
+  .glossary { grid-template-columns: max-content 1fr; font-size: 0.9rem; }
   footer { margin-top: 2rem; border-top: 1px solid #d0d7de; padding-top: 8px; font-size: 0.85rem; }
 </style>
 </head>
@@ -29,6 +30,8 @@
 <header>
 <h1>Raport kontroli mapy: atrybuty dróg OSM i Overture (Kraków)</h1>
 <p class="disclaimer">{{ DISCLAIMER }}</p>
+<p>Krótkie podsumowanie: <a href="summary.html" rel="noopener noreferrer">summary.html</a>.</p>
+<details open><summary><strong>Słowniczek</strong></summary><dl class="glossary">{% for term, text in GLOSSARY %}<dt>{{ term }}</dt><dd>{{ text }}</dd>{% endfor %}<dt>Etykieta referencyjna</dt><dd>{{ LABEL_PROVENANCE }}</dd></dl></details>
 </header>
 <main>
 <section id="naglowek">
@@ -88,6 +91,7 @@
 {% if m.model.run %}
 <ul>
   <li>Żądania w tym uruchomieniu: <span data-counter="model:requests">{{ m.model.requests_this_run }}</span> (limit {{ m.model.max_requests }}); koszt: {{ m.model.cost_this_run_usd | num(4) }} USD (limit {{ m.model.max_cost_usd | num(2) }} USD)</li>
+  <li>Koszt wszystkich odpowiedzi użytych w raporcie (łącznie z odpowiedziami z cache): {{ m.model.answers_cost_usd | num(4) }} USD{% for k, v in m.model.answers_cost_by_model.items() %}{{ "; " if loop.first else ", " }}{{ k }} {{ v | num(4) }}{% endfor %}</li>
   <li>Odpowiedzi z cache: {{ m.model.cache_hits }}; suma historyczna w ledgerze: {{ m.model.ledger_total_requests }} żądań, {{ m.model.ledger_total_cost_usd | num(4) }} USD</li>
   {% if m.model.requests_this_run == 0 %}<li>W tym uruchomieniu nie wykonano nowych żądań (licznik żądań = 0).</li>{% endif %}
   {% if m.model.stopped_reason %}<li>Płatna pętla zatrzymana: {{ m.model.stopped_reason }}</li>{% endif %}
@@ -113,7 +117,7 @@
 <article class="card">
   <figure>
     {% if c.thumb.src %}<img src="{{ c.thumb.src }}" alt="Zdjęcie {{ c.photo_id }}" loading="lazy">
-    {% else %}<div class="placeholder">Miniatura niedostępna{% if c.thumb.source_url | safe_url %} – <a href="{{ c.thumb.source_url | safe_url }}" rel="noopener noreferrer">źródło</a>{% endif %}</div>{% endif %}
+    {% else %}<div class="placeholder">Miniatura niedostępna{% if c.thumb.source_url | safe_url %} – <a href="{{ c.thumb.source_url | safe_url }}" rel="noopener noreferrer">{% if c.thumb.source == "Mapillary" %}zobacz zdjęcie (Mapillary){% else %}metadane źródła (API Panoramax){% endif %}</a>{% endif %}</div>{% endif %}
     <figcaption>Autor: {{ c.thumb.author or "–" }} · Źródło: {{ c.thumb.source or "–" }}{% if c.thumb.source_url | safe_url %} (<a href="{{ c.thumb.source_url | safe_url }}" rel="noopener noreferrer">link</a>){% endif %} · Licencja: {{ c.thumb.license or "–" }}</figcaption>
   </figure>
   <dl>
@@ -168,6 +172,7 @@
 {% endfor %}</tbody></table>
 {% else %}<p class="empty">Brak pozycji (0).</p>{% endif %}
 <h3>Metryki względem etykiet referencyjnych (tylko <code>certain</code>)</h3>
+<p class="disclaimer">{{ LABEL_PROVENANCE }}</p>
 {% if m.model.evaluation %}
 <table><thead><tr><th>Pytanie</th><th>Model</th><th>Poziom</th><th>Oceniane</th><th>Poprawne</th><th>Odpowiedzi</th><th>Abstencje</th><th>Niedostępne</th><th>Nie uruchomiono</th><th>Wykluczone <code>uncertain</code></th><th>Accuracy (wszystkie)</th><th>Pokrycie</th><th>Accuracy po abstencji</th></tr></thead><tbody>
 {% for e in m.model.evaluation %}<tr><td><code>{{ e.question }}</code></td><td>{{ e.model }}</td><td>{{ e.tier }}</td><td class="n">{{ e.evaluated }}</td><td class="n">{{ e.correct }}</td><td class="n">{{ e.answered }}</td><td class="n">{{ e.abstained }}</td><td class="n">{{ e.unavailable }}</td><td class="n">{{ e.not_run }}</td><td class="n">{{ e.uncertain_excluded }}</td><td class="n">{{ e.accuracy_all }}</td><td class="n">{{ e.coverage }}</td><td class="n">{{ e.selective_accuracy }}</td></tr>

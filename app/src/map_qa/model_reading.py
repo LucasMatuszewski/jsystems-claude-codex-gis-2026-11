@@ -210,6 +210,11 @@ def run_photo_reading(con: duckdb.DuckDBPyConnection, ctx) -> ReadingOutcome:
                          for q in dict.fromkeys(r.question_id for r in readings) for d in DECISIONS]
     section.counters = _counters(esc.calls)
     section.cache_hits = esc.cache_hits
+    by_model: dict[str, float] = defaultdict(float)
+    for c in esc.calls:
+        by_model[c.model] += c.original_cost_usd or 0.0
+    section.answers_cost_by_model = {k: round(v, 8) for k, v in sorted(by_model.items())}
+    section.answers_cost_usd = round(sum(by_model.values()), 8)
     section.requests_this_run = ledger.entries_for_run()
     section.cost_this_run_usd = round(ledger.run_cost(), 8)
     section.ledger_total_requests, total_cost = ledger.history_totals()

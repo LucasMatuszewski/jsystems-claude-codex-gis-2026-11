@@ -60,6 +60,11 @@ class CallRecord:
     cost_usd: float
     cached: bool
     outcome: str
+    original_cost_usd: float | None = None  # cost when the answer was obtained (cache hits keep it, AC-30)
+
+    def __post_init__(self) -> None:
+        if self.original_cost_usd is None:
+            self.original_cost_usd = self.cost_usd
 
 
 def _error_reason(result: ApiResult) -> str:
@@ -91,7 +96,8 @@ class Escalator:
         entry = self.cache.get(key)
         if entry is not None:
             self.cache_hits += 1
-            self.calls.append(CallRecord(model, tier, qids, 0.0, True, "cache"))
+            self.calls.append(CallRecord(model, tier, qids, 0.0, True, "cache",
+                                         float(entry.get("cost_usd") or 0.0)))
             return validate_decisions(entry["body"], qids), entry["body"].get("id"), None, None, True
         posted, refusal = self._post(DECISIONS_PATH, decisions_payload(model, kind, image, qids), model, tier,
                                      reserve, qids)
@@ -151,7 +157,9 @@ class Escalator:
                 t2[q] = {**entry, "from_cache": True}
         if len(t2):
             self.cache_hits += 1
-            self.calls.append(CallRecord(s.tier2_model, "tier2", sorted(t2), 0.0, True, "cache"))
+            original = sum(float(v.get("cost_usd") or 0.0) / max(1, len(v.get("questions_in_request") or [q]))
+                           for q, v in t2.items())
+            self.calls.append(CallRecord(s.tier2_model, "tier2", sorted(t2), 0.0, True, "cache", original))
         if missing:
             posted, refusal = self._post(CHAT_PATH, chat_payload(s.tier2_model, kind, image, missing),
                                          s.tier2_model, "tier2", s.reserve_tier2, missing)
