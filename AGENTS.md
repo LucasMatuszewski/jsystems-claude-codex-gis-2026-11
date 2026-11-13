@@ -6,7 +6,7 @@ This is a **course project** for the "AI dla programistów: agenci AI w pracy z 
 
 This is only the **base starting repository** for the course; concrete decisions are made live with the group.
 
-Chat in Polish unless the user asks for another language. Course PRD/ADR exercises and participant-facing project documentation use Polish. Keep filenames and code identifiers in English. The optional teaching library retains its source languages. This is a greenfield scaffold, not an agreed product specification. For a legacy-led course, keep materials separate and work in the original application clone; adapt these instructions to its actual stack and verification commands.
+Chat in Polish unless the user asks for another language. Course PRD/ADR exercises and participant-facing project documentation use English. Keep filenames and code identifiers in English. The optional teaching library retains its source languages. This is a greenfield scaffold, not an agreed product specification. For a legacy-led course, keep materials separate and work in the original application clone; adapt these instructions to its actual stack and verification commands.
 
 **Key docs** (created during the course — load only when in doubt):
 - `docs/PRD.md` — product requirements and acceptance criteria
@@ -39,6 +39,11 @@ course-materials/    Notes, scripts, examples, research
 2. Define the expected behavior from the specification before writing or changing any code.
 3. Confirm the actual application checkout and inspect source, build descriptors, call sites and dependencies before proposing commands or APIs. Identify build, test and startup commands from that project, using its wrapper when available; do not assume a framework, build tool or runtime version.
 4. Establish missing or ambiguous requirements with the user and record agreed application scope in its PRD before implementation. Routine course-document changes do not need an application PRD or ADR.
+
+### Documentation Lookup
+When you need documentation for a library, framework, SDK, API or cloud service, search **Context7 first** (MCP `resolve-library-id` + `query-docs`; the Context7 CLI if the MCP is unavailable). Search the internet or other sources only when Context7 does not have the documentation or information you need, and say which source you used instead.
+
+For a CLI tool, start with its built-in help (`--help`, `-h`, `help <command>`), then Context7, then other sources.
 
 ### TDD Rules
 For every feature and bug fix:

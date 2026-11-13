@@ -1,0 +1,293 @@
+{
+ "seed": 42,
+ "question_set_version": "qs-v1",
+ "max_images": 25,
+ "items": [
+  {
+   "photo_id": "panoramax_94b5031d-61fd-4b81-ae3f-b9695b085e35",
+   "kind": "photo",
+   "path": "data/photos/panoramax_94b5031d-61fd-4b81-ae3f-b9695b085e35.jpg",
+   "sequence": "a0db6ecc-dca2-42da-8fa4-0dbc90550bd7",
+   "questions": [
+    "surface",
+    "junction_visible",
+    "street_lighting_visible"
+   ],
+   "compare": true
+  },
+  {
+   "photo_id": "panoramax_c429dd85-f700-4095-b670-90b3bb617875",
+   "kind": "photo",
+   "path": "data/photos/panoramax_c429dd85-f700-4095-b670-90b3bb617875.jpg",
+   "sequence": "926ec862-61c2-4d2b-9408-a64c5b74b9d7",
+   "questions": [
+    "surface",
+    "junction_visible",
+    "street_lighting_visible"
+   ],
+   "compare": true
+  },
+  {
+   "photo_id": "panoramax_3c683354-2386-456b-9955-31268ecb5213",
+   "kind": "photo",
+   "path": "data/photos/panoramax_3c683354-2386-456b-9955-31268ecb5213.jpg",
+   "sequence": "cc6a922d-ff8a-4ef8-a23c-5ad4bca57b41",
+   "questions": [
+    "surface",
+    "junction_visible",
+    "street_lighting_visible"
+   ],
+   "compare": true
+  },
+  {
+   "photo_id": "panoramax_9bc04785-ce54-4104-8114-bc3b7155f6e9",
+   "kind": "photo",
+   "path": "data/photos/panoramax_9bc04785-ce54-4104-8114-bc3b7155f6e9.jpg",
+   "sequence": "f024963e-c694-4666-abec-4f8bff76664b",
+   "questions": [
+    "surface",
+    "junction_visible",
+    "street_lighting_visible"
+   ],
+   "compare": false
+  },
+  {
+   "photo_id": "panoramax_66200c29-f302-4a7c-940b-dc11ad3d5322",
+   "kind": "photo",
+   "path": "data/photos/panoramax_66200c29-f302-4a7c-940b-dc11ad3d5322.jpg",
+   "sequence": "e4476990-a4c7-43f4-8fa7-63eeeca6774b",
+   "questions": [
+    "surface",
+    "junction_visible",
+    "street_lighting_visible"
+   ],
+   "compare": false
+  },
+  {
+   "photo_id": "panoramax_a208c9ca-21d9-451b-8d78-848a9e8bc928",
+   "kind": "photo",
+   "path": "data/photos/panoramax_a208c9ca-21d9-451b-8d78-848a9e8bc928.jpg",
+   "sequence": "f1b807f1-c952-4577-9f51-9b02b87073e8",
+   "questions": [
+    "surface",
+    "junction_visible",
+    "street_lighting_visible"
+   ],
+   "compare": false
+  },
+  {
+   "photo_id": "panoramax_12f760a9-5f52-4092-be47-47b2481ceed8",
+   "kind": "photo",
+   "path": "data/photos/panoramax_12f760a9-5f52-4092-be47-47b2481ceed8.jpg",
+   "sequence": "d7b35ea3-4ead-406d-899f-fe5ddf2ff7c9",
+   "questions": [
+    "surface",
+    "junction_visible",
+    "street_lighting_visible"
+   ],
+   "compare": false
+  },
+  {
+   "photo_id": "panoramax_90d265a8-5897-4e57-a2e3-698444eb64af",
+   "kind": "photo",
+   "path": "data/photos/panoramax_90d265a8-5897-4e57-a2e3-698444eb64af.jpg",
+   "sequence": "af1454fa-95c5-4097-944c-e21700479470",
+   "questions": [
+    "surface",
+    "junction_visible",
+    "street_lighting_visible"
+   ],
+   "compare": false
+  },
+  {
+   "photo_id": "panoramax_b35a913d-cbc1-48d5-95bb-140a77cc2f1f",
+   "kind": "photo",
+   "path": "data/photos/panoramax_b35a913d-cbc1-48d5-95bb-140a77cc2f1f.jpg",
+   "sequence": "49fcb194-1c1a-45ee-b073-4e6609289234",
+   "questions": [
+    "surface",
+    "junction_visible",
+    "street_lighting_visible"
+   ],
+   "compare": false
+  },
+  {
+   "photo_id": "panoramax_7f42b279-bd01-492b-bddb-ba2e14a606be",
+   "kind": "photo",
+   "path": "data/photos/panoramax_7f42b279-bd01-492b-bddb-ba2e14a606be.jpg",
+   "sequence": "e775df94-6b49-4771-96bf-2ec656275636",
+   "questions": [
+    "surface",
+    "junction_visible",
+    "street_lighting_visible"
+   ],
+   "compare": false
+  },
+  {
+   "photo_id": "panoramax_2b72cfab-b9f8-49db-8278-cbaa3a8fc8ff",
+   "kind": "photo",
+   "path": "data/photos/panoramax_2b72cfab-b9f8-49db-8278-cbaa3a8fc8ff.jpg",
+   "sequence": "0025f57f-ea42-4332-88ba-3e96ddcb7dd9",
+   "questions": [
+    "surface",
+    "junction_visible",
+    "street_lighting_visible"
+   ],
+   "compare": false
+  },
+  {
+   "photo_id": "panoramax_ebb50ed6-3cb1-488c-b907-dc233aae92bc",
+   "kind": "photo",
+   "path": "data/photos/panoramax_ebb50ed6-3cb1-488c-b907-dc233aae92bc.jpg",
+   "sequence": "12b93fae-e197-4433-950e-4ca3403dc8fc",
+   "questions": [
+    "surface",
+    "junction_visible",
+    "street_lighting_visible"
+   ],
+   "compare": false
+  },
+  {
+   "photo_id": "panoramax_b57e68f4-1d4f-4208-82fa-4b36294deb2c",
+   "kind": "photo",
+   "path": "data/photos/panoramax_b57e68f4-1d4f-4208-82fa-4b36294deb2c.jpg",
+   "sequence": "ef483e51-9197-44a3-bf5a-97cd96007d0f",
+   "questions": [
+    "surface",
+    "junction_visible",
+    "street_lighting_visible"
+   ],
+   "compare": false
+  },
+  {
+   "photo_id": "panoramax_7952c236-c745-4200-b72d-59b04381f790",
+   "kind": "photo",
+   "path": "data/photos/panoramax_7952c236-c745-4200-b72d-59b04381f790.jpg",
+   "sequence": "926ec862-61c2-4d2b-9408-a64c5b74b9d7",
+   "questions": [
+    "surface",
+    "junction_visible",
+    "street_lighting_visible"
+   ],
+   "compare": false
+  },
+  {
+   "photo_id": "panoramax_8734e4cf-4a2f-414e-b750-c0519374dd0a",
+   "kind": "photo",
+   "path": "data/photos/panoramax_8734e4cf-4a2f-414e-b750-c0519374dd0a.jpg",
+   "sequence": "a088275d-0543-42a9-ae24-c7cd89b4c104",
+   "questions": [
+    "surface",
+    "junction_visible",
+    "street_lighting_visible"
+   ],
+   "compare": false
+  },
+  {
+   "photo_id": "mapillary_3501212013437933",
+   "kind": "sign_crop",
+   "path": "signs/crops/mapillary_3501212013437933.jpg",
+   "sequence": "ET4a_hgxR0CqyDjHYp8B5A",
+   "questions": [
+    "speed_limit_value"
+   ],
+   "compare": true
+  },
+  {
+   "photo_id": "mapillary_374349654072798",
+   "kind": "sign_crop",
+   "path": "signs/crops/mapillary_374349654072798.jpg",
+   "sequence": "Sv8qdMr1OKQp5o4feVcgWw",
+   "questions": [
+    "speed_limit_value"
+   ],
+   "compare": true
+  },
+  {
+   "photo_id": "mapillary_557443477317070",
+   "kind": "sign_crop",
+   "path": "signs/crops/mapillary_557443477317070.jpg",
+   "sequence": "hH6QPDfzMKl4FdV1i9LvwZ",
+   "questions": [
+    "speed_limit_value"
+   ],
+   "compare": false
+  },
+  {
+   "photo_id": "mapillary_318047947631010",
+   "kind": "sign_crop",
+   "path": "signs/crops/mapillary_318047947631010.jpg",
+   "sequence": "zjs4T3hS5PYDErkJ0A7cCK",
+   "questions": [
+    "speed_limit_value"
+   ],
+   "compare": false
+  },
+  {
+   "photo_id": "mapillary_1035052394661534",
+   "kind": "sign_crop",
+   "path": "signs/crops/mapillary_1035052394661534.jpg",
+   "sequence": "Yq29siCSG1LH4hulBRxXAr",
+   "questions": [
+    "speed_limit_value"
+   ],
+   "compare": false
+  },
+  {
+   "photo_id": "mapillary_1029602998981114",
+   "kind": "sign_crop",
+   "path": "signs/crops/mapillary_1029602998981114.jpg",
+   "sequence": "oJTm6YpejE14Ludnt730AZ",
+   "questions": [
+    "speed_limit_value"
+   ],
+   "compare": false
+  },
+  {
+   "photo_id": "mapillary_512030746965559",
+   "kind": "sign_crop",
+   "path": "signs/crops/mapillary_512030746965559.jpg",
+   "sequence": "ALUTj3ivHeK5OpC4bgotrz",
+   "questions": [
+    "speed_limit_value"
+   ],
+   "compare": false
+  },
+  {
+   "photo_id": "mapillary_962672327639677",
+   "kind": "sign_crop",
+   "path": "signs/crops/mapillary_962672327639677.jpg",
+   "sequence": "nGjNE9Cx6opKeC114WrADw",
+   "questions": [
+    "speed_limit_value"
+   ],
+   "compare": false
+  },
+  {
+   "photo_id": "mapillary_1152877773579493",
+   "kind": "sign_crop",
+   "path": "signs/crops/mapillary_1152877773579493.jpg",
+   "sequence": "2aODbANGirc9ZTQukhxwEY",
+   "questions": [
+    "speed_limit_value"
+   ],
+   "compare": false
+  },
+  {
+   "photo_id": "mapillary_2601761200243412",
+   "kind": "sign_crop",
+   "path": "signs/crops/mapillary_2601761200243412.jpg",
+   "sequence": "tfls93RwpG7yuqLxWkXEJK",
+   "questions": [
+    "speed_limit_value"
+   ],
+   "compare": false
+  }
+ ],
+ "counters": {
+  "image_missing": 0,
+  "photos": 15,
+  "sign_crops": 10,
+  "image_out_of_bounds": 0
+ }
+}

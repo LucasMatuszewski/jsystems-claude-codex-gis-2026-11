@@ -1,0 +1,121 @@
+{
+ "captured_at": "2026-11-12T15:57:16+00:00",
+ "target": "openrouter",
+ "endpoint": "/api/alpha/decisions",
+ "method": "POST",
+ "model_sent": "typesafe/jev-1.14",
+ "model_returned": "typesafe/jev-1.14-20261014",
+ "client_version": "httpx 0.28.1; OpenRouter API",
+ "request_meta": {
+  "body": {
+   "model": "typesafe/jev-1.14",
+   "state": [
+    "A photograph taken from a street-level camera.",
+    {
+     "type": "image_url",
+     "image_url": "<image>"
+    }
+   ],
+   "questions": {
+    "surface": {
+     "type": "choice",
+     "instructions": "What is the surface of the main road visible in the photo?",
+     "criteria": {
+      "paved": "asphalt, concrete or paving stones/sett",
+      "unpaved": "gravel, dirt, grass, sand or compacted earth",
+      "unknown": "the road surface is not visible or cannot be determined"
+     }
+    },
+    "junction_visible": {
+     "type": "choice",
+     "instructions": "Is a junction of roads for vehicles visible in the photo?",
+     "criteria": {
+      "yes": "two or more roads for vehicles visibly join or split",
+      "no": "no such junction is visible (a pedestrian crossing or an overpass alone is not a junction)",
+      "unknown": "cannot be determined"
+     }
+    },
+    "street_lighting_visible": {
+     "type": "choice",
+     "instructions": "Is a street lamp fitting visible in the photo?",
+     "criteria": {
+      "yes": "a recognizable street lamp fitting is visible",
+      "no": "no street lamp fitting is visible (a utility pole alone does not count)",
+      "unknown": "cannot be determined"
+     }
+    }
+   }
+  },
+  "image": {
+   "image_sha256": "6680cc4291d814a3459a1f9c5afe31bc1b20b32dbf290f8ad960632e0cc635e2",
+   "bytes": 162498
+  }
+ },
+ "status": 200,
+ "response_headers": {
+  "date": "Thu, 12 Nov 2026 15:57:16 GMT",
+  "content-type": "application/json",
+  "transfer-encoding": "chunked",
+  "connection": "keep-alive",
+  "access-control-allow-origin": "*",
+  "access-control-expose-headers": "WWW-Authenticate,PAYMENT-REQUIRED,Payment-Receipt,PAYMENT-RESPONSE,Location,X-Generation-Id,x-openrouter-error-origin,x-openrouter-error-tool,X-Provider-Name,request-id,cf-ray",
+  "x-generation-id": "gen-dec-1794499036-3xifmJYBcXUDd2Pt6fk7",
+  "x-provider-name": "TypeSafe",
+  "permissions-policy": "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")",
+  "referrer-policy": "no-referrer, strict-origin-when-cross-origin",
+  "x-content-type-options": "nosniff",
+  "content-encoding": "gzip",
+  "server": "cloudflare",
+  "cf-ray": "a596bb42fbacdd13-WAW",
+  "alt-svc": "h3=\":443\"; ma=86400"
+ },
+ "response_body": {
+  "model": "typesafe/jev-1.14-20261014",
+  "answers": {
+   "surface": {
+    "type": "choice",
+    "choice": "paved",
+    "probabilities": {
+     "paved": 1,
+     "unpaved": 0,
+     "unknown": 0
+    },
+    "confidence": 1
+   },
+   "junction_visible": {
+    "type": "choice",
+    "choice": "no",
+    "probabilities": {
+     "yes": 0.11,
+     "no": 0.89,
+     "unknown": 0
+    },
+    "confidence": 0.83
+   },
+   "street_lighting_visible": {
+    "type": "choice",
+    "choice": "yes",
+    "probabilities": {
+     "yes": 0.95,
+     "no": 0.05,
+     "unknown": 0
+    },
+    "confidence": 0.92
+   }
+  },
+  "usage": {
+   "input_tokens": 2653,
+   "output_tokens": 116,
+   "cost": 0,
+   "is_byok": true,
+   "cost_details": {
+    "upstream_inference_cost": 0.000111426,
+    "upstream_inference_prompt_cost": 0.000111426,
+    "upstream_inference_completions_cost": 0
+   }
+  },
+  "id": "gen-dec-1794499036-3xifmJYBcXUDd2Pt6fk7",
+  "provider": "TypeSafe"
+ },
+ "elapsed_ms": 375.0
+}

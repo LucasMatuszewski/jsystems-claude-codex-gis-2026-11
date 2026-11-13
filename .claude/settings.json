@@ -29,7 +29,6 @@
       "Bash(npm run:*)",
       "Bash(npm test:*)",
       "Bash(npm audit:*)",
-      "Bash(npx:*)",
       "Bash(pnpm install:*)",
       "Bash(pnpm run:*)",
       "Bash(pnpm test:*)",

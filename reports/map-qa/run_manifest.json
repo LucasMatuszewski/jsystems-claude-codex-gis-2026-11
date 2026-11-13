@@ -1,0 +1,1471 @@
+{
+ "run_id": "20261113T003915Z-cef01d",
+ "run_date": "2026-11-13T00:39:15+00:00",
+ "config": {
+  "source": "files",
+  "data_dir": "course-materials\\exercise-data\\map-qa",
+  "output_dir": "reports\\map-qa",
+  "work_dir": "course-materials\\exercise-data\\map-qa\\data",
+  "model_reading": true,
+  "yes": true,
+  "compare_sources": false,
+  "max_images": 25,
+  "max_requests": 100,
+  "max_cost_usd": 1.0,
+  "reserve_usd_tier1": 0.002,
+  "reserve_usd_tier2": 0.004,
+  "reserve_usd_compare": 0.002,
+  "tier1_model": "openai/gpt-6-luna-decisions",
+  "compare_model": "typesafe/jev-1.14",
+  "tier2_model": "openai/gpt-6-luna",
+  "t1_threshold": 0.8,
+  "t1_threshold_compare": 0.8,
+  "tier2_accept": "high",
+  "timeout_s": 40,
+  "question_set_version": "qs-v1",
+  "seed": 42,
+  "config_path": null
+ },
+ "input_manifest": {
+  "source": "files",
+  "tables": [
+   {
+    "name": "osm_roads",
+    "rows": 99768,
+    "path": "osm_roads.parquet",
+    "sha256": "b429a97aef4e9e9f6c9cf760081a215eeb14cdc97b678812730a318b0e61d32b",
+    "statement_id": null
+   },
+   {
+    "name": "overture_segments",
+    "rows": 85405,
+    "path": "overture_segments.parquet",
+    "sha256": "cf4ee780992cfab94eeda799ef6aa6ee67c86539d14aef572e937b35b8259760",
+    "statement_id": null
+   },
+   {
+    "name": "photos",
+    "rows": 561,
+    "path": "photos.csv",
+    "sha256": "9cc6b79f5fc147a774e43fb685db61b5bc3e2e2d15c38daa4cf665ba6e657e9c",
+    "statement_id": null
+   },
+   {
+    "name": "photo_road_links",
+    "rows": 561,
+    "path": "photo_road_links.csv",
+    "sha256": "d71d0857ae0ffc3eeae395a67d2f9ea2bcb869e1fab44c222d2755e60e70763b",
+    "statement_id": null
+   },
+   {
+    "name": "signs",
+    "rows": 119,
+    "path": "signs/signs.csv",
+    "sha256": "a3d3f29fa676c44e6be684abb9d3ea6f91bd439c81e4a373596a4de29e5a6c2f",
+    "statement_id": null
+   },
+   {
+    "name": "signs_nearest_osm",
+    "rows": 119,
+    "path": "signs/nearest_osm.csv",
+    "sha256": "52baf1291906a5e86344198aea18bec724b38a5877a4a041e336a38df3e1dea3",
+    "statement_id": null
+   }
+  ],
+  "files": [
+   {
+    "name": "sources.json",
+    "sha256": "29133842006f84c90a94291d267fab95d58509c2721db097b213370ab9e7e50b",
+    "bytes": 6784,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "osm_roads.parquet",
+    "sha256": "b429a97aef4e9e9f6c9cf760081a215eeb14cdc97b678812730a318b0e61d32b",
+    "bytes": 10304229,
+    "expected_sha256": "b429a97aef4e9e9f6c9cf760081a215eeb14cdc97b678812730a318b0e61d32b",
+    "sha256_lf": null
+   },
+   {
+    "name": "overture_segments.parquet",
+    "sha256": "cf4ee780992cfab94eeda799ef6aa6ee67c86539d14aef572e937b35b8259760",
+    "bytes": 13439701,
+    "expected_sha256": "cf4ee780992cfab94eeda799ef6aa6ee67c86539d14aef572e937b35b8259760",
+    "sha256_lf": null
+   },
+   {
+    "name": "photos.csv",
+    "sha256": "9cc6b79f5fc147a774e43fb685db61b5bc3e2e2d15c38daa4cf665ba6e657e9c",
+    "bytes": 420167,
+    "expected_sha256": "93157c4798c20434bca70a426c2bd64c5f6d0b5a3ad865f690d1ee9e634d0ed3",
+    "sha256_lf": "93157c4798c20434bca70a426c2bd64c5f6d0b5a3ad865f690d1ee9e634d0ed3"
+   },
+   {
+    "name": "photo_road_links.csv",
+    "sha256": "d71d0857ae0ffc3eeae395a67d2f9ea2bcb869e1fab44c222d2755e60e70763b",
+    "bytes": 86867,
+    "expected_sha256": "1b89a2ee61069fa153707c60aea63127b9e8dc8e05ac39d7e11891a585566878",
+    "sha256_lf": "1b89a2ee61069fa153707c60aea63127b9e8dc8e05ac39d7e11891a585566878"
+   },
+   {
+    "name": "signs/signs.csv",
+    "sha256": "a3d3f29fa676c44e6be684abb9d3ea6f91bd439c81e4a373596a4de29e5a6c2f",
+    "bytes": 63875,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "signs/nearest_osm.csv",
+    "sha256": "52baf1291906a5e86344198aea18bec724b38a5877a4a041e336a38df3e1dea3",
+    "bytes": 19448,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "reference_labels.csv",
+    "sha256": "67a3259d39801078a144ffb8088d15f882dbc16f6cba27a249f83d2a7d420d83",
+    "bytes": 94244,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "signs/labels.csv",
+    "sha256": "a25b37d9d65dd824413cfe1d6d9b797e951d179f3e87b89dd75789959046ca32",
+    "bytes": 14625,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_94b5031d-61fd-4b81-ae3f-b9695b085e35.jpg",
+    "sha256": "20f9aa36e93d762df897d8b7c594eed327664f8fd945e7e8d802aaaee79f5d25",
+    "bytes": 83704,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_c429dd85-f700-4095-b670-90b3bb617875.jpg",
+    "sha256": "5dc09e9240fecb85db1b878ded339941067afa219a98b9da4b5c61d633bce598",
+    "bytes": 80864,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_3c683354-2386-456b-9955-31268ecb5213.jpg",
+    "sha256": "88269b6775044e2ec16139285d0e90c068abc33674610d9d43eadf819a6465bf",
+    "bytes": 67365,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_9bc04785-ce54-4104-8114-bc3b7155f6e9.jpg",
+    "sha256": "92367db5365dd8340616f003cd649b8bdede44800fa2c26305932121309e3e26",
+    "bytes": 122118,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_66200c29-f302-4a7c-940b-dc11ad3d5322.jpg",
+    "sha256": "56d79fb571bf718f42fda46e7d7204a1daf05d619c66c5fbfef4ef45fb68724b",
+    "bytes": 79581,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_a208c9ca-21d9-451b-8d78-848a9e8bc928.jpg",
+    "sha256": "7b57d5a279e7abc76976d4cd3beff0c30ba44bd3089281d074fd4b48fc099bc9",
+    "bytes": 84334,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_12f760a9-5f52-4092-be47-47b2481ceed8.jpg",
+    "sha256": "1217d0547de54bce7584ccd0c9b1c0dc38fcc18c6876a3daa8bf475d60c04e51",
+    "bytes": 81003,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_90d265a8-5897-4e57-a2e3-698444eb64af.jpg",
+    "sha256": "5e1d45c32f5a1ab4311e9f0a962fa0e4ebea7531b53053c11494d5e4d314ad4d",
+    "bytes": 76326,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_b35a913d-cbc1-48d5-95bb-140a77cc2f1f.jpg",
+    "sha256": "d3f460a49525319f86e12fb637482a9310df32e1944f1e0dbbf517c7f64ffb7f",
+    "bytes": 85069,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_7f42b279-bd01-492b-bddb-ba2e14a606be.jpg",
+    "sha256": "1ce916cda344f6790ec6bc4721addbfb22055f0b302848f2843ec16e64c5e7fd",
+    "bytes": 88060,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_2b72cfab-b9f8-49db-8278-cbaa3a8fc8ff.jpg",
+    "sha256": "f2af382a5831f3c38dd4a17031b34de775aaabeaa16cab02ed921d699647e5d4",
+    "bytes": 85686,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_ebb50ed6-3cb1-488c-b907-dc233aae92bc.jpg",
+    "sha256": "25a4eaf55ade8b02e2eda624863478258880d1a69e18d069a2188ef8e4a8bed2",
+    "bytes": 80531,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_b57e68f4-1d4f-4208-82fa-4b36294deb2c.jpg",
+    "sha256": "9b4744f8f4db2eee93309291ed34bc99b5bcb6868a48ce04385737d863e7bb39",
+    "bytes": 88227,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_7952c236-c745-4200-b72d-59b04381f790.jpg",
+    "sha256": "6c015a5da6a0c6d0df60b6afb85677298d436760c323c7d7ef8cd5dbec74ddb7",
+    "bytes": 83143,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_8734e4cf-4a2f-414e-b750-c0519374dd0a.jpg",
+    "sha256": "9e13f4da62ff18f3097d738c3deb5c5d167f8321f27ef00f9cddc7fc47d87b2d",
+    "bytes": 76318,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "signs/crops/mapillary_3501212013437933.jpg",
+    "sha256": "48f5900e128a4404a23422305c31ab0369759194b0460659cc883de59e364d65",
+    "bytes": 355409,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "signs/crops/mapillary_374349654072798.jpg",
+    "sha256": "aa1db923d2c5fa1ddacc9bdb083bb492fafc1d347e0be220221d4d11a0fc6b4a",
+    "bytes": 2850,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "signs/crops/mapillary_557443477317070.jpg",
+    "sha256": "ea17587bbbb04bb8358b1d88551d981c9c2275859ac4eaf5b918ecc513484037",
+    "bytes": 2457,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "signs/crops/mapillary_318047947631010.jpg",
+    "sha256": "9b98bb556e9b1962734c6513aa1a17b5d58955094f62cf41863e2fd386e38671",
+    "bytes": 6400,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "signs/crops/mapillary_1035052394661534.jpg",
+    "sha256": "818fb0e7f39b0b0bc9b306fcc347b92dc58f6eebb990b22480b08fb64cf312c1",
+    "bytes": 7466,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "signs/crops/mapillary_1029602998981114.jpg",
+    "sha256": "dd3ddfb2405db7756af572a9cde7cca7e9f26a1b21481e16bf59fe1faabf4823",
+    "bytes": 3206,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "signs/crops/mapillary_512030746965559.jpg",
+    "sha256": "f1b63cc1ec5245a52763524f853d730d2ed2f088a4ce8b16067c6b224ce3686e",
+    "bytes": 2676,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "signs/crops/mapillary_962672327639677.jpg",
+    "sha256": "b8ef2cde19f43e974bf6d2ddac14b9187b21082acbb196ab3c9e88e7a27366b0",
+    "bytes": 9219,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "signs/crops/mapillary_1152877773579493.jpg",
+    "sha256": "06afe8e674989c55659771f9af8ce275cce3c17b8e61ec19cd72bd6868766be8",
+    "bytes": 8121,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "signs/crops/mapillary_2601761200243412.jpg",
+    "sha256": "4a1aa299c9752a4ae25a6f2fdd55d8bcd0d0498a6e0ff26d1edd010fbe5c64bd",
+    "bytes": 6992,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_1003606477244774.jpg",
+    "sha256": "f25f28091a824c2e8077ae8c2fae61f6bb04221fefa778e96592fd595339ed87",
+    "bytes": 145824,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_1035956805919091.jpg",
+    "sha256": "634ce33930bcd0e95f543301caa323cc83ff7d0bc73c76a5cb30bd2dfb4520d3",
+    "bytes": 260510,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_1058045142243853.jpg",
+    "sha256": "da130b457f2cd947db2e96bcbc79c1b7307bcf31a15fa3daade78265a06d2dca",
+    "bytes": 72538,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_1080932238035806.jpg",
+    "sha256": "e95841f84627e558ea09ae40f4c41aab161bc19e55612f01019a0279f9755686",
+    "bytes": 91328,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_1237130608489136.jpg",
+    "sha256": "028199244d10e6e10bd9227131900595d8097ed792bfaeb7f486cff487113b85",
+    "bytes": 132525,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_1272924134777707.jpg",
+    "sha256": "a1316c64d62c0c69e3bcc1d49ab446e745c930cc6c179ec67b5502be668635a4",
+    "bytes": 55201,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_134880168567523.jpg",
+    "sha256": "ce5b3dd43171d4bf03f28498e96ac065c140e4556a59e89c31ec4c32f97f0bb7",
+    "bytes": 77701,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_1393481265317315.jpg",
+    "sha256": "dc5675246e586ddd47670ca63e2476f1a91c9de3b7067847cf206b1bed25f90f",
+    "bytes": 61536,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_1431142590793546.jpg",
+    "sha256": "bbc5ebae1e97bf92b936c8867f6db0a9c71ffd3c1df2b5683c61e60cae85b067",
+    "bytes": 86735,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_1435689471736379.jpg",
+    "sha256": "71ea86d43bb49b11bdd52d6e8472d33da22dee7acf96ed8b0750a8891da768a9",
+    "bytes": 73934,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_1579175039923177.jpg",
+    "sha256": "db47e2568c00ec270f962947c10201032c5ed5d1d3a2c9b737e7badaae6c0992",
+    "bytes": 144134,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_1646871825800345.jpg",
+    "sha256": "4a0c5a7f99217a5a387b53ab540012c1a17990639e57fa9e11fb9a24f453280c",
+    "bytes": 83627,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_1681793919659739.jpg",
+    "sha256": "f3155e0b5c4da112cd59a53c4e7931fc0cf7cb681353fc3bcf616d99c0aa343b",
+    "bytes": 56149,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_1703614410947032.jpg",
+    "sha256": "9264b0abb3d58c14e720ba0490e0a34ff38ddd24cd0f53ada0c09276782b9fcd",
+    "bytes": 89397,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_1842605739645573.jpg",
+    "sha256": "1869244052495771cba4c0767e9e364b3926d5b1f0bd9ed10d5644c87e186493",
+    "bytes": 71635,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_1970607046823232.jpg",
+    "sha256": "8024c42ccbc9d6f016d35de8bc0b077809811e54d897f1d2f08355f986411a78",
+    "bytes": 133771,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_1997026677603618.jpg",
+    "sha256": "e273fddff3758129bd9681028dc287efc0b56c699e3496523bc5a1553613e1f0",
+    "bytes": 130857,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_2015339122671085.jpg",
+    "sha256": "f22c4d4be2029d1daa32fe25f50a9dbf45e983970bc4982518b1d46314f56421",
+    "bytes": 50323,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_212616641510518.jpg",
+    "sha256": "3ced8b379548e266a9765e39e4eb20245bd3733ecee6e9db604acfa9d712e2dc",
+    "bytes": 81856,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_221453741046411.jpg",
+    "sha256": "d05326b1ed91b38c12855a6c45d7d2ffc3aa5fb838e92d3ba0738ae145c1ebf5",
+    "bytes": 51305,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_224324516912032.jpg",
+    "sha256": "4a48fc0927f6b60a524975eb781f7551f7ba6cfb78cad701b25fee8cd29d8068",
+    "bytes": 98319,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_238748672088703.jpg",
+    "sha256": "ea9325863a0b9fd76a937c532bbd3d91dabb691083e812407d49d256044d7cdc",
+    "bytes": 64550,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_27611377485196534.jpg",
+    "sha256": "fbbc01936432af9e383f1894e1d451369d19fe48a50ba587aef586a6e7d52a69",
+    "bytes": 94965,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_277454594020064.jpg",
+    "sha256": "aee5f1f2f4d29cd3a4cbc38bcbe55b0788569984f9dc2a43ec1d0df7bff07a5e",
+    "bytes": 199773,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_28658384260521108.jpg",
+    "sha256": "f738f3c8aa190511f0aceff182d2f1957bcdd6f3b459df9bbb1abcd8e44c7306",
+    "bytes": 98477,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_299240679484422.jpg",
+    "sha256": "49871391edf82f06cd831d04ff7bbda9f9b2f8c9eeed7da7338ed04353e336e6",
+    "bytes": 80785,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_302171341502933.jpg",
+    "sha256": "b305f92c8cdc82bb40a3dad40f173ce860b9db987f3ae23034708b7e1bf51c69",
+    "bytes": 70963,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_336757954741755.jpg",
+    "sha256": "aca3fbf4e2e3df835052dea4dc8d17c4d237490bc98cc993b6cbc2493989964a",
+    "bytes": 86432,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_365733204843645.jpg",
+    "sha256": "3a25527e2087df09fa9c24eacd14875ed995196612ed37e7ea9747a136a808ff",
+    "bytes": 66348,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_367864708173840.jpg",
+    "sha256": "fe55c0c40932757a738238d66f2a61917ae67b99dac5703b214acf653577b699",
+    "bytes": 55475,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_371658141807714.jpg",
+    "sha256": "357bf6ce54d50c8820d859969ebb8e4c86d3eb20276a0e69b3abb3086e0601a1",
+    "bytes": 124335,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_3773145916147480.jpg",
+    "sha256": "db3cf4bc901bfd15b10c807e97adeb5a3ac70063e76d39d2bd83dbe35db72ad4",
+    "bytes": 85356,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_407737842319790.jpg",
+    "sha256": "c4528002098e4690e0591c002983216e5eafe7d149dffa965cd54c757fe93840",
+    "bytes": 70814,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_4527360787479920.jpg",
+    "sha256": "f6b500235aee45afc19fa64a443a16fc6a8615775c8fac4b80dbb8caa7678bdd",
+    "bytes": 69833,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_519455719068271.jpg",
+    "sha256": "a57a467ba2953476b02d1ee0aa3b7063c05dcd55c1de4b11e68d141b950d2e9c",
+    "bytes": 108476,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_561878881446051.jpg",
+    "sha256": "6d421d18502c7b9b4e4275d962849b741aea6d38b1203209ed7d72ec70b6222c",
+    "bytes": 57865,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_640597110322444.jpg",
+    "sha256": "6edaae674a1442613171f6546343b29ce4dfd8836ae3043e3de22f6a0963268d",
+    "bytes": 73322,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_648504628272254.jpg",
+    "sha256": "320235a538e17aeb62c515476b20be852ed96947be11d54d2d3fec09c5c94c7c",
+    "bytes": 74862,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_6870106683018723.jpg",
+    "sha256": "c958ef936d9be5b078d7dfb834c838aa7bf713d7a4cc3a6b2424f626a1d3bb78",
+    "bytes": 159169,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_7005141349517162.jpg",
+    "sha256": "c47aa84f99954e4e26224f033291ee2376c23d586a8ac687530639f481393c04",
+    "bytes": 68625,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_761982104509850.jpg",
+    "sha256": "85e2da0ef105643469556aeeb1eee49348d5da877fa5fa194767aaf849a031a6",
+    "bytes": 149708,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_763388231046401.jpg",
+    "sha256": "8c5daea700d9a0cb8d2024d0e6fe485109808c48c000efac71211266c0d474fc",
+    "bytes": 76597,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_782161737673142.jpg",
+    "sha256": "1d83535c27dc6bfe7de5b18acc27c11a2660393c38ee92412aa395ddafa749dd",
+    "bytes": 82877,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_787823830587862.jpg",
+    "sha256": "f8a5ef25615b9a1361f5a0df83ddbed47fadfc40b35943b1b2c7225a72fe330f",
+    "bytes": 77072,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_789245484246735.jpg",
+    "sha256": "671c1fe635371425c372767135d3935a2e6c60e16bcf49ebae0d7ee082b2bddc",
+    "bytes": 76597,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_810131513353436.jpg",
+    "sha256": "99cf74c3967e925a809ed80c779f87619beec5e8bbeba22c18a13e4842df36c8",
+    "bytes": 49309,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_868352877047402.jpg",
+    "sha256": "9e80ae119f738bd9ae4165810a6613061fbc13d56408e86d9edb573817921808",
+    "bytes": 213838,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_891542184735652.jpg",
+    "sha256": "5059933dafdb2eb10ce2f793198cd5cedf82dbbed0e9096d3a81f13250eba3db",
+    "bytes": 72186,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/mapillary_910184740862133.jpg",
+    "sha256": "2a9fba5cac101f18a7a9599d590f79a6ef76749e212a7943f6c9061ee2e4cf8a",
+    "bytes": 50979,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_0033f5e2-ff37-497b-b27d-10c5b78ac11c.jpg",
+    "sha256": "97e8ccbfe56e0b2b1cc7df472b621e9598b71cdb1576adf9b31791f4347c4936",
+    "bytes": 136433,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_06d0eb23-792f-4b03-b183-60f57ee6bc9a.jpg",
+    "sha256": "71a0d58e1b8baad7e89547cb4905e961231d257c94b1eb8655152b68777cb0df",
+    "bytes": 128792,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_07c242ac-a021-4f94-8ab3-4a0f2077467c.jpg",
+    "sha256": "cad596a05dc824498e20f3c837a79282702e324759c889eae0a23e89e17e8228",
+    "bytes": 148548,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_0802dbfa-9c21-451a-a936-1964cc8022f0.jpg",
+    "sha256": "08ee89333c605d08bd901411803b181871fb35aa58bb27bfd2d9f059422ec32f",
+    "bytes": 131885,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_0977d119-1935-48e0-bf03-6ac088e2cd41.jpg",
+    "sha256": "dc4f33d680e6afd5993009f1a8dfa38fe8bfe90d8361813b4134662f88ae42aa",
+    "bytes": 138198,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_0a08092d-eef1-4f57-bc97-7dc0008e4e4b.jpg",
+    "sha256": "099ea75242cc3ccc924186ec1ab25bdad30ee0a043edb4cbb869463cbc72a2bc",
+    "bytes": 118172,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_0a6b4cd8-442c-42d5-b6fc-8ad81b0ad600.jpg",
+    "sha256": "98dd6e9529bc184d2f0c62295a0c69817aff54b35930094899335857b3c24afc",
+    "bytes": 141294,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_0b82df8e-5134-4862-af8e-4fbe8cff6bd7.jpg",
+    "sha256": "bf3eb2c77cfc873e7850c3c249a3f5b655009977cedeb842fa570c517109d876",
+    "bytes": 130547,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_0f839710-50b6-48b4-8afe-7e6ae20da27a.jpg",
+    "sha256": "5826434d0849533805127b438aed06744b5819617662dff154f20d3538af6aa0",
+    "bytes": 138313,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_11b644cd-d95f-445a-ade6-f73ea72a5c96.jpg",
+    "sha256": "7f37d55daa6b23c4237522780b9622354cf9bfe5b8a29ce401e9cde0077661c9",
+    "bytes": 141685,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_14841522-0f0f-41a0-b0e4-2fad8bfa80cf.jpg",
+    "sha256": "2498eda64ce3381c8fad4677b4a5006b48a270cd86d8473d3522aa2aa46d3313",
+    "bytes": 149987,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_1c3b133f-3be2-48dc-96b5-49fb2a39988f.jpg",
+    "sha256": "5753732a17a7fe5c1ebf39e17581ae59763638a9bd730cf52c76d277a698dedf",
+    "bytes": 120367,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_1d8190e3-2885-4286-ac03-971028a82360.jpg",
+    "sha256": "6a52c921bde845c458d9caad2c8135c49e90d83650251990e52a498737566bde",
+    "bytes": 126556,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_1e930646-ec7a-4ccc-bf18-4b96c490fc0f.jpg",
+    "sha256": "506e32c4dbd9c3ad25094073cc9f55c9a8b9911a0a25854ce65195eff572e933",
+    "bytes": 159880,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_1efcb856-4847-425c-a47d-3d1c31fa648a.jpg",
+    "sha256": "75a6fb74be904268993d923c161da9aeb87146a1b3fdbb1880de3dce87308906",
+    "bytes": 84700,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_1f9b3f6a-fc69-41cf-abe8-a4fe716c7ee9.jpg",
+    "sha256": "7be3ceb50ecf9125c958331066c740be76439f05a58d13a8fb688b392a7353aa",
+    "bytes": 131206,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_1ff3699b-f2b5-40a7-8a66-8836ea654e2b.jpg",
+    "sha256": "cd82477942ef716be2ae17c709a809c3ec5f19f101fb91f0ff090baaea88b879",
+    "bytes": 138446,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_202d5311-2029-4ab6-a423-6091ed3d8eec.jpg",
+    "sha256": "f8f9bdfe1afd173c7caff5005dd9842f6c6327783ef079e77e77d4bf5aae4f61",
+    "bytes": 91375,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_21f577a5-fe8a-45ad-b02d-539942ca6459.jpg",
+    "sha256": "7509712198cae2d642f6e9f6625a667572ecaf2aae96c4e366e4d1e5b280562e",
+    "bytes": 85292,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_23742894-3ba7-4635-8af0-994c7bd015c2.jpg",
+    "sha256": "46c124f0b38f36a929f35f6479f9cb94b81b224fe6b4dae9bc294e4fb7d32c2d",
+    "bytes": 146349,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_23ee61cc-20ca-43a1-9039-77ba37b03949.jpg",
+    "sha256": "589d3f9186eaaef3ad91c0e617cdb39fa61b1c93d5f06b5de9c282af6a4658a3",
+    "bytes": 140715,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_241a71ed-e2c8-4312-8749-c1d4a5d57e3b.jpg",
+    "sha256": "7f66c05fd0c6602d456ac28ec314fbd523ebfa639674c0da526ede2d42a52e5f",
+    "bytes": 128686,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_252e644a-52b7-43c8-a694-3f70c1629e2c.jpg",
+    "sha256": "97f8878c89cfe83029a003000cc1933fcf161248b61f933a5b49403125497086",
+    "bytes": 81072,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_2551fe85-40fb-4b99-bf96-98f629f8f26f.jpg",
+    "sha256": "5da16d6babf538f7ac0b3dec5aa3caa37dbda327268768547e486cb2db8af71e",
+    "bytes": 146879,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_26cd5194-47da-4ca4-8226-0c667d9eb743.jpg",
+    "sha256": "804910f7a2d0e47a4122ca5dcc5dbb688bfdf82573e15ca1bbd7ed868f651f50",
+    "bytes": 173577,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_2995ca7e-714d-439d-9aab-a06b555f0d73.jpg",
+    "sha256": "6ca054ecf716901105d8a50f91789f38705e788a67a85f4bb828652fe1fbd78a",
+    "bytes": 101623,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_2c8db345-8ae1-4211-a527-06e37ab0cecd.jpg",
+    "sha256": "2b91c1217e910d280d4f637c3727ebfc71a19f9e39c7ecde8f7b3676487e4770",
+    "bytes": 142088,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_3058ba14-df88-464c-8d9e-6dc52a598075.jpg",
+    "sha256": "09f82ec8b3195e4f6a0962a6bcfa8d72e0ff240f8b0e1c7d136c76c55d28135c",
+    "bytes": 74853,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_30f08d1e-fe31-42d9-b042-607f5237d9ff.jpg",
+    "sha256": "f2e3323a74525c1773d0131311b790e05e0c598af1eba81bbb100843fa4f2114",
+    "bytes": 118029,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_32463975-040c-4359-8528-5224dfd5db4c.jpg",
+    "sha256": "6c995a4f8b7a64f7517dd819e3e5b615115c9ea3c3e4bda21aeab0c1f56329a4",
+    "bytes": 125616,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_3286d143-b3c8-4deb-8ba9-5b15d204f067.jpg",
+    "sha256": "e026ecee474d4cbddef5e4d5a0946aa5249004d75e2fcfeb1cb0761d47f02d33",
+    "bytes": 146442,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_3fe1f9f1-cabf-4c38-9dc1-2661b3a1ede5.jpg",
+    "sha256": "34e56f876d4fa711e10a72d16d1673707dcdee53c2634c48aae1dfe4597c0992",
+    "bytes": 72604,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_406cf0b4-d562-49c4-9d18-0c517770bf76.jpg",
+    "sha256": "e33bcc2b974cc4ebab8f8d1df1bf08ba336fef820bfae53fae3e6fab8ff8e8fb",
+    "bytes": 77228,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_439b49e9-a37d-4343-8d23-66fc3befab51.jpg",
+    "sha256": "0881003ae51532157a99989b6ed2ddfebf25c3791e0213a78348fef9ae358276",
+    "bytes": 134902,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_43b3be2d-d9c7-46e4-b111-550f0bddb018.jpg",
+    "sha256": "65d483b4777d464e36f597c594acad82a2a8267741e43c750b3cb6122ccb50f5",
+    "bytes": 75531,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_44c8b039-ae2e-4d6f-aa8a-255976a5062c.jpg",
+    "sha256": "563f608dfb83e5c9e36d28011ae4fa4f6b9df13587ee296f5dc72404853c819b",
+    "bytes": 100693,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_461b7fdb-1a70-48aa-9930-3f1085c1012b.jpg",
+    "sha256": "2da02e0a5dbd559bb01e114440fb4f41b91a1c7ba3020cc7ae7928a26f8b6bbb",
+    "bytes": 112412,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_46991b1a-b231-4e5b-95ce-67e991790396.jpg",
+    "sha256": "9f843188ea1ce83a1a5c27400af822ec31f90d18227cd752295b15ef45177597",
+    "bytes": 155279,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_4aeab510-9633-4b67-85c3-90a2b433cda3.jpg",
+    "sha256": "45c36501f137bece32cc006f5334e61ffc4124b2e34fa3293d23bf30c63d65b0",
+    "bytes": 158539,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_4af8e1ae-6cf6-4a92-8866-c05c70ebdf8a.jpg",
+    "sha256": "9a82aafa8a97bc7cf1dbc252b83b2526e6eae8d70bba6f04cd97a823f3aeafab",
+    "bytes": 118102,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_4da48c88-66a9-46a8-a376-a8086374af61.jpg",
+    "sha256": "20b0cdff74ef2dfc9df09ed168b4cbb86a4ee5cd9bdb2735e82697f73e5b186b",
+    "bytes": 117234,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_5039911d-c916-4a94-80b0-674a121c2559.jpg",
+    "sha256": "a98a5e890ff902670e583a4d9495d091ff36aebd1ee19165fcdc3de09c488a15",
+    "bytes": 108576,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_5121517f-2b5a-4664-abd6-e738bfa028bc.jpg",
+    "sha256": "eadaeeaaf81cffaa00336dfcd85526fb8c7e7541469974328202e6d42d01deea",
+    "bytes": 164864,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_537091d0-0166-4bc9-bf74-d30e0c441aec.jpg",
+    "sha256": "d446d4e37e6b433df1b8fa030106bffabeb8c89272ea62732e76956bb3aa5172",
+    "bytes": 176931,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_546dd6da-e343-4399-b6cb-1f77bd365608.jpg",
+    "sha256": "729dbf2b104b4bf00bacdd14492f83c4d9c8bb6f3c52982ca33073ae1cba2814",
+    "bytes": 120224,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_54d02246-e7c2-4be1-9cb7-5cbe6c16c0cb.jpg",
+    "sha256": "23bf995e78515963b1bcd64d141e47a3c7e688ad4f22fe613079b24398f0eb15",
+    "bytes": 118023,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_58c5c3b6-135d-4cc7-9caf-f84f541b5e45.jpg",
+    "sha256": "dfd18010a958f8241743c1f32241418904f2a98eb7ff03cf71334e106d38a2f0",
+    "bytes": 105709,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_5b96b83c-f318-47f6-b298-52d5f25d7523.jpg",
+    "sha256": "ee611b81eeaa810e5bac2263e44a5fd50a7a311dc42c2ac9ae8dedafb20cf170",
+    "bytes": 104996,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_5c2eb3c5-9a5b-4f86-baf9-a05da5777db6.jpg",
+    "sha256": "cd53c89a43dcc258821eea463f06f1878b5d395a5affd2db9e31f7bf513b5eb5",
+    "bytes": 163048,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_5ff7b8a8-3536-4c1a-a08f-cebc01c485db.jpg",
+    "sha256": "4f98a5bf958718beaea2f53b686496d3f1f2fd833d1250397054f87bd1e75302",
+    "bytes": 145663,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_655a862c-9080-4852-92ec-ff8f118c0770.jpg",
+    "sha256": "fd01ffcc08fd921dddadb2fcae4292f12936b3688b3b587713f09acad5713706",
+    "bytes": 106689,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_675a3b84-b4b3-4f9a-857e-b68cc7f56b53.jpg",
+    "sha256": "56370898c25613b91f37a256e6c2c0175290cde3822ff587df0d6356091d90eb",
+    "bytes": 101682,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_677d9abe-ba65-470a-b270-7b2717abc97b.jpg",
+    "sha256": "b831ed2fa9580291da235d432203f0506d455740979dd010c0df10c006ae925e",
+    "bytes": 128201,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_6b954856-0de9-4822-ab21-7fab59a39438.jpg",
+    "sha256": "aebe9fa0b1ad31b08007ef75ef48d75651705786a404caea0e7c5d0a5f23eec5",
+    "bytes": 124487,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_6c9660cc-b284-4ac9-af52-a0ac3279b47a.jpg",
+    "sha256": "a3350fe765ce93f22a8c42c6c32162d4ead01a99cfe1605c20fe45b757b9c2c8",
+    "bytes": 159219,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_6df4614b-d6ba-4b90-bffc-6fc37fb8473b.jpg",
+    "sha256": "13aed3ddbdae2eeeeaa4ecdd295b83ac6a4cab6880fd5d141ad6e6f1a08da88b",
+    "bytes": 95776,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_708e0c67-c751-47ab-8847-56401d4ed943.jpg",
+    "sha256": "e43d70011156e7c4fe58472c2ff0c6c60596829484d44babce4acca0cccdafb0",
+    "bytes": 158581,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_70d38abf-5bc9-41be-808f-b4e491fb1175.jpg",
+    "sha256": "269f411f5f9cccd08a0fb167f77d3b3fc5bff6292597ecabf825de390544bdbe",
+    "bytes": 152240,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_71a6dcec-6eb6-4b1f-99b5-bf60ad652dcb.jpg",
+    "sha256": "9b73436be68673a560763400e299c5d412a5b6249e05ea9677778189fe933cfe",
+    "bytes": 127693,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_71e7d283-563f-47a7-bda7-a31232661356.jpg",
+    "sha256": "172b9c6f157712aa94191d42e180a6c3c03e910588110beda2ff3c8810108633",
+    "bytes": 83804,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_738826f7-75b5-4aee-993c-3017b4dba463.jpg",
+    "sha256": "714dc3b1c8cf069151f7a753fb46225bd8c37f5c57b89ed20c1fba0233cf2857",
+    "bytes": 178219,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_7b1be8bb-0ede-4d56-8849-4a0589679726.jpg",
+    "sha256": "93d161f955a05f189239675a809068270b095378e8d83332454d2af3fe4f3433",
+    "bytes": 84901,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_7d4f858e-6c8e-4fb3-ad7d-135a96e1502b.jpg",
+    "sha256": "4f8643a76f29893f36575973b70d9ffe60db3f1a0d2ec3346cbdbade27f4c848",
+    "bytes": 167448,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_81e3f01a-e9e8-4339-b4f6-8120f27eaa6f.jpg",
+    "sha256": "c9035576a45205d074aa3213ed62c68013033ba8b88f049c515aaba31844e080",
+    "bytes": 118980,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_879f7ab1-1d21-4531-a1b3-27a016fa6756.jpg",
+    "sha256": "3f760cdbeae5e2ecc1c1b097ce660492c28d8d3bd63be76920ace7e2cfd2a6fb",
+    "bytes": 144738,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_8a63d337-6401-4013-90a3-746690e43864.jpg",
+    "sha256": "6f43ea6ec3fd2acc21a50b670000b08bd916cb3a7a8ce22f1925a96f3f12032e",
+    "bytes": 88716,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_8b3fed61-d335-48b6-b13b-690fef695cf9.jpg",
+    "sha256": "cf9d396df02b4a27a78e696cc693be43063e832419e37c9b7174e872a4e08f26",
+    "bytes": 143093,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_8b83f403-bc61-43e5-a6fa-78dd40c1a74c.jpg",
+    "sha256": "bcb701f0240b61590c82b6296a7fc623295f5278d7b8d3d023bd17de49622b8a",
+    "bytes": 86268,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_8d283928-39b1-4e3c-b997-74a981f8c02d.jpg",
+    "sha256": "fb59aea706e61bf8387d4e5c9d1a446c52f6aa4fe4358434f464a0a79aed3872",
+    "bytes": 148283,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_92b83193-b23d-40a6-adb2-11175f808ca5.jpg",
+    "sha256": "aeb227511e5e4a5021a1ead295392297b4f01f6aaab3d237ffee64a6bc0e9a7e",
+    "bytes": 129266,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_9542100d-c5c9-4761-8300-7647bf8ad7e3.jpg",
+    "sha256": "a67b5a0cadc7bd49344d191401aa1ed47d8b451ae072f23799770cfb5fe19db1",
+    "bytes": 157421,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_9704c1e9-6deb-4748-bfae-e948c91f8c92.jpg",
+    "sha256": "1f64ba5630b2a9a7d6864b827338efb4a9fe2cd0545e1c005a956f1401fef37d",
+    "bytes": 84555,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_97414dde-ec16-4e8d-aa6b-437c1e88630b.jpg",
+    "sha256": "24219e5109b2c3fd470f0233f1131db5d40d25c29a2cdcb584f6e931f9221ed4",
+    "bytes": 123779,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_9b4f24ec-da3f-4e95-abcd-3395f7056038.jpg",
+    "sha256": "460c7e5057944c538413d13e3c9ffb1d0c283bc4ed57549842c0cb991cbaeced",
+    "bytes": 133199,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_9db8522f-1672-4006-8bed-5011c969cc62.jpg",
+    "sha256": "74ae0dba8c56accd84c7cd9f9f450e65f546ef1f41beb56dcdcb792ae27e0c6e",
+    "bytes": 75389,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_9f8bf2d0-fe3f-49ba-ab48-f1b772f77785.jpg",
+    "sha256": "c520adc3bf4ae5951f5bd515a87495d0a8300bc86c8e4fa8d3cac01982cbbc45",
+    "bytes": 95674,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_a021aeee-c44e-4a41-bca3-3336f6b9a3ba.jpg",
+    "sha256": "9f899d79e8eee68193c59e6fe1a3b21ab7c8bbd2a893d63a4eb461450c396d78",
+    "bytes": 118801,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_a1dd9a95-de57-40fc-8005-0f8f6fdade48.jpg",
+    "sha256": "3cb5bc0e5a091981c103de4d1b19140e5d0a3159c1302ab384b95d6059e79dec",
+    "bytes": 90436,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_a2a6cd69-97dd-4d56-b4a3-e1a99a96849a.jpg",
+    "sha256": "eab47a80815e7ebac8ed821f74e73a760c68a248b954bfe2b55c12339c2f136f",
+    "bytes": 140350,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_a626e4e9-ea64-4c8a-b129-37ef5995b5d7.jpg",
+    "sha256": "5156453b761e2f063b4da8365d4425de12bb3bd6fe556eb1272c578939bed0fb",
+    "bytes": 143462,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_a7549660-666d-488e-baf3-da6e8fc3ec1c.jpg",
+    "sha256": "a786a81e3ff182b3619497610553177f1b69f509847e29b1dabd711f89290744",
+    "bytes": 159563,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_aa9e6cba-d76a-44b8-8696-42916cc5ba19.jpg",
+    "sha256": "e89a0aa693d13218b66aef411810baf98e36794bb4bda564b0a706b598987e45",
+    "bytes": 126799,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_aceb35b9-f936-4e90-8f06-8c7ad26eaee9.jpg",
+    "sha256": "93f06774bfaba17edee93f96d33208a622d484c02dcc7434d74915e225757424",
+    "bytes": 138353,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_adbcad0a-5782-4bc7-8995-5e5f3f89d509.jpg",
+    "sha256": "b27919876c9622dd41bd3cc866319486fd316088cce29fd08d6a3e5705044ccf",
+    "bytes": 127358,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_b1b4d39f-2d55-4a10-bb27-cac9e2570637.jpg",
+    "sha256": "16e1b5afc4d90630f1c2e4fc82476b3a5db0920c8d3189f62e8cc6711c8322de",
+    "bytes": 95013,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_b42cc326-6612-498d-b3e0-fd1d3e31d42a.jpg",
+    "sha256": "f77f70be6767ac951da399489ad7470f1e99ac84de586ff4d2d82e2ea2008b2c",
+    "bytes": 155082,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_b4cd73eb-c048-4629-b9f1-2fa6937ac86d.jpg",
+    "sha256": "faa74049d07b66e8ba88b4801f6a34cd019c43b8bb50b85cdac93a8ba93dcca7",
+    "bytes": 168230,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_b5d99ca5-3b82-4698-b4c1-a580ea12972d.jpg",
+    "sha256": "cb5faa8376f174fa01a18be5d6646d099a4c6756bb8101d4c9e7f9999a95dd70",
+    "bytes": 118937,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_b6171ab9-d2d3-41fd-8cf6-470df74ef5ef.jpg",
+    "sha256": "b36f966f3fda6e309659022cec0a7a561162c9fa49ed21a218a299cd8701b21f",
+    "bytes": 94670,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_b8b83b0f-0d16-4795-b98b-9c4e58fed95d.jpg",
+    "sha256": "d5c59d5b8512571cc2984b1c5777c4bc92af2827c2cd9df116c49f867ed7ee66",
+    "bytes": 120913,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_bb8dc849-4685-47b4-9a2a-aafcddd1391e.jpg",
+    "sha256": "e47a0a4e6e35413e9f3cb9ef9393d1e8fccda5696b4ea95505faa381bdf0a1a2",
+    "bytes": 167614,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_befa3932-b7c5-4edb-8e0a-c3b0a38fa629.jpg",
+    "sha256": "bc8d0b97814f559f6a6d89b41cd34a36f99aa02ee913bc671192f46ab4e49e04",
+    "bytes": 160086,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_bf443dd8-4718-4a21-ac40-e7dc7d5c1a78.jpg",
+    "sha256": "72ffdfd14b7111055ea6bae82e32b6ce8470617008be2cb17599d89bd3877ca2",
+    "bytes": 77848,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_c1f8fab6-6f78-428c-a71d-765e1dd42c6a.jpg",
+    "sha256": "ab01d313130d7fb3b92bd83e57f6aa346296af70f8895f9f71922b07a6eb80d4",
+    "bytes": 157810,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_cd62fe50-118e-492d-a726-94de38612c82.jpg",
+    "sha256": "fdeb80dd11b6e6c774f62be92b5e5d6eb85b90e13e7b2d403bef474a482149a3",
+    "bytes": 101327,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_cf4cdc9a-43e7-4d1e-ada8-c9b88c1dda64.jpg",
+    "sha256": "db4af430e5621955ec17888460bacbc30d460ba7b1b7ccdd3d3fd041dbaa60cd",
+    "bytes": 190522,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_cfb8e8d4-6ad6-40b3-925e-82f34b3accba.jpg",
+    "sha256": "e49056d131bde67d89adcfb95d530e4b185ef7cb9fc07a38979ca65499be0674",
+    "bytes": 142608,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_d6c3fd67-20be-4500-977f-70e009fa9896.jpg",
+    "sha256": "4428be5178317752eddff2955a73ec3f96e23ae0019e9b29332031f5c12eed61",
+    "bytes": 163302,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_d798da2c-d7a5-4706-85af-62aa96cccfd0.jpg",
+    "sha256": "39cadb760a15d52b880fa5d84d7e63b5d41dc98513d7be6582e5e6abee9f9485",
+    "bytes": 165276,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_db11998f-dbd1-43f7-973b-d639077628f7.jpg",
+    "sha256": "b0d00ef4a6cf7035cf3aeb68ce1bd211f2bf451314ca34c97fc749dbcbd12bc7",
+    "bytes": 97417,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_db47ca55-a248-4186-ab7c-0e3f783628d5.jpg",
+    "sha256": "d060acceb04a40b2135380feabc4a5b3cd5bdc1a61a23de00332850647232318",
+    "bytes": 127892,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_e2ea00fe-aa6a-47d3-9977-932784f2bc81.jpg",
+    "sha256": "8e86487dee3a555eaf421fb94b94cdd9756ec89e2f2f0d6b2c9908f390c9f255",
+    "bytes": 135897,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_e334478b-fe9b-4dbc-8449-47989581af0b.jpg",
+    "sha256": "56f64ebbc85033a61e1324338f5774f4d4d081cfc57e5b224812f3fcbb404c94",
+    "bytes": 168172,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_e46de472-8625-448a-92df-2a087df9b725.jpg",
+    "sha256": "cc6f35a1c5cc005ff991169ffc97d433a149a7e12957d94af9133960efd1817d",
+    "bytes": 132166,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_e8328031-11bd-4dd2-ba76-e60565de577e.jpg",
+    "sha256": "3225f4f57cf023d01dc34369c8efb2761d1dd2c09d7723e6bca6c87e28e42f21",
+    "bytes": 81254,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_ed527853-1ea2-4382-bfe1-937cbb9e172b.jpg",
+    "sha256": "b894e29f14be6de45aa53467a62bfbf164c1c306c9b1d45059e9d57f4f61dfbe",
+    "bytes": 131749,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_ee60b57f-3fa2-4e2a-9d64-210210913fd5.jpg",
+    "sha256": "8d047d91f584245ed41ae65f5d6a69370298eee6fb502dc9ff551c45d22ea45a",
+    "bytes": 89696,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_f0339c3f-3c1d-400f-bbcc-33d755a23899.jpg",
+    "sha256": "39bdd4eb4b5e455b15e32d743836df1bf7f9da2acaa718f820fa421af3ba78a0",
+    "bytes": 79732,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_f493cc83-b216-44bb-a42f-13a45107ef15.jpg",
+    "sha256": "2413eb50f901dd4f6d8806a43365907eb20af52677c2e5ef6503a86575365438",
+    "bytes": 162565,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_f7f686ef-2710-43d5-be4f-a298e77e8d15.jpg",
+    "sha256": "4ae8be6f30d473882d812b5bb30e49c08f17f844673bb202a9ba14ecbe1cfad4",
+    "bytes": 120451,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_fbb57295-b245-4186-8918-c095381ebc74.jpg",
+    "sha256": "6dbb00973b947c8b0f84b19f1cc47c61d61408269332818639c8e40ae0bf37a4",
+    "bytes": 149840,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_fe79152a-8daa-41fd-bc76-5a0597d048d9.jpg",
+    "sha256": "ac844f2c06c3d57072cd3c20aef891dfd374de53e222793aab30b245b554956a",
+    "bytes": 136907,
+    "expected_sha256": null,
+    "sha256_lf": null
+   },
+   {
+    "name": "data/photos/panoramax_ff98b44d-a948-4f7a-9c54-e21ae0338b6b.jpg",
+    "sha256": "237788cd8a36ad402d1c3df813d1e8a408a4145cab9ab4469c71bf8f49aff779",
+    "bytes": 95824,
+    "expected_sha256": null,
+    "sha256_lf": null
+   }
+  ],
+  "snapshots": {
+   "osm_extract_date": "2026-11-01",
+   "overture_release": "2026-10-21.0"
+  },
+  "warnings": []
+ },
+ "versions": {
+  "map-qa": "0.1.0",
+  "duckdb": "1.5.6",
+  "pyarrow": "23.0.1",
+  "httpx": "0.28.1",
+  "jinja2": "3.1.6",
+  "pydantic": "2.14.2",
+  "pillow": "12.0.0"
+ },
+ "thresholds": {
+  "t1_threshold": 0.8,
+  "t1_threshold_compare": 0.8,
+  "tier2_accept": "high"
+ },
+ "model_requests": 0,
+ "model_cost_usd": 0
+}

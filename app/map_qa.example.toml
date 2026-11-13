@@ -1,0 +1,24 @@
+# Example map-qa configuration (ADR-004 §3.2). Copy to app/map_qa.toml and pass with --config
+# or MAP_QA_CONFIG. Never put secrets here: keys matching *token*, *key*, *secret* are rejected.
+source = "files"                                   # files | databricks
+data_dir = "course-materials/exercise-data/map-qa"
+output_dir = "reports/map-qa"
+work_dir = "course-materials/exercise-data/map-qa/data"
+
+model_reading = false
+max_images = 25
+max_requests = 100
+max_cost_usd = 1.00
+reserve_usd_tier1 = 0.002
+reserve_usd_tier2 = 0.004
+reserve_usd_compare = 0.002
+
+tier1_model = "openai/gpt-6-luna-decisions"
+compare_model = "typesafe/jev-1.14"
+tier2_model = "openai/gpt-6-luna"
+t1_threshold = 0.80
+t1_threshold_compare = 0.80
+tier2_accept = "high"
+timeout_s = 40
+question_set_version = "qs-v1"
+seed = 42

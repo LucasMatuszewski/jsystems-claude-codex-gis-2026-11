@@ -1,0 +1,212 @@
+{
+ "captured_at": "2026-11-12T15:58:26+00:00",
+ "target": "openrouter",
+ "endpoint": "/api/v1/chat/completions",
+ "method": "POST",
+ "model_sent": "openai/gpt-6-luna",
+ "model_returned": "openai/gpt-6-luna",
+ "client_version": "httpx 0.28.1; OpenRouter API",
+ "request_meta": {
+  "body": {
+   "model": "openai/gpt-6-luna",
+   "messages": [
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "text",
+       "text": "A photograph taken from a street-level camera.\n\nAnswer each question about the image by choosing exactly one option.\nFor each answer also rate your certainty as high, medium or low.\n\nQuestion `surface`: What is the surface of the main road visible in the photo?\n- paved: asphalt, concrete or paving stones/sett\n- unpaved: gravel, dirt, grass, sand or compacted earth\n- unknown: the road surface is not visible or cannot be determined\n\nQuestion `junction_visible`: Is a junction of roads for vehicles visible in the photo?\n- yes: two or more roads for vehicles visibly join or split\n- no: no such junction is visible (a pedestrian crossing or an overpass alone is not a junction)\n- unknown: cannot be determined\n\nQuestion `street_lighting_visible`: Is a street lamp fitting visible in the photo?\n- yes: a recognizable street lamp fitting is visible\n- no: no street lamp fitting is visible (a utility pole alone does not count)\n- unknown: cannot be determined\n\nReply only with JSON that matches the provided schema."
+      },
+      {
+       "type": "image_url",
+       "image_url": "<image>"
+      }
+     ]
+    }
+   ],
+   "reasoning": {
+    "effort": "medium"
+   },
+   "response_format": {
+    "type": "json_schema",
+    "json_schema": {
+     "name": "photo_reading",
+     "strict": true,
+     "schema": {
+      "type": "object",
+      "properties": {
+       "surface": {
+        "type": "object",
+        "properties": {
+         "answer": {
+          "type": "string",
+          "enum": [
+           "paved",
+           "unpaved",
+           "unknown"
+          ]
+         },
+         "certainty": {
+          "type": "string",
+          "enum": [
+           "high",
+           "medium",
+           "low"
+          ]
+         }
+        },
+        "required": [
+         "answer",
+         "certainty"
+        ],
+        "additionalProperties": false
+       },
+       "junction_visible": {
+        "type": "object",
+        "properties": {
+         "answer": {
+          "type": "string",
+          "enum": [
+           "yes",
+           "no",
+           "unknown"
+          ]
+         },
+         "certainty": {
+          "type": "string",
+          "enum": [
+           "high",
+           "medium",
+           "low"
+          ]
+         }
+        },
+        "required": [
+         "answer",
+         "certainty"
+        ],
+        "additionalProperties": false
+       },
+       "street_lighting_visible": {
+        "type": "object",
+        "properties": {
+         "answer": {
+          "type": "string",
+          "enum": [
+           "yes",
+           "no",
+           "unknown"
+          ]
+         },
+         "certainty": {
+          "type": "string",
+          "enum": [
+           "high",
+           "medium",
+           "low"
+          ]
+         }
+        },
+        "required": [
+         "answer",
+         "certainty"
+        ],
+        "additionalProperties": false
+       }
+      },
+      "required": [
+       "surface",
+       "junction_visible",
+       "street_lighting_visible"
+      ],
+      "additionalProperties": false
+     }
+    }
+   }
+  },
+  "image": {
+   "image_sha256": "6680cc4291d814a3459a1f9c5afe31bc1b20b32dbf290f8ad960632e0cc635e2",
+   "bytes": 162498
+  }
+ },
+ "status": 200,
+ "response_headers": {
+  "date": "Thu, 12 Nov 2026 15:58:24 GMT",
+  "content-type": "application/json",
+  "transfer-encoding": "chunked",
+  "connection": "keep-alive",
+  "access-control-allow-origin": "*",
+  "x-generation-id": "gen-1794499103-Ko5ZbmQ6IgrBYd9jUA04",
+  "access-control-expose-headers": "WWW-Authenticate,PAYMENT-REQUIRED,Payment-Receipt,PAYMENT-RESPONSE,Location,X-Generation-Id,x-openrouter-error-origin,x-openrouter-error-tool,X-Provider-Name,request-id,cf-ray",
+  "x-openrouter-release": "api;2d4a9cff-4336-4488-a03b-036fe10a67d0",
+  "permissions-policy": "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")",
+  "referrer-policy": "no-referrer, strict-origin-when-cross-origin",
+  "x-content-type-options": "nosniff",
+  "content-encoding": "gzip",
+  "server": "cloudflare",
+  "cf-ray": "a596bce3ab4cc3db-WAW",
+  "alt-svc": "h3=\":443\"; ma=86400"
+ },
+ "response_body": {
+  "id": "gen-1794499103-Ko5ZbmQ6IgrBYd9jUA04",
+  "object": "chat.completion",
+  "created": 1794499103,
+  "model": "openai/gpt-6-luna",
+  "provider": "Azure",
+  "system_fingerprint": null,
+  "service_tier": "default",
+  "choices": [
+   {
+    "index": 0,
+    "logprobs": null,
+    "finish_reason": "stop",
+    "native_finish_reason": "completed",
+    "message": {
+     "role": "assistant",
+     "content": "{\"surface\":{\"answer\":\"paved\",\"certainty\":\"high\"},\"junction_visible\":{\"answer\":\"no\",\"certainty\":\"high\"},\"street_lighting_visible\":{\"answer\":\"no\",\"certainty\":\"medium\"}}",
+     "refusal": null,
+     "reasoning": "**Creating answer JSON**\n\nI need to construct a JSON for the user. It looks like the road is paved, but I’m not spotting any clear junctions—just a straight road, and maybe a side driveway? I’m wondering about the street lamp fittings too. On the left side, there are wooden utility poles, but there's no lamp head visible. On the right, it appears there might be a pole, but I'm still not sure. I’ll work on the JSON schema now!",
+     "reasoning_details": [
+      {
+       "type": "reasoning.summary",
+       "summary": "**Creating answer JSON**\n\nI need to construct a JSON for the user. It looks like the road is paved, but I’m not spotting any clear junctions—just a straight road, and maybe a side driveway? I’m wondering about the street lamp fittings too. On the left side, there are wooden utility poles, but there's no lamp head visible. On the right, it appears there might be a pole, but I'm still not sure. I’ll work on the JSON schema now!",
+       "format": "azure-openai-responses-v1",
+       "index": 0
+      },
+      {
+       "type": "reasoning.encrypted",
+       "data": "<redacted-encrypted-reasoning>",
+       "format": "azure-openai-responses-v1",
+       "id": "rs_043b4cc6e0d1f28a016af5e220f4c481948c76aea0b1ba9e5d",
+       "index": 1
+      }
+     ]
+    }
+   }
+  ],
+  "usage": {
+   "prompt_tokens": 1286,
+   "completion_tokens": 99,
+   "total_tokens": 1385,
+   "cost": 0,
+   "is_byok": true,
+   "prompt_tokens_details": {
+    "cached_tokens": 1283,
+    "cache_write_tokens": 0,
+    "audio_tokens": 0,
+    "video_tokens": 0
+   },
+   "cost_details": {
+    "upstream_inference_cost": 6.263e-05,
+    "upstream_inference_prompt_cost": 1.313e-05,
+    "upstream_inference_completions_cost": 4.95e-05
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 50,
+    "image_tokens": 0,
+    "audio_tokens": 0
+   }
+  }
+ },
+ "elapsed_ms": 3781.0
+}

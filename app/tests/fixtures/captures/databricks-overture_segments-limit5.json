@@ -1,0 +1,170 @@
+{
+ "captured_at": "2026-11-12T15:42:51+00:00",
+ "target": "databricks",
+ "endpoint": "/api/2.0/sql/statements",
+ "method": "POST",
+ "model_sent": null,
+ "model_returned": null,
+ "client_version": "httpx 0.28.1; Databricks SQL Statement Execution API 2.0",
+ "request_meta": {
+  "host": "*.cloud.databricks.com",
+  "statement": "SELECT * FROM workspace.map_qa.overture_segments LIMIT 5",
+  "body": {
+   "warehouse_id": "<warehouse_id>",
+   "statement": "SELECT * FROM workspace.map_qa.overture_segments LIMIT 5",
+   "format": "ARROW_STREAM",
+   "disposition": "EXTERNAL_LINKS",
+   "wait_timeout": "30s",
+   "on_wait_timeout": "CONTINUE"
+  },
+  "polls": 0
+ },
+ "status": 200,
+ "response_headers": {
+  "date": "Thu, 12 Nov 2026 15:42:50 GMT",
+  "access-control-allow-headers": "Authorization, X-Databricks-Azure-Workspace-Resource-Id, X-Databricks-Org-Id, Content-Type, X-Databricks-Attribution-Tags",
+  "access-control-allow-origin": "*",
+  "cache-control": "no-cache, no-store, must-revalidate",
+  "expires": "0",
+  "pragma": "no-cache",
+  "content-type": "application/json",
+  "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+  "x-content-type-options": "nosniff",
+  "x-request-id": "2a65b281-110b-413e-b5c2-94bcd08556b1",
+  "content-encoding": "gzip",
+  "vary": "Accept-Encoding",
+  "server": "databricks",
+  "alt-svc": "clear",
+  "server-timing": "request_id;dur=0;desc=\"2a65b281-110b-413e-b5c2-94bcd08556b1\", client_protocol;dur=0;desc=\"HTTP/1.1\", request_ttfb_msec;dur=1678",
+  "transfer-encoding": "chunked"
+ },
+ "response_body": {
+  "statement_id": "01f1deaf-b6da-1e88-b8d5-dba6a329324a",
+  "status": {
+   "state": "SUCCEEDED"
+  },
+  "manifest": {
+   "format": "ARROW_STREAM",
+   "schema": {
+    "column_count": 15,
+    "columns": [
+     {
+      "name": "id",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 0
+     },
+     {
+      "name": "geometry",
+      "type_text": "BINARY",
+      "type_name": "BINARY",
+      "position": 1
+     },
+     {
+      "name": "class",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 2
+     },
+     {
+      "name": "subclass",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 3
+     },
+     {
+      "name": "name",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 4
+     },
+     {
+      "name": "sources",
+      "type_text": "ARRAY<STRUCT<property: STRING, dataset: STRING, license: STRING, record_id: STRING, update_time: STRING, confidence: DOUBLE, between: ARRAY<DOUBLE>, provider: STRING, resource: STRING, version: STRING>>",
+      "type_name": "ARRAY",
+      "position": 5
+     },
+     {
+      "name": "connectors",
+      "type_text": "ARRAY<STRUCT<connector_id: STRING, at: DOUBLE>>",
+      "type_name": "ARRAY",
+      "position": 6
+     },
+     {
+      "name": "speed_limits",
+      "type_text": "ARRAY<STRUCT<min_speed: STRUCT<value: INT, unit: STRING>, max_speed: STRUCT<value: INT, unit: STRING>, is_max_speed_variable: BOOLEAN, when: STRUCT<during: STRING, heading: STRING, using: ARRAY<STRING>, recognized: ARRAY<STRING>, mode: ARRAY<STRING>, vehicle: ARRAY<STRUCT<dimension: STRING, comparison: STRING, value: DOUBLE, unit: STRING>>>, between: ARRAY<DOUBLE>>>",
+      "type_name": "ARRAY",
+      "position": 7
+     },
+     {
+      "name": "road_surface",
+      "type_text": "ARRAY<STRUCT<value: STRING, between: ARRAY<DOUBLE>>>",
+      "type_name": "ARRAY",
+      "position": 8
+     },
+     {
+      "name": "road_flags",
+      "type_text": "ARRAY<STRUCT<values: ARRAY<STRING>, between: ARRAY<DOUBLE>>>",
+      "type_name": "ARRAY",
+      "position": 9
+     },
+     {
+      "name": "access_restrictions",
+      "type_text": "ARRAY<STRUCT<access_type: STRING, when: STRUCT<during: STRING, heading: STRING, using: ARRAY<STRING>, recognized: ARRAY<STRING>, mode: ARRAY<STRING>, vehicle: ARRAY<STRUCT<dimension: STRING, comparison: STRING, value: DOUBLE, unit: STRING>>>, between: ARRAY<DOUBLE>>>",
+      "type_name": "ARRAY",
+      "position": 10
+     },
+     {
+      "name": "level_rules",
+      "type_text": "ARRAY<STRUCT<value: INT, between: ARRAY<DOUBLE>>>",
+      "type_name": "ARRAY",
+      "position": 11
+     },
+     {
+      "name": "bbox",
+      "type_text": "STRUCT<xmin: DOUBLE, xmax: DOUBLE, ymin: DOUBLE, ymax: DOUBLE>",
+      "type_name": "STRUCT",
+      "position": 12
+     },
+     {
+      "name": "version",
+      "type_text": "INT",
+      "type_name": "INT",
+      "position": 13
+     },
+     {
+      "name": "_rescued_data",
+      "type_text": "STRING",
+      "type_name": "STRING",
+      "position": 14
+     }
+    ]
+   },
+   "total_chunk_count": 1,
+   "chunks": [
+    {
+     "chunk_index": 0,
+     "row_offset": 0,
+     "row_count": 5,
+     "byte_count": 13800
+    }
+   ],
+   "total_row_count": 5,
+   "total_byte_count": 13800,
+   "truncated": false
+  },
+  "result": {
+   "external_links": [
+    {
+     "chunk_index": 0,
+     "row_offset": 0,
+     "row_count": 5,
+     "byte_count": 13800,
+     "external_link": "https://us-east-2.storage.cloud.databricks.com/api/2.0/fs/files/WorkspaceInternal/Jobs/sql/extended/results_2026-11-13T16:42:50Z_964f04ad-10ba-47e4-a03b-a76663c3f930?<redacted-presigned-query>",
+     "expiration": "2026-11-12T15:57:50.945Z"
+    }
+   ]
+  }
+ },
+ "elapsed_ms": 2203.0
+}

@@ -1,0 +1,76 @@
+{
+ "captured_at": "2026-11-12T15:58:32+00:00",
+ "target": "openrouter",
+ "endpoint": "/api/alpha/decisions",
+ "method": "POST",
+ "model_sent": "openai/model-that-does-not-exist",
+ "model_returned": null,
+ "client_version": "httpx 0.28.1; OpenRouter API",
+ "request_meta": {
+  "body": {
+   "model": "openai/model-that-does-not-exist",
+   "state": [
+    "A cropped image from a street-level photograph.",
+    {
+     "type": "image_url",
+     "image_url": "<image>"
+    }
+   ],
+   "questions": {
+    "speed_limit_value": {
+     "type": "choice",
+     "instructions": "What maximum speed value is shown on a round speed limit sign with a red border (Polish B-33) in the image?",
+     "criteria": {
+      "5": "the value on a B-33 sign",
+      "10": "the value on a B-33 sign",
+      "15": "the value on a B-33 sign",
+      "20": "the value on a B-33 sign",
+      "25": "the value on a B-33 sign",
+      "30": "the value on a B-33 sign",
+      "40": "the value on a B-33 sign",
+      "50": "the value on a B-33 sign",
+      "60": "the value on a B-33 sign",
+      "70": "the value on a B-33 sign",
+      "80": "the value on a B-33 sign",
+      "90": "the value on a B-33 sign",
+      "100": "the value on a B-33 sign",
+      "110": "the value on a B-33 sign",
+      "120": "the value on a B-33 sign",
+      "130": "the value on a B-33 sign",
+      "140": "the value on a B-33 sign",
+      "none": "no B-33 sign is visible (zone signs, end-of-limit signs and other signs count as none)",
+      "unreadable": "a B-33 sign is visible but its value cannot be read"
+     }
+    }
+   }
+  },
+  "image": {
+   "image_sha256": "665d05b93663c8e951f624471bf75cdf8f7f1c9d02833d48576c6e3844fe67e5",
+   "bytes": 44025
+  }
+ },
+ "status": 400,
+ "response_headers": {
+  "date": "Thu, 12 Nov 2026 15:58:32 GMT",
+  "content-type": "application/json",
+  "transfer-encoding": "chunked",
+  "connection": "keep-alive",
+  "access-control-allow-origin": "*",
+  "access-control-expose-headers": "WWW-Authenticate,PAYMENT-REQUIRED,Payment-Receipt,PAYMENT-RESPONSE,Location,X-Generation-Id,x-openrouter-error-origin,x-openrouter-error-tool,X-Provider-Name,request-id,cf-ray",
+  "x-generation-id": "gen-dec-1794499112-W9qDFE5ns9V877H8WL1M",
+  "x-openrouter-error-origin": "client",
+  "permissions-policy": "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")",
+  "referrer-policy": "no-referrer, strict-origin-when-cross-origin",
+  "x-content-type-options": "nosniff",
+  "server": "cloudflare",
+  "cf-ray": "a596bd1f4a433013-WAW",
+  "alt-svc": "h3=\":443\"; ma=86400"
+ },
+ "response_body": {
+  "error": {
+   "message": "Model openai/model-that-does-not-exist does not exist",
+   "code": 400
+  }
+ },
+ "elapsed_ms": 94.0
+}
