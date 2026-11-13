@@ -4,6 +4,8 @@ To syntetyczny, lokalny zbiór 36 zgłoszeń MAPJOB-101 do MAPJOB-136. Zespoły 
 
 Pracujesz na dwóch plikach: `tickets.json` zawiera surowe zgłoszenia, a `job-params.schema.json` określa format wyniku ekstrakcji. Traktuj oba jako wejścia tylko do odczytu. [Ćwiczenie MCP](../../exercises/jira-mcp/README.md) prowadzi od połączenia serwera do raportu problemów. Pipeline uruchamiasz dopiero po ręcznym zatwierdzeniu parametrów, poza tym ćwiczeniem.
 
+Zgłoszenia na kursowej stronie Jira pochodzą z tego samego `tickets.json`, zaimportowanego przez `course-materials/exercises/jira-mcp/seed_jira.py`. Każde zachowuje opis, etykiety, komentarze i relacje oraz znacznik `course-seed`; dodatkowa etykieta `course-source-*` odróżnia zgłoszenia o jednakowym tytule. Jira nadaje nowe klucze, ID komentarzy, daty i autora importu, a status początkowy wynika z workflow projektu; oryginalny klucz, datę i status znajdziesz w stopce opisu, autora i datę komentarza w jego stopce, a mapowanie kluczy w generowanym przy imporcie `seed-map.json`. Stare klucze w treści zleceń są celowo zachowane jako dowody źródłowe; przy analizie rzeczywistej Jira podawaj także jej bieżące klucze. Lokalna ścieżka MCP nadal działa bez konta i tokenu.
+
 ## Mapa pól wejściowych
 
 `tickets.json` ma kształt odpowiedzi wyszukiwania Jira Cloud REST API v3: `startAt`, `maxResults`, `total`, `issues`. To kompletna lokalna strona danych, a nie połączenie z API. Nie odtwarza wszystkich pól i mechanizmów uprawnień Jira.
