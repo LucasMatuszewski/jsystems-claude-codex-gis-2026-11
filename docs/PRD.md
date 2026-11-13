@@ -129,7 +129,7 @@ There is no repeatable way to list where the sources disagree or are incomplete,
 ## 7. Out of Scope
 
 - **Map editing:** the tool never edits OSM or Overture and never submits changesets or notes.
-- **Interactive UI / dashboard:** no web or desktop UI and no in-tool decision buttons. Possible next step after the MVP.
+- **Interactive UI / dashboard:** no web or desktop UI and no in-tool decision buttons. Possible next step after the MVP. Exception: the offline manual review page for model decisions (§14).
 - **Network topology checks:** no junction or connectivity validation through `node_ids` or Overture `connectors`. `junction_visible` is read from photos and evaluated against labels only, with no map comparison.
 - **Lane and sidewalk reading from photos:** `lanes` and `sidewalk*` appear only in the completeness table. There are no reference labels for them, so no model questions are asked.
 - **Road class family comparison:** a photo cannot determine functional road class.
@@ -179,7 +179,7 @@ There is no repeatable way to list where the sources disagree or are incomplete,
 
 ## 9. UI Description (wireframe level)
 
-There is no interactive UI. The deliverables are CLI output and two report files.
+There is no interactive UI. The deliverables are CLI output and two report files. The only exception is the offline manual review page (§14).
 
 ### 9.1 CLI
 
@@ -297,3 +297,30 @@ Agreed with the human on 2026-11-13 after reading the first full report. These r
 - **AC-29 (label provenance):** every place that shows reference labels or accuracy says that the labels were produced by AI agents (street photos: Codex; sign crops: Codex and GLM-5.3-Flash agreeing) and were not verified by a human. Accuracy is presented as agreement with these working labels, not as correctness.
 - **AC-30 (costs):** besides the cost of new requests in this run, the reports show the total cost of all model answers used in the report, including the original cost of answers served from the cache, per model.
 - **AC-31 (executive summary):** every `map-qa run` and `map-qa report --from` also writes `summary.html`, a one-page Polish summary readable in a few minutes. It contains key numbers, the main data insights, the model comparison and the caveats, with static charts (inline SVG, no JavaScript, no external assets, a table view for every chart). The text is generated deterministically from `results.json` by a template; no LLM call is needed.
+
+---
+
+## 14. Amendment 2026-11-13: manual review of model decisions
+
+Agreed with the human on 2026-11-13. The reference labels were produced by AI agents (AC-29), so the automated evaluation compares one model with another. A human judgment is the only independent check of the photo readings. This amendment adds a small offline review page. It narrows the "Interactive UI" item in §7 for this page only: no server, no dashboard, no map decisions.
+
+**User story 9.** As a map QA analyst, I want to judge the model decisions on the sampled photos one by one, without seeing the model answers first, and download my judgments as a file, so that the agent can measure decision quality against a human instead of against AI-made labels.
+
+**Flow 4.5 (manual review).**
+
+1. After a run with model reading, the user runs `map-qa review export`. It uses only the cache, makes no model request and needs no API key.
+2. The command writes `review.html` and the exact prepared images the models received into `<output_dir>/review/`.
+3. The user opens `review.html` from disk. For each image–question item, the user first chooses the correct answer and rates the image quality, then reveals the model answers and the reference label, confirms or overrides agree/disagree for each one, sets flags and adds a comment.
+4. Progress is kept in the browser. The user downloads `feedback-<export_id>.json` and gives it to the agent. The page shows a live summary of human–model agreement.
+
+**Acceptance criteria.**
+
+- **AC-32 (export):** `map-qa review export` writes `review/review.html` and `review/images/` for the sample of the configured run. It reads model answers from the cache only. It sends 0 model requests and writes nothing to the ledger. Items without a cached answer are counted and listed as not reviewable. Exit 0.
+- **AC-33 (content):** one item per image–question pair, at most `--max-items` (default 100) in priority order: model disagreement (tier 1 vs tier 2, or the main vs the comparison model), escalated or abstained, disagreement with a `certain` reference label, tier-1 probability within 0.10 of the threshold, then a seeded random control sample of the remaining confident answers. Each item shows the prepared image the models received, its original and prepared size and the upscale factor, the attribution (author, source, license), the question text with every option and its definition, the request text sent to each model (with the image replaced by its file name), and each model's answer: tier 1 choice with all probabilities, comparison model choice with probabilities, tier 2 answer with certainty, the final system decision and the reference label with its status. Sign crops also show the full source photo with the crop box, marked as context the model did not see.
+- **AC-34 (blind first):** in the default mode, model answers, reference labels and priority reasons stay hidden until the user has chosen an answer and an image quality rating. A visible switch shows everything at once; the feedback file records which mode was used for each item.
+- **AC-35 (judgment form):** per item the user records the correct answer (same option set as the model, plus "cannot decide"), the image quality (`sufficient`, `poor_but_decidable`, `too_poor_to_decide`), flags (`ambiguous_question`, `reference_label_wrong`, `other`) and a comment. Agree/disagree for every model row and the reference label is computed from the user's answer and can be overridden per row, with a comment per row.
+- **AC-36 (feedback file):** the page downloads a JSON file with a schema version, the export ID, the question set version, the thresholds, the reviewer name (optional), every judged item (IDs, image SHA-256, model answers as shown, the human judgment, verdicts, timestamps) and the summary. Progress survives a page reload, and a downloaded file can be loaded back to continue.
+- **AC-37 (summary):** the page shows, for each model role and question, agreement with the human as `agree / judged` with explicit denominators, the same for the reference labels, the image quality distribution and the number of flagged items.
+- **AC-38 (constraints):** the page is one static HTML file with inline CSS and JavaScript, no external assets and no network requests, Polish UI text, light and dark mode, keyboard navigation. Images are files referenced by relative path, never base64 (ADR-003 TAC-003-01). Reference labels reach the page only through `Evaluator` (ADR-003 TAC-003-03).
+
+**Out of scope for this amendment:** importing the feedback into the reports (`map-qa review import`), review of map comparisons and `ambiguous_link` pairs, multi-user review, re-cropping sign images. The feedback file is read by the agent; a Python import is a possible next step (ADR-005).

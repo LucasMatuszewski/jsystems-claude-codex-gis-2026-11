@@ -8,7 +8,7 @@ import sys
 from typing import Callable, TextIO
 
 from map_qa.core.config import load_config
-from map_qa.core.errors import MapQaError
+from map_qa.core.errors import ConfigError, MapQaError
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -16,7 +16,7 @@ def build_parser() -> argparse.ArgumentParser:
         prog="map-qa",
         description="Porównanie atrybutów dróg OSM i Overture ze zdjęciami ulic (Kraków).",
     )
-    sub = parser.add_subparsers(dest="command", metavar="{run,report,capture}")
+    sub = parser.add_subparsers(dest="command", metavar="{run,report,capture,review}")
 
     run = sub.add_parser("run", help="Pełny pipeline i raport")
     run.add_argument("--config", help="Plik TOML (lub MAP_QA_CONFIG)")
@@ -43,6 +43,13 @@ def build_parser() -> argparse.ArgumentParser:
     cap.add_argument("--image", help="photo_id obrazu do capture (domyślnie pierwszy z próbki)")
     cap.add_argument("--name", help="Nazwa pliku capture (bez .json)")
     cap.add_argument("--captures-dir", help="Katalog capture (domyślnie app/tests/fixtures/captures)")
+
+    rev = sub.add_parser("review", help="Ręczna ocena decyzji modeli (strona HTML, tylko cache)")
+    rev_sub = rev.add_subparsers(dest="review_command", metavar="{export}", required=True)
+    rexp = rev_sub.add_parser("export", help="Zapisz review/review.html z odpowiedzi w cache (0 żądań)")
+    rexp.add_argument("--config", help="Plik TOML (lub MAP_QA_CONFIG)")
+    rexp.add_argument("--output-dir", help="Katalog wyników (domyślnie reports/map-qa); strona trafia do review/")
+    rexp.add_argument("--max-items", type=int, default=100, help="Maksymalna liczba pozycji (domyślnie 100)")
     return parser
 
 
@@ -77,6 +84,12 @@ def main(argv: list[str] | None = None, *, env: dict[str, str] | None = None, st
             cfg = load_config({"config": args.config}, env)
             return run_capture(cfg, env, kind=args.kind, yes=bool(args.yes), image=args.image, name=args.name,
                                captures_dir=args.captures_dir, out=out, ask=ask or input)
+        if args.command == "review":
+            from map_qa.review.export import export_review
+            if args.max_items < 1:
+                raise ConfigError("--max-items musi być dodatnie.")
+            cfg = load_config({"config": args.config, "output_dir": args.output_dir}, env)
+            return export_review(cfg, max_items=args.max_items, out=out)
     except MapQaError as exc:
         err.write(f"Błąd: {exc}\n")
         return exc.exit_code

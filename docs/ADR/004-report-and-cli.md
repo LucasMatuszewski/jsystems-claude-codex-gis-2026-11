@@ -89,6 +89,7 @@ W `output_dir`, nadpisywane przy kolejnym uruchomieniu:
 |---|---|
 | `report.md` | Raport (PRD §9.2) |
 | `report.html` | Ten sam model danych, statyczny, bez JS i zasobów zewnętrznych |
+| `review/review.html` | Strona ręcznej oceny decyzji modeli (`map-qa review export`). **Jedyny wyjątek od zasady „bez JS”**: inline JS, bez zasobów zewnętrznych i sieci ([ADR-005](005-manual-review-tool.md), dopisane 2026-11-13) |
 | `results.json` | Pary, porównania, reguły z `raw`, odczyty, ewaluacja, liczniki |
 | `run_manifest.json` | `run_id`, data, config (bez sekretów), `InputManifest`, wersje pakietów, progi, licznik żądań i koszt |
 | `sample_manifest.json` | Tylko przy odczycie modelem |

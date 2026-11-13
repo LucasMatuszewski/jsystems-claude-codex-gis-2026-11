@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Przegląd decyzji modeli</title>
+<style>
+{% raw %}
+:root {
+  color-scheme: light;
+  --bg: #f4f3f0; --surface: #fcfcfb; --surface-2: #f0efec; --surface-3: #e6e4df; --border: #d9d7d0;
+  --text: #0b0b0b; --text-2: #52514e; --accent: #2a78d6; --accent-soft: #e3eefb;
+  --good: #11865c; --good-soft: #def3ea; --bad: #c4471b; --bad-soft: #fbe6dd; --warn-soft: #fff8c5; --warn: #9a6d00;
+  --shadow: 0 1px 2px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.06); --radius: 12px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) {
+    color-scheme: dark;
+    --bg: #121211; --surface: #1a1a19; --surface-2: #232321; --surface-3: #2e2e2b; --border: #3d3c38;
+    --text: #f0efec; --text-2: #b9b8ae; --accent: #4b94ec; --accent-soft: #1d2f45;
+    --good: #2fc48b; --good-soft: #15352a; --bad: #f07a4c; --bad-soft: #3d2117; --warn-soft: #3a3214; --warn: #e0b84a;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 4px 16px rgba(0,0,0,.3);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #121211; --surface: #1a1a19; --surface-2: #232321; --surface-3: #2e2e2b; --border: #3d3c38;
+  --text: #f0efec; --text-2: #b9b8ae; --accent: #4b94ec; --accent-soft: #1d2f45;
+  --good: #2fc48b; --good-soft: #15352a; --bad: #f07a4c; --bad-soft: #3d2117; --warn-soft: #3a3214; --warn: #e0b84a;
+  --shadow: 0 1px 2px rgba(0,0,0,.4), 0 4px 16px rgba(0,0,0,.3);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { font-family: system-ui, "Segoe UI", Roboto, Arial, sans-serif; background: var(--bg); color: var(--text);
+       line-height: 1.45; font-size: 15px; }
+button, input, textarea, select { font: inherit; color: inherit; }
+a { color: var(--accent); }
+.muted { color: var(--text-2); }
+.small { font-size: .82rem; }
+header.top { position: sticky; top: 0; z-index: 5; background: color-mix(in srgb, var(--surface) 92%, transparent);
+             backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); padding: 10px 16px; }
+.top-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
+.top h1 { font-size: 1.15rem; margin: 0; letter-spacing: -.01em; }
+.top .meta { font-size: .8rem; color: var(--text-2); }
+.progress { flex: 1 1 200px; min-width: 160px; }
+.bar { height: 8px; background: var(--surface-3); border-radius: 99px; overflow: hidden; }
+.bar > i { display: block; height: 100%; background: var(--accent); border-radius: 99px; transition: width .25s; }
+.tools { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.btn { border: 1px solid var(--border); background: var(--surface); border-radius: 8px; padding: 6px 11px;
+       cursor: pointer; transition: background .15s, border-color .15s; }
+.btn:hover { background: var(--surface-2); }
+.btn:focus-visible, .opt:focus-visible, .seg button:focus-visible, .li:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn.primary:disabled { opacity: .45; cursor: not-allowed; }
+.btn.ghost { border-color: transparent; background: transparent; }
+.switch { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; user-select: none; font-size: .88rem; }
+.switch input { width: 34px; height: 20px; appearance: none; background: var(--surface-3); border-radius: 99px;
+                position: relative; cursor: pointer; transition: background .2s; margin: 0; }
+.switch input::after { content: ""; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%;
+                       background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,.3); transition: left .2s; }
+.switch input:checked { background: var(--accent); }
+.switch input:checked::after { left: 16px; }
+input.text, textarea, select { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 6px 9px; }
+textarea { width: 100%; min-height: 64px; resize: vertical; }
+.layout { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 16px; padding: 16px; max-width: 1500px; margin: 0 auto; }
+nav.list { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 8px;
+           position: sticky; top: 86px; max-height: calc(100vh - 102px); overflow: auto; }
+.list-head { display: flex; gap: 6px; align-items: center; padding: 4px 4px 8px; }
+.list-head select { flex: 1; }
+.li { display: grid; grid-template-columns: 30px 1fr auto; gap: 6px; align-items: center; width: 100%; text-align: left;
+      border: 0; background: transparent; border-radius: 8px; padding: 6px; cursor: pointer; }
+.li:hover { background: var(--surface-2); }
+.li.cur { background: var(--accent-soft); }
+.li .n { font-variant-numeric: tabular-nums; color: var(--text-2); font-size: .8rem; }
+.li .q { font-size: .86rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.li .q small { display: block; color: var(--text-2); font-size: .74rem; }
+.dot { width: 10px; height: 10px; border-radius: 50%; background: var(--surface-3); border: 1px solid var(--border); }
+.dot.done { background: var(--accent); border-color: var(--accent); }
+.dot.dis { background: var(--bad); border-color: var(--bad); }
+.dot.flag { box-shadow: 0 0 0 2px var(--warn); }
+main.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow);
+            padding: 18px; min-width: 0; }
+.card-head { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: baseline; margin-bottom: 12px; }
+.card-head h2 { margin: 0; font-size: 1.2rem; }
+.chip { display: inline-flex; align-items: center; gap: 4px; padding: 2px 9px; border-radius: 99px; font-size: .78rem;
+        background: var(--surface-2); border: 1px solid var(--border); white-space: nowrap; }
+.chip.accent { background: var(--accent-soft); border-color: transparent; color: var(--accent); }
+.chip.good { background: var(--good-soft); color: var(--good); border-color: transparent; }
+.chip.bad { background: var(--bad-soft); color: var(--bad); border-color: transparent; }
+.chip.warn { background: var(--warn-soft); color: var(--warn); border-color: transparent; }
+.cols { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 20px; }
+figure { margin: 0 0 14px; }
+.imgbox { position: relative; background: repeating-conic-gradient(var(--surface-2) 0 25%, var(--surface-3) 0 50%) 0 0 / 16px 16px;
+          border-radius: 10px; overflow: hidden; display: flex; justify-content: center; align-items: center; min-height: 160px; }
+.imgbox img { display: block; max-width: 100%; max-height: 62vh; cursor: zoom-in; }
+.imgbox img.pix { image-rendering: pixelated; }
+.ctx { position: relative; display: inline-block; max-width: 100%; overflow: hidden; border-radius: 8px; }
+.ctx img { display: block; max-width: 100%; max-height: 40vh; border-radius: 8px; }
+.ctx .box { position: absolute; border: 2px solid #ff3b30; box-shadow: 0 0 0 9999px rgba(0,0,0,.35); border-radius: 3px; }
+figcaption { font-size: .8rem; color: var(--text-2); margin-top: 6px; }
+.facts { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+.panel { border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; margin-bottom: 14px; background: var(--surface); }
+.panel h3 { margin: 0 0 8px; font-size: .95rem; display: flex; align-items: center; gap: 8px; }
+.step { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--accent);
+        color: #fff; font-size: .78rem; font-weight: 600; }
+.qtext { font-weight: 600; margin: 0 0 4px; }
+.opts { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 6px; }
+.opts.compact { grid-template-columns: repeat(auto-fill, minmax(64px, 1fr)); }
+.opt { text-align: left; border: 1px solid var(--border); background: var(--surface); border-radius: 9px; padding: 7px 9px;
+       cursor: pointer; transition: border-color .15s, background .15s; }
+.opt:hover { border-color: var(--accent); }
+.opt b { display: block; }
+.opt span { display: block; font-size: .76rem; color: var(--text-2); }
+.opt kbd { float: right; font-size: .68rem; color: var(--text-2); }
+.opt[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.opts.compact .opt { text-align: center; }
+.seg { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--border); border-radius: 9px; overflow: hidden; }
+.seg button { border: 0; border-right: 1px solid var(--border); background: var(--surface); padding: 6px 10px; cursor: pointer; font-size: .85rem; }
+.seg button:last-child { border-right: 0; }
+.seg.quality { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); width: 100%; }
+.seg.quality button { text-align: center; line-height: 1.25; }
+@media (max-width: 560px) { .seg.quality { grid-template-columns: 1fr; } .seg.quality button { border-right: 0; border-bottom: 1px solid var(--border); } }
+.seg button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+.seg.verdict button[data-v="agree"][aria-pressed="true"] { background: var(--good); }
+.seg.verdict button[data-v="disagree"][aria-pressed="true"] { background: var(--bad); }
+.locked { border: 1px dashed var(--border); border-radius: 10px; padding: 18px; text-align: center; color: var(--text-2);
+          background: var(--surface-2); }
+.rows { display: grid; gap: 8px; }
+.row { border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; display: grid;
+       grid-template-columns: minmax(0, 1fr) auto; gap: 6px 12px; background: var(--surface); }
+.row.agree { border-left: 4px solid var(--good); }
+.row.disagree { border-left: 4px solid var(--bad); }
+.row .role { font-weight: 600; font-size: .9rem; }
+.row .model { font-size: .75rem; color: var(--text-2); }
+.row .ans { font-size: 1.05rem; font-weight: 650; }
+.row .full { grid-column: 1 / -1; }
+.probs { display: grid; grid-template-columns: auto 1fr auto; gap: 2px 8px; align-items: center; font-size: .78rem; margin-top: 4px; max-width: 360px; }
+.probs .pb { height: 6px; background: var(--surface-3); border-radius: 99px; overflow: hidden; }
+.probs .pb i { display: block; height: 100%; background: var(--accent); }
+.row input.text { width: 100%; font-size: .82rem; padding: 4px 8px; }
+.flags { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 6px 0 8px; }
+.flags label { display: inline-flex; gap: 6px; align-items: center; cursor: pointer; font-size: .88rem; }
+details.req { margin-top: 6px; }
+details.req summary { cursor: pointer; font-weight: 600; font-size: .9rem; }
+pre { background: var(--surface-2); border-radius: 8px; padding: 10px; overflow: auto; font-size: .75rem; max-height: 320px;
+      white-space: pre-wrap; word-break: break-word; }
+.navrow { display: flex; justify-content: space-between; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+.toast { position: fixed; bottom: 16px; right: 16px; background: var(--text); color: var(--surface); padding: 8px 14px;
+         border-radius: 8px; font-size: .85rem; opacity: 0; transition: opacity .25s; pointer-events: none; z-index: 20; }
+.toast.on { opacity: .92; }
+dialog { border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); color: var(--text);
+         padding: 0; width: min(1000px, calc(100vw - 32px)); max-height: calc(100vh - 32px); box-shadow: var(--shadow); }
+dialog::backdrop { background: rgba(0,0,0,.45); }
+.dlg-head { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-bottom: 1px solid var(--border);
+            position: sticky; top: 0; background: var(--surface); }
+.dlg-head h2 { margin: 0; font-size: 1.1rem; }
+.dlg-body { padding: 14px 16px; }
+table { border-collapse: collapse; width: 100%; font-size: .85rem; margin: 6px 0 14px; }
+th, td { border-bottom: 1px solid var(--border); padding: 6px 8px; text-align: left; vertical-align: top; }
+th { color: var(--text-2); font-weight: 600; font-size: .78rem; }
+td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 12px; }
+.kpi { background: var(--surface-2); border-radius: 10px; padding: 10px 12px; }
+.kpi .v { font-size: 1.5rem; font-weight: 650; font-variant-numeric: tabular-nums; }
+.kpi .l { color: var(--text-2); font-size: .8rem; }
+.lightbox { position: fixed; inset: 0; background: rgba(0,0,0,.85); z-index: 30; display: none; flex-direction: column; }
+.lightbox.on { display: flex; }
+.lightbox .lb-tools { display: flex; gap: 6px; padding: 10px; justify-content: center; flex-wrap: wrap; }
+.lightbox .lb-tools .btn { background: #222; color: #eee; border-color: #444; }
+.lightbox .lb-tools .btn[aria-pressed="true"] { background: #4b94ec; border-color: #4b94ec; }
+.lightbox .lb-img { flex: 1; overflow: auto; display: flex; align-items: flex-start; justify-content: center; padding: 10px; }
+.lightbox .lb-img img { max-width: none; }
+.note { background: var(--warn-soft); border-radius: 8px; padding: 8px 12px; font-size: .84rem; margin: 0 0 12px; }
+.keys { font-size: .78rem; color: var(--text-2); }
+kbd { font-family: ui-monospace, Consolas, monospace; font-size: .72rem; border: 1px solid var(--border); border-bottom-width: 2px;
+      border-radius: 4px; padding: 0 4px; background: var(--surface-2); }
+@media (max-width: 980px) {
+  .cols { grid-template-columns: 1fr; }
+}
+@media (max-width: 760px) {
+  .layout { grid-template-columns: 1fr; padding: 10px 16px; }
+  nav.list { position: static; max-height: 220px; }
+  header.top { position: static; }
+  .row { grid-template-columns: 1fr; }
+}
+{% endraw %}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-row">
+    <div>
+      <h1>Przegląd decyzji modeli</h1>
+      <div class="meta">Eksport {{ d.export_id }} · {{ d.exported_at }} · pytania {{ d.question_set_version }} · próg T1 {{ d.thresholds.t1_threshold }} · tier 2: {{ d.thresholds.tier2_accept }}</div>
+    </div>
+    <div class="progress" aria-live="polite">
+      <div class="small"><span id="prog-text">0 / 0</span> ocenionych</div>
+      <div class="bar"><i id="prog-bar" style="width:0%"></i></div>
+    </div>
+    <div class="tools">
+      <label class="switch" title="Najpierw Twoja odpowiedź, potem odpowiedzi modeli"><input type="checkbox" id="blind" checked> Na ślepo</label>
+      <input class="text" id="reviewer" placeholder="Imię oceniającego (opcjonalnie)" aria-label="Imię oceniającego" size="18">
+      <button class="btn" id="btn-summary" type="button">Podsumowanie</button>
+      <button class="btn" id="btn-load" type="button">Wczytaj JSON</button>
+      <button class="btn primary" id="btn-download" type="button">Pobierz JSON</button>
+      <button class="btn ghost" id="btn-theme" type="button" aria-label="Zmień motyw">◐</button>
+      <input type="file" id="file" accept="application/json,.json" hidden>
+    </div>
+  </div>
+</header>
+<div class="layout">
+  <nav class="list" aria-label="Lista pozycji">
+    <div class="list-head">
+      <select id="filter" aria-label="Filtr listy">
+        <option value="all">Wszystkie</option>
+        <option value="todo">Do oceny</option>
+        <option value="done">Ocenione</option>
+        <option value="dis">Z niezgodą</option>
+        <option value="flag">Oznaczone flagą</option>
+      </select>
+    </div>
+    <div id="list"></div>
+  </nav>
+  <main class="card" id="card" aria-live="polite"></main>
+</div>
+<dialog id="summary">
+  <div class="dlg-head"><h2>Podsumowanie oceny</h2><button class="btn" type="button" id="close-summary">Zamknij</button></div>
+  <div class="dlg-body" id="summary-body"></div>
+</dialog>
+<div class="lightbox" id="lightbox" role="dialog" aria-label="Powiększenie obrazu">
+  <div class="lb-tools" id="lb-tools"></div>
+  <div class="lb-img"><img id="lb-img" alt=""></div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+<script type="application/json" id="review-data">{{ data_json }}</script>
+<script>
+{% raw %}
+(() => {
+'use strict';
+const DATA = JSON.parse(document.getElementById('review-data').textContent);
+const ITEMS = DATA.items;
+const KEY = 'map-qa-review:' + DATA.export_id;
+const THEME_KEY = 'map-qa-review:theme';
+const ROLE = { tier1: 'Tier 1 · model decyzyjny', compare: 'Model porównawczy', tier2: 'Tier 2 · ogólny LLM',
+               final: 'Decyzja systemu (końcowa)', reference_label: 'Etykieta referencyjna (AI, niezweryfikowana)' };
+const QNAME = { surface: 'Nawierzchnia', junction_visible: 'Skrzyżowanie widoczne',
+                street_lighting_visible: 'Latarnia uliczna widoczna', speed_limit_value: 'Wartość znaku B-33' };
+const KIND = { photo: 'zdjęcie ulicy', sign_crop: 'wycinek znaku' };
+const REASON = { models_disagree: 'modele się różnią', escalated: 'eskalacja lub abstencja',
+                 label_disagree: 'niezgodność z etykietą AI', near_threshold: 'blisko progu T1',
+                 control: 'kontrolna (pewna odpowiedź)' };
+const DECISION = { answered: 'odpowiedź tier 1', answered_tier2: 'odpowiedź tier 2', escalated: 'niepewne → tier 2',
+                   abstain: 'abstencja → kolejka ręczna', model_unavailable: 'model niedostępny',
+                   not_run_budget_or_error: 'nie uruchomiono' };
+const QUALITY = [['sufficient', 'Wystarczająca', 'z'], ['poor_but_decidable', 'Słaba, ale da się ocenić', 'x'],
+                 ['too_poor_to_decide', 'Za słaba, by rozstrzygnąć (także dla człowieka)', 'c']];
+const WHY = { tier2_unknown: 'tier 2 odpowiedział unknown', tier2_certainty_medium: 'pewność tier 2: medium (wymagane: high)',
+              tier2_certainty_low: 'pewność tier 2: low (wymagane: high)', below_threshold_compare: 'poniżej progu modelu porównawczego',
+              max_requests: 'limit żądań', max_cost_usd: 'limit kosztu', invalid_response: 'niepoprawna odpowiedź' };
+const FLAGS = [['ambiguous_question', 'Pytanie niejednoznaczne'], ['reference_label_wrong', 'Etykieta referencyjna błędna'],
+               ['other', 'Inny problem']];
+const CANNOT = 'cannot_decide';
+const ROLES = ['tier1', 'compare', 'tier2', 'final', 'reference_label'];
+
+function store() { try { return window.localStorage; } catch (e) { return null; } }
+let state = { reviewer: '', blindMode: true, current: 0, filter: 'all', items: {} };
+try { const raw = store() && store().getItem(KEY); if (raw) Object.assign(state, JSON.parse(raw)); } catch (e) { /* no storage */ }
+if (!(state.current >= 0 && state.current < ITEMS.length)) state.current = 0;
+
+function h(tag, attrs, ...kids) {
+  const el = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs || {})) {
+    if (v === null || v === undefined || v === false) continue;
+    if (k === 'class') el.className = v;
+    else if (k === 'text') el.textContent = v;
+    else if (k.startsWith('on')) el.addEventListener(k.slice(2), v);
+    else el.setAttribute(k, v === true ? '' : String(v));
+  }
+  for (const c of kids.flat()) {
+    if (c === null || c === undefined || c === false) continue;
+    el.append(c instanceof Node ? c : document.createTextNode(String(c)));
+  }
+  return el;
+}
+let toastTimer = null;
+function toast(msg) {
+  const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('on');
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('on'), 1600);
+}
+function save(quiet) {
+  try { store().setItem(KEY, JSON.stringify(state)); if (!quiet) toast('Zapisano w przeglądarce'); }
+  catch (e) { if (!quiet) toast('Brak zapisu w przeglądarce – pobierz JSON'); }
+}
+const blank = () => ({ human_answer: null, image_quality: null, flags: [], comment: '', overrides: {}, row_comments: {},
+                       revealed: false, saw_models_first: false, answer_before_reveal: null, judged_at: null });
+function peek(id) { return state.items[id] || blank(); }
+function st(id) { if (!state.items[id]) state.items[id] = blank(); return state.items[id]; }
+const judged = (s) => !!(s.human_answer && s.image_quality);
+function auto(row, s) {
+  if (!s.human_answer || s.human_answer === CANNOT || row.answer === null || row.answer === undefined) return null;
+  return row.answer === s.human_answer ? 'agree' : 'disagree';
+}
+const verdict = (row, s) => s.overrides[row.role] || auto(row, s);
+const hasDisagree = (it, s) => judged(s) && it.rows.some(r => verdict(r, s) === 'disagree' && r.role !== 'reference_label');
+const isRevealed = (s) => !state.blindMode || s.revealed;
+function markJudged(s) { if (judged(s) && !s.judged_at) s.judged_at = new Date().toISOString(); }
+const pct = (a, n) => n ? Math.round(100 * a / n) + '%' : '–';
+const fmtP = (p) => (Math.round(p * 1000) / 10).toLocaleString('pl-PL') + '%';
+
+function visible() {
+  return ITEMS.map((it, i) => [it, i]).filter(([it]) => {
+    const s = peek(it.item_id);
+    switch (state.filter) {
+      case 'todo': return !judged(s);
+      case 'done': return judged(s);
+      case 'dis': return hasDisagree(it, s);
+      case 'flag': return s.flags.length > 0 || s.image_quality === 'too_poor_to_decide';
+      default: return true;
+    }
+  });
+}
+
+function renderTop() {
+  const n = ITEMS.filter(it => judged(peek(it.item_id))).length;
+  document.getElementById('prog-text').textContent = `${n} / ${ITEMS.length}`;
+  document.getElementById('prog-bar').style.width = (ITEMS.length ? 100 * n / ITEMS.length : 0) + '%';
+  document.getElementById('blind').checked = state.blindMode;
+  document.getElementById('reviewer').value = state.reviewer || '';
+  document.getElementById('filter').value = state.filter;
+}
+
+function renderList() {
+  const box = document.getElementById('list'); box.replaceChildren();
+  const vis = visible();
+  if (!vis.length) { box.append(h('p', { class: 'muted small', text: 'Brak pozycji dla tego filtra.' })); return; }
+  for (const [it, i] of vis) {
+    const s = peek(it.item_id);
+    const cls = 'dot' + (hasDisagree(it, s) ? ' dis' : judged(s) ? ' done' : '') +
+                (s.flags.length || s.image_quality === 'too_poor_to_decide' ? ' flag' : '');
+    box.append(h('button', { type: 'button', class: 'li' + (i === state.current ? ' cur' : ''),
+                             'aria-current': i === state.current ? 'true' : null, onclick: () => go(i) },
+      h('span', { class: 'n', text: String(i + 1) }),
+      h('span', { class: 'q' }, QNAME[it.question_id] || it.question_id, h('small', { text: KIND[it.kind] || it.kind })),
+      h('span', { class: cls, title: judged(s) ? 'ocenione' : 'do oceny' })));
+  }
+  const cur = box.querySelector('.cur'); if (cur) cur.scrollIntoView({ block: 'nearest' });
+}
+
+function openLightbox(src, pix) {
+  const lb = document.getElementById('lightbox'), img = document.getElementById('lb-img'), tools = document.getElementById('lb-tools');
+  let zoom = 0, pixel = !!pix;
+  const apply = () => {
+    img.style.width = zoom ? (img.naturalWidth * zoom) + 'px' : '';
+    img.style.maxWidth = zoom ? 'none' : '100%';
+    img.style.imageRendering = pixel ? 'pixelated' : '';
+    tools.querySelectorAll('[data-z]').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.z === zoom)));
+    tools.querySelector('[data-p]').setAttribute('aria-pressed', String(pixel));
+  };
+  tools.replaceChildren(
+    ...[[0, 'Dopasuj'], [1, '1:1 (piksele modelu)'], [2, '2×'], [4, '4×']].map(([z, l]) =>
+      h('button', { type: 'button', class: 'btn', 'data-z': z, onclick: () => { zoom = z; apply(); } }, l)),
+    h('button', { type: 'button', class: 'btn', 'data-p': '1', onclick: () => { pixel = !pixel; apply(); } }, 'Ostre piksele'),
+    h('button', { type: 'button', class: 'btn', onclick: closeLightbox }, 'Zamknij (Esc)'));
+  img.onload = apply; img.src = src; img.alt = 'Powiększony obraz'; apply();
+  lb.classList.add('on');
+}
+function closeLightbox() { document.getElementById('lightbox').classList.remove('on'); }
+
+function imageColumn(it, img) {
+  const col = h('div');
+  let pix = img.upscale > 1.05;
+  const pic = h('img', { src: img.src, alt: `Obraz wysłany do modelu: ${KIND[it.kind]}`, class: pix ? 'pix' : null,
+                         onclick: () => openLightbox(img.src, pix) });
+  const a = img.attribution || {};
+  col.append(h('figure', {},
+    h('div', { class: 'imgbox' }, pic),
+    h('figcaption', {}, 'Ten sam plik JPEG, który dostały modele. Kliknij, aby powiększyć.')));
+  const facts = h('div', { class: 'facts' },
+    h('span', { class: 'chip', text: `wysłany: ${img.prepared_size[0]}×${img.prepared_size[1]} px` }),
+    h('span', { class: 'chip', text: `oryginał: ${img.original_size[0]}×${img.original_size[1]} px` }),
+    img.upscale > 1.05 ? h('span', { class: 'chip warn', text: `powiększony ×${String(img.upscale).replace('.', ',')}` })
+      : img.upscale < 0.95 ? h('span', { class: 'chip', text: `zmniejszony ×${String(img.upscale).replace('.', ',')}` })
+      : h('span', { class: 'chip', text: 'bez skalowania' }),
+    h('label', { class: 'switch small' }, h('input', { type: 'checkbox', checked: pix || null,
+      onchange: (e) => { pix = e.target.checked; pic.classList.toggle('pix', pix); } }), 'Ostre piksele'));
+  col.append(facts);
+  col.append(h('p', { class: 'small muted' }, `${it.photo_id} · autor: ${a.author || '–'} · źródło: ${a.source || '–'} · licencja: ${a.license || '–'} `,
+    a.source_url ? h('a', { href: a.source_url, target: '_blank', rel: 'noopener noreferrer', text: 'strona źródła' }) : null));
+  if (img.context) {
+    const [x, y, w, hh] = img.context.box_pct;
+    col.append(h('figure', {},
+      h('div', { class: 'ctx' }, h('img', { src: img.context.src, alt: 'Pełne zdjęcie, z którego wycięto znak', loading: 'lazy',
+                                            onclick: () => openLightbox(img.context.src, false) }),
+        h('i', { class: 'box', style: `left:${x}%;top:${y}%;width:${w}%;height:${hh}%` })),
+      h('figcaption', {}, h('strong', { text: 'Kontekst – model tego NIE widział. ' }),
+        'Pełne zdjęcie z zaznaczonym wycinkiem; pomaga ocenić, czy problemem jest rozdzielczość wycinka.')));
+  }
+  return col;
+}
+
+function optionButtons(it, s) {
+  const all = [...it.question.options, { value: CANNOT, definition: 'nawet człowiek nie rozstrzygnie tego z tego obrazu' }];
+  const numeric = (o) => /^\d+$/.test(o.value);
+  const compactBox = h('div', { class: 'opts compact' }), box = h('div', { class: 'opts' });
+  all.forEach((o, idx) => {
+    const label = o.value === CANNOT ? 'nie da się rozstrzygnąć' : o.value;
+    (numeric(o) ? compactBox : box).append(h('button', { type: 'button', class: 'opt',
+        'aria-pressed': String(s.human_answer === o.value), title: o.definition, onclick: () => setAnswer(it, o.value) },
+      idx < 9 ? h('kbd', { text: String(idx + 1) }) : null,
+      h('b', { text: label }), numeric(o) ? null : h('span', { text: o.definition })));
+  });
+  if (!compactBox.childElementCount) return box;
+  return h('div', {}, compactBox, h('p', { class: 'small muted', style: 'margin:8px 0 4px', text: 'Wartości liczbowe: „the value on a B-33 sign”.' }), box);
+}
+
+function qualitySeg(it, s) {
+  return h('div', { class: 'seg quality', role: 'group', 'aria-label': 'Jakość obrazu' },
+    QUALITY.map(([v, l, k]) => h('button', { type: 'button', 'aria-pressed': String(s.image_quality === v),
+      title: `Skrót: ${k}`, onclick: () => setQuality(it, v) }, l)));
+}
+
+function probBars(probs) {
+  const box = h('div', { class: 'probs' });
+  probs.slice(0, 4).forEach(([k, p]) => box.append(h('span', { text: k }),
+    h('span', { class: 'pb' }, h('i', { style: `width:${Math.max(0, Math.min(100, p * 100))}%` })), h('span', { text: fmtP(p) })));
+  if (probs.length > 4) box.append(h('span', { class: 'muted', text: `+${probs.length - 4} opcji` }), h('span'), h('span'));
+  return box;
+}
+
+function rowView(it, row, s) {
+  const v = verdict(row, s), a = auto(row, s);
+  const ans = row.answer === null || row.answer === undefined
+    ? (row.role === 'reference_label' ? 'brak etykiety' : 'brak odpowiedzi') : row.answer;
+  const info = h('div', {},
+    h('div', { class: 'role', text: ROLE[row.role] || row.role }),
+    row.model ? h('div', { class: 'model', text: row.model }) : null,
+    h('div', { class: 'ans', text: ans }),
+    row.probabilities ? probBars(row.probabilities) : null,
+    row.certainty ? h('span', { class: 'chip', text: `pewność (samoocena): ${row.certainty}` }) : null,
+    row.decision && DECISION[row.decision] ? h('span', { class: 'chip', text: DECISION[row.decision] }) : null,
+    row.reason ? h('span', { class: 'chip', text: WHY[row.reason] || row.reason }) : null,
+    row.status ? h('span', { class: 'chip' + (row.status === 'certain' ? '' : ' warn'), text: `status etykiety: ${row.status}` }) : null);
+  const seg = h('div', { class: 'seg verdict', role: 'group', 'aria-label': 'Ocena wiersza' },
+    [['', `Auto${a ? (a === 'agree' ? ' ✓' : ' ✗') : ''}`], ['agree', '✓ Zgoda'], ['disagree', '✗ Brak zgody']].map(([val, l]) =>
+      h('button', { type: 'button', 'data-v': val || 'auto', 'aria-pressed': String((s.overrides[row.role] || '') === val),
+        onclick: () => { const x = st(it.item_id); if (val) x.overrides[row.role] = val; else delete x.overrides[row.role]; save(true); render(); } }, l)));
+  const right = h('div', {}, seg,
+    h('div', { class: 'small muted', style: 'margin-top:4px', text: v ? (v === 'agree' ? 'Wynik: zgoda' : 'Wynik: brak zgody') : 'Wynik: brak oceny' }));
+  const comment = h('input', { class: 'text', placeholder: 'Komentarz do tego wiersza (opcjonalnie)', value: s.row_comments[row.role] || '',
+    onchange: (e) => { const x = st(it.item_id); x.row_comments[row.role] = e.target.value; save(); } });
+  return h('div', { class: 'row' + (v ? ' ' + v : '') }, info, right, h('div', { class: 'full' }, comment));
+}
+
+function requestsPanel(img) {
+  const r = img.requests || {};
+  const det = h('details', { class: 'req' }, h('summary', { text: 'Zapytania wysłane do modeli (obraz zastąpiony znacznikiem <image>)' }));
+  const block = (title, body) => det.append(h('p', { class: 'small', style: 'margin:10px 0 4px' }, h('strong', { text: title })),
+                                           h('pre', { text: JSON.stringify(body, null, 2) }));
+  if (r.tier1) block(`Tier 1 – Decisions (${DATA.models.tier1})`, r.tier1);
+  if (r.compare) block(`Porównanie – Decisions (${DATA.models.compare})`, r.compare);
+  for (const t of (r.tier2 || [])) {
+    const msg = (((t.body || {}).messages || [])[0] || {}).content || [];
+    const text = (msg.find(p => p.type === 'text') || {}).text;
+    det.append(h('p', { class: 'small', style: 'margin:10px 0 4px' }, h('strong', { text: `Tier 2 – Chat Completions (${DATA.models.tier2}), pytania: ${t.questions.join(', ')}` })));
+    if (text) det.append(h('pre', { text }));
+    block('Tier 2 – pełne body żądania', t.body);
+  }
+  det.append(h('p', { class: 'small muted', text: 'Jedno żądanie zawiera wszystkie pytania dla obrazu. Tier 2 nie dostaje odpowiedzi tier 1.' }));
+  return det;
+}
+
+function renderCard() {
+  const card = document.getElementById('card'); card.replaceChildren();
+  if (!ITEMS.length) { card.append(h('p', { text: 'Brak pozycji do oceny. Uruchom najpierw map-qa run --model-reading.' })); return; }
+  const it = ITEMS[state.current], img = DATA.images[it.image_sha256] || {}, s = peek(it.item_id);
+  const revealed = isRevealed(s);
+  if (revealed && !judged(s) && !s.saw_models_first) { st(it.item_id).saw_models_first = true; save(true); }
+  card.append(h('div', { class: 'card-head' },
+    h('h2', { text: `${state.current + 1}. ${QNAME[it.question_id] || it.question_id}` }),
+    h('span', { class: 'chip accent', text: KIND[it.kind] || it.kind }),
+    revealed ? it.reasons.map(r => h('span', { class: 'chip' + (r === 'control' ? '' : ' warn'), text: REASON[r] || r })) : null,
+    judged(s) ? h('span', { class: 'chip good', text: 'ocenione' }) : h('span', { class: 'chip', text: 'do oceny' })));
+
+  const right = h('div');
+  const q = h('div', { class: 'panel' },
+    h('h3', {}, h('span', { class: 'step', text: '1' }), 'Twoja odpowiedź'),
+    h('p', { class: 'qtext', text: it.question.text }),
+    h('p', { class: 'small muted', text: 'Pytanie i opcje dokładnie tak, jak dostały je modele.' }),
+    optionButtons(it, s),
+    h('h3', { style: 'margin-top:14px' }, 'Jakość obrazu'),
+    qualitySeg(it, s));
+  right.append(q);
+
+  const p2 = h('div', { class: 'panel' }, h('h3', {}, h('span', { class: 'step', text: '2' }), 'Odpowiedzi modeli i etykieta'));
+  if (!revealed) {
+    const ready = judged(s);
+    p2.append(h('div', { class: 'locked' },
+      h('p', { text: ready ? 'Gotowe. Odsłoń odpowiedzi modeli.' : 'Najpierw wybierz odpowiedź i jakość obrazu. Odpowiedzi modeli są ukryte, żeby Cię nie sugerowały.' }),
+      h('button', { type: 'button', class: 'btn primary', disabled: ready ? null : true, onclick: reveal }, 'Odsłoń odpowiedzi (Enter)')));
+  } else {
+    if (s.saw_models_first) p2.append(h('p', { class: 'note', text: 'Odpowiedzi modeli były widoczne przed Twoją oceną (tryb bez zasłaniania). Zapiszemy to w pliku.' }));
+    if (s.answer_before_reveal && s.human_answer !== s.answer_before_reveal)
+      p2.append(h('p', { class: 'note', text: `Zmieniono odpowiedź po odsłonięciu (wcześniej: ${s.answer_before_reveal}).` }));
+    p2.append(h('div', { class: 'rows' }, it.rows.map(r => rowView(it, r, s))));
+    p2.append(h('p', { class: 'small muted', text: 'Auto: zgoda, gdy odpowiedź wiersza równa się Twojej. Możesz to nadpisać, np. gdy abstencja była właściwa.' }));
+  }
+  right.append(p2);
+
+  const p3 = h('div', { class: 'panel' }, h('h3', {}, h('span', { class: 'step', text: '3' }), 'Flagi i komentarz'),
+    h('div', { class: 'flags' }, FLAGS.map(([v, l]) => h('label', {},
+      h('input', { type: 'checkbox', checked: s.flags.includes(v) || null, onchange: (e) => {
+        const x = st(it.item_id); x.flags = x.flags.filter(f => f !== v); if (e.target.checked) x.flags.push(v); save(); renderList(); } }), l))),
+    h('textarea', { placeholder: 'Komentarz: co jest nie tak z decyzją, pytaniem albo obrazem?', 'aria-label': 'Komentarz',
+      onchange: (e) => { st(it.item_id).comment = e.target.value; save(); } }, s.comment || ''));
+  right.append(p3, requestsPanel(img));
+
+  card.append(h('div', { class: 'cols' }, imageColumn(it, img), right));
+  card.append(h('div', { class: 'navrow' },
+    h('button', { type: 'button', class: 'btn', disabled: state.current === 0 || null, onclick: () => go(state.current - 1) }, '← Poprzednia'),
+    h('span', { class: 'keys' }, h('kbd', { text: '1–9' }), ' odpowiedź · ', h('kbd', { text: 'z' }), h('kbd', { text: 'x' }), h('kbd', { text: 'c' }),
+      ' jakość · ', h('kbd', { text: 'Enter' }), ' odsłoń · ', h('kbd', { text: '←' }), h('kbd', { text: '→' }), ' nawigacja · ', h('kbd', { text: 'n' }), ' następna do oceny'),
+    h('button', { type: 'button', class: 'btn primary', disabled: state.current >= ITEMS.length - 1 || null,
+                  onclick: () => go(state.current + 1) }, 'Następna →')));
+}
+
+function render() { renderTop(); renderList(); renderCard(); }
+function go(i) { state.current = Math.max(0, Math.min(ITEMS.length - 1, i)); save(true); render(); window.scrollTo({ top: 0 }); }
+function nextTodo() {
+  for (let k = 1; k <= ITEMS.length; k++) { const i = (state.current + k) % ITEMS.length; if (!judged(peek(ITEMS[i].item_id))) return go(i); }
+  toast('Wszystkie pozycje ocenione');
+}
+function setAnswer(it, v) { const s = st(it.item_id); s.human_answer = v; markJudged(s); save(true); render(); }
+function setQuality(it, v) { const s = st(it.item_id); s.image_quality = v; markJudged(s); save(true); render(); }
+function reveal() {
+  const s = st(ITEMS[state.current].item_id);
+  if (!judged(s)) return toast('Najpierw odpowiedź i jakość obrazu');
+  s.revealed = true; if (!s.answer_before_reveal) s.answer_before_reveal = s.human_answer; markJudged(s); save(true); render();
+}
+
+function summaryData() {
+  const qs = [...new Set(ITEMS.map(it => it.question_id))];
+  const table = {}, quality = {}, flags = {};
+  let judgedN = 0, blindN = 0;
+  for (const role of ROLES) { table[role] = {}; for (const q of [...qs, 'all']) table[role][q] = { agree: 0, judged: 0 }; }
+  for (const it of ITEMS) {
+    const s = peek(it.item_id); if (!judged(s)) continue;
+    judgedN++; if (!s.saw_models_first) blindN++;
+    quality[s.image_quality] = (quality[s.image_quality] || 0) + 1;
+    for (const f of s.flags) flags[f] = (flags[f] || 0) + 1;
+    for (const r of it.rows) {
+      const v = verdict(r, s); if (!v) continue;
+      for (const q of [it.question_id, 'all']) { const c = table[r.role][q]; c.judged++; if (v === 'agree') c.agree++; }
+    }
+  }
+  return { items: ITEMS.length, judged: judgedN, blind: blindN, agreement: table, image_quality: quality, flags };
+}
+
+function renderSummary() {
+  const s = summaryData(), body = document.getElementById('summary-body'); body.replaceChildren();
+  const qs = [...new Set(ITEMS.map(it => it.question_id))];
+  body.append(h('div', { class: 'kpis' },
+    [[`${s.judged} / ${s.items}`, 'pozycji ocenionych'], [String(s.blind), 'ocen „na ślepo”'],
+     [pct(s.agreement.final.all.agree, s.agreement.final.all.judged), 'zgodność decyzji systemu z Tobą'],
+     [String(s.image_quality.too_poor_to_decide || 0), 'obrazów za słabych do oceny']].map(([v, l]) =>
+      h('div', { class: 'kpi' }, h('div', { class: 'v', text: v }), h('div', { class: 'l', text: l })))));
+  body.append(h('h3', { text: 'Zgodność z Twoją oceną (zgoda / ocenione)' }));
+  const t = h('table', {}, h('thead', {}, h('tr', {}, h('th', { text: 'Rola' }), qs.map(q => h('th', { text: QNAME[q] || q })), h('th', { text: 'Razem' }))));
+  const tb = h('tbody');
+  for (const role of ROLES) tb.append(h('tr', {}, h('td', { text: ROLE[role] }),
+    [...qs, 'all'].map(q => { const c = s.agreement[role][q]; return h('td', { class: 'num', text: c.judged ? `${c.agree}/${c.judged} (${pct(c.agree, c.judged)})` : '–' }); })));
+  t.append(tb); body.append(t);
+  body.append(h('p', { class: 'small muted', text: 'Pozycje z odpowiedzią „nie da się rozstrzygnąć” albo bez odpowiedzi modelu liczą się tylko po ręcznym nadpisaniu. Mała próbka: wyniki orientacyjne.' }));
+  body.append(h('h3', { text: 'Jakość obrazów i flagi' }));
+  body.append(h('table', {}, h('tbody', {},
+    QUALITY.map(([v, l]) => h('tr', {}, h('td', { text: l }), h('td', { class: 'num', text: String(s.image_quality[v] || 0) }))),
+    FLAGS.map(([v, l]) => h('tr', {}, h('td', { text: `Flaga: ${l}` }), h('td', { class: 'num', text: String(s.flags[v] || 0) }))))));
+  const dis = ITEMS.map((it, i) => [it, i]).filter(([it]) => hasDisagree(it, peek(it.item_id)));
+  body.append(h('h3', { text: `Pozycje z niezgodą (${dis.length})` }));
+  if (!dis.length) body.append(h('p', { class: 'muted', text: 'Brak pozycji.' }));
+  else body.append(h('ul', {}, dis.map(([it, i]) => h('li', {}, h('a', { href: '#', onclick: (e) => { e.preventDefault(); document.getElementById('summary').close(); go(i); } },
+    `${i + 1}. ${QNAME[it.question_id] || it.question_id} – ${it.photo_id}`)))));
+  body.append(h('p', {}, h('button', { type: 'button', class: 'btn primary', onclick: download }, 'Pobierz JSON z oceną')));
+}
+
+function feedback() {
+  return {
+    schema: 'map-qa-review-feedback/1', export_id: DATA.export_id, exported_at: DATA.exported_at,
+    downloaded_at: new Date().toISOString(), question_set_version: DATA.question_set_version,
+    thresholds: DATA.thresholds, models: DATA.models, reviewer: state.reviewer || null,
+    items: ITEMS.filter(it => judged(peek(it.item_id))).map(it => {
+      const s = peek(it.item_id);
+      return { item_id: it.item_id, photo_id: it.photo_id, kind: it.kind, question_id: it.question_id,
+               image_sha256: it.image_sha256, reasons: it.reasons, human_answer: s.human_answer,
+               answer_before_reveal: s.answer_before_reveal, image_quality: s.image_quality, flags: s.flags,
+               comment: s.comment, blind: !s.saw_models_first, judged_at: s.judged_at,
+               verdicts: Object.fromEntries(it.rows.map(r => [r.role, { model: r.model, model_answer: r.answer,
+                 decision: r.decision, auto: auto(r, s), override: s.overrides[r.role] || null, final: verdict(r, s),
+                 comment: s.row_comments[r.role] || '' }])) };
+    }),
+    summary: summaryData(),
+  };
+}
+function download() {
+  const fb = feedback();
+  const blob = new Blob([JSON.stringify(fb, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = h('a', { href: url, download: `feedback-${DATA.export_id}.json` });
+  document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+  toast(`Pobrano ${fb.items.length} ocen`);
+}
+function load(file) {
+  const reader = new FileReader();
+  reader.onload = () => {
+    let fb;
+    try { fb = JSON.parse(reader.result); } catch (e) { return toast('To nie jest poprawny plik JSON'); }
+    if (!fb || fb.schema !== 'map-qa-review-feedback/1' || !Array.isArray(fb.items)) return toast('Nieznany format pliku');
+    if (fb.export_id !== DATA.export_id && !window.confirm('Plik pochodzi z innego eksportu. Wczytać pasujące pozycje?')) return;
+    const known = new Set(ITEMS.map(it => it.item_id)); let n = 0;
+    for (const x of fb.items) {
+      if (!known.has(x.item_id)) continue;
+      const overrides = {}, rowc = {};
+      for (const [role, v] of Object.entries(x.verdicts || {})) { if (v.override) overrides[role] = v.override; if (v.comment) rowc[role] = v.comment; }
+      state.items[x.item_id] = { human_answer: x.human_answer, image_quality: x.image_quality, flags: x.flags || [],
+        comment: x.comment || '', overrides, row_comments: rowc, revealed: true, saw_models_first: x.blind === false,
+        answer_before_reveal: x.answer_before_reveal || null, judged_at: x.judged_at || null };
+      n++;
+    }
+    if (fb.reviewer && !state.reviewer) state.reviewer = fb.reviewer;
+    save(true); render(); toast(`Wczytano ${n} ocen`);
+  };
+  reader.readAsText(file);
+}
+
+function applyTheme(t) { if (t) document.documentElement.setAttribute('data-theme', t); else document.documentElement.removeAttribute('data-theme'); }
+let theme = null; try { theme = store() && store().getItem(THEME_KEY); } catch (e) { theme = null; }
+applyTheme(theme);
+document.getElementById('btn-theme').addEventListener('click', () => {
+  theme = theme === 'dark' ? 'light' : theme === 'light' ? null : 'dark'; applyTheme(theme);
+  try { if (theme) store().setItem(THEME_KEY, theme); else store().removeItem(THEME_KEY); } catch (e) { /* no storage */ }
+  toast(theme === 'dark' ? 'Motyw ciemny' : theme === 'light' ? 'Motyw jasny' : 'Motyw systemowy');
+});
+document.getElementById('blind').addEventListener('change', (e) => { state.blindMode = e.target.checked; save(true); render(); });
+document.getElementById('reviewer').addEventListener('change', (e) => { state.reviewer = e.target.value.trim(); save(); });
+document.getElementById('filter').addEventListener('change', (e) => { state.filter = e.target.value; save(true); renderList(); });
+document.getElementById('btn-download').addEventListener('click', download);
+document.getElementById('btn-load').addEventListener('click', () => document.getElementById('file').click());
+document.getElementById('file').addEventListener('change', (e) => { if (e.target.files[0]) load(e.target.files[0]); e.target.value = ''; });
+document.getElementById('btn-summary').addEventListener('click', () => { renderSummary(); document.getElementById('summary').showModal(); });
+document.getElementById('close-summary').addEventListener('click', () => document.getElementById('summary').close());
+document.addEventListener('keydown', (e) => {
+  if (document.getElementById('lightbox').classList.contains('on')) { if (e.key === 'Escape') closeLightbox(); return; }
+  if (document.getElementById('summary').open) return;
+  const tag = (e.target.tagName || '').toLowerCase();
+  if (tag === 'input' || tag === 'textarea' || tag === 'select' || e.ctrlKey || e.metaKey || e.altKey) return;
+  const it = ITEMS[state.current]; if (!it) return;
+  if (e.key === 'ArrowRight') { e.preventDefault(); go(state.current + 1); }
+  else if (e.key === 'ArrowLeft') { e.preventDefault(); go(state.current - 1); }
+  else if (e.key === 'n') nextTodo();
+  else if (e.key === 'Enter' && tag !== 'button') { e.preventDefault(); reveal(); }
+  else if (/^[1-9]$/.test(e.key)) {
+    const all = [...it.question.options.map(o => o.value), CANNOT]; const v = all[+e.key - 1]; if (v) setAnswer(it, v);
+  } else { const q = QUALITY.find(x => x[2] === e.key.toLowerCase()); if (q) setQuality(it, q[0]); }
+});
+window.addEventListener('beforeunload', () => save(true));
+render();
+})();
+{% endraw %}
+</script>
+</body>
+</html>

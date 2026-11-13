@@ -25,6 +25,7 @@ uv run --project app pytest app/tests -rs        # module test_run_cached calls 
 | `… map-qa run --model-reading [--yes]` | Paid photo reading (needs `OPENROUTER_API_KEY`); asks `y/N` unless `--yes`; limits: 100 requests, 1 USD |
 | `… map-qa report --from reports/map-qa/results.json` | Re-renders the report without network |
 | `… map-qa capture --kind {decisions-luna,decisions-jev,chat-tier2,databricks} [--yes] [--image <photo_id>]` | One real request, saved as a safe capture in `app/tests/fixtures/captures/` |
+| `… map-qa review export [--max-items 100]` | Manual review page `reports/map-qa/review/review.html` built from the cache only (0 requests, no key needed); open it from disk, judge each decision blind, download `feedback-<export_id>.json` (PRD §14, ADR-005) |
 
 Settings: CLI flags > `MAP_QA_*` env > TOML (`--config`, see `map_qa.example.toml`) > defaults (ADR-004 §3.2).
 Secrets come only from environment variables; a TOML key that looks like a secret is rejected (exit 2).
