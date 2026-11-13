@@ -1,5 +1,13 @@
 # UPDATES !!!
 
+## Po trzecim dniu (12.11)
+
+- **Implementacja trenera:** [PR #10 - Map QA CLI](https://github.com/LucasMatuszewski/jsystems-claude-codex-gis-2026-11/pull/10), gałąź [`Map-App-Implementation`](https://github.com/LucasMatuszewski/jsystems-claude-codex-gis-2026-11/tree/Map-App-Implementation). Znajdziecie tam aplikację, PRD, ADR, plan oraz wyniki uruchomienia. `main` pozostaje bazą startową kursu z materiałami.
+- **Raporty z implementacji:** [pełny raport HTML](https://github.com/LucasMatuszewski/jsystems-claude-codex-gis-2026-11/blob/Map-App-Implementation/reports/map-qa/report.html), [podsumowanie HTML](https://github.com/LucasMatuszewski/jsystems-claude-codex-gis-2026-11/blob/Map-App-Implementation/reports/map-qa/summary.html), [raport Markdown](https://github.com/LucasMatuszewski/jsystems-claude-codex-gis-2026-11/blob/Map-App-Implementation/reports/map-qa/report.md). HTML otwórzcie lokalnie z katalogu `reports/map-qa/` na tej gałęzi; zachowajcie folder `thumbs/`. GitHub wyświetla kod HTML, a Markdown można czytać bezpośrednio na stronie.
+- **Dzień 3:** [podsumowanie](course-materials/zoom-summary-chat-history/day-3-summary.md), [historia czatu](course-materials/zoom-summary-chat-history/day-3-chat-history.md). Profilowanie danych lokalnych i Databricks, uzupełnienie ADR, plan implementacji i delegowanie do agentów CLI, tryby headless oraz `/goal`.
+- **Przed kolejną sesją:** sprawdźcie, dokąd doszedł agent z realizacją Waszego planu. Wznówcie pracę po wyczerpaniu limitu, a gotową aplikację uruchomcie i porównajcie z PRD, ADR oraz kryteriami akceptacji. Sprawdźcie rzeczywiste wywołania modeli w testach ręcznych i end-to-end.
+- [Pytania i odpowiedzi](https://devpowers.com/szkolenia/jsystems/tomtom-ai-2026-11/pytania.html): skąd wziąć `profile.md`, dlaczego agent nie widzi zmiennych Databricks i jak przenieść istniejący worktree.
+
 ## Przed blokiem 2 (12-13.11)
 
 - [Codex czy Claude Code: stan na listopad 2026 i moja rekomendacja](course-materials/Research/codex-vs-claude-2026-11.md), w tym sandbox, zgody i pytania interaktywne.
