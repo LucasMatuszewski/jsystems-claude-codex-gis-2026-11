@@ -397,7 +397,7 @@ Wiadomości publiczne w kolejności chronologicznej. Reakcje oznaczają zliczeni
 - **16:17 — Łukasz Matuszewski:** Checklista po szkoleniu:  
   https://devpowers.com/szkolenia/jsystems/tomtom-ai-2026-11/checklisty.html#harness
 
-- **16:25 — Łukasz Matuszewski:** /teleport - export sesji do chmury Claude Code  
+- **16:25 — Łukasz Matuszewski:** /teleport - wznowienie sesji z chmury w lokalnym terminalu Claude Code  
   Dokumentacja: https://code.claude.com/docs/en/claude-code-on-the-web
 
 - **16:25 — Łukasz Matuszewski:** /rc - podgląd lokalnej + historia sesji w chmurze

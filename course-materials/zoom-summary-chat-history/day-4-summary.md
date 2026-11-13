@@ -190,6 +190,10 @@ Funkcje zdalne zostały przypisane do Claude Code i mają różne cele:
 
 W Remote Control wykonanie pozostaje na lokalnym urządzeniu. Teleport pozwala wznowić w lokalnym terminalu pracę rozpoczętą w sesji chmurowej.
 
+Nowe zadanie w chmurze uruchomisz z terminala poleceniem `claude --cloud "opis zadania"`. Powstaje nowa sesja chmurowa dla repozytorium. Istniejąca rozmowa terminalowa nie jest przenoszona razem z nią. Przy pracy nad planem zapisz go w repozytorium, wypchnij zmiany i wskaż jego plik w nowym zadaniu.
+
+Przeniesienie istniejącej lokalnej sesji do chmury oferuje aplikacja Claude Desktop w zakładce Code, przez menu "Open in". Dokumentacja obu ścieżek: [praca między terminalem a chmurą](https://code.claude.com/docs/en/claude-code-on-the-web#move-tasks-between-terminal-and-cloud).
+
 Do zarządzania wieloma agentami pokazano [Herdr](https://herdr.dev/) oraz materiały o [menedżerach agentów i agentach zdalnych](https://github.com/LucasMatuszewski/jsystems-claude-codex-gis-2026-11/blob/main/course-materials/Research/agent-managers-and-remote-agents.md). Wspomniano też Termux jako shell na Androidzie. Dodatkowo omówiono zatrzymywanie serwera sesji Claude działającego w tle:
 
 ```text
